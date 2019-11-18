@@ -40,7 +40,7 @@ async function getData() {
 
   let schedulerInputValidation = await validateJSONScheduleInput(schedulerInput).catch((e) => console.log(e))
 
-  const fileDir = './logs_' + nextMondayDate
+  const fileDir = './logs-' + nextMondayDate
   await mkdirp(fileDir).catch((e) => console.log(e.stack))
 
   fs.writeFile(fileDir + '/support-shift-scheduler-input.json', JSON.stringify(schedulerInput, null, 2), 'utf8', err => {})
