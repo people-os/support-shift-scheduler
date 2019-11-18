@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "definitions": {
+    "agent_shift_list": {
+      "description": "A list of agent shifts",
+      "type": "array",
+      "items": {
+        "description": "An agent shift with all required metadata, like agent info and shift interval",
+        "type": "object",
+        "properties": {
+          "agent": {
+            "description": "Agent info in '@handle <email>' format",
+            "type": "string",
+            "pattern": "^@[a-zA-Z0-9_\\-+]+ <[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,4}>$"
+          },
+          "start": {
+            "description": "Shift start (UK time)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 24
+          },
+          "end": {
+            "description": "Shift end (UK time)",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 24
+          }
+        },
+        "required": [ "agent", "start", "end" ]
+      }
+    }
+  },
+
+  "description": "Support shift scheduler output JSON schema",
+  "type": "array",
+  "items": {
+    "description": "An epoch schedule",
+    "type": "object",
+    "properties": {
+      "start_date": {
+        "description": "Day when the schedule starts in YYYY-MM-DD format",
+        "type": "string"
+      },
+      "shifts": {
+        "description": "The list of agent shifts that compose the schedule",
+        "$ref": "#/definitions/agent_shift_list"
+      }
+    },
+    "required": [ "start_date", "shifts" ]
+  }
+}

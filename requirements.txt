@@ -1,0 +1,3 @@
+pandas==0.24.1
+ortools==7.1.6720
+python_dateutil==2.8.1
