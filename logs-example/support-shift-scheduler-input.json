@@ -2,7 +2,7 @@
   "agents": [
     {
       "handle": "@afitzek",
-      "email": "andreas@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -140,7 +140,7 @@
     },
     {
       "handle": "@camerondiver",
-      "email": "cameron@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -278,7 +278,7 @@
     },
     {
       "handle": "@chrisys",
-      "email": "chriscw@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 7,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -416,7 +416,7 @@
     },
     {
       "handle": "@curcuz",
-      "email": "carlo@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 3,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -554,7 +554,7 @@
     },
     {
       "handle": "@dfunckt",
-      "email": "akis@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 5,
       "ideal_shift_length": 2,
       "available_hours": [
@@ -692,7 +692,7 @@
     },
     {
       "handle": "@dimitrisnl",
-      "email": "dimitrios@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 2,
       "available_hours": [
@@ -830,7 +830,7 @@
     },
     {
       "handle": "@dt-rush",
-      "email": "nickp@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 9,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -968,7 +968,7 @@
     },
     {
       "handle": "@floion",
-      "email": "florin@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 6,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -1106,7 +1106,7 @@
     },
     {
       "handle": "@gelbal",
-      "email": "firat@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -1244,7 +1244,7 @@
     },
     {
       "handle": "@hedss",
-      "email": "hedley@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 3,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -1382,7 +1382,7 @@
     },
     {
       "handle": "@imrehg",
-      "email": "gergely@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 6,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -1520,7 +1520,7 @@
     },
     {
       "handle": "@jviotti",
-      "email": "juan@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -1658,7 +1658,7 @@
     },
     {
       "handle": "@karaxuna",
-      "email": "kakhaber@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -1796,7 +1796,7 @@
     },
     {
       "handle": "@lucianbuzzo",
-      "email": "lucian@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -1934,7 +1934,7 @@
     },
     {
       "handle": "@majorz",
-      "email": "zahari@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -2072,7 +2072,7 @@
     },
     {
       "handle": "@mikesimos",
-      "email": "michalis@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -2210,7 +2210,7 @@
     },
     {
       "handle": "@nazrhom",
-      "email": "giovanni@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -2348,7 +2348,7 @@
     },
     {
       "handle": "@nghiant2710",
-      "email": "james@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -2486,7 +2486,7 @@
     },
     {
       "handle": "@page-",
-      "email": "page@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 6,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -2624,7 +2624,7 @@
     },
     {
       "handle": "@pdcastro",
-      "email": "paulo@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 11,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -2762,7 +2762,7 @@
     },
     {
       "handle": "@petrosagg",
-      "email": "petrosagg@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 1,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -2900,7 +2900,7 @@
     },
     {
       "handle": "@richbayliss",
-      "email": "rich@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 5,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -3038,7 +3038,7 @@
     },
     {
       "handle": "@robertgzr",
-      "email": "robertg@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -3176,7 +3176,7 @@
     },
     {
       "handle": "@roman-mazur",
-      "email": "roman@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 5,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -3314,7 +3314,7 @@
     },
     {
       "handle": "@samothx",
-      "email": "thomasr@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 6,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -3452,7 +3452,7 @@
     },
     {
       "handle": "@shaunmulligan",
-      "email": "shaun@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 6,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -3590,7 +3590,7 @@
     },
     {
       "handle": "@spanceac",
-      "email": "sebastian@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -3728,7 +3728,7 @@
     },
     {
       "handle": "@sradevski",
-      "email": "stevche@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 6,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -3866,7 +3866,7 @@
     },
     {
       "handle": "@telphan",
-      "email": "theodor@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -4004,7 +4004,7 @@
     },
     {
       "handle": "@thgreasi",
-      "email": "thodoris@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -4142,7 +4142,7 @@
     },
     {
       "handle": "@thundron",
-      "email": "lorenzoa@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 7,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -4280,7 +4280,7 @@
     },
     {
       "handle": "@wrboyce",
-      "email": "will@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 6,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -4418,7 +4418,7 @@
     },
     {
       "handle": "@xginn8",
-      "email": "matthew@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 10,
       "ideal_shift_length": 3,
       "available_hours": [
@@ -4556,7 +4556,7 @@
     },
     {
       "handle": "@zubairlk",
-      "email": "zubair@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 8,
       "ideal_shift_length": 4,
       "available_hours": [
@@ -4694,7 +4694,7 @@
     },
     {
       "handle": "@zvin",
-      "email": "alexis@balena.io",
+      "email": "example@balena.io",
       "week_average_hours": 4,
       "ideal_shift_length": 4,
       "available_hours": [
