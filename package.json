@@ -1,5 +1,5 @@
 {
-  "name": "support-shift-scheduler",
+  "name": "@balena/support-shift-scheduler",
   "private": "true",
   "version": "1.0.0",
   "description": "Project for scheduling Balena's engineers for customer support",
