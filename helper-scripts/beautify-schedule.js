@@ -25,8 +25,8 @@ function writePrettifiedText(scheduleJSON) {
   let prettySchedule = ""
 
   for (let epoch of scheduleJSON) {
-    let startDate = new Date(epoch.start_date)
-    prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`
+    //let startDate = new Date(epoch.start_date)
+    prettySchedule += `\nShifts for ${prettyDateStr(epoch.start_date)}\n`
 
     for (let shift of epoch.shifts) {
       let agentName = shift.agent.replace(/ <.*>/, '')
@@ -55,7 +55,7 @@ function writePrettifiedText(scheduleJSON) {
 
   let flowdockMessage = ""
 
-  flowdockMessage += `\n**Agents, please check your calendars for the support schedule for next week (starting on ${dateformat(scheduleJSON[0].start_date, "mmmm dS")}).**\n\n`
+  flowdockMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${dateformat(scheduleJSON[0].start_date, "mmmm dS")}).**\n\n`
 
   flowdockMessage += 'Please acknowledge, or let me know if you require any changes.\n'
   flowdockMessage += `\n#rollcall\n\n`
