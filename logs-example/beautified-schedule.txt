@@ -1,19 +1,19 @@
 
 Shifts for Monday, November 18th
-08:00 - 11:00 (3 hours) - @afitzek
-08:00 - 12:00 (4 hours) - @karaxuna
-11:00 - 15:00 (4 hours) - @jviotti
+08:00 - 12:00 (4 hours) - @nghiant2710
+08:00 - 12:00 (4 hours) - @mikesimos
+12:00 - 15:00 (3 hours) - @afitzek
 12:00 - 16:00 (4 hours) - @richbayliss
-15:00 - 19:00 (4 hours) - @nazrhom
+15:00 - 19:00 (4 hours) - @wrboyce
 16:00 - 19:00 (3 hours) - @thgreasi
 19:00 - 24:00 (5 hours) - @pdcastro
-19:00 - 24:00 (5 hours) - @thundron
+19:00 - 24:00 (5 hours) - @camerondiver
 
 Shifts for Tuesday, November 19th
-08:00 - 12:00 (4 hours) - @nazrhom
+08:00 - 12:00 (4 hours) - @karaxuna
 08:00 - 12:00 (4 hours) - @gelbal
-12:00 - 16:00 (4 hours) - @jviotti
-12:00 - 16:00 (4 hours) - @robertgzr
+12:00 - 16:00 (4 hours) - @hedss
+12:00 - 16:00 (4 hours) - @majorz
 16:00 - 19:00 (3 hours) - @xginn8
 16:00 - 19:00 (3 hours) - @thgreasi
 19:00 - 24:00 (5 hours) - @page-
@@ -21,61 +21,58 @@ Shifts for Tuesday, November 19th
 21:00 - 24:00 (3 hours) - @samothx
 
 Shifts for Wednesday, November 20th
-08:00 - 12:00 (4 hours) - @nghiant2710
 08:00 - 12:00 (4 hours) - @telphan
-12:00 - 17:00 (5 hours) - @wrboyce
-12:00 - 16:00 (4 hours) - @hedss
-16:00 - 24:00 (8 hours) - @chrisys
-17:00 - 24:00 (7 hours) - @camerondiver
+08:00 - 14:00 (6 hours) - @sradevski
+12:00 - 16:00 (4 hours) - @shaunmulligan
+14:00 - 18:00 (4 hours) - @majorz
+16:00 - 19:00 (3 hours) - @thgreasi
+18:00 - 24:00 (6 hours) - @camerondiver
+19:00 - 24:00 (5 hours) - @samothx
 
 Shifts for Thursday, November 21st
-08:00 - 11:00 (3 hours) - @roman-mazur
-08:00 - 10:00 (2 hours) - @dimitrisnl
-10:00 - 13:00 (3 hours) - @lucianbuzzo
-11:00 - 15:00 (4 hours) - @shaunmulligan
-13:00 - 18:00 (5 hours) - @majorz
-15:00 - 19:00 (4 hours) - @sradevski
-18:00 - 24:00 (6 hours) - @samothx
+08:00 - 12:00 (4 hours) - @karaxuna
+08:00 - 12:00 (4 hours) - @mikesimos
+12:00 - 16:00 (4 hours) - @jviotti
+12:00 - 17:00 (5 hours) - @nazrhom
+16:00 - 19:00 (3 hours) - @thundron
+17:00 - 24:00 (7 hours) - @dt-rush
 19:00 - 24:00 (5 hours) - @camerondiver
 
 Shifts for Friday, November 22nd
+08:00 - 13:00 (5 hours) - @robertgzr
 08:00 - 12:00 (4 hours) - @nghiant2710
-08:00 - 13:00 (5 hours) - @mikesimos
 12:00 - 16:00 (4 hours) - @telphan
 13:00 - 17:00 (4 hours) - @hedss
 16:00 - 19:00 (3 hours) - @thgreasi
-17:00 - 24:00 (7 hours) - @dt-rush
-19:00 - 24:00 (5 hours) - @thundron
+17:00 - 24:00 (7 hours) - @chrisys
+19:00 - 24:00 (5 hours) - @dt-rush
 
 #rollcall
 
 Support hours
 -------------
-camerondiver: 12
-thundron: 10
-samothx: 9
-thgreasi: 9
-chrisys: 8
-hedss: 8
+camerondiver: 16
+dt-rush: 12
+thgreasi: 12
 telphan: 8
+samothx: 8
+majorz: 8
+hedss: 8
+karaxuna: 8
+mikesimos: 8
 nghiant2710: 8
-nazrhom: 8
-jviotti: 8
-dt-rush: 7
-mikesimos: 5
-majorz: 5
-wrboyce: 5
+chrisys: 7
+sradevski: 6
+robertgzr: 5
+nazrhom: 5
 page-: 5
 pdcastro: 5
-sradevski: 4
+jviotti: 4
 shaunmulligan: 4
-robertgzr: 4
 gelbal: 4
+wrboyce: 4
 richbayliss: 4
-karaxuna: 4
-lucianbuzzo: 3
-roman-mazur: 3
+thundron: 3
 xginn8: 3
 afitzek: 3
-dimitrisnl: 2
 dfunckt: 2
