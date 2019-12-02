@@ -14,7 +14,7 @@ For local development, you need to `Clone or download` the repository to your lo
 
 * [Python](https://www.python.org/downloads/) (>=3.7.5) for the core scheduling algorithm, 
 * [pip](<https://pypi.org/project/pip/>) for installing the Python modules, and
-* [Node.js](https://nodejs.org/en/download/) (>= 11.12.0), including npm) for the helper scripts.
+* [Node.js](https://nodejs.org/en/download/) (>= 11.12.0, including npm) for the helper scripts.
 
 Then, you need to install the prerequisite modules by executing the following on your command line, from within the project's root directory:
 
@@ -35,6 +35,7 @@ You will also need:
   * `SUPPORT_SCHEDULER_HISTORY_ID`: Google Spreadsheet ID of the `Support Scheduler History` sheet.
   * `GAPI_SERVICE_ACCOUNT_JWT`: The path to the JSON credentials.
   * `CALENDAR_ID`: Google Calendar ID of the `Support schedule` calendar.
+  * `SUPPORT_RESOURCES`: link to support process documentation.
 
 For assistance, please contact `@AlidaOdendaal`, or operations.
 
@@ -63,7 +64,7 @@ You would also need to modify [`./lib/gsheets.js`](./lib/gsheets.js) and [`./hel
 
 #### For balena team members
 
-From the project root directory, run
+From the project root directory, run:
 
 ``` bash
 $ node ./helper-scripts/download-and-configure-input.js
@@ -92,7 +93,7 @@ For more detail regarding these `options`, as well as the rest of the input file
 
 ### Running the scheduling algorithm
 
-From within the relevant `./logs-<start-date>`  directory (or `./logs-example` if you are using the example data), launch the solver with
+From within the relevant `./logs-<start-date>`  directory (or `./logs-example` if you are using the example data), launch the solver with:
 
 ```bash
 $ python3 ../algo-core/ortools_solver.py --input support-shift-scheduler-input.json
@@ -106,7 +107,7 @@ If the `Solution type` is `OPTIMAL`, it means that the solver has determined thi
 
 ### Beautifying the schedule
 
-From within the `./logs-<start-date>`  directory (or `./logs-example` if you are using the example data), run
+From within the `./logs-<start-date>`  directory (or `./logs-example` if you are using the example data), run:
 
 ```bash
 $ node ../helper-scripts/beautify-schedule.js support-shift-scheduler-output.json
@@ -122,7 +123,7 @@ If, for some reason, the schedule needs to be modified, it should be edited dire
 
 #### For balena team members
 
-From the project root directory, run
+From the project root directory, run:
 
 ```bash
 $ node ./helper-scripts/send-calendar-invites.js logs-<start-date>/support-shift-scheduler-output.json

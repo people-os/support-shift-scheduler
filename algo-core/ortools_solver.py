@@ -1,3 +1,19 @@
+#/*
+# * Copyright 2019 Balena Ltd.
+# *
+# * Licensed under the Apache License, Version 2.0 (the "License");
+# * you may not use this file except in compliance with the License.
+# * You may obtain a copy of the License at
+# *
+# *    http://www.apache.org/licenses/LICENSE-2.0
+# *
+# * Unless required by applicable law or agreed to in writing, software
+# * distributed under the License is distributed on an "AS IS" BASIS,
+# * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# * See the License for the specific language governing permissions and
+# * limitations under the License.
+# */
+ 
 import sys
 import json
 from datetime import timedelta
@@ -7,9 +23,7 @@ import jsonschema
 from ortools.sat.python import cp_model
 import math
 import collections
-import pandas as pd
-
-       
+import pandas as pd  
         
 def hours2range(week_hours):
     """ Convert per-hour availability flags into ranges format. """
@@ -40,13 +54,10 @@ def hours2range(week_hours):
                     continue
 
         week_ranges.append(day_ranges)
-
     return week_ranges
-
 
 def setup_dataframes():
     """ Set up dataframes for agents (df_a) and night shift info (df_n). """
-    
     global min_week_average_hours  
     
     min_week_average_hours = 100  # This will form a baseline for agent history. 
@@ -71,20 +82,17 @@ def setup_dataframes():
             )
         min_week_average_hours = min(min_week_average_hours, 
                                      week_average_hours)
-        
         week_hours = agent['available_hours']
         
         for (d, _) in enumerate(week_hours):
             
             # Set availability to 0 outside balena support hours:
-            
             for i in range(start_hour):
                 week_hours[d][i] = 0
             for i in range(end_hour, num_slots):
                 week_hours[d][i] = 0
             
             # Fill df_n dataframe with night shifts:
-            
             indices_3 = [i for i, x in enumerate(week_hours[d]) if x == 3]
             
             if len(indices_3)>0:
@@ -106,12 +114,10 @@ def setup_dataframes():
                         df_n.loc[(1, d), s] = agent['handle']
                 
                 # Reset agent preference to 2 for duration of night shift:
-                
                 week_hours[d][start:end] = [2 for i in range(start, end)]
                 
                 # Give agent a break until 15:00 the next day if he/she was
                 # on night shift:
-                
                 if d != 4:
                     week_hours[d+1][0:15] = [0 for i in range(15)]
         
@@ -136,13 +142,10 @@ def setup_dataframes():
     # NB: e.g. [8,12] indicates agent is available 8-12, NOT 8-13.
         
     df_a.set_index('Handle', inplace=True)
-    
     return [df_a, df_n]
-
 
 def get_unavailable_employees(day):
     """ Exclude employees with no availability for a given day. """
-    
     dayNumber = day.weekday()
     unavailable = set()
     
@@ -152,13 +155,10 @@ def get_unavailable_employees(day):
      
     print('\nUnavailable employees on %s' % day)
     [print(e) for e in unavailable]
-    
     return unavailable
-
 
 def remove_agents_not_available_this_week():
     """ Agents not available at all this week are removed from the model. """
-    
     print('')
     global df_agents
     
@@ -173,10 +173,8 @@ def remove_agents_not_available_this_week():
             df_agents.drop(index=handle, inplace=True)
             print(handle, 'was removed for this week.')
 
-
 def print_final_schedules(schedule_results):
     """ Print final schedule, validate output JSON, and write to file. """
-    
     for d in range(num_days):
         
         print('\n%s shifts:' 
@@ -213,7 +211,6 @@ def print_final_schedules(schedule_results):
     # }
     
 #    print(json.dumps(output_json, indent=4), file=sys.stdout)
-    
     output_json_schema = json.load(
         open('../lib/schemas/support-shift-scheduler-output.schema.json')
         )    
@@ -231,20 +228,16 @@ def print_final_schedules(schedule_results):
     
     return output_json
 
-
 def flatten(l):
     """ Flatten nested lists. """
-    
     for el in l:
         if isinstance(el, collections.Iterable) and not isinstance(el, (str, bytes)):
             yield from flatten(el)
         else:
             yield el
 
-
 def generate_schedule_with_ortools():
     """ Create and solve model with OR-Tools, producing final schedule. """
-    
     global df_agents
     
     # In this function, the following abbreviations are used:
@@ -256,7 +249,6 @@ def generate_schedule_with_ortools():
     model = cp_model.CpModel()
     
     # Constants / domains:
-    
     v_constant2 = model.NewIntVar(2, 2, 'constant2')
     d_hourCost = cp_model.Domain.FromValues([0, 80])
     d_duration = cp_model.Domain.FromIntervals(
@@ -264,7 +256,6 @@ def generate_schedule_with_ortools():
                      )
     
     # Create preference domains:
-    
     dh_index_array = [[], []]
     
     for d in range(num_days):
@@ -274,7 +265,6 @@ def generate_schedule_with_ortools():
     
     dh_multi_index = pd.MultiIndex.from_arrays(dh_index_array, 
                                             names=('Day', 'Handle'))
-    
     d_prefs = pd.Series(data=None, index=dh_multi_index)
     
     for d in range(num_days):
@@ -284,13 +274,11 @@ def generate_schedule_with_ortools():
                                       )
     
     # Indexed by handle:
-    
     v_h = pd.DataFrame(data=None, index=df_agents.index, columns=[
               'TotalWeekHours', 'TotalWeekHoursSquared', 'TotalWeekHoursCost'
               ])
     
     # Indexed by track, day:
-    
     td_index_array = [[], []]
     
     for t in range(num_tracks):
@@ -300,12 +288,10 @@ def generate_schedule_with_ortools():
     
     td_multi_index = pd.MultiIndex.from_arrays(td_index_array, 
                                             names=('Track', 'Day'))
-    
     v_td = pd.DataFrame(data=None, index=td_multi_index, 
                         columns=['HandoverCost'])
     
     # Indexed by track, day, handle:
-    
     tdh_index_array = [[], [], []]
     
     for t in range(num_tracks):
@@ -325,7 +311,6 @@ def generate_schedule_with_ortools():
                      ])
     
     # Indexed by track, day, handle, slot:
-    
     tdhs_index_array = [[], [], [], []]
     
     for t in range(num_tracks):
@@ -350,9 +335,7 @@ def generate_schedule_with_ortools():
     # Fill dataframes with variables:
     
     # h:
-    
     for h in v_h.index:
-        
         v_h.loc[h, 'TotalWeekHours'] = \
         model.NewIntVar(0, 40, 'TotalWeekHours_%s' % h) #...
         
@@ -373,7 +356,6 @@ def generate_schedule_with_ortools():
             )
     
     # td:
-    
     for t in range(num_tracks):
         for d in range(num_days):
             v_td.loc[(t, d), 'HandoverCost'] = \
@@ -385,13 +367,11 @@ def generate_schedule_with_ortools():
                )
     
     # tdh:
-    
     print('')
     
     for t in range(num_tracks):
         for d in range(num_days):
             for h in df_agents.index:
-                
                 when_on_night_shift = \
                 [19+i for i, x in enumerate(df_nights.loc[(t, d)].to_list()) 
                  if x == h]
@@ -474,12 +454,10 @@ def generate_schedule_with_ortools():
                   for (j,sec) in enumerate(df_agents.loc[h, 'HourRanges'][d])]
     
     # tdhs:
-    
     for t in range(num_tracks):
         for d in range(num_days):
             for h in df_agents.index:
                 for s in range(start_hour, end_hour):
-                    
                     v_tdhs.loc[(t, d, h, s), 'IsStartSmallerEqualHour'] = \
                     model.NewBoolVar('IsStartSmallerEqualHour_%d_%d_%s_%d' 
                                      % (t, d, h, s))
@@ -498,7 +476,6 @@ def generate_schedule_with_ortools():
                      )
     
     # Constraint: The sum of agents' shifts must equal work_hours:
-    
     for t in range(num_tracks):
         for d in range(num_days):
             model.Add(
@@ -506,7 +483,6 @@ def generate_schedule_with_ortools():
                 )
     
     # Constraint: Agent shifts must not overlap with each other:
-    
     for t in range(num_tracks):
         for d in range(num_days):
             model.AddNoOverlap(v_tdh.loc[(t, d), 'Interval'].values.tolist())
@@ -515,17 +491,14 @@ def generate_schedule_with_ortools():
     # must start and end within an agent's availability hours:
     # NB: AddBoolOr works with just one boolean as well, in which case that
     # boolean has to be true.
-
     for t in range(num_tracks):        
         for d in range(num_days):
             for h in df_agents.index:
                 if not(h in unavailable_employees[d]):
-                    
                     model.AddBoolOr(v_tdh.loc[(t, d, h), 'IsInPrefRange'])
                     
                     for (j, sec) \
                         in enumerate(df_agents.loc[h, 'HourRanges'][d]):
-                        
                         model.Add(
                             v_tdh.loc[(t, d, h), 'Start']>=sec[0]
                             ).OnlyEnforceIf(
@@ -538,7 +511,6 @@ def generate_schedule_with_ortools():
                                       )
      
     # Constraint: Ensure agent not scheduled for more than one track at a time:
-    
     for d in range(num_days):       
         for h in df_agents.index:
             
@@ -550,9 +522,7 @@ def generate_schedule_with_ortools():
             model.AddBoolOr(isAgentOn_list)
     
     # Constraint: Add cost term due to total hours per agent:
-    
     for h in df_agents.index:
-        
         model.Add(
             v_h.loc[h, 'TotalWeekHours']==sum(
                 v_tdh['Duration'].xs(
@@ -570,22 +540,16 @@ def generate_schedule_with_ortools():
                                v_h.loc[h, 'TotalWeekHoursSquared']])
         
     # Constraint: Add other cost terms:
-    
     for t in range(num_tracks):
-        
         for d in range(num_days):
-      
             # Add cost due to number of handovers:
-            
             model.Add(
                 v_td.loc[(t, d), 'HandoverCost'] == 30
                 * (sum(v_tdh.loc[(t, d), 'IsAgentOn'].values.tolist()) - 1)
                 )
             
             for h in df_agents.index:
-                
                 # Put toggles in place reflecting whether agent was assigned:
-                
                 model.Add(v_tdh.loc[(t, d, h), 'Duration']!=0).OnlyEnforceIf(
                     v_tdh.loc[(t, d, h), 'IsAgentOn']
                     )
@@ -594,7 +558,6 @@ def generate_schedule_with_ortools():
                     )
                 
                 # Add cost due to agent history:
-                
                 agent_cost = 30 * (
                    df_agents.loc[h, 'AvgHoursPerWeek'] - min_week_average_hours
                    )
@@ -607,13 +570,11 @@ def generate_schedule_with_ortools():
                     ).OnlyEnforceIf(v_tdh.loc[(t, d, h), 'IsAgentOn'].Not())
                 
                 # Add cost due to shift duration:
-                
                 model.Add(
                     v_tdh.loc[(t, d, h), 'Duration'] 
                     < df_agents.loc[h, 'PrefIdealLength']
                     ).OnlyEnforceIf(v_tdh.loc[(t, d, h), 
                                     'IsDurationShorterThanIdeal'])
-
                 model.Add(
                     v_tdh.loc[(t, d, h), 'Duration'] 
                     >= df_agents.loc[h, 'PrefIdealLength']
@@ -621,13 +582,11 @@ def generate_schedule_with_ortools():
                                    'IsDurationShorterThanIdeal'].Not())
                 
                 # Cost for zero duration:
-                
                 model.Add(
                     v_tdh.loc[(t, d, h), 'DurationCost'] == 0
                     ).OnlyEnforceIf(v_tdh.loc[(t, d, h), 'IsAgentOn'].Not())
                 
                 # Cost for duration shorter than preference:
-                
                 model.Add(
                     v_tdh.loc[(t, d, h), 'DurationCost'] == 30 * (
                         df_agents.loc[h, 'PrefIdealLength'] 
@@ -639,7 +598,6 @@ def generate_schedule_with_ortools():
                         ]) 
                 
                 # Cost for duration longer than preference:
-                
                 model.Add(
                     v_tdh.loc[(t, d, h), 'DurationCost'] == 40 * (
                         v_tdh.loc[(t, d, h), 'Duration']
@@ -650,7 +608,6 @@ def generate_schedule_with_ortools():
                        )
                 
                 # Add hour cost:
-                
                 for (s_count, s_cost) in enumerate(
                             df_agents.loc[h, 'Hours'][d][start_hour:end_hour]
                             ):
@@ -717,7 +674,6 @@ def generate_schedule_with_ortools():
     print(model.Validate())
     
     # Solve model:
-    
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = solver_timeout
     solver.parameters.log_search_progress = True
@@ -726,13 +682,11 @@ def generate_schedule_with_ortools():
     print(solver.StatusName(status))
     
     # Extract solution:
-    
     if not(status in [cp_model.OPTIMAL, cp_model.FEASIBLE]):
         print('Cannot create schedule')
         return
     
     else:
-        
         print('\n---------------------')
         print('| OR-Tools schedule |')
         print('---------------------')
@@ -740,11 +694,9 @@ def generate_schedule_with_ortools():
         print('\nSolution type: ', solver.StatusName(status))
         print('\nMinimized cost: ', solver.ObjectiveValue())
         print('After', solver.WallTime(), 'seconds.')
-        
         schedule_results = []
         
         for d in range(num_days):
-            
             day_dict = {}
             day_dict['start_date'] = days[d]
             day_dict['shifts'] = []
@@ -760,16 +712,12 @@ def generate_schedule_with_ortools():
             schedule_results.append(day_dict)
             
         # Sort shifts by start times to improve output readability:
-        
         for i in range(len(schedule_results)):
-            
             shifts = schedule_results[i]['shifts']
             sorted_shifts = sorted(shifts, key=lambda x: x[1])
             schedule_results[i]['shifts'] = sorted_shifts
         
         return print_final_schedules(schedule_results)
-
-
 
 # MAIN CODE BLOCK
 
@@ -787,7 +735,6 @@ input_filename = args.input.strip()
 
 #input_filename = 'support-shift-scheduler-input.json'
 
-
 # Load and validate JSON input:
 
 input_json = json.load(open(input_filename))
@@ -800,11 +747,8 @@ except jsonschema.exceptions.ValidationError as err:
     print('Input JSON validation error', err)
     sys.exit(1)
 
-
 # Define variables from options:
-
 scheduler_options = input_json['options']
-
 start_Monday = scheduler_options['start_Monday_date']
 num_days = int(scheduler_options['num_consecutive_days'])
 num_tracks = int(scheduler_options['num_simultaneous_tracks'])
@@ -814,9 +758,7 @@ min_duration = int(scheduler_options['shift_min_duration'])
 max_duration = int(scheduler_options['shift_max_duration'])
 solver_timeout = int(scheduler_options['optimization_timeout'])
 
-
 # Other global variables:
-
 work_hours = end_hour - start_hour
 num_slots = 24  
 
@@ -829,20 +771,14 @@ for d in range(1, num_days):
 
 [df_agents, df_nights] = setup_dataframes()
 
-
 # Determine unavailable agents for each day:
-
 unavailable_employees = []
 
 for d in range(num_days):
     unavailable_employees.append(get_unavailable_employees(days[d]))
 
-
 # Remove agents from the model who are not available at all this week:
-
 remove_agents_not_available_this_week()
 
-
 # Create schedule:
-
 output_sched = generate_schedule_with_ortools()

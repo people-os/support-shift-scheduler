@@ -1,14 +1,26 @@
+/*
+ * Copyright 2019 Balena Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 const _ = require('lodash')
 const fs = require('fs')
 const Promise = require('bluebird')
 const mkdirp = Promise.promisify(require('mkdirp'))
-
 const { getAuthClient } = require('../lib/gauth')
 const { getNextCycleDates } = require('../lib/gsheets')
 const { getSchedulerInput } = require('../lib/gsheets')
 const { validateJSONScheduleInput } = require('../lib/validate-json')
-
-
 
 const SCHEDULE_OPTS = {
   "num_consecutive_days": 5,
@@ -20,30 +32,30 @@ const SCHEDULE_OPTS = {
   "optimization_timeout": 3600
 }
 
-
 /**
  * Read and configure input data from Google Sheets, and save as JSON object
  */
 async function getData() {
-  let auth = await getAuthClient().catch((e) => console.log(e))
-  console.log('Got auth token successfully')
+  try {
+    const auth = await getAuthClient()
+    console.log('Got auth token successfully')
 
-  let parsedNextCycleDates = await getNextCycleDates(auth).catch((e) => console.log(e))
-  console.log(JSON.stringify(parsedNextCycleDates, null, 2))
+    const parsedNextCycleDates = await getNextCycleDates(auth)
+    console.log(JSON.stringify(parsedNextCycleDates, null, 2))
+    const nextMondayDate = parsedNextCycleDates.support
 
-  const nextMondayDate = parsedNextCycleDates.support
+    const schedulerInput = await getSchedulerInput(auth, nextMondayDate, SCHEDULE_OPTS.num_consecutive_days)
+    _.assign(schedulerInput.options, SCHEDULE_OPTS)
+    console.log(JSON.stringify(schedulerInput, null, 2))
+    const schedulerInputValidation = await validateJSONScheduleInput(schedulerInput)
 
-  var schedulerInput = await getSchedulerInput(auth, nextMondayDate, SCHEDULE_OPTS.num_consecutive_days).catch((e) => console.log(e))
+    const fileDir = './logs-' + nextMondayDate
+    await mkdirp(fileDir)
 
-  _.assign(schedulerInput.options, SCHEDULE_OPTS)
-  console.log(JSON.stringify(schedulerInput, null, 2))
-
-  let schedulerInputValidation = await validateJSONScheduleInput(schedulerInput).catch((e) => console.log(e))
-
-  const fileDir = './logs-' + nextMondayDate
-  await mkdirp(fileDir).catch((e) => console.log(e.stack))
-
-  fs.writeFile(fileDir + '/support-shift-scheduler-input.json', JSON.stringify(schedulerInput, null, 2), 'utf8', err => {})
+    fs.writeFile(fileDir + '/support-shift-scheduler-input.json', JSON.stringify(schedulerInput, null, 2), 'utf8', err => {})
+  } catch (e) {
+  console.error(e)
+  }
 }
 
 getData()
