@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
+    "lint": "prettier --config ./node_modules/resin-lint/config/.prettierrc --trailing-comma es5 --check lib/*.js helper-scripts/*.js",
     "test": "echo \"No test specified\" && exit 0"
   },
   "repository": {
@@ -30,6 +31,24 @@
     "jsonschema": "^1.2.4",
     "lodash": "^4.17.15",
     "log": "^6.0.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "mz": "^2.7.0"
+  },
+  "devDependencies": {
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "resin-lint": "^3.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --config ./node_modules/resin-lint/config/.prettierrc --trailing-comma es5 --write",
+      "git add"
+    ]
   }
 }
