@@ -1,0 +1,35 @@
+{
+  "name": "support-shift-scheduler",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Project for scheduling Balena's engineers for customer support",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balena-io/support-shift-scheduler.git"
+  },
+  "author": "Balena",
+  "contributors": [
+    "Alida Odendaal (@AlidaOdendaal)",
+    "Alexandros Marinos (@alexandrosm)",
+    "Petros Angelatos (@petrosagg)",
+    "Kostas Lekkas (@lekkas)"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bluebird": "^3.7.1",
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
+    "googleapis": "^45.0.0",
+    "jsonschema": "^1.2.4",
+    "lodash": "^4.17.15",
+    "log": "^6.0.0",
+    "mkdirp": "^0.5.1"
+  }
+}
