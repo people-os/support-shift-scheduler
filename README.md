@@ -85,7 +85,7 @@ Since you do not have access to our private Google Spreadsheets, an example JSON
 The JSON input object thus created has two main properties:
 
 * `agents`, containing the data for all the support agents, and
-* `options`, containing a number of options that are fed into the scheduler. This includes the optimisation timeout for the solver, which is set to 1 hour by default. If necessary, these should be modified before running the core algorithm.
+* `options`, containing a number of options that are fed into the scheduler. This includes the optimisation timeout for the solver, with a default value of 1 hour set by the  `download-and-configure-input.js` script. However, the timeout is set to 1 minute in the example input, for the sake of easy testing. If necessary, these should be modified before running the core algorithm.
 
 For more detail regarding these `options`, as well as the rest of the input file structure, see the associated [json input schema](./lib/schemas/support-shift-scheduler-input.schema.json).
 
