@@ -3,9 +3,9 @@
     {
       "handle": "@afitzek",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -141,9 +141,9 @@
     {
       "handle": "@camerondiver",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -279,9 +279,9 @@
     {
       "handle": "@chrisys",
       "email": "example@balena.io",
-      "week_average_hours": 7,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 7,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -417,9 +417,9 @@
     {
       "handle": "@curcuz",
       "email": "example@balena.io",
-      "week_average_hours": 3,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 3,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -555,9 +555,9 @@
     {
       "handle": "@dfunckt",
       "email": "example@balena.io",
-      "week_average_hours": 5,
-      "ideal_shift_length": 2,
-      "available_hours": [
+      "weekAverageHours": 5,
+      "idealShiftLength": 2,
+      "availableHours": [
         [
           0,
           0,
@@ -693,9 +693,9 @@
     {
       "handle": "@dimitrisnl",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 2,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 2,
+      "availableHours": [
         [
           0,
           0,
@@ -831,9 +831,9 @@
     {
       "handle": "@dt-rush",
       "email": "example@balena.io",
-      "week_average_hours": 9,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 9,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -969,9 +969,9 @@
     {
       "handle": "@floion",
       "email": "example@balena.io",
-      "week_average_hours": 6,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 6,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -1107,9 +1107,9 @@
     {
       "handle": "@gelbal",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -1245,9 +1245,9 @@
     {
       "handle": "@hedss",
       "email": "example@balena.io",
-      "week_average_hours": 3,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 3,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -1383,9 +1383,9 @@
     {
       "handle": "@imrehg",
       "email": "example@balena.io",
-      "week_average_hours": 6,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 6,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -1521,9 +1521,9 @@
     {
       "handle": "@jviotti",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -1659,9 +1659,9 @@
     {
       "handle": "@karaxuna",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -1797,9 +1797,9 @@
     {
       "handle": "@lucianbuzzo",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -1935,9 +1935,9 @@
     {
       "handle": "@majorz",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -2073,9 +2073,9 @@
     {
       "handle": "@mikesimos",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -2211,9 +2211,9 @@
     {
       "handle": "@nazrhom",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -2349,9 +2349,9 @@
     {
       "handle": "@nghiant2710",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           2,
@@ -2487,9 +2487,9 @@
     {
       "handle": "@page-",
       "email": "example@balena.io",
-      "week_average_hours": 6,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 6,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -2625,9 +2625,9 @@
     {
       "handle": "@pdcastro",
       "email": "example@balena.io",
-      "week_average_hours": 11,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 11,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -2763,9 +2763,9 @@
     {
       "handle": "@petrosagg",
       "email": "example@balena.io",
-      "week_average_hours": 1,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 1,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -2901,9 +2901,9 @@
     {
       "handle": "@richbayliss",
       "email": "example@balena.io",
-      "week_average_hours": 5,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 5,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -3039,9 +3039,9 @@
     {
       "handle": "@robertgzr",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -3177,9 +3177,9 @@
     {
       "handle": "@roman-mazur",
       "email": "example@balena.io",
-      "week_average_hours": 5,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 5,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -3315,9 +3315,9 @@
     {
       "handle": "@samothx",
       "email": "example@balena.io",
-      "week_average_hours": 6,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 6,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -3453,9 +3453,9 @@
     {
       "handle": "@shaunmulligan",
       "email": "example@balena.io",
-      "week_average_hours": 6,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 6,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -3591,9 +3591,9 @@
     {
       "handle": "@spanceac",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -3729,9 +3729,9 @@
     {
       "handle": "@sradevski",
       "email": "example@balena.io",
-      "week_average_hours": 6,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 6,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -3867,9 +3867,9 @@
     {
       "handle": "@telphan",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -4005,9 +4005,9 @@
     {
       "handle": "@thgreasi",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -4143,9 +4143,9 @@
     {
       "handle": "@thundron",
       "email": "example@balena.io",
-      "week_average_hours": 7,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 7,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -4281,9 +4281,9 @@
     {
       "handle": "@wrboyce",
       "email": "example@balena.io",
-      "week_average_hours": 6,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 6,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -4419,9 +4419,9 @@
     {
       "handle": "@xginn8",
       "email": "example@balena.io",
-      "week_average_hours": 10,
-      "ideal_shift_length": 3,
-      "available_hours": [
+      "weekAverageHours": 10,
+      "idealShiftLength": 3,
+      "availableHours": [
         [
           0,
           0,
@@ -4557,9 +4557,9 @@
     {
       "handle": "@zubairlk",
       "email": "example@balena.io",
-      "week_average_hours": 8,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 8,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -4695,9 +4695,9 @@
     {
       "handle": "@zvin",
       "email": "example@balena.io",
-      "week_average_hours": 4,
-      "ideal_shift_length": 4,
-      "available_hours": [
+      "weekAverageHours": 4,
+      "idealShiftLength": 4,
+      "availableHours": [
         [
           0,
           0,
@@ -4832,13 +4832,13 @@
     }
   ],
   "options": {
-    "start_Monday_date": "2019-11-18",
-    "num_consecutive_days": 5,
-    "num_simultaneous_tracks": 2,
-    "support_start_hour": 8,
-    "support_end_hour": 24,
-    "shift_min_duration": 2,
-    "shift_max_duration": 8,
-    "optimization_timeout": 3600
+    "startMondayDate": "2019-11-18",
+    "numConsecutiveDays": 5,
+    "numSimultaneousTracks": 2,
+    "supportStartHour": 8,
+    "supportEndHour": 24,
+    "shiftMinDuration": 2,
+    "shiftMaxDuration": 8,
+    "optimizationTimeout": 60
   }
 }
