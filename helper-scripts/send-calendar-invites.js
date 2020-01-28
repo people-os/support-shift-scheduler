@@ -63,7 +63,7 @@ async function createEventResourceArray(shiftsObject) {
 			};
 
 			if (shift.end === 24) {
-				const endDate = new Date(Date.parse(date));
+				let endDate = new Date(Date.parse(date));
 				endDate.setDate(endDate.getDate() + 1);
 				endDate = endDate.toISOString().split('T')[0];
 				eventResource.end.dateTime = `${endDate}T00:00:00`;
