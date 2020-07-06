@@ -17,6 +17,7 @@ const _ = require('lodash');
 const fs = require('mz/fs');
 const Promise = require('bluebird');
 const mkdirp = Promise.promisify(require('mkdirp'));
+
 const { getAuthClient } = require('../lib/gauth');
 const { getNextCycleDates } = require('../lib/gsheets');
 const { getSchedulerInput } = require('../lib/gsheets');
@@ -52,7 +53,7 @@ async function getData() {
 			schedulerInput
 		);
 
-		const fileDir = `./logs-${nextMondayDate}`;
+		const fileDir = `./logs/${nextMondayDate}`;
 		await mkdirp(fileDir);
 
 		await fs.writeFile(

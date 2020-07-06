@@ -1,4 +1,0 @@
-ortools>=7.1.6720
-pandas>=0.24.1
-python_dateutil>=2.8.1
-jsonschema>=2.6.0
