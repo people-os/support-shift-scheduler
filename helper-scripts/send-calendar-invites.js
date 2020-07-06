@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 require('dotenv').config();
-const Promise = require('bluebird');
 const fs = require('mz/fs');
 const _ = require('lodash');
 const { google } = require('googleapis');
 const { getAuthClient } = require('../lib/gauth');
-const { Validator, ValidationError } = require('jsonschema');
 const { validateJSONScheduleOutput } = require('../lib/validate-json');
 const TIMEZONE = 'Europe/London';
 

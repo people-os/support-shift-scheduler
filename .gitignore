@@ -1,2 +1,3 @@
 .env
+logs/20*
 node_modules/

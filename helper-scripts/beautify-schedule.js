@@ -20,7 +20,7 @@ const fs = require('mz/fs');
 /**
  * Convert array from Next Cycle Dates Google Sheet into object.
  * @param  {object}   date   Date object
- * @return {string}          Formatted like like Monday, November 18th
+ * @return {string}          Formatted like Monday, November 18th
  */
 function prettyDateStr(date) {
 	return dateformat(date, 'dddd, mmmm dS');
@@ -30,20 +30,20 @@ function prettyDateStr(date) {
  * Write beautified schedule, as well as Flowdock message, to text files.
  * @param  {object}   scheduleJSON   Scheduling algorithm output object (read from file)
  */
-async function writePrettifiedText(scheduleJSON) {
+function writePrettifiedText(scheduleJSON) {
 	// Write pretty schedule, to be used for sanity check:
-	const agentHours = {};
+	let agentHours = {};
 	let prettySchedule = '';
 
-	for (const epoch of scheduleJSON) {
-		//let startDate = new Date(epoch.start_date)
-		prettySchedule += `\nShifts for ${epoch.start_date}\n`;
+	for (let epoch of scheduleJSON) {
+		let startDate = new Date(epoch.start_date);
+		prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`;
 
-		for (const shift of epoch.shifts) {
-			const agentName = shift.agent.replace(/ <.*>/, '');
-			const len = shift.end - shift.start;
-			const startStr = `${_.padStart(shift.start, 2, '0')}:00`;
-			const endStr = `${_.padStart(shift.end, 2, '0')}:00`;
+		for (let shift of epoch.shifts) {
+			let agentName = shift.agent.replace(/ <.*>/, '');
+			let len = shift.end - shift.start;
+			let startStr = `${_.padStart(shift.start, 2, '0')}:00`;
+			let endStr = `${_.padStart(shift.end, 2, '0')}:00`;
 			prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
 			agentHours[agentName] = agentHours[agentName] || 0;
 			agentHours[agentName] += len;
@@ -60,31 +60,22 @@ async function writePrettifiedText(scheduleJSON) {
 		return agent.hours;
 	}).reverse();
 
-	for (const agent of agentHoursList) {
-		const handle = agent.handle.replace(/@/, '').replace(/ <.*>/, '');
+	for (let agent of agentHoursList) {
+		let handle = agent.handle.replace(/@/, '').replace(/ <.*>/, '');
 		prettySchedule += `${handle}: ${agent.hours}\n`;
 	}
-	try {
-		await fs.writeFile('beautified-schedule.txt', prettySchedule);
-	} catch (e) {
-		console.error(e);
-	}
+
+	fs.writeFile('beautified-schedule.txt', prettySchedule, 'utf8', err => {});
 
 	// Write Flowdock message, with which to ping agents to check their calendars:
 	let flowdockMessage = '';
 	flowdockMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${scheduleJSON[0].start_date}).**\n\n`;
-	flowdockMessage +=
-		'Please acknowledge, or let me know if you require any changes.\n';
-	flowdockMessage += `\n#rollcall\n\n`;
+	flowdockMessage += 'Please let me know if you require any changes.\n\n';
 
-	for (const agent of agentHoursList) {
+	for (let agent of agentHoursList) {
 		flowdockMessage += `${agent.handle}\n`;
 	}
-	try {
-		await fs.writeFile('flowdock-message.txt', flowdockMessage);
-	} catch (e) {
-		console.error(e);
-	}
+	fs.writeFile('flowdock-message.txt', flowdockMessage, 'utf8', err => {});
 }
 
 // Read scheduling algorithm output file name from command line:
