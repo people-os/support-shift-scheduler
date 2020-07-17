@@ -156,10 +156,16 @@ def setup_dataframes():
                         f"{colorama.Style.RESET_ALL}"
                     )
 
+                # For Georgia, remove all availability except night shifts:
+                if agent['handle'] == '@georgiats':
+                    for h in range(0, slots_in_day):
+                        if week_hours[d][h] == 1 or week_hours[d][h] == 2:
+                            week_hours[d][h] = 0
+
                 # Reset all 1s and 4s to 2s in night shift agent's preferences:
                 # This will also disincentivise algorithm from giving night
                 # shift volunteers other shifts during the week as well.
-                for h in range(0, 24):
+                for h in range(0, slots_in_day):
                     if week_hours[d][h] == 1 or week_hours[d][h] == 4:
                         week_hours[d][h] = 2
 
@@ -237,7 +243,9 @@ def remove_agents_not_available_this_week():
     """Agents not available at all this week are removed from the model."""
     print("")
 
-    for handle in df_agents.index:
+    original_handles = df_agents.index.tolist()
+
+    for handle in original_handles:
         out = True
 
         for d in range(num_days):
@@ -593,7 +601,7 @@ def fill_var_dataframes_veterans():
                                 duration,
                                 f"shift_duration_{t}_{d}_{h}",
                             )
-                            print(f"{h} on duty on night of {days[d+1]}")
+                            print(f"{h} on duty on night of {days[d]}")
 
                         else:
                             v_tdh.loc[
@@ -1485,6 +1493,7 @@ for d in range(1, num_days):
     days.append(days[d - 1] + delta)
 
 [df_agents, df_nights] = setup_dataframes()
+print(df_agents.loc['@wrboyce', 'hour_ranges'])
 
 [s_onboarding, s_mentors, s_new] = read_onboarding_files()
 
