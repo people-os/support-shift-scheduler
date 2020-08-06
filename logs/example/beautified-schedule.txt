@@ -1,112 +1,99 @@
 
-Shifts for Monday, July 6th
+Shifts for Monday, August 24th
 08:00 - 12:00 (4 hours) - @nghiant2710
-08:00 - 12:00 (4 hours) - @anujdeshpande
-08:00 - 12:00 (4 hours) - @karaxuna
+08:00 - 12:00 (4 hours) - @jsreds
+08:00 - 12:00 (4 hours) - @codewithcheese
 12:00 - 16:00 (4 hours) - @majorz
-12:00 - 16:00 (4 hours) - @srlowe
-16:00 - 19:00 (3 hours) - @alexgg
-16:00 - 20:00 (4 hours) - @jtonello
-19:00 - 24:00 (5 hours) - @dtischler
-20:00 - 24:00 (4 hours) - @ab77
-
-Shifts for Tuesday, July 7th
-08:00 - 12:00 (4 hours) - @sradevski
-08:00 - 12:00 (4 hours) - @iamsolankiamit
-08:00 - 12:00 (4 hours) - @vipulgupta2048
-12:00 - 16:00 (4 hours) - @jviotti
-12:00 - 16:00 (4 hours) - @roman-mazur
-12:00 - 16:00 (4 hours) - @mtoman
-16:00 - 19:00 (3 hours) - @tmigone
-16:00 - 18:00 (2 hours) - @mbalamat
+12:00 - 14:00 (2 hours) - @dfunckt
+14:00 - 18:00 (4 hours) - @rcooke-warwick
+16:00 - 20:00 (4 hours) - @curcuz
 18:00 - 22:00 (4 hours) - @ereski
-19:00 - 24:00 (5 hours) - @20k-ultra
+20:00 - 24:00 (4 hours) - @ab77
 22:00 - 24:00 (2 hours) - @jimsynz
 
-Shifts for Wednesday, July 8th
-08:00 - 12:00 (4 hours) - @gelbal
-08:00 - 12:00 (4 hours) - @sradevski
+Shifts for Tuesday, August 25th
+08:00 - 12:00 (4 hours) - @srlowe
 08:00 - 12:00 (4 hours) - @vipulgupta2048
-12:00 - 16:00 (4 hours) - @robertgzr
-12:00 - 16:00 (4 hours) - @richbayliss
-12:00 - 16:00 (4 hours) - @mtoman
-16:00 - 20:00 (4 hours) - @mtolba
-16:00 - 20:00 (4 hours) - @chrisys
-16:00 - 20:00 (4 hours) - @mpous
-20:00 - 24:00 (4 hours) - @saintaardvark
-20:00 - 24:00 (4 hours) - @samothx
+12:00 - 16:00 (4 hours) - @nazrhom
+12:00 - 16:00 (4 hours) - @sradevski
+16:00 - 19:00 (3 hours) - @saintaardvark
+16:00 - 19:00 (3 hours) - @alanb128
+19:00 - 24:00 (5 hours) - @floion
+19:00 - 24:00 (5 hours) - @wrboyce
 
-Shifts for Thursday, July 9th
-08:00 - 10:00 (2 hours) - @pranasziaukas
-08:00 - 12:00 (4 hours) - @codewithcheese
-10:00 - 14:00 (4 hours) - @camerondiver
-10:00 - 14:00 (4 hours) - @mpous
-12:00 - 15:00 (3 hours) - @stefkors
-14:00 - 18:00 (4 hours) - @pdcastro
-14:00 - 18:00 (4 hours) - @pipex
-15:00 - 19:00 (4 hours) - @odyslam
-18:00 - 20:00 (2 hours) - @alidaodendaal
-19:00 - 24:00 (5 hours) - @dt-rush
+Shifts for Wednesday, August 26th
+08:00 - 12:00 (4 hours) - @robertgzr
+08:00 - 10:00 (2 hours) - @kaisoz
+10:00 - 14:00 (4 hours) - @rahul-thakoor
+12:00 - 16:00 (4 hours) - @zvin
+14:00 - 17:00 (3 hours) - @thundron
+16:00 - 19:00 (3 hours) - @alexgg
+17:00 - 21:00 (4 hours) - @jtonello
+19:00 - 24:00 (5 hours) - @floion
+21:00 - 24:00 (3 hours) - @samothx
+
+Shifts for Thursday, August 27th
+08:00 - 12:00 (4 hours) - @iamsolankiamit
+08:00 - 10:00 (2 hours) - @kaisoz
+10:00 - 13:00 (3 hours) - @mpous
+12:00 - 16:00 (4 hours) - @ljewalsh
+13:00 - 17:00 (4 hours) - @juanfridano
+16:00 - 19:00 (3 hours) - @tmigone
+17:00 - 20:00 (3 hours) - @alanb128
+19:00 - 24:00 (5 hours) - @floion
 20:00 - 24:00 (4 hours) - @20k-ultra
 
-Shifts for Friday, July 10th
+Shifts for Friday, August 28th
 08:00 - 10:00 (2 hours) - @dfunckt
-08:00 - 10:00 (2 hours) - @pranasziaukas
-10:00 - 14:00 (4 hours) - @nazrhom
-10:00 - 14:00 (4 hours) - @rahul-thakoor
-14:00 - 18:00 (4 hours) - @zvin
-14:00 - 18:00 (4 hours) - @thgreasi
-14:00 - 18:00 (4 hours) - @pipex
-18:00 - 21:00 (3 hours) - @alanb128
-18:00 - 20:00 (2 hours) - @alidaodendaal
+08:00 - 12:00 (4 hours) - @anujdeshpande
+10:00 - 14:00 (4 hours) - @karaxuna
+12:00 - 16:00 (4 hours) - @jviotti
+14:00 - 17:00 (3 hours) - @stefkors
+16:00 - 20:00 (4 hours) - @dt-rush
+17:00 - 20:00 (3 hours) - @ntzovanis
 20:00 - 24:00 (4 hours) - @saintaardvark
-21:00 - 24:00 (3 hours) - @ntzovanis
+20:00 - 24:00 (4 hours) - @dtischler
 
 #rollcall
 
 Support hours
 -------------
-20k-ultra: 9
-pipex: 8
-saintaardvark: 8
-mpous: 8
-mtoman: 8
-vipulgupta2048: 8
-sradevski: 8
-dt-rush: 5
-dtischler: 5
-thgreasi: 4
-zvin: 4
-rahul-thakoor: 4
-nazrhom: 4
-alidaodendaal: 4
-odyslam: 4
-pdcastro: 4
-camerondiver: 4
-codewithcheese: 4
-pranasziaukas: 4
-samothx: 4
-chrisys: 4
-mtolba: 4
-richbayliss: 4
-robertgzr: 4
-gelbal: 4
-ereski: 4
-roman-mazur: 4
+floion: 15
+saintaardvark: 7
+alanb128: 6
+wrboyce: 5
+dtischler: 4
+dt-rush: 4
 jviotti: 4
-iamsolankiamit: 4
-ab77: 4
-jtonello: 4
-srlowe: 4
-majorz: 4
 karaxuna: 4
 anujdeshpande: 4
+20k-ultra: 4
+juanfridano: 4
+ljewalsh: 4
+iamsolankiamit: 4
+jtonello: 4
+zvin: 4
+rahul-thakoor: 4
+kaisoz: 4
+robertgzr: 4
+sradevski: 4
+nazrhom: 4
+vipulgupta2048: 4
+srlowe: 4
+ab77: 4
+ereski: 4
+curcuz: 4
+rcooke-warwick: 4
+dfunckt: 4
+majorz: 4
+codewithcheese: 4
+jsreds: 4
 nghiant2710: 4
 ntzovanis: 3
-alanb128: 3
 stefkors: 3
 tmigone: 3
+mpous: 3
+samothx: 3
 alexgg: 3
-dfunckt: 2
+thundron: 3
 jimsynz: 2
-mbalamat: 2

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Balena Ltd.
+ * Copyright 2020 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,23 @@ const { getNextCycleDates } = require('../lib/gsheets');
 const { getSchedulerInput } = require('../lib/gsheets');
 const { validateJSONScheduleInput } = require('../lib/validate-json');
 
+// The following constanst are for configuration porpouses and should be left empty if not needed
+const specialAgentConditions = {
+	agentsWithMaxHoursShift: [
+		{
+			handle: '@samothx',
+			value: 4,
+		},
+	],
+	agentsWithMinHoursWeek: [
+		{
+			handle: '@saintaardvark',
+			value: 7,
+		},
+	],
+	agentsWithFixHours: ['@georgiats'],
+};
+
 const SCHEDULE_OPTS = {
 	numConsecutiveDays: 5,
 	numSimultaneousTracks: 2,
@@ -31,6 +48,7 @@ const SCHEDULE_OPTS = {
 	shiftMinDuration: 2,
 	shiftMaxDuration: 8,
 	optimizationTimeout: 3600,
+	specialAgentConditions,
 };
 
 /**
