@@ -1,5 +1,5 @@
 """
-Copyright 2019 Balena Ltd.
+Copyright 2020 Balena Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -112,6 +112,7 @@ def setup_dataframes():
 
     # Fill dataframes per agent:
     agents = input_json["agents"]
+    agents_with_fix_hours = scheduler_options["specialAgentConditions"]["agentsWithFixHours"]
 
     for agent in agents:
         week_average_hours = math.trunc(float(agent["weekAverageHours"]))
@@ -156,8 +157,8 @@ def setup_dataframes():
                         f"{colorama.Style.RESET_ALL}"
                     )
 
-                # For Georgia, remove all availability except night shifts:
-                if agent['handle'] == '@georgiats':
+                # For Agents with fix hours, remove all availability except night shifts:
+                if agent['handle'] in agents_with_fix_hours:
                     for h in range(0, slots_in_day):
                         if week_hours[d][h] == 1 or week_hours[d][h] == 2:
                             week_hours[d][h] = 0
@@ -226,11 +227,11 @@ def read_onboarding_files():
 
 def get_unavailable_agents(day):
     """Determine agents with no availability for a given day."""
-    dayNumber = day.weekday()
+    day_number = day.weekday()
     unavailable = set()
 
     for handle in df_agents.index:
-        if len(df_agents.loc[handle, "hour_ranges"][dayNumber]) == 0:
+        if len(df_agents.loc[handle, "hour_ranges"][day_number]) == 0:
             unavailable.add(handle)
 
     print(f"\nUnavailable employees on {day}")
@@ -962,27 +963,35 @@ def constraint_honour_agent_availability_onboarding():
 
 def constraint_various_custom_conditions():
     """Define custom constraints (usually temporary) as needed."""
-    # Keep Thomas's shifts <= 4 hours, since he is still recovering:
-    for t in range(num_tracks):
-        for d in range(num_days):
-            if not ("@samothx" in unavailable_agents[d]):
-                model.Add(v_tdh.loc[(t, d, "@samothx"), "shift_duration"] <= 4)
 
-    # Hugh should do >= 7 hours of support per full 5-day work week:
-    if "@saintaardvark" in df_agents.index:
-        hugh_daily_quota = 7 / 5  # 7 hours per week converted to per day
-        hugh_weekly_lower_limit = 0
+    agents_with_max_shift_hours = scheduler_options["specialAgentConditions"]["agentsWithMaxHoursShift"]
+    agents_with_min_week_hours = scheduler_options["specialAgentConditions"]["agentsWithMinHoursWeek"]
 
-        for d in range(num_days):
-            if not ("@saintaardvark" in unavailable_agents[d]):
-                hugh_weekly_lower_limit += hugh_daily_quota
+    for agent in agents_with_max_shift_hours:
+        handle = agent["handle"]
+        hours = int(agent["value"])
+        for t in range(num_tracks):
+            for d in range(num_days):
+                if not (handle in unavailable_agents[d]):
+                    model.Add(v_tdh.loc[(t, d, handle), "shift_duration"] <= hours)
 
-        hugh_weekly_lower_limit = round(hugh_weekly_lower_limit)
+    for agent in agents_with_max_shift_hours:
+        handle = agent["handle"]
+        hours = int(agent["value"])
+        if handle in df_agents.index:
+            hugh_daily_quota = hours / 5  # hours per week converted to per day
+            hugh_weekly_lower_limit = 0
 
-        model.Add(
-            v_h.loc["@saintaardvark", "total_week_hours"]
-            >= hugh_weekly_lower_limit
-        )
+            for d in range(num_days):
+                if not (handle in unavailable_agents[d]):
+                    hugh_weekly_lower_limit += hugh_daily_quota
+
+            hugh_weekly_lower_limit = round(hugh_weekly_lower_limit)
+
+            model.Add(
+                v_h.loc[handle, "total_week_hours"]
+                >= hugh_weekly_lower_limit
+            )
 
 
 def constraint_setup_onboarding_hours():
@@ -1455,7 +1464,6 @@ def solve_model_and_extract_solution():
 
             schedule_results.append(day_dict)
         if len(agents_onb) > 0:
-            o_file.write("\n\ncc @GeorgiaTs")
             o_file.close()
 
         # Sort shifts by start times to improve output readability:
@@ -1493,7 +1501,6 @@ for d in range(1, num_days):
     days.append(days[d - 1] + delta)
 
 [df_agents, df_nights] = setup_dataframes()
-print(df_agents.loc['@wrboyce', 'hour_ranges'])
 
 [s_onboarding, s_mentors, s_new] = read_onboarding_files()
 
