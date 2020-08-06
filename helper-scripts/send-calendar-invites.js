@@ -60,11 +60,12 @@ async function createEventResourceArray(shiftsObject) {
 				timeZone: TIMEZONE,
 			};
 
-			if (shift.end === 24) {
+			if (shift.end > 23) {
 				let endDate = new Date(Date.parse(date));
 				endDate.setDate(endDate.getDate() + 1);
 				endDate = endDate.toISOString().split('T')[0];
-				eventResource.end.dateTime = `${endDate}T00:00:00`;
+				endHour = 24 - shift.end;
+				eventResource.end.dateTime = `${endDate}T0${endHour}:00:00`;
 			} else {
 				eventResource.end.dateTime = `${date}T${_.padStart(
 					shift.end,
