@@ -26,6 +26,13 @@ function prettyDateStr(date) {
 	return dateformat(date, 'dddd, mmmm dS');
 }
 
+function prettyHourStr(hour) {
+	if (hour > 23) {
+		hour = hour - 24;
+	}
+	return `${_.padStart(hour, 2, '0')}:00`;
+}
+
 /**
  * Write beautified schedule, as well as Flowdock message, to text files.
  * @param  {object}   scheduleJSON   Scheduling algorithm output object (read from file)
@@ -42,8 +49,8 @@ function writePrettifiedText(scheduleJSON) {
 		for (let shift of epoch.shifts) {
 			let agentName = shift.agent.replace(/ <.*>/, '');
 			let len = shift.end - shift.start;
-			let startStr = `${_.padStart(shift.start, 2, '0')}:00`;
-			let endStr = `${_.padStart(shift.end, 2, '0')}:00`;
+			let startStr = prettyHourStr(shift.start);
+			let endStr = prettyHourStr(shift.end);
 			prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
 			agentHours[agentName] = agentHours[agentName] || 0;
 			agentHours[agentName] += len;

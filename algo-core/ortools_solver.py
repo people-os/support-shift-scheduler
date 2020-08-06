@@ -41,7 +41,7 @@ onboarding_weekly_hours = 8
 # Other constants:
 max_avg_per_week = 40
 week_working_hours = 40
-slots_in_day = 24
+slots_in_day = 26
 date_format = "%Y-%m-%d"
 
 # Input filenames:
@@ -49,6 +49,8 @@ filename_onboarding = "onboarding_agents.txt"
 filename_mentors = "mentors.txt"
 filename_new = "new_agents.txt"
 
+def get_project_root() -> Path:
+    return str(Path(__file__).parent.parent)
 
 def hours_to_range(week_hours):
     """Convert per-hour availability flags into ranges format."""
@@ -101,10 +103,15 @@ def setup_dataframes():
         ],
     )
 
-    df_n_indices = pd.MultiIndex.from_product(
-        [[t for t in range(num_tracks)], [d for d in range(num_days)]],
-        names=("track", "day"),
-    )
+    i_tuple = []
+
+    # Index for night-shifts (starting at 19hs)
+    for t, track in enumerate(tracks):
+        if 19 in range(track["start_hour"], track["end_hour"]):
+            for d in range(track["start_day"], track["end_day"]+1):
+                i_tuple.append((t,d))
+            
+    df_n_indices = pd.MultiIndex.from_tuples(i_tuple, names=("track", "day"))
 
     df_n = pd.DataFrame(
         data="", columns=list(range(19, 24)), index=df_n_indices
@@ -139,7 +146,7 @@ def setup_dataframes():
                 track_found = False
                 t = 0
 
-                while t <= num_tracks - 1 and not track_found:
+                while t < len(tracks) and not track_found:
                     track_found = True
                     for s in indices_4:
                         track_found = track_found and df_n.loc[(t, d), s] == ""
@@ -300,8 +307,8 @@ def print_final_schedules(schedule_results):
     # }
 
     output_json_schema = json.load(
-        open("../../lib/schemas/support-shift-scheduler-output.schema.json")
-    )
+        open(get_project_root() + "/lib/schemas/support-shift-scheduler-output.schema.json")
+        )
 
     try:
         jsonschema.validate(output_json, output_json_schema)
@@ -344,7 +351,7 @@ def parse_json_input():
     # Load and validate JSON input:
     input_json = json.load(open(input_filename))
     input_json_schema = json.load(
-        open("../../lib/schemas/support-shift-scheduler-input.schema.json")
+        open(get_project_root() + "/lib/schemas/support-shift-scheduler-input.schema.json")
     )
     try:
         jsonschema.validate(input_json, input_json_schema)
@@ -371,8 +378,14 @@ def setup_var_dataframes_veterans():
     )
 
     # td - veterans:
-    td_multi_index = pd.MultiIndex.from_product(
-        [[t for t in range(num_tracks)], [d for d in range(num_days)]],
+    td_tuple = []
+
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1): 
+            td_tuple.append((t,d))
+
+    td_multi_index = pd.MultiIndex.from_tuples(
+        td_tuple,
         names=("track", "day"),
     )
 
@@ -381,16 +394,17 @@ def setup_var_dataframes_veterans():
     )
 
     # tdh - veterans (with extra Monday track):
-    tdh_multi_index = pd.MultiIndex.from_product(
-        [
-            [t for t in range(num_tracks + 1)],  # extra Monday track
-            [d for d in range(num_days)],
-            [h for h in agents_vet],
-        ],
+    tdh_tuple = []
+
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
+            for h in agents_vet:
+                tdh_tuple.append((t, d, h))
+    
+    tdh_multi_index = pd.MultiIndex.from_tuples(
+        tdh_tuple,
         names=("track", "day", "handle"),
-    )[
-        : -(num_days - 1) * len(agents_vet)
-    ]  # Slicing removes extra track's Tuesday-Friday.
+    )
 
     v_tdh = pd.DataFrame(
         data=None,
@@ -408,17 +422,15 @@ def setup_var_dataframes_veterans():
         ],
     )
 
-    # tdsh - veterans (with extra Monday track):
-    tdsh_multi_index = pd.MultiIndex.from_product(
-        [
-            [t for t in range(num_tracks + 1)],  # extra Monday track
-            [d for d in range(num_days)],
-            [s for s in range(start_hour, end_hour)],
-            [h for h in agents_vet],
-        ],
-        names=("track", "day", "slot", "handle"),
-    )[: -(num_days - 1) * work_hours * len(agents_vet) - 12 * len(agents_vet)]
-    # (Slicing removes extra track's Tue-Fri, as well as 12-midnight on Mon.)
+    tdsh_tuple = []
+
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"] + 1):
+            for s in range(track["start_hour"], track["end_hour"]):
+                for h in agents_vet:
+                    tdsh_tuple.append((t, d, s, h))
+
+    tdsh_multi_index = pd.MultiIndex.from_tuples(tdsh_tuple, names=("track", "day", "slot", "handle"))
 
     v_tdsh = pd.DataFrame(
         data=None,
@@ -517,8 +529,9 @@ def fill_var_dataframes_veterans():
         )
 
     # td - veterans:
-    for t in range(num_tracks):
-        for d in range(num_days):
+
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"] + 1):
             v_td.loc[(t, d), "handover_cost"] = model.NewIntVarFromDomain(
                 cp_model.Domain.FromValues(
                     [
@@ -529,16 +542,11 @@ def fill_var_dataframes_veterans():
                 f"handover_cost_{t}_{d}",
             )
 
-    # tdh - veterans (with extra Monday track):
+    # tdh - veterans:
     print("")
 
-    for t in range(num_tracks + 1):
-        if t == num_tracks:
-            max_days = 1
-        else:
-            max_days = num_days
-
-        for d in range(max_days):
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
             for h in agents_vet:
                 if h in unavailable_agents[d]:
                     v_tdh.loc[(t, d, h), "shift_start"] = model.NewIntVar(
@@ -551,7 +559,43 @@ def fill_var_dataframes_veterans():
                         0, 0, f"shift_duration_{t}_{d}_{h}"
                     )
                 else:
-                    if t == num_tracks:
+                    when_on_night_shift = []
+                    if 19 in range(track["start_hour"], track["end_hour"]):
+                        when_on_night_shift = [
+                            19 + i
+                            for i, x in enumerate(
+                                df_nights.loc[(t, d)].to_list()
+                            )
+                            if x == h
+                        ]
+
+                    if len(when_on_night_shift) > 0:
+                        start = when_on_night_shift[0]
+                        end = when_on_night_shift[-1] + 1
+                        duration = end - start
+
+                        v_tdh.loc[
+                            (t, d, h), "shift_start"
+                        ] = model.NewIntVar(
+                            start, start, f"shift_start_{t}_{d}_{h}"
+                        )
+
+                        v_tdh.loc[
+                            (t, d, h), "shift_end"
+                        ] = model.NewIntVar(
+                            end, end, f"shift_end_{t}_{d}_{h}"
+                        )
+
+                        v_tdh.loc[
+                            (t, d, h), "shift_duration"
+                        ] = model.NewIntVar(
+                            duration,
+                            duration,
+                            f"shift_duration_{t}_{d}_{h}",
+                        )
+                        print(f"{h} on duty on night of {days[d]}")
+
+                    else:
                         v_tdh.loc[
                             (t, d, h), "shift_start"
                         ] = model.NewIntVarFromDomain(
@@ -562,64 +606,11 @@ def fill_var_dataframes_veterans():
                         ] = model.NewIntVarFromDomain(
                             d_prefs.loc[(d, h)], f"shift_end_{t}_{d}_{h}"
                         )
-                        # Extra Monday track always from 8-12 (4 hours):
                         v_tdh.loc[
                             (t, d, h), "shift_duration"
                         ] = model.NewIntVarFromDomain(
-                            cp_model.Domain.FromValues([0, 4]),
-                            f"shift_duration_{t}_{d}_{h}",
+                            d_duration, f"shift_duration_{t}_{d}_{h}"
                         )
-                    else:
-                        when_on_night_shift = [
-                            19 + i
-                            for i, x in enumerate(
-                                df_nights.loc[(t, d)].to_list()
-                            )
-                            if x == h
-                        ]
-
-                        if len(when_on_night_shift) > 0:
-                            start = when_on_night_shift[0]
-                            end = when_on_night_shift[-1] + 1
-                            duration = end - start
-
-                            v_tdh.loc[
-                                (t, d, h), "shift_start"
-                            ] = model.NewIntVar(
-                                start, start, f"shift_start_{t}_{d}_{h}"
-                            )
-
-                            v_tdh.loc[
-                                (t, d, h), "shift_end"
-                            ] = model.NewIntVar(
-                                end, end, f"shift_end_{t}_{d}_{h}"
-                            )
-
-                            v_tdh.loc[
-                                (t, d, h), "shift_duration"
-                            ] = model.NewIntVar(
-                                duration,
-                                duration,
-                                f"shift_duration_{t}_{d}_{h}",
-                            )
-                            print(f"{h} on duty on night of {days[d]}")
-
-                        else:
-                            v_tdh.loc[
-                                (t, d, h), "shift_start"
-                            ] = model.NewIntVarFromDomain(
-                                d_prefs.loc[(d, h)], f"shift_start_{t}_{d}_{h}"
-                            )
-                            v_tdh.loc[
-                                (t, d, h), "shift_end"
-                            ] = model.NewIntVarFromDomain(
-                                d_prefs.loc[(d, h)], f"shift_end_{t}_{d}_{h}"
-                            )
-                            v_tdh.loc[
-                                (t, d, h), "shift_duration"
-                            ] = model.NewIntVarFromDomain(
-                                d_duration, f"shift_duration_{t}_{d}_{h}"
-                            )
 
                 v_tdh.loc[(t, d, h), "interval"] = model.NewIntervalVar(
                     v_tdh.loc[(t, d, h), "shift_start"],
@@ -677,17 +668,10 @@ def fill_var_dataframes_veterans():
                     )
                 ]
 
-    # tdsh - veterans (with extra Monday track):
-    for t in range(num_tracks + 1):
-        if t == num_tracks:
-            max_days = 1
-            max_hour = 12
-        else:
-            max_days = num_days
-            max_hour = end_hour
-
-        for d in range(max_days):
-            for s in range(start_hour, max_hour):
+    # tdsh - veterans
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
+            for s in range(track["start_hour"], track["end_hour"]):
                 for h in agents_vet:
                     v_tdsh.loc[
                         (t, d, s, h), "is_start_smaller_equal_hour"
@@ -855,35 +839,17 @@ def constraint_new_agents_non_simultaneous():
 def constraint_cover_num_tracks_without_overlapping():
     """Shifts in each track must cover required hours, without overlapping."""
     # Sum of agents' shifts must equal work_hours:
-    for t in range(num_tracks):  # N/A to extra Monday track.
-        for d in range(num_days):
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
             model.Add(
                 sum(v_tdh.loc[(t, d), "shift_duration"].values.tolist())
-                == work_hours
+                == track["end_hour"] - track["start_hour"]
             )
 
     # Agents' shifts must not overlap with each other:
-    for t in range(num_tracks):  # N/A to extra Monday track.
-        for d in range(num_days):
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
             model.AddNoOverlap(v_tdh.loc[(t, d), "interval"].values.tolist())
-
-
-def constraint_configure_extra_Monday_track():
-    """Define the additional track running on Mondays 8-12."""
-    # Sum of all shifts in this track must equal 4 hours
-    # (i.e.) single shift of 4 hours:
-    model.Add(
-        sum(v_tdh.loc[(num_tracks, 0), "shift_duration"].values.tolist()) == 4
-    )
-
-    # This shift starts at 8 and ends at 12:
-    for h in agents_vet:
-        model.Add(
-            v_tdh.loc[(num_tracks, 0, h), "shift_start"] == 8
-        ).OnlyEnforceIf(v_tdh.loc[(num_tracks, 0, h), "is_agent_on"])
-        model.Add(
-            v_tdh.loc[(num_tracks, 0, h), "shift_end"] == 12
-        ).OnlyEnforceIf(v_tdh.loc[(num_tracks, 0, h), "is_agent_on"])
 
 
 def constraint_honour_agent_availability_veterans():
@@ -893,13 +859,8 @@ def constraint_honour_agent_availability_veterans():
     """
     # Note: AddBoolOr works with just one boolean as well, in which case that
     # boolean has to be true.
-    for t in range(num_tracks + 1):  # Applies to extra Monday track as well.
-        if t == num_tracks:
-            max_days = 1
-        else:
-            max_days = num_days
-
-        for d in range(max_days):
+    for t, track in enumerate(tracks):        
+        for d in range(track["start_day"], track["end_day"]+1):
             for h in agents_vet:
                 if not (h in unavailable_agents[d]):
                     model.AddBoolOr(v_tdh.loc[(t, d, h), "is_in_pref_range"])
@@ -924,14 +885,15 @@ def constraint_honour_agent_availability_veterans():
 
 def constraint_avoid_assigning_agent_multiple_tracks_per_day():
     """Ensure each veteran is scheduled in at most 1 track per day."""
+    day_occurrences = []
+    for track in tracks:
+        day_occurrences.extend(list(range(track["start_day"], track["end_day"]+1)))
+
     for d in range(num_days):
         for h in agents_vet:
             is_agent_on_list = []
-
-            if d == 0:  # Applies to extra Monday track as well.
-                max_tracks = num_tracks + 1
-            else:
-                max_tracks = num_tracks
+            
+            max_tracks = day_occurrences.count(d)
 
             for t in range(max_tracks):
                 is_agent_on_list.append(v_tdh.loc[(t, d, h), "is_agent_on"])
@@ -970,12 +932,12 @@ def constraint_various_custom_conditions():
     for agent in agents_with_max_shift_hours:
         handle = agent["handle"]
         hours = int(agent["value"])
-        for t in range(num_tracks):
-            for d in range(num_days):
-                if not (handle in unavailable_agents[d]):
-                    model.Add(v_tdh.loc[(t, d, handle), "shift_duration"] <= hours)
+        for t, track in enumerate(tracks):
+            for d in range(track["start_day"], track["end_day"]+1):
+                    if not (handle in unavailable_agents[d]):
+                        model.Add(v_tdh.loc[(t, d, handle), "shift_duration"] <= hours)
 
-    for agent in agents_with_max_shift_hours:
+    for agent in agents_with_min_week_hours:
         handle = agent["handle"]
         hours = int(agent["value"])
         if handle in df_agents.index:
@@ -1058,7 +1020,7 @@ def constraint_configure_mentoring():
             for m in v_mentors.columns:
                 is_mentor_on_list = []
 
-                for t in range(num_tracks):
+                for t in range(len(tracks)):
                     is_mentor_on_list.append(
                         v_tdh.loc[(t, d, m), "is_agent_on"]
                     )
@@ -1067,7 +1029,7 @@ def constraint_configure_mentoring():
                     v_mentors.loc[(d, h), m]
                 )
 
-                for t in range(num_tracks):
+                for t in range(len(tracks)):
                     # The mentor and onboarder start at the same time.
                     model.Add(
                         v_dh_on.loc[(d, h), "shift_start"]
@@ -1130,8 +1092,8 @@ def cost_total_agent_hours_for_week():
 
 def cost_number_of_handovers():
     """Define cost associated with number of support handovers taking place."""
-    for t in range(num_tracks):
-        for d in range(num_days):  # (N/A for extra Monday track.)
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
             model.Add(
                 v_td.loc[(t, d), "handover_cost"]
                 == coeff_handover
@@ -1141,13 +1103,8 @@ def cost_number_of_handovers():
 
 def cost_agent_history():
     """Define cost associated with veteran's historical support score."""
-    for t in range(num_tracks + 1):
-        if t == num_tracks:
-            max_days = 1
-        else:
-            max_days = num_days
-
-        for d in range(max_days):
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
             for h in agents_vet:
                 # Put toggles in place reflecting whether agent was assigned:
                 model.Add(
@@ -1173,13 +1130,8 @@ def cost_agent_history():
 
 def cost_shift_duration():
     """Define cost associated with the lengths of veterans' assigned shifts."""
-    for t in range(num_tracks + 1):
-        if t == num_tracks:
-            max_days = 1
-        else:
-            max_days = num_days
-
-        for d in range(max_days):
+    for t, track in enumerate(tracks):
+        for d in range(track["start_day"], track["end_day"]+1):
             for h in agents_vet:
                 # Define is_duration_shorter_than_ideal switch:
                 model.Add(
@@ -1235,15 +1187,10 @@ def cost_shift_duration():
 
 def cost_hours_veterans():
     """Define veterans' cost for assigned hours based on availability."""
-    for t in range(num_tracks + 1):  # Applicable to extra Monday track.
-        if t == num_tracks:
-            max_days = 1
-            max_hour = 12
-        else:
-            max_days = num_days
-            max_hour = end_hour
-
-        for d in range(max_days):
+    for t, track in enumerate(tracks):
+        start_hour = track["start_hour"]
+        max_hour = track["end_hour"]
+        for d in range(track["start_day"], track["end_day"]+1):
             for h in agents_vet:
                 for (s_count, s_cost) in enumerate(
                     df_agents.loc[h, "hours"][d][start_hour:max_hour]
@@ -1425,28 +1372,24 @@ def solve_model_and_extract_solution():
             day_dict["start_date"] = days[d]
             day_dict["shifts"] = []
 
-            if d == 0:
-                max_tracks = num_tracks + 1
-            else:
-                max_tracks = num_tracks
-
-            for t in range(max_tracks):
-                for h in agents_vet:
-                    if (
-                        solver.Value(v_tdh.loc[(t, d, h), "shift_duration"])
-                        != 0
-                    ):
-                        day_dict["shifts"].append(
-                            (
-                                h,
-                                solver.Value(
-                                    v_tdh.loc[(t, d, h), "shift_start"]
-                                ),
-                                solver.Value(
-                                    v_tdh.loc[(t, d, h), "shift_end"]
-                                ),
+            for t, track in enumerate(tracks):
+                if d in range(track["start_day"], track["end_day"] + 1):
+                    for h in agents_vet:
+                        if (
+                            solver.Value(v_tdh.loc[(t, d, h), "shift_duration"])
+                            != 0
+                        ):
+                            day_dict["shifts"].append(
+                                (
+                                    h,
+                                    solver.Value(
+                                        v_tdh.loc[(t, d, h), "shift_start"]
+                                    ),
+                                    solver.Value(
+                                        v_tdh.loc[(t, d, h), "shift_end"]
+                                    ),
+                                )
                             )
-                        )
 
             for h in agents_onb:
                 if solver.Value(v_dh_on.loc[(d, h), "shift_duration"]) != 0:
@@ -1482,7 +1425,7 @@ scheduler_options = input_json["options"]
 
 start_Monday = scheduler_options["startMondayDate"]
 num_days = int(scheduler_options["numConsecutiveDays"])
-num_tracks = int(scheduler_options["numSimultaneousTracks"])
+tracks = scheduler_options["tracks"]
 start_hour = int(scheduler_options["supportStartHour"])
 end_hour = int(scheduler_options["supportEndHour"])
 min_duration = int(scheduler_options["shiftMinDuration"])
@@ -1501,7 +1444,6 @@ for d in range(1, num_days):
     days.append(days[d - 1] + delta)
 
 [df_agents, df_nights] = setup_dataframes()
-
 [s_onboarding, s_mentors, s_new] = read_onboarding_files()
 
 # Determine unavailable agents for each day:
@@ -1552,7 +1494,7 @@ fill_var_dataframes_onboarding()
 # Implement constraints - veterans:
 constraint_new_agents_non_simultaneous()
 constraint_cover_num_tracks_without_overlapping()
-constraint_configure_extra_Monday_track()
+
 
 constraint_honour_agent_availability_veterans()
 constraint_avoid_assigning_agent_multiple_tracks_per_day()
