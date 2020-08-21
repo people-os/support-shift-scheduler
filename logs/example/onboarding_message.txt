@@ -1,0 +1,23 @@
+**Support agent onboarding next week**
+
+Each new onboarding agent has been paired with a senior support agent for each of their shifts. The senior agent will act as a mentor for the onboarding agents, showing them the ropes during these onboarding shifts (see the [onboarding document](https://github.com/balena-io/process/blob/master/process/support/onboarding_agents_to_support.md) for background). Here are the mentor-novice pairings for next week:
+
+**Onboarding on 2020-07-06**
+
+**Onboarding on 2020-07-07**
+@roman-mazur will mentor @mtoman
+@sradevski will mentor @vipulgupta2048
+
+**Onboarding on 2020-07-08**
+@chrisys will mentor @mpous
+@richbayliss will mentor @mtoman
+@sradevski will mentor @vipulgupta2048
+
+**Onboarding on 2020-07-09**
+@camerondiver will mentor @mpous
+@pdcastro will mentor @pipex
+
+**Onboarding on 2020-07-10**
+@thgreasi will mentor @pipex
+
+cc @GeorgiaTs

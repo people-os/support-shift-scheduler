@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Balena Ltd.
+ * Copyright 2020 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 require('dotenv').config();
-const Promise = require('bluebird');
 const fs = require('mz/fs');
 const _ = require('lodash');
 const { google } = require('googleapis');
 const { getAuthClient } = require('../lib/gauth');
-const { Validator, ValidationError } = require('jsonschema');
 const { validateJSONScheduleOutput } = require('../lib/validate-json');
 const TIMEZONE = 'Europe/London';
 

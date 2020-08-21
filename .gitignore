@@ -1,2 +1,5 @@
 .env
+/logs/*
+!/logs/example/
 node_modules/
+.vscode/*
