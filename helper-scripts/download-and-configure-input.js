@@ -40,15 +40,25 @@ const specialAgentConditions = {
 	agentsWithFixHours: ['@georgiats'],
 };
 
+// TRACKS to be used in the calendar.
+// Tracks are parallel shifts ocurring on the same day (3 agents at the same time need three tracks).
+// If shifts need to be scheduled after midnight
+const tracks = [
+	{ start_hour: 6, end_hour: 26, start_day: 0, end_day: 4 },
+	{ start_hour: 6, end_hour: 26, start_day: 0, end_day: 4 },
+	{ start_hour: 6, end_hour: 12, start_day: 0, end_day: 0 },
+];
+
 const SCHEDULE_OPTS = {
 	numConsecutiveDays: 5,
 	numSimultaneousTracks: 2,
-	supportStartHour: 8,
-	supportEndHour: 24,
+	supportStartHour: 6,
+	supportEndHour: 26,
 	shiftMinDuration: 2,
 	shiftMaxDuration: 8,
 	optimizationTimeout: 3600,
 	specialAgentConditions,
+	tracks,
 };
 
 /**
@@ -63,7 +73,7 @@ async function getData() {
 		const schedulerInput = await getSchedulerInput(
 			auth,
 			nextMondayDate,
-			SCHEDULE_OPTS.numConsecutiveDays
+			SCHEDULE_OPTS.numConsecutiveDays + 1
 		);
 		_.assign(schedulerInput.options, SCHEDULE_OPTS);
 		console.log(JSON.stringify(schedulerInput, null, 2));
