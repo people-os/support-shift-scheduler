@@ -99,7 +99,7 @@
           "type": "number"
         }
       },
-      "required": ["startMondayDate", "numConsecutiveDays", "numSimultaneousTracks", "supportStartHour", "supportEndHour", "shiftMinDuration", "shiftMaxDuration", "optimizationTimeout"]
+      "required": ["startMondayDate", "numConsecutiveDays", "supportStartHour", "supportEndHour", "shiftMinDuration", "shiftMaxDuration", "optimizationTimeout"]
     }
   },
   "required": [ "agents", "options" ]

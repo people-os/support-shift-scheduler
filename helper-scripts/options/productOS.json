@@ -1,0 +1,19 @@
+{
+    "modelName": "productOS",
+    "numConsecutiveDays": 5,
+    "supportStartHour": 8,
+    "supportEndHour": 17,
+    "slotsInDay": 26,
+    "shiftMinDuration": 2,
+    "shiftMaxDuration": 8,
+    "optimizationTimeout": 600,
+    "specialAgentConditions": {
+      "agentsWithMaxHoursShift": [],
+      "agentsWithMinHoursWeek": [],
+      "agentsWithFixHours": []
+    },
+    "tracks": [
+      { "start_hour": 8, "end_hour": 17, "start_day": 0, "end_day": 4 }
+    ]
+  }
+  
