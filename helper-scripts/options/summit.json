@@ -1,0 +1,24 @@
+{
+    "modelName": "summit",
+    "numConsecutiveDays": 5,
+    "numSimultaneousTracks": 2,
+    "supportStartHour": 6,
+    "supportEndHour": 26,
+    "slotsInDay": 26,
+    "shiftMinDuration": 2,
+    "shiftMaxDuration": 2,
+    "optimizationTimeout": 120,
+    "specialAgentConditions": {
+      "agentsWithMaxHoursShift": [],
+      "agentsWithMinHoursWeek": [
+        {
+          "handle": "@saintaardvark",
+          "value": 7
+        }
+      ],
+      "agentsWithFixHours": []
+    },
+    "tracks": [
+      { "start_hour": 6, "end_hour": 26, "start_day": 0, "end_day": 4 }
+    ]
+  }
