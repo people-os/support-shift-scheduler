@@ -27,10 +27,15 @@ function prettyDateStr(date) {
 }
 
 function prettyHourStr(hour) {
+	hour = hour / 2;
 	if (hour > 23) {
 		hour = hour - 24;
 	}
-	return `${_.padStart(hour, 2, '0')}:00`;
+	if ((hour * 10) % 10 === 0) {
+		return `${_.padStart(hour, 2, '0')}:00`;
+	} else {
+		return `${_.padStart(parseInt(hour, 10), 2, '0')}:30`;
+	}
 }
 
 /**
@@ -48,7 +53,7 @@ function writePrettifiedText(scheduleJSON) {
 
 		for (let shift of epoch.shifts) {
 			let agentName = shift.agent.replace(/ <.*>/, '');
-			let len = shift.end - shift.start;
+			let len = (shift.end - shift.start) / 2;
 			let startStr = prettyHourStr(shift.start);
 			let endStr = prettyHourStr(shift.end);
 			prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
