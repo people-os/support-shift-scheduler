@@ -35,17 +35,26 @@ async function readAndParseJSONSchedule(jsonPath) {
 	return jsonObject;
 }
 
+function prettyHourStr(date, hour) {
+	if ((hour * 10) % 10 === 0) {
+		return `${date}T${_.padStart(hour, 2, '0')}:00:00`;
+	} else {
+		return `${date}T${_.padStart(parseInt(hour, 10), 2, '0')}:30:00`;
+	}
+}
+
 function getDate(eventDate, eventHour) {
 	resultDateTime = '';
+	eventHour = eventHour / 2;
 
 	if (eventHour > 23) {
 		let finalDate = new Date(Date.parse(eventDate));
 		finalDate.setDate(finalDate.getDate() + 1);
 		finalDate = finalDate.toISOString().split('T')[0];
 		endHour = eventHour - 24;
-		resultDateTime = `${finalDate}T0${endHour}:00:00`;
+		resultDateTime = prettyHourStr(finalDate, endHour);
 	} else {
-		resultDateTime = `${eventDate}T${_.padStart(eventHour, 2, '0')}:00:00`;
+		resultDateTime = prettyHourStr(eventDate, eventHour);
 	}
 
 	return resultDateTime;
