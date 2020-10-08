@@ -3,4 +3,5 @@
 !/logs/example/
 node_modules/
 .vscode/*
-algo-core/__pycache__/*
+*/__pycache__/
+.idea/*

@@ -24,7 +24,7 @@
   },
   "tracks": [
     { "start_hour": 6, "end_hour": 26, "start_day": 0, "end_day": 4 },
-    { "start_hour": 6, "end_hour": 26, "start_day": 0, "end_day": 4 },
+    { "start_hour": 6, "end_hour": 24, "start_day": 0, "end_day": 4 },
     { "start_hour": 6, "end_hour": 12, "start_day": 0, "end_day": 0 }
   ]
 }

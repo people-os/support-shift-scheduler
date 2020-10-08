@@ -10,10 +10,10 @@ import pandas as pd
 filename_onboarding = "onboarding_agents.txt"
 filename_mentors = "mentors.txt"
 filename_new = "new_agents.txt"
-input_folder = ""
+input_folder = Path()
 
-def get_project_root() -> str:
-    return str(Path(__file__).parent.parent)
+def get_project_root() -> Path:
+    return Path(__file__).parent.parent
 
 
 def parse_json_input():
@@ -28,25 +28,29 @@ def parse_json_input():
     input_filename = args.input.strip()
 
     # Testing (define input directly):
-    # input_filename = 'support-shift-scheduler-input.json'
+    # input_filename = "support-shift-scheduler-input.json"
 
     # Load and validate JSON input:
     input_json = json.load(open(input_filename))
-    input_json_schema = json.load(
-        open(get_project_root() + "/lib/schemas/support-shift-scheduler-input.schema.json")
-    )
+    path_to_schema = Path(get_project_root(), "lib", "schemas" , "support-shift-scheduler-input.schema.json")
+    input_json_schema = json.load(open(path_to_schema))
     try:
         jsonschema.validate(input_json, input_json_schema)
     except jsonschema.exceptions.ValidationError as err:
         print("Input JSON validation error", err)
         sys.exit(1)
 
-    input_folder = get_project_root() + '/logs/' + input_json["options"]["startMondayDate"] + '_' + input_json["options"]["modelName"] + '/'
+    input_folder = Path(get_project_root(), "logs" , f"{input_json['options']['startMondayDate']}_{input_json['options']['modelName']}")
 
     return input_json
 
+def tracks_hours_to_slots(tracks):
+    for track in tracks:
+        track["start_slot"] = track["start_hour"] * 2
+        track["end_slot"] = track["end_hour"] * 2
+    return tracks
 
-def hours_to_range(week_hours, end_hour):
+def slots_to_range(week_hours, end_hour):
     """Convert per-hour availability flags into ranges format."""
     week_ranges = []
 
@@ -91,7 +95,7 @@ def print_final_schedules(schedule_results, df_agents, num_days):
     output_json = []
 
     for epoch in schedule_results:
-        # Substitute agent info from 'handle' to 'handle <email>'
+        # Substitute agent info from "handle" to "handle <email>"
         shifts = []
 
         for (name, start, end) in epoch["shifts"]:
@@ -107,8 +111,7 @@ def print_final_schedules(schedule_results, df_agents, num_days):
         output_json.append(day_dict)
 
     output_json_schema = json.load(
-        open(get_project_root() + "/lib/schemas/support-shift-scheduler-output.schema.json")
-        )
+        open(Path(get_project_root(), "lib", "schemas", "support-shift-scheduler-output.schema.json")))
 
     try:
         jsonschema.validate(output_json, output_json_schema)
@@ -118,7 +121,7 @@ def print_final_schedules(schedule_results, df_agents, num_days):
 
     print("\nSuccessfully validated JSON output.")
 
-    with open(input_folder + "support-shift-scheduler-output.json", "w") as outfile:
+    with open(Path(input_folder, "support-shift-scheduler-output.json"), "w") as outfile:
         outfile.write(json.dumps(output_json, indent=4))
 
     return output_json
@@ -127,24 +130,18 @@ def print_final_schedules(schedule_results, df_agents, num_days):
 def read_onboarding_files():
     """Read agent handles from onboarding-related files into pandas series."""
 
-    if Path(input_folder + filename_onboarding).exists():
-        ser_o = pd.read_csv(
-            input_folder + filename_onboarding, squeeze=True, header=None, names=["agents"]
-        )
+    if (path := Path(input_folder, filename_onboarding)).exists():
+        ser_o = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
     else:
         ser_o = pd.Series(data=None, name="agents", dtype="str")
 
-    if Path(input_folder + filename_onboarding).exists():
-        ser_m = pd.read_csv(
-            input_folder + filename_mentors, squeeze=True, header=None, names=["agents"]
-        )
+    if (path := Path(input_folder, filename_mentors)).exists():
+        ser_o = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
     else:
         ser_m = pd.Series(data=None, name="agents", dtype="str")
 
-    if Path(input_folder + filename_new).exists():
-        ser_n = pd.read_csv(
-            input_folder + filename_new, squeeze=True, header=None, names=["agents"]
-        )
+    if (path := Path(input_folder, filename_new)).exists():
+        ser_n = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
     else:
         ser_n = pd.Series(data=None, name="agents", dtype="str")
 
