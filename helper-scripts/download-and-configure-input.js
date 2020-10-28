@@ -40,7 +40,8 @@ async function getData(supportModel) {
 			auth,
 			nextMondayDate,
 			scheduleOpts.numConsecutiveDays + 1,
-			supportModel
+			supportModel,
+			scheduleOpts.slotsInDay
 		);
 		_.assign(schedulerInput.options, scheduleOpts);
 		console.log(JSON.stringify(schedulerInput, null, 2));

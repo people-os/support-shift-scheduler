@@ -604,7 +604,9 @@ def constraint_various_custom_conditions():
 
     agents_with_max_shift_hours = scheduler_options["specialAgentConditions"]["agentsWithMaxHoursShift"]
     agents_with_min_week_hours = scheduler_options["specialAgentConditions"]["agentsWithMinHoursWeek"]
+    agents_with_max_week_hours = scheduler_options["specialAgentConditions"]["agentsWithMaxHoursWeek"]
 
+    # Maximum hours per shift
     for agent in agents_with_max_shift_hours:
         handle = agent["handle"]
         slots = int(agent["value"] * 2)
@@ -613,6 +615,7 @@ def constraint_various_custom_conditions():
                 if not (handle in unavailable_agents[d]):
                     model.Add(v_tdh.loc[(t, d, handle), "shift_duration"] <= slots)
 
+    # Minimum hours per week
     for agent in agents_with_min_week_hours:
         handle = agent["handle"]
         slots = int(agent["value"] * 2)
@@ -629,6 +632,25 @@ def constraint_various_custom_conditions():
             model.Add(
                 v_h.loc[handle, "total_week_slots"]
                 >= agent_weekly_lower_limit
+            )
+
+    #Maximum hours per week
+    for agent in agents_with_max_week_hours:
+        handle = agent["handle"]
+        slots = int(agent["value"] * 2)
+        if handle in df_agents.index:
+            agent_daily_quota = slots / 5  # slots per week converted to per day
+            agent_weekly_lower_limit = 0
+
+            for d in range(num_days):
+                if not (handle in unavailable_agents[d]):
+                    agent_weekly_lower_limit += agent_daily_quota
+
+            agent_weekly_lower_limit = round(agent_weekly_lower_limit)
+
+            model.Add(
+                v_h.loc[handle, "total_week_slots"]
+                <= agent_weekly_lower_limit
             )
 
 

@@ -101,7 +101,7 @@ if (args.length != 1) {
 
 // Load JSON object from output file:
 const jsonPath = args[0];
-const jsonObject = JSON.parse(fs.readFileSync(jsonPath));
+const outputJsonObject = JSON.parse(fs.readFileSync(jsonPath));
 
 // Write beautified-schedule.txt and flowdock-message.txt:
-writePrettifiedText(jsonObject);
+writePrettifiedText(outputJsonObject);
