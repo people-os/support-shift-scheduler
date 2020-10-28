@@ -3,13 +3,20 @@
     "numConsecutiveDays": 5,
     "supportStartHour": 8,
     "supportEndHour": 17,
-    "slotsInDay": 26,
+    "slotsInDay": 24,
     "shiftMinDuration": 2,
     "shiftMaxDuration": 8,
     "optimizationTimeout": 600,
     "specialAgentConditions": {
       "agentsWithMaxHoursShift": [],
-      "agentsWithMinHoursWeek": [],
+      "agentsWithMinHoursWeek": [],    
+      "agentsWithMaxHoursWeek": [
+        {
+          "handle": "@joshbwlng",
+          "value": 2
+        }
+      ],
+  
       "agentsWithFixHours": []
     },
     "tracks": [
