@@ -108,7 +108,7 @@ async function createEvents(jsonPath, modelName) {
 			shiftsObject,
 			isProductOS
 		);
-		const authClient = await getAuthClient(isProductOS ? 'token' : 'JWT');
+		const authClient = await getAuthClient(modelName);
 		const calendar = google.calendar({ version: 'v3' });
 		const eventIDs = [];
 
