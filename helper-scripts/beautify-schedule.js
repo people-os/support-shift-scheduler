@@ -46,10 +46,14 @@ function writePrettifiedText(scheduleJSON) {
 	// Write pretty schedule, to be used for sanity check:
 	let agentHours = {};
 	let prettySchedule = '';
+	let dailyAgents = [];
 
 	for (let epoch of scheduleJSON) {
 		let startDate = new Date(epoch.start_date);
 		prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`;
+		let hours = [];
+		hours.length = 27;
+		hours.fill(0);
 
 		for (let shift of epoch.shifts) {
 			let agentName = shift.agent.replace(/ <.*>/, '');
@@ -59,7 +63,18 @@ function writePrettifiedText(scheduleJSON) {
 			prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
 			agentHours[agentName] = agentHours[agentName] || 0;
 			agentHours[agentName] += len;
+			for (let i = shift.start; i < shift.end; i++) {
+				if (i % 2 === 0) {
+					const h = i / 2;
+					hours[h] = hours[h] + 0.5;
+				} else {
+					const h = (i - 1) / 2;
+					hours[h] = hours[h] + 0.5;
+				}
+			}
 		}
+
+		dailyAgents.push({ day: startDate, hours });
 	}
 	prettySchedule += `\n#rollcall\n\n`;
 	prettySchedule += 'Support hours\n-------------\n';
@@ -75,6 +90,31 @@ function writePrettifiedText(scheduleJSON) {
 	for (let agent of agentHoursList) {
 		let handle = agent.handle.replace(/@/, '').replace(/ <.*>/, '');
 		prettySchedule += `${handle}: ${agent.hours}\n`;
+	}
+
+	let header = ' ';
+
+	dailyAgents.forEach(
+		da => (header = header.concat('\t\t', dateformat(da.day, 'ddd')))
+	);
+
+	prettySchedule += '\n\nAgents per day \n\n';
+	prettySchedule += header;
+
+	for (let i = 0; i < 27; i++) {
+		prettySchedule += '\n'.concat(
+			i < 24 ? i : i - 24,
+			'\t\t',
+			dailyAgents[0].hours[i],
+			'\t\t',
+			dailyAgents[1].hours[i],
+			'\t\t',
+			dailyAgents[2].hours[i],
+			'\t\t',
+			dailyAgents[3].hours[i],
+			'\t\t',
+			dailyAgents[4].hours[i]
+		);
 	}
 
 	fs.writeFile('beautified-schedule.txt', prettySchedule, 'utf8', err => {});
