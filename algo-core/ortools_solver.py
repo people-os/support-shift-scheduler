@@ -542,7 +542,15 @@ def constraint_cover_num_tracks_without_overlapping():
             # Since different starting and ending slot throughout tracks,
             # avoid scheduling outside tracks slots
             for h in agents_vet:
-                model.Add(v_tdh.loc[(t, d, h), "shift_end"] <= track["end_slot"])
+                # Lower limit:
+                model.Add(
+                    v_tdh.loc[(t, d, h), "shift_start"] >= track["start_slot"]
+                ).OnlyEnforceIf(v_tdh.loc[(t, d, h), "is_agent_on"])
+
+                # Upper limit:
+                model.Add(
+                    v_tdh.loc[(t, d, h), "shift_end"] <= track["end_slot"]
+                ).OnlyEnforceIf(v_tdh.loc[(t, d, h), "is_agent_on"])
 
     # Agents' shifts must not overlap with each other:
     for t, track in enumerate(tracks):
