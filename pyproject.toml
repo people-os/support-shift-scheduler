@@ -6,7 +6,7 @@ authors = ["AlidaOdendaal <alida@balena.io>"]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 pandas = "^1.0.5"
 ortools = "^7.7.7810"
 python_dateutil = "^2.8.1"
