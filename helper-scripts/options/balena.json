@@ -8,12 +8,7 @@
   "shiftMaxDuration": 8,
   "optimizationTimeout": 3600,
   "specialAgentConditions": {
-    "agentsWithMaxHoursShift": [
-      {
-        "handle": "@samothx",
-        "value": 4
-      }
-    ],
+    "agentsWithMaxHoursShift": [],
     "agentsWithMinHoursWeek": [],
     "agentsWithMaxHoursWeek": [],
     "agentsWithFixHours": ["@georgiats"]
