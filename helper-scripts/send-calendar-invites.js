@@ -47,7 +47,7 @@ function getDate(eventDate, eventHour) {
 	resultDateTime = '';
 	eventHour = eventHour / 2;
 
-	if (eventHour > 23) {
+	if (eventHour >= 24) {
 		let finalDate = new Date(Date.parse(eventDate));
 		finalDate.setDate(finalDate.getDate() + 1);
 		finalDate = finalDate.toISOString().split('T')[0];
