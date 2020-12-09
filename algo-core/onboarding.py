@@ -1,9 +1,9 @@
 import pandas as pd
 from ortools.sat.python import cp_model
 
-# Onboarding:
-onboarding_shift_length = 4
-onboarding_weekly_hours = 8
+# Onboarding (given in terms of number of 30-min slots):
+onboarding_shift_length = 8
+onboarding_weekly_hours = 16
 
 
 def tracks_in_day(d: int, tracks):
@@ -71,15 +71,15 @@ def setup_var_dataframes_onboarding(number_days, agents_onboarding, agents_mento
         columns=[
             "is_start_smaller_equal_hour",
             "is_end_greater_than_hour",
-            "is_hour_cost",
-            "hour_cost",
+            "is_slot_cost",
+            "slot_cost",
         ],
     )
     return v_mentors, v_h_on, v_dh_on, v_dhs_on
 
 
 def fill_var_dataframes_onboarding(model, agents_mentors, week_working_hours, unavailable_agents, d_prefs,
-                                   df_agents, d_hour_cost):
+                                   df_agents, d_slot_cost):
     """Fill onboarding variable dataframes with OR-Tools model variables."""
     # Onboarding mentors:
     for d in range(num_days):
@@ -138,7 +138,7 @@ def fill_var_dataframes_onboarding(model, agents_mentors, week_working_hours, un
 
             v_dh_on.loc[(d, h), "is_in_pref_range"] = [
                 model.NewBoolVar(f"is_in_pref_range_{d}_{h}_{j}")
-                for (j, sec) in enumerate(df_agents.loc[h, "hour_ranges"][d])
+                for (j, sec) in enumerate(df_agents.loc[h, "slot_ranges"][d])
             ]
 
     # dhs - onboarding:
@@ -155,14 +155,14 @@ def fill_var_dataframes_onboarding(model, agents_mentors, week_working_hours, un
                     (d, h, s), "is_end_greater_than_hour"
                 ] = model.NewBoolVar(f"is_end_greater_than_hour_{d}_{h}_{s}")
 
-                v_dhs_on.loc[(d, h, s), "is_hour_cost"] = model.NewBoolVar(
-                    f"is_hour_cost_{d}_{h}_{s}"
+                v_dhs_on.loc[(d, h, s), "is_slot_cost"] = model.NewBoolVar(
+                    f"is_slot_cost_{d}_{h}_{s}"
                 )
 
                 v_dhs_on.loc[
-                    (d, h, s), "hour_cost"
+                    (d, h, s), "slot_cost"
                 ] = model.NewIntVarFromDomain(
-                    d_hour_cost, f"hour_cost_{d}_{h}_{s}"
+                    d_slot_cost, f"slot_cost_{d}_{h}_{s}"
                 )
     return model
 #
@@ -190,7 +190,7 @@ def constraint_honour_agent_availability_onboarding(model, unavailable_agents, d
             if not (h in unavailable_agents[d]):
                 model.AddBoolOr(v_dh_on.loc[(d, h), "is_in_pref_range"])
 
-                for (j, sec) in enumerate(df_agents.loc[h, "hour_ranges"][d]):
+                for (j, sec) in enumerate(df_agents.loc[h, "slot_ranges"][d]):
 
                     model.Add(
                         v_dh_on.loc[(d, h), "shift_start"] >= sec[0]
@@ -324,7 +324,7 @@ def cost_hours_onboarding(model, df_agents, coeff_non_preferred):
     for d in range(num_days):
         for h in agents_onb:
             for (s_count, s_cost) in enumerate(
-                df_agents.loc[h, "hours"][d][start_hour:end_hour]
+                df_agents.loc[h, "slots"][d][start_hour:end_hour]
             ):
                 s = s_count + start_hour
 
@@ -353,7 +353,7 @@ def cost_hours_onboarding(model, df_agents, coeff_non_preferred):
                         v_dhs_on.loc[(d, h, s), "is_start_smaller_equal_hour"],
                         v_dhs_on.loc[(d, h, s), "is_end_greater_than_hour"],
                     ]
-                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_hour_cost"])
+                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_slot_cost"])
 
                 model.AddBoolOr(
                     [
@@ -364,16 +364,16 @@ def cost_hours_onboarding(model, df_agents, coeff_non_preferred):
                             (d, h, s), "is_end_greater_than_hour"
                         ].Not(),
                     ]
-                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_hour_cost"].Not())
+                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_slot_cost"].Not())
                 # For "preferred", (s_cost - 1) = 0, so no hourly cost.
                 # For "non-preferred", (s_cost - 1) = 1.
                 model.Add(
-                    v_dhs_on.loc[(d, h, s), "hour_cost"]
+                    v_dhs_on.loc[(d, h, s), "slot_cost"]
                     == coeff_non_preferred * (s_cost - 1)
-                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_hour_cost"])
+                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_slot_cost"])
 
                 model.Add(
-                    v_dhs_on.loc[(d, h, s), "hour_cost"] == 0
-                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_hour_cost"].Not())
+                    v_dhs_on.loc[(d, h, s), "slot_cost"] == 0
+                ).OnlyEnforceIf(v_dhs_on.loc[(d, h, s), "is_slot_cost"].Not())
 
     return model

@@ -136,7 +136,7 @@ def read_onboarding_files():
         ser_o = pd.Series(data=None, name="agents", dtype="str")
 
     if (path := Path(input_folder, filename_mentors)).exists():
-        ser_o = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
+        ser_m = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
     else:
         ser_m = pd.Series(data=None, name="agents", dtype="str")
 
