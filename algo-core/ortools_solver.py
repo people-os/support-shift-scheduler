@@ -930,19 +930,19 @@ def solve_model_and_extract_solution():
                                 )
                             )
 
-                for h in agents_onb:
-                    if solver.Value(v_dh_on.loc[(d, h), "shift_duration"]) != 0:
-                        day_dict["shifts"].append(
-                            (
-                                h,
-                                solver.Value(v_dh_on.loc[(d, h), "shift_start"]),
-                                solver.Value(v_dh_on.loc[(d, h), "shift_end"]),
-                            )
+            for h in agents_onb:
+                if solver.Value(v_dh_on.loc[(d, h), "shift_duration"]) != 0:
+                    day_dict["shifts"].append(
+                        (
+                            h,
+                            solver.Value(v_dh_on.loc[(d, h), "shift_start"]),
+                            solver.Value(v_dh_on.loc[(d, h), "shift_end"]),
                         )
+                    )
 
-                    for m in v_mentors.columns:
-                        if solver.Value(v_mentors.loc[(d, h), m]) == 1:
-                            o_file.write(f"\n{m} will mentor {h}")
+                for m in v_mentors.columns:
+                    if solver.Value(v_mentors.loc[(d, h), m]) == 1:
+                        o_file.write(f"\n{m} will mentor {h}")
 
             schedule_results.append(day_dict)
         if len(agents_onb) > 0:
