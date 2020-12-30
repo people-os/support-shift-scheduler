@@ -240,10 +240,9 @@ def constraint_avoid_onboarding_before_Monday_1400(model):
     """
     # Constraint: There will be no onboarding on Mondays (d=0) before 14:00:
     for h in agents_onb:
-        model.Add(v_dh_on.loc[(0, h), "shift_start"] >= 14).OnlyEnforceIf(
+        model.Add(v_dh_on.loc[(0, h), "shift_start"] >= 28).OnlyEnforceIf(
             v_dh_on.loc[(0, h), "is_agent_on"]
         )
-
     return model
 
 
