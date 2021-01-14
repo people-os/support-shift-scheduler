@@ -897,7 +897,7 @@ def solve_model_and_extract_solution():
                 "support agent for each of their shifts. The senior agent "
                 "will act as a mentor for the onboarding agents, showing "
                 "them the ropes during these onboarding shifts (see the "
-                "[onboarding document]: "
+                "[onboarding document]"
                 "(https://github.com/balena-io/process/blob/master/process/support/onboarding_agents_to_support.md) "
                 "for background). Here are the mentor-novice pairings "
                 "for next week:"
