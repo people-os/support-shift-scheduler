@@ -6,12 +6,12 @@
   "slotsInDay": 27,
   "shiftMinDuration": 2,
   "shiftMaxDuration": 8,
-  "optimizationTimeout": 3600,
+  "optimizationTimeout": 7200,
   "specialAgentConditions": {
     "agentsWithMaxHoursShift": [],
     "agentsWithMinHoursWeek": [],
     "agentsWithMaxHoursWeek": [],
-    "agentsWithFixHours": ["@georgiats"]
+    "agentsWithFixHours": []
   },
   "tracks": [
     { "start_hour": 6, "end_hour": 27, "start_day": 0, "end_day": 4 },
