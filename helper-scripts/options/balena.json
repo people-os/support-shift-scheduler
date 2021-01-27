@@ -9,7 +9,12 @@
   "optimizationTimeout": 7200,
   "specialAgentConditions": {
     "agentsWithMaxHoursShift": [],
-    "agentsWithMinHoursWeek": [],
+    "agentsWithMinHoursWeek": [
+      {
+        "handle": "@georgiats",
+        "value": 7
+      }
+    ],
     "agentsWithMaxHoursWeek": [],
     "agentsWithFixHours": []
   },
