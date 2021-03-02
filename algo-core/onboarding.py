@@ -3,7 +3,7 @@ from ortools.sat.python import cp_model
 
 # Onboarding (given in terms of number of 30-min slots):
 onboarding_shift_length = 8
-onboarding_weekly_hours = 16
+onboarding_weekly_hours = 8
 
 
 def tracks_in_day(d: int, tracks):
