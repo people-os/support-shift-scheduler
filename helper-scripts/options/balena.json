@@ -15,7 +15,36 @@
         "value": 7
       }
     ],
-    "agentsWithMaxHoursWeek": [],
+    "agentsWithMaxHoursWeek": [
+      {
+        "handle": "@alisondavis17",
+        "value": 4
+      },
+      {
+        "handle": "@joehounsham",
+        "value": 4
+      },
+      {
+        "handle": "@rosswesleyporter",
+        "value": 4
+      },
+      {
+        "handle": "@kenna-smith",
+        "value": 4
+      },
+      {
+        "handle": "@notnamed",
+        "value": 4
+      },
+      {
+        "handle": "@rmorillo24",
+        "value": 4
+      },
+      {
+        "handle": "@szony",
+        "value": 4
+      }
+    ],
     "agentsWithFixHours": []
   },
   "tracks": [
