@@ -1,0 +1,55 @@
+{
+  "modelName": "balena",
+  "numConsecutiveDays": 5,
+  "supportStartHour": 6,
+  "supportEndHour": 27,
+  "slotsInDay": 27,
+  "shiftMinDuration": 2,
+  "shiftMaxDuration": 8,
+  "optimizationTimeout": 7200,
+  "specialAgentConditions": {
+    "agentsWithMaxHoursShift": [],
+    "agentsWithMinHoursWeek": [
+      {
+        "handle": "@georgiats",
+        "value": 7
+      }
+    ],
+    "agentsWithMaxHoursWeek": [
+      {
+        "handle": "@alisondavis17",
+        "value": 4
+      },
+      {
+        "handle": "@joehounsham",
+        "value": 4
+      },
+      {
+        "handle": "@rosswesleyporter",
+        "value": 4
+      },
+      {
+        "handle": "@kenna-smith",
+        "value": 4
+      },
+      {
+        "handle": "@notnamed",
+        "value": 4
+      },
+      {
+        "handle": "@rmorillo24",
+        "value": 4
+      },
+      {
+        "handle": "@szony",
+        "value": 4
+      }
+    ],
+    "agentsWithFixHours": []
+  },
+  "tracks": [
+    { "start_hour": 6, "end_hour": 27, "start_day": 0, "end_day": 4 },
+    { "start_hour": 8, "end_hour": 20, "start_day": 0, "end_day": 4 },
+    { "start_hour": 12, "end_hour": 17, "start_day": 0, "end_day": 4 }
+  ]
+}
