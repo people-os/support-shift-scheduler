@@ -65,7 +65,7 @@ function getDate(eventDate, eventHour) {
  * @param  {object}   shiftsObject   Shifts optimized by scheduling algorithm
  * @return {array}                   Array of events resources to be passed to Google Calendar API.
  */
-async function createEventResourceArray(shiftsObject, isProductOS) {
+async function createEventResourceArray(shiftsObject, supportName) {
 	const returnArray = [];
 	for (const epoch of shiftsObject) {
 		const date = epoch.start_date;
@@ -74,9 +74,7 @@ async function createEventResourceArray(shiftsObject, isProductOS) {
 			let [handle, email] = shift.agent.split(' ');
 			email = email.match(new RegExp(/<(.*)>/))[1];
 
-			const supportName = isProductOS ? 'ProductOS support' : 'support';
-
-			eventResource.summary = `${handle} on ${supportName}`;
+			eventResource.summary = `${handle} on ${supportName} support`;
 			eventResource.description =
 				'Resources on support: ' + process.env.SUPPORT_RESOURCES;
 			eventResource.start = {
@@ -100,26 +98,25 @@ async function createEventResourceArray(shiftsObject, isProductOS) {
  * Load JSON object containing optimized schedule from file, and write to Support schedule Google Calendar, saving ID's of created events for reference.
  * @param  {string}   jsonPath   Path to JSON output of scheduling algorithm
  */
-async function createEvents(jsonPath, modelName) {
-	const isProductOS = modelName === 'productOS';
+async function createEvents(jsonPath, supportName) {
+	const support = JSON.parse(
+		fs.readFileSync('helper-scripts/options/' + supportName + '.json')
+	);
+
 	try {
 		const shiftsObject = await readAndParseJSONSchedule(jsonPath);
 		const eventResourceArray = await createEventResourceArray(
 			shiftsObject,
-			isProductOS
+			supportName
 		);
-		const authClient = await getAuthClient(modelName);
+		const authClient = await getAuthClient(support);
 		const calendar = google.calendar({ version: 'v3' });
 		const eventIDs = [];
-
-		const calendarId = isProductOS
-			? process.env.PRODUCT_OS_CALENDAR_ID
-			: process.env.BALENA_CALENDAR_ID;
 
 		for (const eventResource of eventResourceArray) {
 			const eventResponse = await calendar.events.insert({
 				auth: authClient,
-				calendarId,
+				calendarId: support.calendarID,
 				conferenceDataVersion: 1,
 				sendUpdates: 'all',
 				resource: eventResource,
@@ -127,7 +124,7 @@ async function createEvents(jsonPath, modelName) {
 			const summary = `${eventResponse.data.summary} ${eventResponse.data.start.dateTime}`;
 			console.log(
 				'Event created: %s - %s',
-				eventResponse.data.summary,
+				summary,
 				eventResponse.data.htmlLink
 			);
 			eventIDs.push(eventResponse.data.id);
@@ -150,7 +147,7 @@ if (args.length != 2) {
 	process.exit(1);
 }
 const jsonPath = args[0];
-const modelName = args[1];
+const supportName = args[1];
 
 // Derive path for output:
 let logsFolder = '';
@@ -161,4 +158,4 @@ if (jsonPath.indexOf('/') === -1) {
 }
 
 // Create calendar events:
-createEvents(jsonPath, modelName);
+createEvents(jsonPath, supportName);

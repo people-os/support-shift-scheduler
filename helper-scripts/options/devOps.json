@@ -1,0 +1,24 @@
+{
+    "modelName": "devOps",
+    "numConsecutiveDays": 5,
+    "supportStartHour": 3,
+    "supportEndHour": 27,
+    "slotsInDay": 27,
+    "shiftMinDuration": 4,
+    "shiftMaxDuration": 8,
+    "optimizationTimeout": 600,
+    "logSheet": "1CcyoRGVXA8D-zfQG7sn0lZkw0GxsfVBxpR5eV1Uymyw",
+    "calendarID":"c_ktn7k7hgb826l18mll4ilpjbl8@group.calendar.google.com",
+    "useServiceAccount": false,
+    "specialAgentConditions": {
+      "agentsWithMaxHoursShift": [],
+      "agentsWithMinHoursWeek": [],    
+      "agentsWithMaxHoursWeek": [],
+  
+      "agentsWithFixHours": []
+    },
+    "tracks": [
+      { "start_hour": 3, "end_hour": 27, "start_day": 0, "end_day": 4 }
+    ]
+  }
+  
