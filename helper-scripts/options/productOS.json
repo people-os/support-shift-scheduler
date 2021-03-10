@@ -7,6 +7,9 @@
     "shiftMinDuration": 2,
     "shiftMaxDuration": 8,
     "optimizationTimeout": 600,
+    "logSheet": "1ABUWJZaSMfUSWZ8mux4SzXxiVaED7-UcsUcCKZ-Xv30",
+    "calendarID":"c_2dg02cmijv3j0lvseujj5ioepg@group.calendar.google.com",
+    "useServiceAccount": false,
     "specialAgentConditions": {
       "agentsWithMaxHoursShift": [],
       "agentsWithMinHoursWeek": [],    

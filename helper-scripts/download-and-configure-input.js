@@ -26,30 +26,28 @@ const { validateJSONScheduleInput } = require('../lib/validate-json');
 /**
  * Read and configure input data from Google Sheets, and save as JSON object
  */
-async function getData(supportModel) {
-	const scheduleOpts = JSON.parse(
-		fs.readFileSync('helper-scripts/options/' + supportModel + '.json')
+async function getData(supportName) {
+	const support = JSON.parse(
+		fs.readFileSync('helper-scripts/options/' + supportName + '.json')
 	);
 
 	try {
-		const auth = await getAuthClient(supportModel);
+		const auth = await getAuthClient(support);
 		const parsedNextCycleDates = await getNextCycleDates(auth);
 		const nextMondayDate = parsedNextCycleDates.support;
 
 		const schedulerInput = await getSchedulerInput(
 			auth,
 			nextMondayDate,
-			scheduleOpts.numConsecutiveDays + 1,
-			supportModel,
-			scheduleOpts.slotsInDay
+			support
 		);
-		_.assign(schedulerInput.options, scheduleOpts);
+		_.assign(schedulerInput.options, support);
 		console.log(JSON.stringify(schedulerInput, null, 2));
 		const schedulerInputValidation = await validateJSONScheduleInput(
 			schedulerInput
 		);
 
-		const fileDir = `./logs/${nextMondayDate}_` + supportModel;
+		const fileDir = `./logs/${nextMondayDate}_` + supportName;
 		await mkdirp(fileDir);
 
 		await fs.writeFile(
