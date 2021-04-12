@@ -4,7 +4,7 @@
     "supportStartHour": 8,
     "supportEndHour": 17,
     "slotsInDay": 24,
-    "shiftMinDuration": 2,
+    "shiftMinDuration": 1,
     "shiftMaxDuration": 8,
     "optimizationTimeout": 600,
     "logSheet": "1ABUWJZaSMfUSWZ8mux4SzXxiVaED7-UcsUcCKZ-Xv30",
@@ -13,13 +13,7 @@
     "specialAgentConditions": {
       "agentsWithMaxHoursShift": [],
       "agentsWithMinHoursWeek": [],    
-      "agentsWithMaxHoursWeek": [
-        {
-          "handle": "@joshbwlng",
-          "value": 2
-        }
-      ],
-  
+      "agentsWithMaxHoursWeek": [],
       "agentsWithFixHours": []
     },
     "tracks": [
