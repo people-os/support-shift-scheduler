@@ -46,7 +46,23 @@
       {
         "handle": "@szony",
         "value": 4
-      }
+      },
+      {
+        "handle": "@jazzagi",
+        "value": 4
+      },
+      {
+        "handle": "@konmouz",
+        "value": 4
+      },        
+      {
+        "handle": "@andrewnhem",
+        "value": 4
+      },        
+      {
+        "handle": "@shawaj",
+        "value": 4
+      }   
     ],
     "agentsWithFixHours": []
   },
