@@ -28,7 +28,7 @@ const { validateJSONScheduleInput } = require('../lib/validate-json');
  */
 async function getData(supportName) {
 	const support = JSON.parse(
-		fs.readFileSync('helper-scripts/options/' + supportName + '.json'),
+		fs.readFileSync('helper-scripts/options/' + supportName + '.json', 'utf8'),
 	);
 
 	try {
@@ -43,9 +43,7 @@ async function getData(supportName) {
 		);
 		_.assign(schedulerInput.options, support);
 		console.log(JSON.stringify(schedulerInput, null, 2));
-		const schedulerInputValidation = await validateJSONScheduleInput(
-			schedulerInput,
-		);
+		await validateJSONScheduleInput(schedulerInput);
 
 		const fileDir = `./logs/${nextMondayDate}_` + supportName;
 		await mkdirp(fileDir);
