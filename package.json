@@ -27,7 +27,6 @@
     "bluebird": "^3.7.2",
     "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
-    "fs": "0.0.1-security",
     "googleapis": "^45.0.0",
     "jsonschema": "^1.4.0",
     "lodash": "^4.17.21",
