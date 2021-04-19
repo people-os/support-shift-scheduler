@@ -29,7 +29,7 @@
     "fs": "0.0.1-security",
     "googleapis": "^45.0.0",
     "jsonschema": "^1.2.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "log": "^6.0.0",
     "mkdirp": "^0.5.1",
     "mz": "^2.7.0",
