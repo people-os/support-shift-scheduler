@@ -18,13 +18,13 @@
             "description": "Shift start (UK time)",
             "type": "number",
             "minimum": 0,
-            "maximum": 378
+            "maximum": 288
           },
           "end": {
             "description": "Shift end (UK time)",
             "type": "number",
             "minimum": 0,
-            "maximum": 378
+            "maximum": 288
           }
         },
         "required": [ "agent", "start", "end" ]

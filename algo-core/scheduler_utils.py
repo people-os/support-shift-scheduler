@@ -54,43 +54,42 @@ def slots_to_range(week_hours, end_hour):
     """Convert per-hour availability flags into ranges format."""
     week_ranges = []
 
-    for day_hours in week_hours:
-        day_ranges = []
-        start = None
+    day_ranges = []
+    start = None
 
-        for i, value in enumerate(day_hours):
-            # Start of new range:
-            if start is None and value != 0:
-                start = i
+    for i, value in enumerate(week_hours):
+        # Start of new range:
+        if start is None and value != 0:
+            start = i
+            continue
+
+        # End of range:
+        # (A range will end if either the current slot is unavailable
+        # (value 0) or if the current slot is the last one.)
+        if start is not None:
+            if value == 0:  # Unavailable
+                day_ranges.append([start, i])
+                start = None
+            elif i == end_hour - 1:  # Last slot
+                day_ranges.append([start, end_hour])
+            else:
                 continue
 
-            # End of range:
-            # (A range will end if either the current slot is unavailable
-            # (value 0) or if the current slot is the last one.)
-            if start is not None:
-                if value == 0:  # Unavailable
-                    day_ranges.append([start, i])
-                    start = None
-                elif i == end_hour - 1:  # Last slot
-                    day_ranges.append([start, end_hour])
-                else:
-                    continue
-
-        week_ranges.append(day_ranges)
+    week_ranges.append(day_ranges)
 
     return week_ranges
 
 
 def print_final_schedules(schedule_results, df_agents, num_days):
     """Print final schedule, validate output JSON, and write to file."""
-    for d in range(num_days):
-        print(
-            f"\n{schedule_results[d]['start_date'].strftime('%Y-%m-%d')} "
-            "shifts:"
-        )
+    d = 0
+    print(
+        f"\n{schedule_results[d]['start_date'].strftime('%Y-%m-%d')} "
+        "shifts:"
+    )
 
-        for (i, e) in enumerate(schedule_results[d]["shifts"]):
-            print(e)
+    for (i, e) in enumerate(schedule_results[d]["shifts"]):
+        print(e)
 
     output_json = []
 
