@@ -17,6 +17,8 @@ const dateformat = require('dateformat');
 const _ = require('lodash');
 const fs = require('mz/fs');
 
+const MAX_HOURS = 27;
+
 /**
  * Convert array from Next Cycle Dates Google Sheet into object.
  * @param  {object}   date   Date object
@@ -51,9 +53,7 @@ function writePrettifiedText(scheduleJSON) {
 	for (let epoch of scheduleJSON) {
 		let startDate = new Date(epoch.start_date);
 		prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`;
-		let hours = [];
-		hours.length = 27;
-		hours.fill(0);
+		const hours = new Array(MAX_HOURS).fill(0);
 
 		for (let shift of epoch.shifts) {
 			let agentName = shift.agent.replace(/ <.*>/, '');
@@ -101,19 +101,11 @@ function writePrettifiedText(scheduleJSON) {
 	prettySchedule += '\n\nAgents per day \n\n';
 	prettySchedule += header;
 
-	for (let i = 0; i < 27; i++) {
+	for (let i = 0; i < MAX_HOURS; i++) {
 		prettySchedule += '\n'.concat(
-			i < 24 ? i : i - 24,
+			i % 24,
 			'\t\t',
-			dailyAgents[0].hours[i],
-			'\t\t',
-			dailyAgents[1].hours[i],
-			'\t\t',
-			dailyAgents[2].hours[i],
-			'\t\t',
-			dailyAgents[3].hours[i],
-			'\t\t',
-			dailyAgents[4].hours[i]
+			dailyAgents.map(d => d.hours[i]).join('\t\t')
 		);
 	}
 
