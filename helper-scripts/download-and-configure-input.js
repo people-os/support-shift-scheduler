@@ -28,7 +28,7 @@ const { validateJSONScheduleInput } = require('../lib/validate-json');
  */
 async function getData(supportName) {
 	const support = JSON.parse(
-		fs.readFileSync('helper-scripts/options/' + supportName + '.json')
+		fs.readFileSync('helper-scripts/options/' + supportName + '.json'),
 	);
 
 	try {
@@ -39,12 +39,12 @@ async function getData(supportName) {
 		const schedulerInput = await getSchedulerInput(
 			auth,
 			nextMondayDate,
-			support
+			support,
 		);
 		_.assign(schedulerInput.options, support);
 		console.log(JSON.stringify(schedulerInput, null, 2));
 		const schedulerInputValidation = await validateJSONScheduleInput(
-			schedulerInput
+			schedulerInput,
 		);
 
 		const fileDir = `./logs/${nextMondayDate}_` + supportName;
@@ -52,7 +52,7 @@ async function getData(supportName) {
 
 		await fs.writeFile(
 			fileDir + '/support-shift-scheduler-input.json',
-			JSON.stringify(schedulerInput, null, 2)
+			JSON.stringify(schedulerInput, null, 2),
 		);
 	} catch (e) {
 		console.error(e);
@@ -61,7 +61,7 @@ async function getData(supportName) {
 
 // Read scheduling algorithm output file name from command line:
 const args = process.argv.slice(2);
-if (args.length != 1) {
+if (args.length !== 1) {
 	console.log(`please specify Scheduling Options file`);
 	process.exit(1);
 }

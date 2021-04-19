@@ -83,7 +83,7 @@ function writePrettifiedText(scheduleJSON) {
 		handle = handle.replace(/ <.*>/, '');
 		return { handle, hours };
 	});
-	agentHoursList = _.sortBy(agentHoursList, agent => {
+	agentHoursList = _.sortBy(agentHoursList, (agent) => {
 		return agent.hours;
 	}).reverse();
 
@@ -95,7 +95,7 @@ function writePrettifiedText(scheduleJSON) {
 	let header = ' ';
 
 	dailyAgents.forEach(
-		da => (header = header.concat('\t\t', dateformat(da.day, 'ddd')))
+		(da) => (header = header.concat('\t\t', dateformat(da.day, 'ddd'))),
 	);
 
 	prettySchedule += '\n\nAgents per day \n\n';
@@ -105,11 +105,11 @@ function writePrettifiedText(scheduleJSON) {
 		prettySchedule += '\n'.concat(
 			i % 24,
 			'\t\t',
-			dailyAgents.map(d => d.hours[i]).join('\t\t')
+			dailyAgents.map((d) => d.hours[i]).join('\t\t'),
 		);
 	}
 
-	fs.writeFile('beautified-schedule.txt', prettySchedule, 'utf8', err => {});
+	fs.writeFile('beautified-schedule.txt', prettySchedule, 'utf8', _.noop);
 
 	// Write Flowdock message, with which to ping agents to check their calendars:
 	let flowdockMessage = '';
@@ -120,14 +120,14 @@ function writePrettifiedText(scheduleJSON) {
 	for (let agent of agentHoursList) {
 		flowdockMessage += `${agent.handle}\n`;
 	}
-	fs.writeFile('flowdock-message.txt', flowdockMessage, 'utf8', err => {});
+	fs.writeFile('flowdock-message.txt', flowdockMessage, 'utf8', _.noop);
 }
 
 // Read scheduling algorithm output file name from command line:
 const args = process.argv.slice(2);
-if (args.length != 1) {
+if (args.length !== 1) {
 	console.log(
-		`Usage: node ${__filename} <path-to-support-shift-scheduler-output.json>`
+		`Usage: node ${__filename} <path-to-support-shift-scheduler-output.json>`,
 	);
 	process.exit(1);
 }

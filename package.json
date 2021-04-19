@@ -7,8 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "lint": "prettier --config ./node_modules/resin-lint/config/.prettierrc --trailing-comma es5 --check lib/*.js helper-scripts/*.js",
-    "test": "echo \"No test specified\" && exit 0"
+    "lint": "balena-lint --typescript -e js -e ts lib helper-scripts",
+    "lint-fix": "balena-lint --typescript --fix -e js -e ts lib helper-scripts",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -23,22 +24,22 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "bluebird": "^3.7.1",
+    "bluebird": "^3.7.2",
     "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "googleapis": "^45.0.0",
-    "jsonschema": "^1.2.4",
-    "lodash": "^4.17.15",
+    "jsonschema": "^1.4.0",
+    "lodash": "^4.17.21",
     "log": "^6.0.0",
     "mkdirp": "^0.5.1",
     "mz": "^2.7.0",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
+    "@balena/lint": "^5.4.1",
     "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "resin-lint": "^3.1.1"
+    "lint-staged": "^10.5.4"
   },
   "husky": {
     "hooks": {
@@ -48,8 +49,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --config ./node_modules/resin-lint/config/.prettierrc --trailing-comma es5 --write",
-      "git add"
+      "balena-lint --typescript --fix"
     ]
   }
 }
