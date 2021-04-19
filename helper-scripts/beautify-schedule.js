@@ -36,7 +36,7 @@ function prettyHourStr(hour) {
 	if ((hour * 10) % 10 === 0) {
 		return `${_.padStart(hour, 2, '0')}:00`;
 	} else {
-		return `${_.padStart(parseInt(hour, 10), 2, '0')}:30`;
+		return `${_.padStart(`${Math.floor(hour)}`, 2, '0')}:30`;
 	}
 }
 
@@ -103,8 +103,7 @@ function writePrettifiedText(scheduleJSON) {
 
 	for (let i = 0; i < MAX_HOURS; i++) {
 		prettySchedule += '\n'.concat(
-			i % 24,
-			'\t\t',
+			`${i % 24}\t\t`,
 			dailyAgents.map((d) => d.hours[i]).join('\t\t'),
 		);
 	}
@@ -134,7 +133,7 @@ if (args.length !== 1) {
 
 // Load JSON object from output file:
 const jsonPath = args[0];
-const outputJsonObject = JSON.parse(fs.readFileSync(jsonPath));
+const outputJsonObject = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 
 // Write beautified-schedule.txt and flowdock-message.txt:
 writePrettifiedText(outputJsonObject);
