@@ -946,6 +946,7 @@ def solve_model_and_extract_solution():
 
             schedule_results.append(day_dict)
         if len(agents_onb) > 0:
+            o_file.write("\n\ncc `@@support_ops`")
             o_file.close()
 
         # Sort shifts by start times to improve output readability:

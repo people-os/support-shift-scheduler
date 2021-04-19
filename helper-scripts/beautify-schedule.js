@@ -122,7 +122,8 @@ function writePrettifiedText(scheduleJSON) {
 	// Write Flowdock message, with which to ping agents to check their calendars:
 	let flowdockMessage = '';
 	flowdockMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${scheduleJSON[0].start_date}).**\n\n`;
-	flowdockMessage += 'Please let me know if you require any changes.\n\n';
+	flowdockMessage +=
+		'Please ping `@@support_ops` if you require any changes.\n\n';
 
 	for (let agent of agentHoursList) {
 		flowdockMessage += `${agent.handle}\n`;
