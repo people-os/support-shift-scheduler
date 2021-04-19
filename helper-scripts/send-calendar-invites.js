@@ -24,14 +24,12 @@ const TIMEZONE = 'Europe/London';
 /**
  * Read, parse and validate JSON output file from scheduling algorithm.
  * @param  {string}   jsonPath   Path to output file
- * @return {object}              Parsed and validated object with schedule
+ * @return {Promise<object>}              Parsed and validated object with schedule
  */
 async function readAndParseJSONSchedule(jsonPath) {
-	const jsonContent = await fs.readFile(jsonPath);
+	const jsonContent = await fs.readFile(jsonPath, 'utf8');
 	const jsonObject = JSON.parse(jsonContent);
-	const schedulerOutputValidation = await validateJSONScheduleOutput(
-		jsonObject,
-	);
+	await validateJSONScheduleOutput(jsonObject);
 	return jsonObject;
 }
 
@@ -39,20 +37,20 @@ function prettyHourStr(date, hour) {
 	if ((hour * 10) % 10 === 0) {
 		return `${date}T${_.padStart(hour, 2, '0')}:00:00`;
 	} else {
-		return `${date}T${_.padStart(parseInt(hour, 10), 2, '0')}:30:00`;
+		return `${date}T${_.padStart(`${Math.floor(hour)}`, 2, '0')}:30:00`;
 	}
 }
 
 function getDate(eventDate, eventHour) {
-	resultDateTime = '';
+	let resultDateTime = '';
 	eventHour = eventHour / 2;
 
 	if (eventHour >= 24) {
 		let finalDate = new Date(Date.parse(eventDate));
 		finalDate.setDate(finalDate.getDate() + 1);
-		finalDate = finalDate.toISOString().split('T')[0];
-		endHour = eventHour - 24;
-		resultDateTime = prettyHourStr(finalDate, endHour);
+		const finalDateStr = finalDate.toISOString().split('T')[0];
+		const endHour = eventHour - 24;
+		resultDateTime = prettyHourStr(finalDateStr, endHour);
 	} else {
 		resultDateTime = prettyHourStr(eventDate, eventHour);
 	}
@@ -63,7 +61,7 @@ function getDate(eventDate, eventHour) {
 /**
  * From the object containing the optimized shifts, create array of "events resources" in the format required by the Google Calendar API.
  * @param  {object}   shiftsObject   Shifts optimized by scheduling algorithm
- * @return {array}                   Array of events resources to be passed to Google Calendar API.
+ * @return {Promise<array>}                   Array of events resources to be passed to Google Calendar API.
  */
 async function createEventResourceArray(shiftsObject, supportName) {
 	const returnArray = [];
@@ -100,7 +98,7 @@ async function createEventResourceArray(shiftsObject, supportName) {
  */
 async function createEvents(jsonPath, supportName) {
 	const support = JSON.parse(
-		fs.readFileSync('helper-scripts/options/' + supportName + '.json'),
+		fs.readFileSync('helper-scripts/options/' + supportName + '.json', 'utf8'),
 	);
 
 	try {
@@ -119,7 +117,7 @@ async function createEvents(jsonPath, supportName) {
 				calendarId: support.calendarID,
 				conferenceDataVersion: 1,
 				sendUpdates: 'all',
-				resource: eventResource,
+				requestBody: eventResource,
 			});
 			const summary = `${eventResponse.data.summary} ${eventResponse.data.start.dateTime}`;
 			console.log(

@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "es2019",
+		"module": "commonjs",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"preserveConstEnums": true,
+		"outDir": "./build/",
+		"skipLibCheck": true,
+		"lib": ["es6"],
+		"resolveJsonModule": true,
+		"noImplicitAny": false,
+		"allowJs": true,
+		"checkJs": true
+	},
+	"include": ["lib", "helper-scripts"]
+}
