@@ -31,21 +31,15 @@
             "maximum": 8
           },
           "availableHours": {
-            "description": "Availability for each day of the week, Monday to Friday",
+            "description": "Availability for the week, Monday to Friday",
             "type": "array",
-            "minItems": 5,
-            "maxItems": 5,
+            "minItems": 240,
+            "maxItems": 288,
             "items": {
-              "description": "Availability for single weekday",
-              "type": "array",
-              "minItems": 48,
-              "maxItems": 378,
-              "items": {
-                "description": "Preference legend - 0: unavailable, 1: preferred, 2: available, not preferred, 4: volunteered",
-                "type": "number",
-                "minimum": 0,
-                "maximum": 4
-              }
+              "description": "Preference legend - 0: unavailable, 1: preferred, 2: available, not preferred, 4: volunteered",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 4
             }
           }
         },
@@ -84,7 +78,7 @@
           "description": "Balena support end time (default: 54)",
           "type": "number",
           "minimum": 0,
-          "maximum": 378
+          "maximum": 288
         },
         "shiftMinDuration": {
           "description": "Minimum duration of a shift (default: 2)",
