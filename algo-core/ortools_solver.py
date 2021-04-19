@@ -126,10 +126,10 @@ def setup_dataframes():
                     if week_slots[d][h] == 1 or week_slots[d][h] == 4:
                         week_slots[d][h] = 2
 
-                # Give agent a break until 15:00 the next day if he/she was
-                # on night shift:
-                if d != 4:
-                    week_slots[d + 1][0:28] = [0 for i in range(28)]
+                # # Give agent a break until 15:00 the next day if he/she was
+                # # on night shift:
+                # if d != 4:
+                #     week_slots[d + 1][0:28] = [0 for i in range(28)]
 
         slot_ranges = scheduler_utils.slots_to_range(week_slots, end_slot)
 

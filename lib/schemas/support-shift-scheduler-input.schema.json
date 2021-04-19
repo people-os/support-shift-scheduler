@@ -39,7 +39,7 @@
               "description": "Availability for single weekday",
               "type": "array",
               "minItems": 48,
-              "maxItems": 54,
+              "maxItems": 378,
               "items": {
                 "description": "Preference legend - 0: unavailable, 1: preferred, 2: available, not preferred, 4: volunteered",
                 "type": "number",
@@ -84,7 +84,7 @@
           "description": "Balena support end time (default: 54)",
           "type": "number",
           "minimum": 0,
-          "maximum": 54
+          "maximum": 378
         },
         "shiftMinDuration": {
           "description": "Minimum duration of a shift (default: 2)",
