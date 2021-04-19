@@ -30,7 +30,7 @@ async function readAndParseJSONSchedule(jsonPath) {
 	const jsonContent = await fs.readFile(jsonPath);
 	const jsonObject = JSON.parse(jsonContent);
 	const schedulerOutputValidation = await validateJSONScheduleOutput(
-		jsonObject
+		jsonObject,
 	);
 	return jsonObject;
 }
@@ -100,14 +100,14 @@ async function createEventResourceArray(shiftsObject, supportName) {
  */
 async function createEvents(jsonPath, supportName) {
 	const support = JSON.parse(
-		fs.readFileSync('helper-scripts/options/' + supportName + '.json')
+		fs.readFileSync('helper-scripts/options/' + supportName + '.json'),
 	);
 
 	try {
 		const shiftsObject = await readAndParseJSONSchedule(jsonPath);
 		const eventResourceArray = await createEventResourceArray(
 			shiftsObject,
-			supportName
+			supportName,
 		);
 		const authClient = await getAuthClient(support);
 		const calendar = google.calendar({ version: 'v3' });
@@ -125,13 +125,13 @@ async function createEvents(jsonPath, supportName) {
 			console.log(
 				'Event created: %s - %s',
 				summary,
-				eventResponse.data.htmlLink
+				eventResponse.data.htmlLink,
 			);
 			eventIDs.push(eventResponse.data.id);
 		}
 		await fs.writeFile(
 			logsFolder + '/event-ids-written-to-calendar.json',
-			JSON.stringify(eventIDs, null, 2)
+			JSON.stringify(eventIDs, null, 2),
 		);
 	} catch (e) {
 		console.error(e);
@@ -140,22 +140,21 @@ async function createEvents(jsonPath, supportName) {
 
 // Read scheduler output file name from command line:
 const args = process.argv.slice(2);
-if (args.length != 2) {
+if (args.length !== 2) {
 	console.log(
-		`Usage: node ${__filename} <path-to-support-shift-scheduler-output.json> <model-name>`
+		`Usage: node ${__filename} <path-to-support-shift-scheduler-output.json> <model-name>`,
 	);
 	process.exit(1);
 }
-const jsonPath = args[0];
-const supportName = args[1];
+const [$jsonPath, $supportName] = args;
 
 // Derive path for output:
 let logsFolder = '';
-if (jsonPath.indexOf('/') === -1) {
+if ($jsonPath.indexOf('/') === -1) {
 	logsFolder = '.';
 } else {
-	logsFolder = jsonPath.slice(0, jsonPath.lastIndexOf('/'));
+	logsFolder = $jsonPath.slice(0, $jsonPath.lastIndexOf('/'));
 }
 
 // Create calendar events:
-createEvents(jsonPath, supportName);
+createEvents($jsonPath, $supportName);
