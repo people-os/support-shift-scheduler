@@ -17,7 +17,7 @@ const dateformat = require('dateformat');
 const _ = require('lodash');
 const fs = require('mz/fs');
 
-const MAX_HOURS = 27;
+const MINUTES = 60 * 1000;
 
 /**
  * Convert array from Next Cycle Dates Google Sheet into object.
@@ -30,10 +30,9 @@ function prettyDateStr(date) {
 
 function prettyHourStr(hour) {
 	hour = hour / 2;
-	if (hour > 23) {
-		hour = hour - 24;
-	}
-	if ((hour * 10) % 10 === 0) {
+	hour = hour % 24;
+
+	if (hour % 1 === 0) {
 		return `${_.padStart(hour, 2, '0')}:00`;
 	} else {
 		return `${_.padStart(`${Math.floor(hour)}`, 2, '0')}:30`;
@@ -49,13 +48,24 @@ function writePrettifiedText(scheduleJSON) {
 	let agentHours = {};
 	let prettySchedule = '';
 	let dailyAgents = [];
+	let maxHours = 0;
 
 	for (let epoch of scheduleJSON) {
-		let startDate = new Date(epoch.start_date);
-		prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`;
-		const hours = new Array(MAX_HOURS).fill(0);
+		let epochDate = new Date(epoch.start_date);
+		let maxDayHours = _.maxBy(epoch.shifts, (s) => s.end).end;
+		maxHours = Math.max(maxHours, maxDayHours);
+		const hours = new Array(maxDayHours).fill(0);
+
+		let lastStartDate = new Date(epochDate.getTime() - 24 * 60 * MINUTES);
 
 		for (let shift of epoch.shifts) {
+			const startDate = new Date(
+				epochDate.getTime() + shift.start * 30 * MINUTES,
+			);
+			if (startDate.getUTCDay() !== lastStartDate.getUTCDay()) {
+				lastStartDate = startDate;
+				prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`;
+			}
 			let agentName = shift.agent.replace(/ <.*>/, '');
 			let len = (shift.end - shift.start) / 2;
 			let startStr = prettyHourStr(shift.start);
@@ -64,17 +74,12 @@ function writePrettifiedText(scheduleJSON) {
 			agentHours[agentName] = agentHours[agentName] || 0;
 			agentHours[agentName] += len;
 			for (let i = shift.start; i < shift.end; i++) {
-				if (i % 2 === 0) {
-					const h = i / 2;
-					hours[h] = hours[h] + 0.5;
-				} else {
-					const h = (i - 1) / 2;
-					hours[h] = hours[h] + 0.5;
-				}
+				const h = Math.floor(i / 2);
+				hours[h] = hours[h] + 0.5;
 			}
 		}
 
-		dailyAgents.push({ day: startDate, hours });
+		dailyAgents.push({ day: epochDate, hours });
 	}
 	prettySchedule += `\n#rollcall\n\n`;
 	prettySchedule += 'Support hours\n-------------\n';
@@ -101,7 +106,7 @@ function writePrettifiedText(scheduleJSON) {
 	prettySchedule += '\n\nAgents per day \n\n';
 	prettySchedule += header;
 
-	for (let i = 0; i < MAX_HOURS; i++) {
+	for (let i = 0; i < maxHours; i++) {
 		prettySchedule += '\n'.concat(
 			`${i % 24}\t\t`,
 			dailyAgents.map((d) => d.hours[i]).join('\t\t'),
