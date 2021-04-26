@@ -1059,7 +1059,7 @@ if len(agents_onb) > 0:
 cost_total_agent_hours_for_week()
 cost_number_of_handovers()
 cost_agent_history()
-cost_shift_duration()
+# cost_shift_duration()
 cost_hours_veterans()
 
 # Implement cost - onboarding:
