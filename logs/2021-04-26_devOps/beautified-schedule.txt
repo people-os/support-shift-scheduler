@@ -1,50 +1,50 @@
 
 Shifts for Monday, April 26th
-03:00 - 06:00 (3 hours) - @joshbwlng
-06:00 - 07:30 (1.5 hours) - @cmfcruz
-07:30 - 09:00 (1.5 hours) - @hekonsek
-09:00 - 17:00 (8 hours) - @page-
-17:00 - 19:00 (2 hours) - @xginn8
-19:00 - 23:00 (4 hours) - @klutchell
-23:00 - 01:00 (2 hours) - @jakogut
-01:00 - 03:00 (2 hours) - @ab77
-03:00 - 10:30 (7.5 hours) - @joshbwlng
-10:30 - 18:30 (8 hours) - @cmfcruz
-18:30 - 23:30 (5 hours) - @ab77
-23:30 - 27:00 (3.5 hours) - @jakogut
+03:00 - 04:00 (1 hours) - @joshbwlng
+04:00 - 12:30 (8.5 hours) - @nocover
+12:30 - 17:00 (4.5 hours) - @page-
+17:00 - 03:00 (10 hours) - @ab77
+
+Shifts for Tuesday, April 27th
+03:00 - 08:00 (5 hours) - @joshbwlng
+08:00 - 11:30 (3.5 hours) - @cmfcruz
+11:30 - 14:00 (2.5 hours) - @page-
+14:00 - 21:30 (7.5 hours) - @klutchell
+21:30 - 27:00 (5.5 hours) - @ab77
+
+Shifts for Wednesday, April 28th
 27:00 - 32:00 (5 hours) - @joshbwlng
-32:00 - 37:00 (5 hours) - @hekonsek
-37:00 - 42:00 (5 hours) - @xginn8
-42:00 - 46:00 (4 hours) - @klutchell
-46:00 - 48:30 (2.5 hours) - @ab77
-48:30 - 51:00 (2.5 hours) - @jakogut
-51:00 - 55:00 (4 hours) - @joshbwlng
-55:00 - 63:00 (8 hours) - @cmfcruz
-63:00 - 66:00 (3 hours) - @klutchell
-66:00 - 67:00 (1 hours) - @page-
-67:00 - 68:30 (1.5 hours) - @xginn8
-68:30 - 70:30 (2 hours) - @jakogut
-70:30 - 75:00 (4.5 hours) - @ab77
-75:00 - 78:00 (3 hours) - @ab77
+32:00 - 37:00 (5 hours) - @cmfcruz
+37:00 - 44:00 (7 hours) - @xginn8
+44:00 - 51:00 (7 hours) - @jakogut
+
+Shifts for Thursday, April 29th
+51:00 - 56:00 (5 hours) - @joshbwlng
+56:00 - 58:30 (2.5 hours) - @cmfcruz
+58:30 - 61:00 (2.5 hours) - @page-
+61:00 - 68:00 (7 hours) - @xginn8
+68:00 - 70:00 (2 hours) - @klutchell
+70:00 - 75:00 (5 hours) - @jakogut
+
+Shifts for Friday, April 30th
+75:00 - 78:00 (3 hours) - @joshbwlng
 78:00 - 82:30 (4.5 hours) - @cmfcruz
-82:30 - 86:00 (3.5 hours) - @page-
-86:00 - 88:00 (2 hours) - @xginn8
-88:00 - 92:00 (4 hours) - @hekonsek
-92:00 - 94:00 (2 hours) - @klutchell
+82:30 - 88:30 (6 hours) - @page-
+88:30 - 94:00 (5.5 hours) - @klutchell
 94:00 - 99:00 (5 hours) - @jakogut
 
 #rollcall
 
 Support hours
 -------------
-cmfcruz: 22
-joshbwlng: 19.5
-ab77: 17
-jakogut: 15
-klutchell: 13
-page-: 12.5
-xginn8: 10.5
-hekonsek: 10.5
+joshbwlng: 19
+jakogut: 17
+cmfcruz: 15.5
+ab77: 15.5
+page-: 15.5
+klutchell: 15
+xginn8: 14
+nocover: 8.5
 
 
 Agents per day 
