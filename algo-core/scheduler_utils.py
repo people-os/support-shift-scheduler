@@ -101,6 +101,7 @@ def print_final_schedules(schedule_results, df_agents, num_days):
             shifts.append(
                 {
                     "agent": f"{name} <{df_agents.loc[name, 'email']}>",
+                    "agentName": f"{name}",
                     "start": start,
                     "end": end,
                 }

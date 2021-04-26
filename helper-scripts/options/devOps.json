@@ -5,7 +5,7 @@
     "supportEndHour": 27,
     "slotsInDay": 27,
     "shiftMinDuration": 1,
-    "shiftMaxDuration": 8,
+    "shiftMaxDuration": 24,
     "optimizationTimeout": 600,
     "logSheet": "1CcyoRGVXA8D-zfQG7sn0lZkw0GxsfVBxpR5eV1Uymyw",
     "calendarID": "c_ktn7k7hgb826l18mll4ilpjbl8@group.calendar.google.com",
@@ -16,7 +16,38 @@
         "agentsWithMaxHoursWeek": [],
         "agentsWithFixHours": []
     },
-    "tracks": [{ "start_hour": 3, "end_hour": 27, "start_day": 0, "end_day": 4 }],
+    "tracks": [
+      {
+        "start_hour": 3,
+        "end_hour": 27,
+        "start_day": 0,
+        "end_day": 0
+      },
+      {
+        "start_hour": 27,
+        "end_hour": 51,
+        "start_day": 0,
+        "end_day": 0
+      },
+      {
+        "start_hour": 51,
+        "end_hour": 75,
+        "start_day": 0,
+        "end_day": 0
+      },
+      {
+        "start_hour": 75,
+        "end_hour": 99,
+        "start_day": 0,
+        "end_day": 0
+      },
+      {
+        "start_hour": 99,
+        "end_hour": 123,
+        "start_day": 0,
+        "end_day": 0
+      }
+    ],
     "victoropsUsernames": {
         "ab77": "ab77",
         "cmfcruz": "cmfcruz",
