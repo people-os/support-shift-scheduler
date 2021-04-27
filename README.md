@@ -163,7 +163,7 @@ If, for some reason, the schedule needs to be modified, it should be edited dire
 From the project root directory, run:
 
 ```bash
-$ node ./helper-scripts/send-calendar-invites.js logs/<start-date>/support-shift-scheduler-output.json
+$ npm run send-calendar-invites logs/<start-date>/support-shift-scheduler-output.json $scheduleName
 ```
 
 to write the finalised schedule to the `Support schedule` Google Calendar, sending invites to all the associated agents.

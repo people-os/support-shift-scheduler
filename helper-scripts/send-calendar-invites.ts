@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require('dotenv').config();
-const fs = require('mz/fs');
-const _ = require('lodash');
-const { google } = require('googleapis');
-const { getAuthClient } = require('../lib/gauth');
-const { validateJSONScheduleOutput } = require('../lib/validate-json');
+import { config } from 'dotenv';
+config();
+import * as fs from 'mz/fs';
+import { google, calendar_v3 } from 'googleapis';
+import { getAuthClient } from '../lib/gauth';
+import { validateJSONScheduleOutput } from '../lib/validate-json';
 const TIMEZONE = 'Europe/London';
 
 const MINUTES = 60 * 1000;
@@ -43,18 +43,18 @@ function isoDateWithoutTimezone(date) {
 /**
  * From the object containing the optimized shifts, create array of "events resources" in the format required by the Google Calendar API.
  * @param  {object}   shiftsObject   Shifts optimized by scheduling algorithm
- * @return {Promise<array>}                   Array of events resources to be passed to Google Calendar API.
+ * @return {Promise<Array<calendar_v3.Schema$Event>>}                   Array of events resources to be passed to Google Calendar API.
  */
-async function createEventResourceArray(shiftsObject, supportName) {
-	const returnArray = [];
+async function createEventResourceArray(shiftsObject, supportName: string) {
+	const returnArray: calendar_v3.Schema$Event[] = [];
 	for (const epoch of shiftsObject) {
 		const date = new Date(epoch.start_date);
 		for (const shift of epoch.shifts) {
 			const start = new Date(date.getTime() + shift.start * 30 * MINUTES);
 			const end = new Date(date.getTime() + shift.end * 30 * MINUTES);
-			const eventResource = {};
-			let [handle, email] = shift.agent.split(' ');
-			email = email.match(new RegExp(/<(.*)>/))[1];
+			const eventResource: calendar_v3.Schema$Event = {};
+			const [handle, $email] = shift.agent.split(' ');
+			const email = $email.match(new RegExp(/<(.*)>/))[1];
 
 			eventResource.summary = `${handle} on ${supportName} support`;
 			eventResource.description =
@@ -69,7 +69,7 @@ async function createEventResourceArray(shiftsObject, supportName) {
 			};
 
 			eventResource.attendees = [];
-			eventResource.attendees.push({ email: email });
+			eventResource.attendees.push({ email });
 			returnArray.push(eventResource);
 		}
 	}
