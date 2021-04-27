@@ -10,7 +10,8 @@
     "lint": "balena-lint --typescript -e js -e ts lib helper-scripts",
     "lint-fix": "balena-lint --typescript --fix -e js -e ts lib helper-scripts",
     "test": "npm run lint && npx tsc --noEmit",
-    "download-and-configure-input": "npx ts-node --transpile-only ./helper-scripts/download-and-configure-input"
+    "download-and-configure-input": "npx ts-node --transpile-only ./helper-scripts/download-and-configure-input",
+    "send-calendar-invites": "npx ts-node --transpile-only ./helper-scripts/send-calendar-invites"
   },
   "repository": {
     "type": "git",
