@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const _ = require('lodash');
-const fs = require('mz/fs');
-const Promise = require('bluebird');
-const mkdirp = Promise.promisify(require('mkdirp'));
+import * as _ from 'lodash';
+import * as fs from 'mz/fs';
+import * as Promise from 'bluebird';
+import * as mkdirp from 'mkdirp';
+const mkdirpAsync = Promise.promisify(mkdirp);
 
-const { getAuthClient } = require('../lib/gauth');
-const { getNextCycleDates, getSchedulerInput } = require('../lib/gsheets');
-const { validateJSONScheduleInput } = require('../lib/validate-json');
+import { getAuthClient } from '../lib/gauth';
+import { getNextCycleDates, getSchedulerInput } from '../lib/gsheets';
+import { validateJSONScheduleInput } from '../lib/validate-json';
 
 /**
  * Read and configure input data from Google Sheets, and save as JSON object
  */
-async function getData(supportName) {
+async function getData(supportName: string) {
 	const support = JSON.parse(
 		fs.readFileSync('helper-scripts/options/' + supportName + '.json', 'utf8'),
 	);
@@ -45,7 +46,7 @@ async function getData(supportName) {
 		await validateJSONScheduleInput(schedulerInput);
 
 		const fileDir = `./logs/${nextMondayDate}_` + supportName;
-		await mkdirp(fileDir);
+		await mkdirpAsync(fileDir);
 
 		await fs.writeFile(
 			fileDir + '/support-shift-scheduler-input.json',
