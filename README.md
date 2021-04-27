@@ -144,10 +144,8 @@ If the `Solution type` is `OPTIMAL`, it means that the solver has determined thi
 
 ### 6. Beautifying the schedule
 
-From within the `./logs/<start-date>`  directory (or `./logs/example` if you are using the example data), run:
-
 ```bash
-$ node ../../helper-scripts/beautify-schedule.js support-shift-scheduler-output.json
+$ npm run beautify-schedule $startDate $scheduleName
 ```
 
 This script writes a formatted schedule to the file `beautified-schedule.txt`, which is a helpful view as a sanity check that the schedule is legitimate. The script also writes message text for our internal chat to the file `flowdock-message.txt`, which is used to ping the support agents to go check their calendars after the Google Calendar invites have been sent.
@@ -163,7 +161,7 @@ If, for some reason, the schedule needs to be modified, it should be edited dire
 From the project root directory, run:
 
 ```bash
-$ npm run send-calendar-invites logs/<start-date>/support-shift-scheduler-output.json $scheduleName
+$ npm run send-calendar-invites $startDate $scheduleName
 ```
 
 to write the finalised schedule to the `Support schedule` Google Calendar, sending invites to all the associated agents.
