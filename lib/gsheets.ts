@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require('dotenv').config();
-const { google } = require('googleapis');
-const _ = require('lodash');
+import { config } from 'dotenv';
+config();
+import { google } from 'googleapis';
+import * as _ from 'lodash';
 
 /**
  * Convert array from Next Cycle Dates Google Sheet into object.
  * @param  {array}   rawDates   Array of 2-element arrays in format [<schedule type>, <start-date>]
  * @return {Promise<object>}             Object with key:value pairs like <schedule type>:<start-date>
  */
-async function parseDates(rawDates) {
-	const parsedDates = {};
-	for (let i = 0; i < rawDates.length; i++) {
-		parsedDates[rawDates[i][0]] = rawDates[i][1];
+async function parseDates(rawDates: any[][]) {
+	const parsedDates: { [name: string]: string } = {};
+	for (const rawDate of rawDates) {
+		parsedDates[rawDate[0]] = rawDate[1];
 	}
 	return parsedDates;
 }
@@ -35,7 +36,7 @@ async function parseDates(rawDates) {
  * @param  {object} auth   OAuth 2.0 access token
  * @return {Promise<object>}        Object with key:value pairs like <schedule type>:<start-date>
  */
-async function getNextCycleDates(auth) {
+export async function getNextCycleDates(auth) {
 	const sheets = google.sheets({ version: 'v4', auth });
 	const result = await sheets.spreadsheets.values.get({
 		spreadsheetId: process.env.TEAM_MODEL_ID,
@@ -148,7 +149,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 		}
 
 		const newAgent = await createAgent({
-			handle: handle,
+			handle,
 			email: agentsEmail[handle][0],
 			weekAverageHours: agentsWeekAverageHours[handle],
 			idealShiftLength: agentsIdealShiftLength[handle],
@@ -159,9 +160,9 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 	console.log(slotsInDay);
 	schedulerInput.agents.forEach((agent) => {
 		agent.availableHours.forEach((day, dayIndex) => {
-			let followingDay = dayIndex + 1;
+			const followingDay = dayIndex + 1;
 			if (dayIndex < 5) {
-				for (var i = 0; i < (slotsInDay - 24) * 2; i++) {
+				for (let i = 0; i < (slotsInDay - 24) * 2; i++) {
 					day.push(agent.availableHours[followingDay][i]);
 				}
 			}
@@ -179,7 +180,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
  * @param  {object} support
  * @return {Promise<object>}                Parsed input object for scheduler (more options will be added to this object by download-and-configure-input.js)
  */
-async function getSchedulerInput(auth, nextMondayDate, support) {
+export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const sheets = google.sheets({ version: 'v4', auth });
 	const range = nextMondayDate + '_input!A3:KF';
 	const result = await sheets.spreadsheets.values.get({
@@ -195,6 +196,3 @@ async function getSchedulerInput(auth, nextMondayDate, support) {
 	);
 	return parsedInput;
 }
-
-exports.getNextCycleDates = getNextCycleDates;
-exports.getSchedulerInput = getSchedulerInput;
