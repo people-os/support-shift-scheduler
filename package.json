@@ -9,7 +9,9 @@
   "scripts": {
     "lint": "balena-lint --typescript -e js -e ts lib helper-scripts",
     "lint-fix": "balena-lint --typescript --fix -e js -e ts lib helper-scripts",
-    "test": "npm run lint && npx tsc --noEmit"
+    "test": "npm run lint && npx tsc --noEmit",
+    "download-and-configure-input": "npx ts-node --transpile-only ./helper-scripts/download-and-configure-input",
+    "send-calendar-invites": "npx ts-node --transpile-only ./helper-scripts/send-calendar-invites"
   },
   "repository": {
     "type": "git",
@@ -33,7 +35,8 @@
     "log": "^6.0.0",
     "mkdirp": "^0.5.1",
     "mz": "^2.7.0",
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
     "@balena/lint": "^5.4.1",
@@ -58,6 +61,9 @@
   },
   "lint-staged": {
     "*.js": [
+      "balena-lint --typescript --fix"
+    ],
+    "*.ts": [
       "balena-lint --typescript --fix"
     ]
   }
