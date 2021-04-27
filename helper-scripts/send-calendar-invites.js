@@ -21,6 +21,8 @@ const { getAuthClient } = require('../lib/gauth');
 const { validateJSONScheduleOutput } = require('../lib/validate-json');
 const TIMEZONE = 'Europe/London';
 
+const MINUTES = 60 * 1000;
+
 /**
  * Read, parse and validate JSON output file from scheduling algorithm.
  * @param  {string}   jsonPath   Path to output file
@@ -33,29 +35,9 @@ async function readAndParseJSONSchedule(jsonPath) {
 	return jsonObject;
 }
 
-function prettyHourStr(date, hour) {
-	if ((hour * 10) % 10 === 0) {
-		return `${date}T${_.padStart(hour, 2, '0')}:00:00`;
-	} else {
-		return `${date}T${_.padStart(`${Math.floor(hour)}`, 2, '0')}:30:00`;
-	}
-}
-
-function getDate(eventDate, eventHour) {
-	let resultDateTime = '';
-	eventHour = eventHour / 2;
-
-	if (eventHour >= 24) {
-		let finalDate = new Date(Date.parse(eventDate));
-		finalDate.setDate(finalDate.getDate() + 1);
-		const finalDateStr = finalDate.toISOString().split('T')[0];
-		const endHour = eventHour - 24;
-		resultDateTime = prettyHourStr(finalDateStr, endHour);
-	} else {
-		resultDateTime = prettyHourStr(eventDate, eventHour);
-	}
-
-	return resultDateTime;
+function isoDateWithoutTimezone(date) {
+	// ISO string without the `z` timezone
+	return date.toISOString().slice(0, -1);
 }
 
 /**
@@ -66,8 +48,10 @@ function getDate(eventDate, eventHour) {
 async function createEventResourceArray(shiftsObject, supportName) {
 	const returnArray = [];
 	for (const epoch of shiftsObject) {
-		const date = epoch.start_date;
+		const date = new Date(epoch.start_date);
 		for (const shift of epoch.shifts) {
+			const start = new Date(date.getTime() + shift.start * 30 * MINUTES);
+			const end = new Date(date.getTime() + shift.end * 30 * MINUTES);
 			const eventResource = {};
 			let [handle, email] = shift.agent.split(' ');
 			email = email.match(new RegExp(/<(.*)>/))[1];
@@ -77,11 +61,11 @@ async function createEventResourceArray(shiftsObject, supportName) {
 				'Resources on support: ' + process.env.SUPPORT_RESOURCES;
 			eventResource.start = {
 				timeZone: TIMEZONE,
-				dateTime: getDate(date, shift.start),
+				dateTime: isoDateWithoutTimezone(start),
 			};
 			eventResource.end = {
 				timeZone: TIMEZONE,
-				dateTime: getDate(date, shift.end),
+				dateTime: isoDateWithoutTimezone(end),
 			};
 
 			eventResource.attendees = [];
