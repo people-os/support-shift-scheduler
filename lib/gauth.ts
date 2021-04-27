@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require('dotenv').config();
-const fs = require('mz/fs');
-const { google } = require('googleapis');
-const readlineSync = require('readline-sync');
+import { config } from 'dotenv';
+config();
+import * as fs from 'mz/fs';
+import { google } from 'googleapis';
+import * as readlineSync from 'readline-sync';
 
 const SCOPES = [
 	'https://www.googleapis.com/auth/spreadsheets',
@@ -29,7 +30,7 @@ const CRED = process.env.CREDENTIALS;
  * Obtains a Google OAuth 2.0 access token for access to Sheets and Calendar.
  * @return {Promise<object>}     OAuth 2.0 access token
  */
-async function getAuthClient(support) {
+export async function getAuthClient(support) {
 	if (support.useServiceAccount) {
 		return getJWTAuthClient();
 	} else {
@@ -43,7 +44,7 @@ async function getJWTAuthClient() {
 		'utf8',
 	);
 	const jwt = JSON.parse(content);
-	let auth = new google.auth.JWT({
+	const auth = new google.auth.JWT({
 		email: jwt.client_email,
 		key: jwt.private_key,
 		scopes: SCOPES,
@@ -86,5 +87,3 @@ async function getAccessToken(oAuth2Client) {
 	fs.writeFileSync(TOKEN_PATH, token);
 	return token;
 }
-
-exports.getAuthClient = getAuthClient;
