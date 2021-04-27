@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const { Validator } = require('jsonschema');
-const scheduleInputSchema = require('./schemas/support-shift-scheduler-input.schema.json');
-const scheduleOutputSchema = require('./schemas/support-shift-scheduler-output.schema.json');
+import { Validator } from 'jsonschema';
+import * as scheduleInputSchema from './schemas/support-shift-scheduler-input.schema.json';
+import * as scheduleOutputSchema from './schemas/support-shift-scheduler-output.schema.json';
 
 /**
  * Validate JSON input for scheduler
  * @param  {object}   json   JSON input object
  * @return {Promise<object>}         jsonschema Validator object
  */
-async function validateJSONScheduleInput(json = {}) {
-	let validator = new Validator();
+export async function validateJSONScheduleInput(json = {}) {
+	const validator = new Validator();
 	return validator.validate(json, scheduleInputSchema, {
 		throwError: true,
 		nestedErrors: true,
@@ -35,13 +35,10 @@ async function validateJSONScheduleInput(json = {}) {
  * @param  {object}   json   JSON output object
  * @return {Promise<object>}         jsonschema Validator object
  */
-async function validateJSONScheduleOutput(json = {}) {
-	let validator = new Validator();
+export async function validateJSONScheduleOutput(json = {}) {
+	const validator = new Validator();
 	return validator.validate(json, scheduleOutputSchema, {
 		throwError: true,
 		nestedErrors: true,
 	});
 }
-
-exports.validateJSONScheduleInput = validateJSONScheduleInput;
-exports.validateJSONScheduleOutput = validateJSONScheduleOutput;
