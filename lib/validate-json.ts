@@ -42,3 +42,17 @@ export async function validateJSONScheduleOutput(json = {}) {
 		nestedErrors: true,
 	});
 }
+
+/**
+ * Read, parse and validate JSON output file from scheduling algorithm.
+ * @param  {string}   date   The date  we're targeting, eg `2021-05-03`
+ * @param  {string}   scheduleName   The schedule we're targeting, eg `balenaio`
+ * @return {Promise<object>}              Parsed and validated object with schedule
+ */
+export async function readAndParseJSONSchedule(date, scheduleName) {
+	const jsonObject = await import(
+		`../logs/${date}_${scheduleName}/support-shift-scheduler-output.json`
+	);
+	await validateJSONScheduleOutput(jsonObject);
+	return jsonObject;
+}

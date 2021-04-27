@@ -17,23 +17,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import * as VictorOpsApiClient from 'victorops-api-client';
-import { validateJSONScheduleOutput } from '../lib/validate-json';
+import { readAndParseJSONSchedule } from '../lib/validate-json';
 
 const TIMEZONE = 'Europe/London';
-
-/**
- * Read, parse and validate JSON output file from scheduling algorithm.
- * @param  {string}   date   The date  we're targeting, eg `2021-05-03`
- * @param  {string}   scheduleName   The schedule we're targeting, eg `devOps`
- * @return {Promise<object>}              Parsed and validated object with schedule
- */
-async function readAndParseJSONSchedule(date, scheduleName) {
-	const jsonObject = await import(
-		`../logs/${date}_${scheduleName}/support-shift-scheduler-output.json`
-	);
-	await validateJSONScheduleOutput(jsonObject);
-	return jsonObject;
-}
 
 /**
  * Load JSON object containing optimized schedule from file, and write to Support schedule Google Calendar, saving ID's of created events for reference.
