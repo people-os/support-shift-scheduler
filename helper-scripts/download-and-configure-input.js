@@ -19,8 +19,7 @@ const Promise = require('bluebird');
 const mkdirp = Promise.promisify(require('mkdirp'));
 
 const { getAuthClient } = require('../lib/gauth');
-const { getNextCycleDates } = require('../lib/gsheets');
-const { getSchedulerInput } = require('../lib/gsheets');
+const { getNextCycleDates, getSchedulerInput } = require('../lib/gsheets');
 const { validateJSONScheduleInput } = require('../lib/validate-json');
 
 /**
