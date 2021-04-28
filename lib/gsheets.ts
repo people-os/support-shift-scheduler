@@ -178,7 +178,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
  * @param  {object} auth           OAuth 2.0 access token
  * @param  {string} nextMondayDate Schedule start date in format YYYY-MM-DD
  * @param  {object} support
- * @return {Promise<object>}                Parsed input object for scheduler (more options will be added to this object by download-and-configure-input.js)
+ * @return {Promise<object>}                Parsed input object for scheduler (more options will be added to this object by download-and-configure-input)
  */
 export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const sheets = google.sheets({ version: 'v4', auth });

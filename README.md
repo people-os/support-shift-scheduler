@@ -56,7 +56,7 @@ This project makes use of a [Google Service Account](https://cloud.google.com/co
 - `GAPI_SERVICE_ACCOUNT_JWT`: The path to the JSON credentials associated with your service account.
 - `CALENDAR_ID`: Google Calendar ID of the calendar you would like the events to be written to.
 
-You would also need to modify [`./lib/gsheets.js`](./lib/gsheets.js) and [`./helper-scripts/download-and-configure-input.js`](./helper-scripts/download-and-configure-input.js) to make sure that the correct data is being downloaded from your Google Sheets, and configured correctly for the scheduler.
+You would also need to modify [`./lib/gsheets.ts`](./lib/gsheets.ts) and [`./helper-scripts/download-and-configure-input.ts`](./helper-scripts/download-and-configure-input.ts) to make sure that the correct data is being downloaded from your Google Sheets, and configured correctly for the scheduler.
 
 
 
@@ -99,7 +99,7 @@ Since you do not have access to our private Google Spreadsheets, an example JSON
 The JSON input object thus created has two main properties:
 
 - `agents`, containing the data for all the support agents, and
-- `options`, containing a number of options that are fed into the scheduler. This includes the optimisation timeout for the solver, with a default value of 1 hour set by the `download-and-configure-input.js` script. However, the timeout is set to 1 minute in the example input, for the sake of easy testing. If necessary, these should be modified before running the core algorithm.
+- `options`, containing a number of options that are fed into the scheduler. This includes the optimisation timeout for the solver, with a default value of 1 hour set by the `download-and-configure-input` script. However, the timeout is set to 1 minute in the example input, for the sake of easy testing. If necessary, these should be modified before running the core algorithm.
 
 For more detail regarding these `options`, as well as the rest of the input file structure, see the associated [json input schema](./lib/schemas/support-shift-scheduler-input.schema.json).
 
@@ -150,7 +150,7 @@ $ npm run beautify-schedule $startDate $scheduleName
 
 This script writes a formatted schedule to the file `beautified-schedule.txt`, which is a helpful view as a sanity check that the schedule is legitimate. The script also writes message text for our internal chat to the file `flowdock-message.txt`, which is used to ping the support agents to go check their calendars after the Google Calendar invites have been sent.
 
-If, for some reason, the schedule needs to be modified, it should be edited directly in `support-shift-scheduler-output.json`, after which the `beautify-schedule.js` script should be rerun as above to update the text files.
+If, for some reason, the schedule needs to be modified, it should be edited directly in `support-shift-scheduler-output.json`, after which the `beautify-schedule` script should be rerun as above to update the text files.
 
 
 
