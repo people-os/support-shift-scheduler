@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const dateformat = require('dateformat');
-const _ = require('lodash');
-const fs = require('mz/fs');
+import * as dateformat from 'dateformat';
+import * as _ from 'lodash';
+import * as fs from 'mz/fs';
+import { readAndParseJSONSchedule } from '../lib/validate-json';
 
 const MINUTES = 60 * 1000;
 
@@ -43,22 +44,27 @@ function prettyHourStr(hour) {
  * Write beautified schedule, as well as Flowdock message, to text files.
  * @param  {object}   scheduleJSON   Scheduling algorithm output object (read from file)
  */
-function writePrettifiedText(scheduleJSON) {
+async function writePrettifiedText(
+	date: string,
+	scheduleName: string,
+	scheduleJSON,
+) {
 	// Write pretty schedule, to be used for sanity check:
-	let agentHours = {};
+	const agentHours = {};
 	let prettySchedule = '';
-	let dailyAgents = [];
+	const dailyAgents = [];
 	let maxHours = 0;
 
-	for (let epoch of scheduleJSON) {
-		let epochDate = new Date(epoch.start_date);
-		let maxDayHours = _.maxBy(epoch.shifts, (s) => s.end).end;
+	for (const epoch of scheduleJSON) {
+		const epochDate = new Date(epoch.start_date);
+		const maxDayHours = _.maxBy(epoch.shifts, (s: { end: number }) => s.end)
+			.end;
 		maxHours = Math.max(maxHours, maxDayHours);
 		const hours = new Array(maxDayHours).fill(0);
 
 		let lastStartDate = new Date(epochDate.getTime() - 24 * 60 * MINUTES);
 
-		for (let shift of epoch.shifts) {
+		for (const shift of epoch.shifts) {
 			const startDate = new Date(
 				epochDate.getTime() + shift.start * 30 * MINUTES,
 			);
@@ -66,10 +72,10 @@ function writePrettifiedText(scheduleJSON) {
 				lastStartDate = startDate;
 				prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`;
 			}
-			let agentName = shift.agent.replace(/ <.*>/, '');
-			let len = (shift.end - shift.start) / 2;
-			let startStr = prettyHourStr(shift.start);
-			let endStr = prettyHourStr(shift.end);
+			const agentName = shift.agent.replace(/ <.*>/, '');
+			const len = (shift.end - shift.start) / 2;
+			const startStr = prettyHourStr(shift.start);
+			const endStr = prettyHourStr(shift.end);
 			prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
 			agentHours[agentName] = agentHours[agentName] || 0;
 			agentHours[agentName] += len;
@@ -92,8 +98,8 @@ function writePrettifiedText(scheduleJSON) {
 		return agent.hours;
 	}).reverse();
 
-	for (let agent of agentHoursList) {
-		let handle = agent.handle.replace(/@/, '').replace(/ <.*>/, '');
+	for (const agent of agentHoursList) {
+		const handle = agent.handle.replace(/@/, '').replace(/ <.*>/, '');
 		prettySchedule += `${handle}: ${agent.hours}\n`;
 	}
 
@@ -113,7 +119,11 @@ function writePrettifiedText(scheduleJSON) {
 		);
 	}
 
-	fs.writeFile('beautified-schedule.txt', prettySchedule, 'utf8', _.noop);
+	await fs.writeFile(
+		`logs/${date}_${scheduleName}/beautified-schedule.txt`,
+		prettySchedule,
+		'utf8',
+	);
 
 	// Write Flowdock message, with which to ping agents to check their calendars:
 	let flowdockMessage = '';
@@ -121,24 +131,29 @@ function writePrettifiedText(scheduleJSON) {
 	flowdockMessage +=
 		'Please ping `@@support_ops` if you require any changes.\n\n';
 
-	for (let agent of agentHoursList) {
+	for (const agent of agentHoursList) {
 		flowdockMessage += `${agent.handle}\n`;
 	}
-	fs.writeFile('flowdock-message.txt', flowdockMessage, 'utf8', _.noop);
+	await fs.writeFile(
+		`logs/${date}_${scheduleName}/flowdock-message.txt`,
+		flowdockMessage,
+		'utf8',
+	);
 }
 
-// Read scheduling algorithm output file name from command line:
+async function beautify(date: string, scheduleName: string) {
+	const outputJsonObject = await readAndParseJSONSchedule(date, scheduleName);
+
+	// Write beautified-schedule.txt and flowdock-message.txt:
+	writePrettifiedText(date, scheduleName, outputJsonObject);
+}
+
+// Read scheduler output file name from command line:
 const args = process.argv.slice(2);
-if (args.length !== 1) {
-	console.log(
-		`Usage: node ${__filename} <path-to-support-shift-scheduler-output.json>`,
-	);
+if (args.length !== 2) {
+	console.log(`Usage: node ${__filename} <yyyy-mm-dd> <model-name>`);
 	process.exit(1);
 }
+const [$date, $scheduleName] = args;
 
-// Load JSON object from output file:
-const jsonPath = args[0];
-const outputJsonObject = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-
-// Write beautified-schedule.txt and flowdock-message.txt:
-writePrettifiedText(outputJsonObject);
+beautify($date, $scheduleName);
