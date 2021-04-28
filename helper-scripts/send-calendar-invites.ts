@@ -25,12 +25,12 @@ const MINUTES = 60 * 1000;
 
 /**
  * Read, parse and validate JSON output file from scheduling algorithm.
- * @param  {string}   jsonPath   Path to output file
+ * @param  {string}   date   The date  we're targeting, eg `2021-05-03`
+ * @param  {string}   scheduleName   The schedule we're targeting, eg `balenaio`
  * @return {Promise<object>}              Parsed and validated object with schedule
  */
-async function readAndParseJSONSchedule(jsonPath) {
-	const jsonContent = await fs.readFile(jsonPath, 'utf8');
-	const jsonObject = JSON.parse(jsonContent);
+async function readAndParseJSONSchedule(date, scheduleName) {
+	const jsonObject = require(`../logs/${date}_${scheduleName}/support-shift-scheduler-output.json`);
 	await validateJSONScheduleOutput(jsonObject);
 	return jsonObject;
 }
@@ -43,9 +43,10 @@ function isoDateWithoutTimezone(date) {
 /**
  * From the object containing the optimized shifts, create array of "events resources" in the format required by the Google Calendar API.
  * @param  {object}   shiftsObject   Shifts optimized by scheduling algorithm
+ * @param  {string}   scheduleName   The schedule we're targeting, eg `balenaio`
  * @return {Promise<Array<calendar_v3.Schema$Event>>}                   Array of events resources to be passed to Google Calendar API.
  */
-async function createEventResourceArray(shiftsObject, supportName: string) {
+async function createEventResourceArray(shiftsObject, scheduleName: string) {
 	const returnArray: calendar_v3.Schema$Event[] = [];
 	for (const epoch of shiftsObject) {
 		const date = new Date(epoch.start_date);
@@ -56,7 +57,7 @@ async function createEventResourceArray(shiftsObject, supportName: string) {
 			const [handle, $email] = shift.agent.split(' ');
 			const email = $email.match(new RegExp(/<(.*)>/))[1];
 
-			eventResource.summary = `${handle} on ${supportName} support`;
+			eventResource.summary = `${handle} on ${scheduleName} support`;
 			eventResource.description =
 				'Resources on support: ' + process.env.SUPPORT_RESOURCES;
 			eventResource.start = {
@@ -78,18 +79,17 @@ async function createEventResourceArray(shiftsObject, supportName: string) {
 
 /**
  * Load JSON object containing optimized schedule from file, and write to Support schedule Google Calendar, saving ID's of created events for reference.
- * @param  {string}   jsonPath   Path to JSON output of scheduling algorithm
+ * @param  {string}   date   The date  we're targeting, eg `2021-05-03`
+ * @param  {string}   scheduleName   The schedule we're targeting, eg `balenaio`
  */
-async function createEvents(jsonPath, supportName) {
-	const support = JSON.parse(
-		fs.readFileSync('helper-scripts/options/' + supportName + '.json', 'utf8'),
-	);
+async function createEvents(date, scheduleName) {
+	const support = require(`./options/${scheduleName}.json`);
 
 	try {
-		const shiftsObject = await readAndParseJSONSchedule(jsonPath);
+		const shiftsObject = await readAndParseJSONSchedule(date, scheduleName);
 		const eventResourceArray = await createEventResourceArray(
 			shiftsObject,
-			supportName,
+			scheduleName,
 		);
 		const authClient = await getAuthClient(support);
 		const calendar = google.calendar({ version: 'v3' });
@@ -112,7 +112,8 @@ async function createEvents(jsonPath, supportName) {
 			eventIDs.push(eventResponse.data.id);
 		}
 		await fs.writeFile(
-			logsFolder + '/event-ids-written-to-calendar.json',
+			__dirname +
+				`/../logs/${date}_${scheduleName}/event-ids-written-to-calendar.json`,
 			JSON.stringify(eventIDs, null, 2),
 		);
 	} catch (e) {
@@ -123,20 +124,10 @@ async function createEvents(jsonPath, supportName) {
 // Read scheduler output file name from command line:
 const args = process.argv.slice(2);
 if (args.length !== 2) {
-	console.log(
-		`Usage: node ${__filename} <path-to-support-shift-scheduler-output.json> <model-name>`,
-	);
+	console.log(`Usage: node ${__filename} <yyyy-mm-dd> <model-name>`);
 	process.exit(1);
 }
-const [$jsonPath, $supportName] = args;
-
-// Derive path for output:
-let logsFolder = '';
-if ($jsonPath.indexOf('/') === -1) {
-	logsFolder = '.';
-} else {
-	logsFolder = $jsonPath.slice(0, $jsonPath.lastIndexOf('/'));
-}
+const [$date, $scheduleName] = args;
 
 // Create calendar events:
-createEvents($jsonPath, $supportName);
+createEvents($date, $scheduleName);
