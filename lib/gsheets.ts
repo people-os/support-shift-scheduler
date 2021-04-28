@@ -96,14 +96,22 @@ async function createAgent(opts) {
 	return _.create({}, opts);
 }
 
+function parseAvailability(availability) {
+	const allowedValues = ['1', '2', '4'];
+	if (allowedValues.includes(availability.toString())) {
+		return Number(availability);
+	} else {
+		return 0;
+	}
+}
+
 /**
  * Parse agent data read from Support Scheduler History.
  * @param  {array}  rawInput    Raw spreadsheet data as nested arrays
  * @param  {string} startDate   Schedule start date in format YYYY-MM-DD
- * @param  {number} numDays     Number of consecutive days to schedule
  * @return {Promise<object>}             Parsed input object for scheduler
  */
-async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
+async function parseInput(rawInput, startDate = null) {
 	if (_.isEmpty(startDate)) {
 		throw new Error('Need start date');
 	}
@@ -116,59 +124,59 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 	const agentsEmail = {};
 	const agentsWeekAverageHours = {};
 	const agentsIdealShiftLength = {};
-	const agentsAvailableHours = {};
+	// const agentsAvailableHours = {};
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
-		agentsEmail[handle] = inputByGithubHandle[handle].splice(0, 1);
+		agentsEmail[handle] = inputByGithubHandle[handle].shift();
 
 		agentsWeekAverageHours[handle] = _.toInteger(
-			inputByGithubHandle[handle].splice(0, 1),
+			inputByGithubHandle[handle].shift(),
 		);
 
 		agentsIdealShiftLength[handle] = _.toInteger(
-			inputByGithubHandle[handle].splice(0, 1),
+			inputByGithubHandle[handle].shift(),
 		);
 
-		agentsAvailableHours[handle] = [];
+		// agentsAvailableHours[handle] = [];
 
-		for (let i = 0; i < numDays; i++) {
-			let slotAvailability = inputByGithubHandle[handle].splice(0, 48);
+		// for (let i = 0; i < numDays; i++) {
+		// 	let slotAvailability = inputByGithubHandle[handle].splice(0, 48);
 
-			const allowedValues = ['1', '2', '4'];
+		// 	const allowedValues = ['1', '2', '4'];
 
-			slotAvailability = slotAvailability.map((item) => {
-				if (allowedValues.includes(item.toString())) {
-					return Number(item);
-				} else {
-					return 0;
-				}
-			});
+		// 	slotAvailability = slotAvailability.map((item) => {
+		// 		if (allowedValues.includes(item.toString())) {
+		// 			return Number(item);
+		// 		} else {
+		// 			return 0;
+		// 		}
+		// 	});
 
-			const hourAvailability = slotAvailability;
-			agentsAvailableHours[handle].push(hourAvailability);
-		}
+		// 	const hourAvailability = slotAvailability;
+		// 	agentsAvailableHours[handle].push(hourAvailability);
+		// }
 
 		const newAgent = await createAgent({
 			handle,
-			email: agentsEmail[handle][0],
+			email: agentsEmail[handle],
 			weekAverageHours: agentsWeekAverageHours[handle],
 			idealShiftLength: agentsIdealShiftLength[handle],
-			availableHours: agentsAvailableHours[handle],
+			availableHours: inputByGithubHandle[handle].map(parseAvailability),
 		});
 		schedulerInput.agents.push(newAgent);
 	}
-	console.log(slotsInDay);
-	schedulerInput.agents.forEach((agent) => {
-		agent.availableHours.forEach((day, dayIndex) => {
-			const followingDay = dayIndex + 1;
-			if (dayIndex < 5) {
-				for (let i = 0; i < (slotsInDay - 24) * 2; i++) {
-					day.push(agent.availableHours[followingDay][i]);
-				}
-			}
-		});
-		agent.availableHours.splice(5, 1);
-	});
+	// console.log(slotsInDay);
+	// schedulerInput.agents.forEach((agent) => {
+	// 	agent.availableHours.forEach((day, dayIndex) => {
+	// 		let followingDay = dayIndex + 1;
+	// 		if (dayIndex < 5) {
+	// 			for (let i = 0; i < (slotsInDay - 24) * 2; i++) {
+	// 				day.push(agent.availableHours[followingDay][i]);
+	// 			}
+	// 		}
+	// 	});
+	// 	agent.availableHours.splice(5, 1);
+	// });
 	schedulerInput.options['startMondayDate'] = startDate;
 	return schedulerInput;
 }
@@ -188,11 +196,6 @@ export async function getSchedulerInput(auth, nextMondayDate, support) {
 		range,
 		valueRenderOption: 'FORMATTED_VALUE',
 	});
-	const parsedInput = await parseInput(
-		result.data.values,
-		nextMondayDate,
-		support.numConsecutiveDays + 1,
-		support.slotsInDay,
-	);
+	const parsedInput = await parseInput(result.data.values, nextMondayDate);
 	return parsedInput;
 }
