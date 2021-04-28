@@ -8,17 +8,22 @@
     "shiftMaxDuration": 8,
     "optimizationTimeout": 600,
     "logSheet": "1CcyoRGVXA8D-zfQG7sn0lZkw0GxsfVBxpR5eV1Uymyw",
-    "calendarID":"c_ktn7k7hgb826l18mll4ilpjbl8@group.calendar.google.com",
+    "calendarID": "c_ktn7k7hgb826l18mll4ilpjbl8@group.calendar.google.com",
     "useServiceAccount": false,
     "specialAgentConditions": {
-      "agentsWithMaxHoursShift": [],
-      "agentsWithMinHoursWeek": [],    
-      "agentsWithMaxHoursWeek": [],
-  
-      "agentsWithFixHours": []
+        "agentsWithMaxHoursShift": [],
+        "agentsWithMinHoursWeek": [],
+        "agentsWithMaxHoursWeek": [],
+        "agentsWithFixHours": []
     },
-    "tracks": [
-      { "start_hour": 3, "end_hour": 27, "start_day": 0, "end_day": 4 }
-    ]
-  }
-  
+    "tracks": [{ "start_hour": 3, "end_hour": 27, "start_day": 0, "end_day": 4 }],
+    "victoropsUsernames": {
+        "ab77": "ab77",
+        "cmfcruz": "cmfcruz",
+        "jakogut": "jakogut",
+        "joshbwlng": "josh.bowling",
+        "klutchell": "klutchell",
+        "page-": "page",
+        "xginn8": "xginn8"
+    }
+}

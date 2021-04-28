@@ -170,7 +170,21 @@ to write the finalised schedule to the `Support schedule` Google Calendar, sendi
 
 
 
-### 8. Notify the team in Flowdock
+### 8. Setting the victorops schedule
+
+#### For devOps team members
+
+From the project root directory, run:
+
+```bash
+$ npm run set-victorops-schedule $startDate $scheduleName
+```
+
+to set the scheduled overrides in victorops.
+
+
+
+### 9. Notify the team in Flowdock
 
 #### For balena team members
 
