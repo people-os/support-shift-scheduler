@@ -7,11 +7,8 @@
 		"preserveConstEnums": true,
 		"outDir": "./build/",
 		"skipLibCheck": true,
-		"lib": ["es6"],
 		"resolveJsonModule": true,
-		"noImplicitAny": false,
-		"allowJs": true,
-		"checkJs": true
+		"noImplicitAny": false
 	},
 	"include": ["lib", "helper-scripts"]
 }
