@@ -11,7 +11,8 @@
     "lint-fix": "balena-lint --typescript --fix -e js -e ts lib helper-scripts",
     "test": "npm run lint && npx tsc --noEmit",
     "download-and-configure-input": "npx ts-node --transpile-only ./helper-scripts/download-and-configure-input",
-    "send-calendar-invites": "npx ts-node --transpile-only ./helper-scripts/send-calendar-invites"
+    "send-calendar-invites": "npx ts-node --transpile-only ./helper-scripts/send-calendar-invites",
+    "set-victorops-schedule": "npx ts-node --transpile-only ./helper-scripts/set-victorops-schedule"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,8 @@
     "mkdirp": "^0.5.1",
     "mz": "^2.7.0",
     "readline-sync": "^1.4.10",
-    "ts-node": "^9.1.1"
+    "ts-node": "^9.1.1",
+    "victorops-api-client": "^1.0.2"
   },
   "devDependencies": {
     "@balena/lint": "^5.4.1",
