@@ -96,6 +96,15 @@ async function createAgent(opts) {
 	return _.create({}, opts);
 }
 
+function parseAvailability(availability) {
+	const allowedValues = ['1', '2', '4'];
+	if (allowedValues.includes(availability.toString())) {
+		return Number(availability);
+	} else {
+		return 0;
+	}
+}
+
 /**
  * Parse agent data read from Support Scheduler History.
  * @param  {array}  rawInput    Raw spreadsheet data as nested arrays
@@ -113,47 +122,30 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 	};
 	const inputByGithubHandle = await createObject(rawInput);
 	await checkForDuplicates(inputByGithubHandle);
-	const agentsEmail = {};
-	const agentsWeekAverageHours = {};
-	const agentsIdealShiftLength = {};
-	const agentsAvailableHours = {};
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
-		agentsEmail[handle] = inputByGithubHandle[handle].splice(0, 1);
+		const email = inputByGithubHandle[handle].shift();
 
-		agentsWeekAverageHours[handle] = _.toInteger(
-			inputByGithubHandle[handle].splice(0, 1),
-		);
+		const weekAverageHours = _.toInteger(inputByGithubHandle[handle].shift());
 
-		agentsIdealShiftLength[handle] = _.toInteger(
-			inputByGithubHandle[handle].splice(0, 1),
-		);
+		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
 
-		agentsAvailableHours[handle] = [];
+		const availableHours = [];
 
 		for (let i = 0; i < numDays; i++) {
-			let slotAvailability = inputByGithubHandle[handle].splice(0, 48);
+			const hourAvailability = inputByGithubHandle[handle]
+				.splice(0, 48)
+				.map(parseAvailability);
 
-			const allowedValues = ['1', '2', '4'];
-
-			slotAvailability = slotAvailability.map((item) => {
-				if (allowedValues.includes(item.toString())) {
-					return Number(item);
-				} else {
-					return 0;
-				}
-			});
-
-			const hourAvailability = slotAvailability;
-			agentsAvailableHours[handle].push(hourAvailability);
+			availableHours.push(hourAvailability);
 		}
 
 		const newAgent = await createAgent({
 			handle,
-			email: agentsEmail[handle][0],
-			weekAverageHours: agentsWeekAverageHours[handle],
-			idealShiftLength: agentsIdealShiftLength[handle],
-			availableHours: agentsAvailableHours[handle],
+			email,
+			weekAverageHours,
+			idealShiftLength,
+			availableHours,
 		});
 		schedulerInput.agents.push(newAgent);
 	}
