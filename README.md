@@ -143,6 +143,7 @@ If the `Solution type` is `OPTIMAL`, it means that the solver has determined thi
 ### 6. Beautifying the schedule
 
 ```bash
+$ export TZ=Europe/London
 $ npm run beautify-schedule $startDate $scheduleName
 ```
 
