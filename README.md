@@ -38,10 +38,9 @@ You will also need:
 - A JSON file with credentials associated with the existing service account of our `Support Algo Calendar` Google Cloud project.
 - To create a `.env` file in the project root directory (which you can base on the included [.env.dist](.env.dist)), defining the following environment variables:
   - `TEAM_MODEL_ID `: Google Spreadsheet ID of the `Team Model` sheet.
-  - `SUPPORT_SCHEDULER_HISTORY_ID`: Google Spreadsheet ID of the `Support Scheduler History` sheet.
   - `GAPI_SERVICE_ACCOUNT_JWT`: The path to the JSON credentials.
-  - `CALENDAR_ID`: Google Calendar ID of the `Support schedule` calendar.
   - `SUPPORT_RESOURCES`: link to support process documentation.
+- To create a `cred.json` file in the project root directory containing google oauth app credentials
 
 For assistance, please contact `@AlidaOdendaal`, or operations.
 
@@ -54,7 +53,6 @@ For assistance, please contact `@AlidaOdendaal`, or operations.
 This project makes use of a [Google Service Account](https://cloud.google.com/compute/docs/access/service-accounts) to authenticate with the Google Sheets API to download input data, and with the Google Calendar API to create calendar events. *If* you'd like to set up a similar Google Cloud Project, you have to create a `.env` file in the project root directory, defining the following environment variables:
 
 - `GAPI_SERVICE_ACCOUNT_JWT`: The path to the JSON credentials associated with your service account.
-- `CALENDAR_ID`: Google Calendar ID of the calendar you would like the events to be written to.
 
 You would also need to modify [`./lib/gsheets.ts`](./lib/gsheets.ts) and [`./helper-scripts/download-and-configure-input.ts`](./helper-scripts/download-and-configure-input.ts) to make sure that the correct data is being downloaded from your Google Sheets, and configured correctly for the scheduler.
 
