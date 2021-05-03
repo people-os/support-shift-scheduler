@@ -5,3 +5,5 @@ node_modules/
 .vscode/*
 */__pycache__/
 .idea/*
+creds.json
+token.json
