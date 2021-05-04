@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as dateformat from 'dateformat';
 import * as _ from 'lodash';
 import * as fs from 'mz/fs';
 import { readAndParseJSONSchedule } from '../lib/validate-json';
 
 const MINUTES = 60 * 1000;
 
-/**
- * Convert array from Next Cycle Dates Google Sheet into object.
- * @param  {object}   date   Date object
- * @return {string}          Formatted like Monday, November 18th
- */
-function prettyDateStr(date) {
-	return dateformat(date, 'dddd, mmmm dS');
-}
+const dateFormat = new Intl.DateTimeFormat('en', {
+	timeZone: 'UTC',
+	weekday: 'long',
+	month: 'long',
+	day: 'numeric',
+});
+const dayFormat = new Intl.DateTimeFormat('en', {
+	timeZone: 'UTC',
+	weekday: 'short',
+});
 
 function prettyHourStr(hour) {
 	hour = hour / 2;
@@ -70,7 +71,7 @@ async function writePrettifiedText(
 			);
 			if (startDate.getUTCDay() !== lastStartDate.getUTCDay()) {
 				lastStartDate = startDate;
-				prettySchedule += `\nShifts for ${prettyDateStr(startDate)}\n`;
+				prettySchedule += `\nShifts for ${dateFormat.format(startDate)}\n`;
 			}
 			const agentName = shift.agent.replace(/ <.*>/, '');
 			const len = (shift.end - shift.start) / 2;
@@ -106,7 +107,7 @@ async function writePrettifiedText(
 	let header = ' ';
 
 	dailyAgents.forEach(
-		(da) => (header = header.concat('\t\t', dateformat(da.day, 'ddd'))),
+		(da) => (header = header.concat('\t\t', dayFormat.format(da.day))),
 	);
 
 	prettySchedule += '\n\nAgents per day \n\n';
