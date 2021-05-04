@@ -29,7 +29,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "bluebird": "^3.7.2",
-    "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "googleapis": "^45.0.0",
     "jsonschema": "^1.4.0",
@@ -44,7 +43,6 @@
   "devDependencies": {
     "@balena/lint": "^5.4.1",
     "@types/bluebird": "^3.5.33",
-    "@types/dateformat": "^3.0.1",
     "@types/dotenv": "^8.2.0",
     "@types/jsonschema": "^1.1.1",
     "@types/lodash": "^4.14.168",
