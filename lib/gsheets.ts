@@ -19,35 +19,6 @@ import { google } from 'googleapis';
 import * as _ from 'lodash';
 
 /**
- * Convert array from Next Cycle Dates Google Sheet into object.
- * @param  {array}   rawDates   Array of 2-element arrays in format [<schedule type>, <start-date>]
- * @return {Promise<object>}             Object with key:value pairs like <schedule type>:<start-date>
- */
-async function parseDates(rawDates: any[][]) {
-	const parsedDates: { [name: string]: string } = {};
-	for (const rawDate of rawDates) {
-		parsedDates[rawDate[0]] = rawDate[1];
-	}
-	return parsedDates;
-}
-
-/**
- * Read and parse content of Next Cycle Dates Google Sheet.
- * @param  {object} auth   OAuth 2.0 access token
- * @return {Promise<object>}        Object with key:value pairs like <schedule type>:<start-date>
- */
-export async function getNextCycleDates(auth) {
-	const sheets = google.sheets({ version: 'v4', auth });
-	const result = await sheets.spreadsheets.values.get({
-		spreadsheetId: process.env.TEAM_MODEL_ID,
-		range: 'Next Cycle Dates!A1:B',
-		valueRenderOption: 'FORMATTED_VALUE',
-	});
-	const parsedNextCycleDates = await parseDates(result.data.values);
-	return parsedNextCycleDates;
-}
-
-/**
  * Create object from raw agent input.
  * @param  {array}  rawInput    Raw spreadsheet data as nested arrays
  * @return {Promise<object>}             Object with keys in format `@<github-handle>`
