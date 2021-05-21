@@ -83,7 +83,7 @@ In the `Team Model` Google Sheet:
 From the project root directory, run:
 
 ```bash
-$ npm run download-and-configure-input $scheduleName
+$ npm run download-and-configure-input $startDate $scheduleName
 ```
 
 This script will determine the start date of the next support cycle, and download the availability of each support agent for this cycle (compiled from working hours, time zones, time-off data, existing calendar appointments and possible opt-outs, and including e-mail addresses, historical support load and shift length preferences). It will create a JSON input object for the scheduling algorithm. This JSON object is validated against the [json input schema](./lib/schemas/support-shift-scheduler-input.schema.json), and then stored in the file `./logs/<start-date>/support-shift-scheduler-input.json` .
