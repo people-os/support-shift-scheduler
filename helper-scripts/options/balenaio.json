@@ -24,6 +24,10 @@
         "value": 4
       },
       {
+        "handle": "@chrisys",
+        "value": 4
+      },      
+      {
         "handle": "@joehounsham",
         "value": 4
       },
@@ -41,7 +45,7 @@
       },
       {
         "handle": "@rmorillo24",
-        "value": 4
+        "value": 2
       },
       {
         "handle": "@szony",
@@ -58,11 +62,7 @@
       {
         "handle": "@andrewnhem",
         "value": 4
-      },        
-      {
-        "handle": "@shawaj",
-        "value": 4
-      }   
+      } 
     ],
     "agentsWithFixHours": []
   },
