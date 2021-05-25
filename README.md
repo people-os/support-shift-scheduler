@@ -66,13 +66,11 @@ You would also need to modify [`./lib/gsheets.ts`](./lib/gsheets.ts) and [`./hel
 
 In the `Team Model` Google Sheet:
 
-1. Check that the `Next Cycle Dates` tab reflects the correct Monday date (in YYYY-MM-DD format) for the week for which you need to create the support schedule.
+1. If there will be new team members onboarding to support in the week to be scheduled, ensure that you have onboarded them all in the `Team Model`.
 
-2. If there will be new team members onboarding to support in the week to be scheduled, ensure that you have onboarded them all in the `Team Model`.
+2. From the `Custom scripts` menu, run `Refresh UK Time Support Availabilities`, and wait for the script to finish.
 
-3. From the `Custom scripts` menu, run `Refresh UK Time Support Availabilities`, and wait for the script to finish.
-
-4. From the `Custom scripts` menu, run `Update Support Scheduler Input`, and wait for the script to finish.
+3. From the `Custom scripts` menu, run `Update Support Scheduler Input`, and wait for the script to finish.
 
    
 
