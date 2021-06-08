@@ -10,12 +10,7 @@
     "optimizationTimeout": 120,
     "specialAgentConditions": {
       "agentsWithMaxHoursShift": [],
-      "agentsWithMinHoursWeek": [
-        {
-          "handle": "@saintaardvark",
-          "value": 7
-        }
-      ],
+      "agentsWithMinHoursWeek": [],
       "agentsWithFixHours": []
     },
     "tracks": [
