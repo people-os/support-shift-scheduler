@@ -34,7 +34,7 @@
     "jsonschema": "^1.4.0",
     "lodash": "^4.17.21",
     "log": "^6.0.0",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.4",
     "mz": "^2.7.0",
     "readline-sync": "^1.4.10",
     "ts-node": "^9.1.1",
