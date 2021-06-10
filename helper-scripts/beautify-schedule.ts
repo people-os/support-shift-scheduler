@@ -58,8 +58,10 @@ async function writePrettifiedText(
 
 	for (const epoch of scheduleJSON) {
 		const epochDate = new Date(epoch.start_date);
-		const maxDayHours = _.maxBy(epoch.shifts, (s: { end: number }) => s.end)
-			.end;
+		const maxDayHours = _.maxBy(
+			epoch.shifts,
+			(s: { end: number }) => s.end,
+		).end;
 		maxHours = Math.max(maxHours, maxDayHours);
 		const hours = new Array(maxDayHours).fill(0);
 
