@@ -39,7 +39,7 @@ async function getData(startDate: string, supportName: string) {
 		await validateJSONScheduleInput(schedulerInput);
 
 		const fileDir = `./logs/${startDate}_` + supportName;
-		await mkdirpAsync(fileDir);
+		await mkdirpAsync(fileDir, null);
 
 		await fs.writeFile(
 			fileDir + '/support-shift-scheduler-input.json',
