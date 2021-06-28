@@ -1,7 +1,7 @@
 {
   "name": "support-shift-scheduler",
   "private": true,
-  "version": "3.1.15",
+  "version": "3.1.16",
   "description": "Project for scheduling Balena's engineers for customer support",
   "directories": {
     "lib": "lib"
