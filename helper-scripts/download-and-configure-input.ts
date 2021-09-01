@@ -15,7 +15,7 @@
  */
 import * as _ from 'lodash';
 import * as mkdirp from 'mkdirp';
-import { promises as fs } from 'fs'
+import { promises as fs } from 'fs';
 
 import { getAuthClient } from '../lib/gauth';
 import { getSchedulerInput } from '../lib/gsheets';
@@ -26,12 +26,15 @@ import { validateJSONScheduleInput } from '../lib/validate-json';
  */
 async function getData(startDate: string, supportName: string) {
 	try {
-		const supportStr = await fs.readFile('helper-scripts/options/' + supportName + '.json', 'utf8')
-		const support = JSON.parse(supportStr);		
+		const supportStr = await fs.readFile(
+			'helper-scripts/options/' + supportName + '.json',
+			'utf8',
+		);
+		const support = JSON.parse(supportStr);
 		const auth = await getAuthClient(support);
 		const schedulerInput = await getSchedulerInput(auth, startDate, support);
 		_.assign(schedulerInput.options, support);
-		const stringifiedInput = JSON.stringify(schedulerInput, null, 2)
+		const stringifiedInput = JSON.stringify(schedulerInput, null, 2);
 		console.log(stringifiedInput);
 
 		await validateJSONScheduleInput(schedulerInput);
@@ -40,7 +43,7 @@ async function getData(startDate: string, supportName: string) {
 		await mkdirp(fileDir, null);
 		await fs.writeFile(
 			fileDir + '/support-shift-scheduler-input.json',
-			stringifiedInput
+			stringifiedInput,
 		);
 	} catch (e) {
 		console.error(e);
