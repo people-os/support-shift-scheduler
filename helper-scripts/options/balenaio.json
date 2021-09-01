@@ -12,12 +12,7 @@
   "useServiceAccount": true,
   "specialAgentConditions": {
     "agentsWithMaxHoursShift": [],
-    "agentsWithMinHoursWeek": [
-      {
-        "handle": "@georgiats",
-        "value": 7
-      }
-    ],
+    "agentsWithMinHoursWeek": [],
     "agentsWithMaxHoursWeek": [
       {
         "handle": "@alisondavis17",
@@ -44,10 +39,6 @@
         "value": 3
       },
       {
-        "handle": "@szony",
-        "value": 4
-      },
-      {
         "handle": "@jazzagi",
         "value": 4
       },
@@ -58,7 +49,27 @@
       {
         "handle": "@andrewnhem",
         "value": 4
-      } 
+      },
+      {
+        "handle": "@hades32",
+        "value": 3
+      },
+      {
+        "handle": "@toochevere",
+        "value": 3
+      },
+      {
+        "handle": "@dfunckt",
+        "value": 3
+      },
+      {
+        "handle": "@thgreasi",
+        "value": 4
+      },
+      {
+        "handle": "@phil-d-wilson",
+        "value": 3
+      }
     ],
     "agentsWithFixHours": []
   },
