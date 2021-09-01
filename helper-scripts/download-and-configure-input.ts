@@ -15,8 +15,7 @@
  */
 import * as _ from 'lodash';
 import * as mkdirp from 'mkdirp';
-
-const fs = require('fs').promises;
+import { promises as fs } from 'fs'
 
 import { getAuthClient } from '../lib/gauth';
 import { getSchedulerInput } from '../lib/gsheets';
@@ -41,8 +40,7 @@ async function getData(startDate: string, supportName: string) {
 		await mkdirp(fileDir, null);
 		await fs.writeFile(
 			fileDir + '/support-shift-scheduler-input.json',
-			stringifiedInput,
-			(err: any) => {console.log(err)}
+			stringifiedInput
 		);
 	} catch (e) {
 		console.error(e);
