@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 import * as _ from 'lodash';
-import * as fs from 'mz/fs';
-import * as Promise from 'bluebird';
 import * as mkdirp from 'mkdirp';
-const mkdirpAsync = Promise.promisify(mkdirp);
+import { promises as fs } from 'fs';
 
 import { getAuthClient } from '../lib/gauth';
 import { getSchedulerInput } from '../lib/gsheets';
@@ -27,23 +25,25 @@ import { validateJSONScheduleInput } from '../lib/validate-json';
  * Read and configure input data from Google Sheets, and save as JSON object
  */
 async function getData(startDate: string, supportName: string) {
-	const support = JSON.parse(
-		fs.readFileSync('helper-scripts/options/' + supportName + '.json', 'utf8'),
-	);
-
 	try {
+		const supportStr = await fs.readFile(
+			'helper-scripts/options/' + supportName + '.json',
+			'utf8',
+		);
+		const support = JSON.parse(supportStr);
 		const auth = await getAuthClient(support);
 		const schedulerInput = await getSchedulerInput(auth, startDate, support);
 		_.assign(schedulerInput.options, support);
-		console.log(JSON.stringify(schedulerInput, null, 2));
+		const stringifiedInput = JSON.stringify(schedulerInput, null, 2);
+		console.log(stringifiedInput);
+
 		await validateJSONScheduleInput(schedulerInput);
 
 		const fileDir = `./logs/${startDate}_` + supportName;
-		await mkdirpAsync(fileDir, null);
-
+		await mkdirp(fileDir, null);
 		await fs.writeFile(
 			fileDir + '/support-shift-scheduler-input.json',
-			JSON.stringify(schedulerInput, null, 2),
+			stringifiedInput,
 		);
 	} catch (e) {
 		console.error(e);
