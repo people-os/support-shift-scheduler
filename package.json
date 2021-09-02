@@ -45,7 +45,7 @@
     "@types/bluebird": "^3.5.36",
     "@types/dotenv": "^8.2.0",
     "@types/jsonschema": "^1.1.1",
-    "@types/lodash": "^4.14.170",
+    "@types/lodash": "^4.14.172",
     "@types/mkdirp": "^1.0.1",
     "@types/mz": "^2.7.3",
     "@types/node": "^15.12.5",
