@@ -33,7 +33,7 @@
     "googleapis": "^85.0.0",
     "jsonschema": "^1.4.0",
     "lodash": "^4.17.21",
-    "log": "^6.0.0",
+    "log": "^6.1.0",
     "mkdirp": "^1.0.4",
     "mz": "^2.7.0",
     "readline-sync": "^1.4.10",
