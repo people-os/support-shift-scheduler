@@ -37,7 +37,7 @@
     "mkdirp": "^1.0.4",
     "mz": "^2.7.0",
     "readline-sync": "^1.4.10",
-    "ts-node": "^10.0.0",
+    "ts-node": "^10.2.1",
     "victorops-api-client": "^1.0.2"
   },
   "devDependencies": {
