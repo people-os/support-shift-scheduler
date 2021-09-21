@@ -22,6 +22,9 @@ import scheduler_utils
 import pandas as pd
 from ortools.sat.python import cp_model
 
+# The availabilities we allow, by default 1 and 2, but 3 can be added as well if no schedule is feasible without
+allowed_availabilities = [1, 2]
+
 # Cost weight assigned to various soft constraints:
 coeff_non_preferred = 80
 coeff_shorter_than_pref = 30
@@ -131,7 +134,7 @@ def setup_dataframes():
                 if d != 4:
                     week_slots[d + 1][0:28] = [0 for i in range(28)]
 
-        slot_ranges = scheduler_utils.slots_to_range(week_slots, end_slot)
+        slot_ranges = scheduler_utils.slots_to_range(week_slots, end_slot, allowed_availabilities)
 
         df_a.loc[len(df_a)] = {
             "handle": agent["handle"],

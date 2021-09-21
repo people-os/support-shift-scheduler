@@ -50,7 +50,7 @@ def tracks_hours_to_slots(tracks):
         track["end_slot"] = track["end_hour"] * 2
     return tracks
 
-def slots_to_range(week_hours, end_hour):
+def slots_to_range(week_hours, end_hour, allowed_availabilities):
     """Convert per-hour availability flags into ranges format."""
     week_ranges = []
 
@@ -68,7 +68,7 @@ def slots_to_range(week_hours, end_hour):
             # (A range will end if either the current slot is unavailable
             # (value 0) or if the current slot is the last one.)
             if start is not None:
-                if value == 0:  # Unavailable
+                if value not in allowed_availabilities:  # Unavailable
                     day_ranges.append([start, i])
                     start = None
                 elif i == end_hour - 1:  # Last slot
