@@ -30,7 +30,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "dotenv": "^10.0.0",
-    "googleapis": "^85.0.0",
+    "googleapis": "^88.2.0",
     "jsonschema": "^1.4.0",
     "lodash": "^4.17.21",
     "log": "^6.2.0",
