@@ -68,7 +68,7 @@ async function createAgent(opts) {
 }
 
 function parseAvailability(availability) {
-	const allowedValues = ['1', '2', '4'];
+	const allowedValues = ['1', '2', '3', '4'];
 	if (allowedValues.includes(availability.toString())) {
 		return Number(availability);
 	} else {
