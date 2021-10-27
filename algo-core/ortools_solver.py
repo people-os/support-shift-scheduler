@@ -483,7 +483,7 @@ def define_custom_var_domains():
     """Define custom model variable domains."""
     global d_slot_cost, d_duration, d_prefs
     # slot cost domain:
-    d_slot_cost = cp_model.Domain.FromValues([0, coeff_non_preferred])
+    d_slot_cost = cp_model.Domain.FromValues([0, coeff_non_preferred, 2*coeff_non_preferred])
 
     # Duration domain:
     d_duration = cp_model.Domain.FromIntervals(

@@ -41,7 +41,7 @@
               "minItems": 48,
               "maxItems": 54,
               "items": {
-                "description": "Preference legend - 0: unavailable, 1: preferred, 2: available, not preferred, 4: volunteered",
+                "description": "Preference legend - 0: unavailable, 1: preferred, 2: available, not preferred, 3: ask-me-nicely, 4: volunteered",
                 "type": "number",
                 "minimum": 0,
                 "maximum": 4
