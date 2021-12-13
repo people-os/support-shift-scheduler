@@ -132,7 +132,7 @@ async function writePrettifiedText(
 	let flowdockMessage = '';
 	flowdockMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${scheduleJSON[0].start_date}).**\n\n`;
 	flowdockMessage +=
-		'Please ping `@@support_ops` if you require any changes.\n\n';
+		'Please follow [this procedure](https://github.com/people-os/process/tree/master/process/support#how-to-arrange-a-support-shift-swap) if you require any changes.\n\n';
 
 	for (const agent of agentHoursList) {
 		flowdockMessage += `${agent.handle}\n`;
