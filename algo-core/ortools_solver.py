@@ -26,25 +26,27 @@ from ortools.sat.python import cp_model
 allowed_availabilities = [1, 2]
 
 # Cost weight assigned to various soft constraints:
-coeff_non_preferred = 80
-coeff_shorter_than_pref = 30
-coeff_longer_than_pref = 70
-coeff_total_week_slots = 3
-coeff_agent = 30
-coeff_handover = 30
+coeff_non_preferred = 4
+coeff_shorter_than_pref = 2
+coeff_longer_than_pref = 4
+coeff_fair_share = 2
+# coeff_agent = 30
+# coeff_handover = 30
 
 # Other constants:
 max_avg_per_week = 80
 week_working_slots = 80
 date_format = "%Y-%m-%d"
+assumed_minimum_fair_share = -10 # slots
+assumed_maximum_fair_share = 20 # slots
 
 
 def setup_dataframes():
     """Set up dataframes for agents (df_a) and night shift info (df_n)."""
-    global min_week_average_slots
+    # global min_week_average_slots
 
     # Baseline for agent history:
-    min_week_average_slots = 200
+    # min_week_average_slots = 200
 
     # Initialize dataframes:
     df_a = pd.DataFrame(
@@ -52,7 +54,7 @@ def setup_dataframes():
         columns=[
             "handle",
             "email",
-            "avg_slots_per_week",
+            "teamwork_balance",
             "pref_ideal_length",
             "slots",
             "slot_ranges",
@@ -78,11 +80,6 @@ def setup_dataframes():
     agents_with_fix_hours = scheduler_options["specialAgentConditions"]["agentsWithFixHours"]
 
     for agent in agents:
-        week_average_slots = math.trunc(float(agent["weekAverageHours"]*2))
-        min_week_average_slots = min(
-            min_week_average_slots, week_average_slots
-        )
-
         week_slots = agent["availableHours"]
 
         for (d, _) in enumerate(week_slots):
@@ -139,7 +136,7 @@ def setup_dataframes():
         df_a.loc[len(df_a)] = {
             "handle": agent["handle"],
             "email": agent["email"],
-            "avg_slots_per_week": week_average_slots,
+            "teamwork_balance": math.trunc(float(agent["teamworkBalance"])),
             "pref_ideal_length": agent["idealShiftLength"] * 2,
             "slots": week_slots,
             "slot_ranges": slot_ranges,
@@ -167,7 +164,7 @@ def get_unavailable_agents(day):
         if len(df_agents.loc[handle, "slot_ranges"][day_number]) == 0:
             unavailable.add(handle)
 
-    print(f"\nUnavailable employees on {day}")
+    print(f"\nUnavailable employees for day starting on {day}")
     [print(e) for e in unavailable]
 
     return unavailable
@@ -213,7 +210,6 @@ def setup_var_dataframes_veterans():
         index=agents_vet,
         columns=[
             "total_week_slots",
-            "total_week_slots_squared",
             "total_week_slots_cost",
         ],
     )
@@ -230,9 +226,9 @@ def setup_var_dataframes_veterans():
         names=("track", "day"),
     )
 
-    v_td = pd.DataFrame(
-        data=None, index=td_multi_index, columns=["handover_cost"]
-    )
+    # v_td = pd.DataFrame(
+    #     data=None, index=td_multi_index, columns=["handover_cost"]
+    # )
 
     # tdh - veterans:
     tdh_tuple = []
@@ -256,7 +252,7 @@ def setup_var_dataframes_veterans():
             "shift_duration",
             "interval",
             "is_agent_on",
-            "agent_cost",
+            # "agent_cost",
             "is_duration_shorter_than_ideal",
             "duration_cost",
             "is_in_pref_range",
@@ -293,18 +289,18 @@ def fill_var_dataframes_veterans():
             0, week_working_slots, f"total_week_slots_{h}"
         )
 
-        v_h.loc[h, "total_week_slots_squared"] = model.NewIntVarFromDomain(
-            cp_model.Domain.FromValues(
-                [x ** 2 for x in range(0, week_working_slots + 2)]
-            ),
-            f"total_week_slots_squared_{h}",
-        )
+        # v_h.loc[h, "total_week_slots_squared"] = model.NewIntVarFromDomain(
+        #     cp_model.Domain.FromValues(
+        #         [x ** 2 for x in range(0, week_working_slots + 2)]
+        #     ),
+        #     f"total_week_slots_squared_{h}",
+        # )
 
         v_h.loc[h, "total_week_slots_cost"] = model.NewIntVarFromDomain(
             cp_model.Domain.FromValues(
                 [
-                    coeff_total_week_slots * x ** 2
-                    for x in range(0, week_working_slots + 2)
+                    coeff_fair_share * x
+                    for x in range(-assumed_maximum_fair_share, week_working_slots - assumed_minimum_fair_share)
                 ]
             ),
             f"total_week_slots_cost_{h}",
@@ -312,17 +308,17 @@ def fill_var_dataframes_veterans():
 
     # td - veterans:
 
-    for t, track in enumerate(tracks):
-        for d in range(track["start_day"], track["end_day"] + 1):
-            v_td.loc[(t, d), "handover_cost"] = model.NewIntVarFromDomain(
-                cp_model.Domain.FromValues(
-                    [
-                        coeff_handover * x
-                        for x in range(0, max_daily_handovers + 1)
-                    ]
-                ),
-                f"handover_cost_{t}_{d}",
-            )
+    # for t, track in enumerate(tracks):
+    #     for d in range(track["start_day"], track["end_day"] + 1):
+    #         v_td.loc[(t, d), "handover_cost"] = model.NewIntVarFromDomain(
+    #             cp_model.Domain.FromValues(
+    #                 [
+    #                     coeff_handover * x
+    #                     for x in range(0, max_daily_handovers + 1)
+    #                 ]
+    #             ),
+    #             f"handover_cost_{t}_{d}",
+    #         )
 
     # tdh - veterans:
     print("")
@@ -406,12 +402,12 @@ def fill_var_dataframes_veterans():
                     f"is_agent_on_{t}_{d}_{h}"
                 )
 
-                v_tdh.loc[(t, d, h), "agent_cost"] = model.NewIntVarFromDomain(
-                    cp_model.Domain.FromValues(
-                        [coeff_agent * x for x in range(0, max_avg_per_week)]
-                    ),
-                    f"agent_cost_{t}_{d}_{h}",
-                )
+                # v_tdh.loc[(t, d, h), "agent_cost"] = model.NewIntVarFromDomain(
+                #     cp_model.Domain.FromValues(
+                #         [coeff_agent * x for x in range(0, max_avg_per_week)]
+                #     ),
+                #     f"agent_cost_{t}_{d}_{h}",
+                # )
 
                 v_tdh.loc[
                     (t, d, h), "is_duration_shorter_than_ideal"
@@ -483,7 +479,10 @@ def define_custom_var_domains():
     """Define custom model variable domains."""
     global d_slot_cost, d_duration, d_prefs
     # slot cost domain:
-    d_slot_cost = cp_model.Domain.FromValues([0, coeff_non_preferred, 2*coeff_non_preferred])
+    if (use_threes):
+        d_slot_cost = cp_model.Domain.FromValues([0, coeff_non_preferred, 2*coeff_non_preferred])
+    else:
+        d_slot_cost = cp_model.Domain.FromValues([0, coeff_non_preferred])
 
     # Duration domain:
     d_duration = cp_model.Domain.FromIntervals(
@@ -668,7 +667,7 @@ def constraint_various_custom_conditions():
 def cost_total_agent_hours_for_week():
     """Define cost associated with total weekly hours per veteran."""
     v_coeff_tot_wk_hrs = model.NewIntVar(
-        coeff_total_week_slots, coeff_total_week_slots, "coeff_tot_wk_hrs"
+        coeff_fair_share, coeff_fair_share, "coeff_tot_wk_hrs"
     )
 
     for h in agents_vet:
@@ -960,25 +959,46 @@ def solve_model_and_extract_solution():
 
         return scheduler_utils.print_final_schedules(schedule_results, df_agents, num_days)
 
+def calculate_fair_shares():
+    unadjusted_slots_per_agent = total_slots_covered / float(len(df_agents))
+    df_agents["fair_share"] = [(unadjusted_slots_per_agent + (-x)**0.5) if x<0 else (unadjusted_slots_per_agent - x**0.5) for x in df_agents["teamwork_balance"].tolist()]
+    rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
+    df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
+    df_agents["fair_share"] = df_agents["fair_share"].apply(lambda x: math.trunc(x))
+    print(df_agents["fair_share"])
+    return df_agents
+
 
 input_json = scheduler_utils.parse_json_input()
 
-# Define variables from options:
+# Input options:
 scheduler_options = input_json["options"]
 start_Monday = scheduler_options["startMondayDate"]
 num_days = int(scheduler_options["numConsecutiveDays"])
-tracks = scheduler_utils.tracks_hours_to_slots(scheduler_options["tracks"])
 start_slot = int(scheduler_options["supportStartHour"] * 2)
-slots_in_day = int(scheduler_options["slotsInDay"] * 2)
 end_slot = int(scheduler_options["supportEndHour"] * 2)
+slots_in_day = int(scheduler_options["slotsInDay"] * 2)
 min_duration = int(scheduler_options["shiftMinDuration"]) * 2
 max_duration = int(scheduler_options["shiftMaxDuration"]) * 2
+use_threes = scheduler_options["useThrees"]
 solver_timeout = int(scheduler_options["optimizationTimeout"])
+tracks = scheduler_utils.tracks_hours_to_slots(scheduler_options["tracks"])
+
+if use_threes:
+    allowed_availabilities.append(3)
+
+# Calculate total hours covered:
+
+total_slots_covered = 0
+for t, track in enumerate(tracks):
+    for d in range(track["start_day"], track["end_day"] + 1):
+        total_slots_covered += 2 * (track["end_hour"] - track["start_hour"])
 
 # Derived variables:
-work_slots = end_slot - start_slot
-max_daily_handovers = work_slots // min_duration - 2
+# work_slots = end_slot - start_slot
+# max_daily_handovers = work_slots // min_duration - 2
 
+# Define days for which to schedule:
 start_date = datetime.datetime.strptime(start_Monday, date_format).date()
 delta = datetime.timedelta(days=1)
 days = [start_date]
@@ -997,6 +1017,9 @@ for d in range(num_days):
 
 # Remove agents from the model who are not available at all this week:
 df_agents = remove_agents_not_available_this_week()
+
+# Calculate fair shares:
+df_agents = calculate_fair_shares()
 
 # Onboarding agents:
 agents_onb = df_agents[
@@ -1034,6 +1057,7 @@ if len(agents_onb) > 0:
 
 define_custom_var_domains()
 
+#...
 fill_var_dataframes_veterans()
 if len(agents_onb) > 0:
     model = onboarding.fill_var_dataframes_onboarding(model, agents_mentors, week_working_slots, unavailable_agents,

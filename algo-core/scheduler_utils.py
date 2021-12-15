@@ -18,7 +18,6 @@ def get_project_root() -> Path:
 
 def parse_json_input():
     """Read, validate and return json input."""
-    # Production (read input from command line):
     global input_folder
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -26,9 +25,6 @@ def parse_json_input():
     )
     args = parser.parse_args()
     input_filename = args.input.strip()
-
-    # Testing (define input directly):
-    # input_filename = 'support-shift-scheduler-input.json'
 
     # Load and validate JSON input:
     input_json = json.load(open(input_filename))
@@ -41,7 +37,6 @@ def parse_json_input():
         sys.exit(1)
 
     input_folder = get_project_root() / 'logs' / f'{input_json["options"]["startMondayDate"]}_{input_json["options"]["modelName"]}'
-
     return input_json
 
 def tracks_hours_to_slots(tracks):

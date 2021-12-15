@@ -55,7 +55,7 @@ async function createAgent(opts) {
 	const requiredOpts = [
 		'handle',
 		'email',
-		'weekAverageHours',
+		'teamworkBalance',
 		'idealShiftLength',
 		'availableHours',
 	];
@@ -97,7 +97,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 	for (const handle of Object.keys(inputByGithubHandle)) {
 		const email = inputByGithubHandle[handle].shift();
 
-		const weekAverageHours = _.toInteger(inputByGithubHandle[handle].shift());
+		const teamworkBalance = _.toInteger(inputByGithubHandle[handle].shift());
 
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
 
@@ -114,7 +114,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 		const newAgent = await createAgent({
 			handle,
 			email,
-			weekAverageHours,
+			teamworkBalance,
 			idealShiftLength,
 			availableHours,
 		});
@@ -145,7 +145,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
  */
 export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const sheets = google.sheets({ version: 'v4', auth });
-	const range = nextMondayDate + '_input!A3:KF';
+	const range = nextMondayDate + '_input_new!A3:KF';
 	const result = await sheets.spreadsheets.values.get({
 		spreadsheetId: support.logSheet,
 		range,
