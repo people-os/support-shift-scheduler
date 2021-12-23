@@ -1,0 +1,53 @@
+from ortools.sat.python import cp_model
+import pandas as pd
+
+def define_custom_var_domains(coefficients, df_agents, config):
+    """Define custom model variable domains."""
+    custom_domains = {}
+
+    # slot cost domain:
+    values_list = []
+    for allowed_availability in config["allowed_availabilities"]:
+        values_list.append(coefficients["non-preferred"] * (allowed_availability - 1))
+    custom_domains["slot_cost"] = cp_model.Domain.FromValues(values_list)
+
+    # Duration domain:
+    custom_domains["duration"] = cp_model.Domain.FromIntervals(
+        [[0, 0], [config["min_duration"], config["max_duration"]]]
+    )
+
+    # Create preference domains:
+    dh_multi_index = pd.MultiIndex.from_product(
+        [[d for d in range(config["num_days"])], [h for h in df_agents.index]],
+        names=("day", "handle"),
+    )
+
+    custom_domains["prefs"] = pd.Series(data=None, index=dh_multi_index, dtype="float64")
+
+    for d in range(config["num_days"]):
+        for h in df_agents.index:
+            custom_domains["prefs"].loc[(d, h)] = cp_model.Domain.FromIntervals(
+                df_agents.loc[h, "slot_ranges"][d]
+            )
+
+    # Duration cost domain:
+    duration_cost_list = set(
+        [
+            coefficients["shorter_than_pref"] * x
+            for x in range(0, config["max_duration"] - config["min_duration"])
+        ]
+    )
+    duration_cost_list = list(
+        duration_cost_list.union(
+            set(
+                [
+                    custom_domains["longer_than_pref"] * x
+                    for x in range(0, config["max_duration"] - config["min_duration"])
+                ]
+            )
+        )
+    )
+    duration_cost_list.sort()
+    custom_domains["duration_cost"] = cp_model.Domain.FromValues(duration_cost_list)
+
+    return custom_domains

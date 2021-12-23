@@ -1,9 +1,9 @@
 {
   "modelName": "balenaio",
-  "numConsecutiveDays": 5,
-  "supportStartHour": 6,
-  "supportEndHour": 27,
-  "slotsInDay": 27,
+  "numDays": 5,
+  "startHour": 6,
+  "endHour": 27,
+  "hoursInDay": 27,
   "shiftMinDuration": 2,
   "shiftMaxDuration": 8,
   "useThrees" : false,
@@ -12,9 +12,9 @@
   "calendarID":"resin.io_2klk2f26ivo04qq5ktlkva1neg@group.calendar.google.com",
   "useServiceAccount": true,
   "specialAgentConditions": {
-    "agentsWithMaxHoursShift": [],
-    "agentsWithMinHoursWeek": [],
-    "agentsWithMaxHoursWeek": [
+    "agentsMaxHoursShift": [],
+    "agentsMinHoursWeek": [],
+    "agentsMaxHoursWeek": [
       {
         "handle": "@alisondavis17",
         "value": 4
@@ -72,7 +72,7 @@
         "value": 3
       }
     ],
-    "agentsWithFixHours": []
+    "agentsFixHours": []
   },
   "tracks": [
     { "start_hour": 6, "end_hour": 27, "start_day": 0, "end_day": 4 },

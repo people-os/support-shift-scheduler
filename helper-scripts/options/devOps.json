@@ -1,9 +1,9 @@
 {
     "modelName": "devOps",
-    "numConsecutiveDays": 5,
-    "supportStartHour": 3,
-    "supportEndHour": 27,
-    "slotsInDay": 27,
+    "numDays": 5,
+    "startHour": 3,
+    "endHour": 27,
+    "hoursInDay": 27,
     "shiftMinDuration": 1,
     "shiftMaxDuration": 24,
     "useThrees" : false,    
@@ -12,10 +12,10 @@
     "calendarID": "c_ktn7k7hgb826l18mll4ilpjbl8@group.calendar.google.com",
     "useServiceAccount": false,
     "specialAgentConditions": {
-        "agentsWithMaxHoursShift": [],
-        "agentsWithMinHoursWeek": [],
-        "agentsWithMaxHoursWeek": [],
-        "agentsWithFixHours": []
+        "agentsMaxHoursShift": [],
+        "agentsMinHoursWeek": [],
+        "agentsMaxHoursWeek": [],
+        "agentsFixHours": []
     },
     "tracks": [{ "start_hour": 3, "end_hour": 27, "start_day": 0, "end_day": 4 }],
     "victoropsUsernames": {

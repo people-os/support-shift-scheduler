@@ -1,9 +1,9 @@
 {
     "modelName": "productOS",
-    "numConsecutiveDays": 5,
-    "supportStartHour": 8,
-    "supportEndHour": 17,
-    "slotsInDay": 24,
+    "numDays": 5,
+    "startHour": 8,
+    "endHour": 17,
+    "hoursInDay": 24,
     "shiftMinDuration": 1,
     "shiftMaxDuration": 8,
     "useThrees" : false,    
@@ -12,10 +12,10 @@
     "calendarID":"c_2dg02cmijv3j0lvseujj5ioepg@group.calendar.google.com",
     "useServiceAccount": false,
     "specialAgentConditions": {
-      "agentsWithMaxHoursShift": [],
-      "agentsWithMinHoursWeek": [],    
-      "agentsWithMaxHoursWeek": [],
-      "agentsWithFixHours": []
+      "agentsMaxHoursShift": [],
+      "agentsMinHoursWeek": [],    
+      "agentsMaxHoursWeek": [],
+      "agentsFixHours": []
     },
     "tracks": [
       { "start_hour": 8, "end_hour": 17, "start_day": 0, "end_day": 4 }

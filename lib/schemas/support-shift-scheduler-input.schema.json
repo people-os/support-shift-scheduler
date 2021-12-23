@@ -30,7 +30,7 @@
             "minimum": 2,
             "maximum": 8
           },
-          "availableHours": {
+          "availableSlots": {
             "description": "Availability for each day of the week, Monday to Friday",
             "type": "array",
             "minItems": 5,
@@ -49,7 +49,7 @@
             }
           }
         },
-        "required": [ "handle", "email", "teamworkBalance", "idealShiftLength", "availableHours"]
+        "required": [ "handle", "email", "teamworkBalance", "idealShiftLength", "availableSlots"]
       }
     },
     "options": {
@@ -64,27 +64,33 @@
           "type": "string",
           "format": "date"
         },
-        "numConsecutiveDays": {
+        "numDays": {
           "description": "Number of consecutive days to schedule",
           "type": "number",
           "minimum": 1,
           "maximum": 5
         },
-        "numSimultaneousTracks": {
+        "numTracks": {
           "description": "Number of parallel support tracks to schedule",
           "type": "number"
         },
-        "supportStartHour": {
-          "description": "Balena support start time (default: 8)",
+        "startHour": {
+          "description": "Balena support start time (default: 6)",
           "type": "number",
           "minimum": 0,
           "maximum": 54
         },
-        "supportEndHour": {
-          "description": "Balena support end time (default: 54)",
+        "endHour": {
+          "description": "Balena support end time (default: 27)",
           "type": "number",
           "minimum": 0,
           "maximum": 54
+        },
+        "hoursInDay": {
+          "description": "Balena number of hours in 'support day'",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 48          
         },
         "shiftMinDuration": {
           "description": "Minimum duration of a shift (default: 2)",
@@ -97,10 +103,40 @@
         "optimizationTimeout": {
           "description": "Optimization timeout for constraint solver (in seconds)",
           "type": "number"
+        },
+        "tracks": {
+          "description": "Different tracks running in parallel",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "description": "Object describing length and recurrence of a specific track",
+            "type": "object",
+            "properties": {
+              "start_hour": {
+                "description": "Start hour of track",
+                "type": "number"
+              },
+              "end_hour": {
+                "description": "End hour of track",
+                "type": "number"
+              },
+              "start_day": {
+                "description": "Start day of track (0-indexed)",
+                "type": "number"
+              },
+              "end_day": {
+                "description": "End day of track (0-indexed)",
+                "type": "number"
+              }    
+            }
+          }
+
         }
       },
-      "required": ["startMondayDate", "numConsecutiveDays", "supportStartHour", "supportEndHour", "shiftMinDuration", "shiftMaxDuration", "optimizationTimeout"]
+      "required": ["startMondayDate", "numDays", "startHour", "endHour", "shiftMinDuration", "shiftMaxDuration", "hoursInDay", "optimizationTimeout", "tracks"]
     }
   },
   "required": [ "agents", "options" ]
 }
+
+
