@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Balena Ltd.
+ * Copyright 2021 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,6 @@ async function getData(startDate: string, supportName: string) {
 		const schedulerInput = await getSchedulerInput(auth, startDate, support);
 		_.assign(schedulerInput.options, support);
 		const stringifiedInput = JSON.stringify(schedulerInput, null, 2);
-		console.log(stringifiedInput);
 
 		await validateJSONScheduleInput(schedulerInput);
 

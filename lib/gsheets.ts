@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Balena Ltd.
+ * Copyright 2021 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ async function createAgent(opts) {
 		'email',
 		'teamworkBalance',
 		'idealShiftLength',
-		'availableHours',
+		'availableSlots',
 	];
 	for (const opt of requiredOpts) {
 		if (opts[opt] === undefined) {
@@ -83,7 +83,7 @@ function parseAvailability(availability) {
  * @param  {number} numDays     Number of consecutive days to schedule
  * @return {Promise<object>}             Parsed input object for scheduler
  */
-async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
+async function parseInput(rawInput, startDate = null, numDays = 5, hoursInDay) {
 	if (_.isEmpty(startDate)) {
 		throw new Error('Need start date');
 	}
@@ -95,42 +95,37 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 	await checkForDuplicates(inputByGithubHandle);
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
-		const email = inputByGithubHandle[handle].shift();
-
+		// const email = inputByGithubHandle[handle].shift();
+		let email = inputByGithubHandle[handle].shift();
+		email = 'example@balena.io'
 		const teamworkBalance = _.toInteger(inputByGithubHandle[handle].shift());
-
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
-
-		const availableHours = [];
-
+		const availableSlots = [];
 		for (let i = 0; i < numDays; i++) {
-			const hourAvailability = inputByGithubHandle[handle]
+			const slotAvailability = inputByGithubHandle[handle]
 				.splice(0, 48)
 				.map(parseAvailability);
-
-			availableHours.push(hourAvailability);
+			availableSlots.push(slotAvailability);
 		}
-
 		const newAgent = await createAgent({
 			handle,
 			email,
 			teamworkBalance,
 			idealShiftLength,
-			availableHours,
+			availableSlots,
 		});
 		schedulerInput.agents.push(newAgent);
 	}
-	console.log(slotsInDay);
 	schedulerInput.agents.forEach((agent) => {
-		agent.availableHours.forEach((day, dayIndex) => {
+		agent.availableSlots.forEach((day, dayIndex) => {
 			const followingDay = dayIndex + 1;
 			if (dayIndex < 5) {
-				for (let i = 0; i < (slotsInDay - 24) * 2; i++) {
-					day.push(agent.availableHours[followingDay][i]);
+				for (let i = 0; i < (hoursInDay - 24) * 2; i++) {
+					day.push(agent.availableSlots[followingDay][i]);
 				}
 			}
 		});
-		agent.availableHours.splice(5, 1);
+		agent.availableSlots.splice(5, 1);
 	});
 	schedulerInput.options['startMondayDate'] = startDate;
 	return schedulerInput;
@@ -145,7 +140,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
  */
 export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const sheets = google.sheets({ version: 'v4', auth });
-	const range = nextMondayDate + '_input_new!A3:KF';
+	const range = nextMondayDate + '_input!A3:KF';
 	const result = await sheets.spreadsheets.values.get({
 		spreadsheetId: support.logSheet,
 		range,
@@ -154,8 +149,8 @@ export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const parsedInput = await parseInput(
 		result.data.values,
 		nextMondayDate,
-		support.numConsecutiveDays + 1,
-		support.slotsInDay,
+		support.numDays + 1,
+		support.hoursInDay,
 	);
 	return parsedInput;
 }

@@ -1,19 +1,118 @@
+"""
+Copyright 2021 Balena Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
 from ortools.sat.python import cp_model
-from custom_var_domains import define_custom_var_domains
-from veterans import setup_model_veterans
-from onboarding import extend_model_onboarding
+import json
+from pathlib import Path
+import jsonschema
+import sys
+
+from .custom_var_domains import define_custom_var_domains
+from .veterans import setup_model_veterans
+from .onboarding import extend_model_onboarding
+from .read_input import get_project_root
 
 # Cost coefficients assigned to various soft constraints:
 coefficients = {
-    "non-preferred": 4,
+    "non_preferred": 4,
     "shorter_than_pref": 4,
     "longer_than_pref": 4,
-    "coeff_fair_share": 2
+    "fair_share": 2,
 }
 
 
-def solve_model_and_extract_solution(model, full_cost_list, agent_categories, config):
-    """Solve model, extract, print and save """
+# TODO: split the verification out to a separate python script, so
+# that it can be run independently after possible manual changes.
+def verify_solution(
+    objective, sol_shifts, df_agents, agent_categories, config
+):
+    """Verify schedule against availability, and verify cost"""
+    slot_cost = 0
+    shift_length_cost = 0
+    total_week_slots_cost = 0
+    total_week_slots_by_veteran = {}
+    # Verify that agents were only scheduled when they are available,
+    for d in range(config["num_days"]):
+        for shift in sol_shifts[d]["shifts"]:
+            handle = shift["agentName"]
+            ideal_length = df_agents.loc[handle, "ideal_shift_length"]
+            shift_length = shift["end"] - shift["start"]
+
+            if handle in agent_categories["veterans"]:
+                # Find total slots per week per agent:
+                if handle in total_week_slots_by_veteran.keys():
+                    total_week_slots_by_veteran[handle] += shift_length
+                else:
+                    total_week_slots_by_veteran[handle] = shift_length
+                # Find cost due to non-ideal shift lengths:
+                shift_delta = shift_length - ideal_length
+                if shift_delta > 0:
+                    shift_length_cost += coefficients["longer_than_pref"] * shift_delta
+                    print(f"{handle} has a shift {shift_delta/2} hours longer than preferred.")
+                elif shift_delta < 0:
+                    shift_length_cost += coefficients["shorter_than_pref"] * (- shift_delta)
+                    print(f"{handle} has a shift {-shift_delta/2} hours shorter than preferred.")
+            for slot in range(shift["start"], shift["end"]):
+                slot_value = df_agents.loc[handle, "slots"][d][slot]
+                if slot_value in config["allowed_availabilities"]:
+                    slot_delta = slot_value - 1
+                    slot_cost += slot_delta
+                    if slot_delta == 1:
+                        print(f"30 minutes of non-preferred time was used for {handle}.")
+                    elif slot_delta == 2:
+                        print(f"30 minutes of 'ask-me-nicely' time was used for {handle}.")
+                else:
+                    print(
+                        f"ERROR: Agent {handle} was scheduled for slot {slot} on day {config['days'][d].strftime('%Y-%m-%d')}, but is not available!"
+                    )
+                    sys.exit(1)
+    print("VERIFIED: Agents only scheduled when available.")
+    slot_cost = coefficients["non_preferred"] * slot_cost
+    for handle in total_week_slots_by_veteran.keys():
+        total_week_slots_cost += coefficients["fair_share"] * (
+            total_week_slots_by_veteran[handle]
+            - df_agents.loc[handle, "fair_share"]
+        )
+    total_cost = total_week_slots_cost + shift_length_cost + slot_cost
+    if total_cost == objective:
+        print(f"VERIFIED: Minimized cost of {total_cost} is correct.")
+    else:
+        print(
+            f"WARNING: The solver found a minimized cost of {objective}, while the calculated cost is {total_cost}!"
+        )
+
+
+def write_output_files(sol_shifts, sol_mentoring, config):
+    # Write shifts:
+    input_folder = (
+        get_project_root()
+        / "logs"
+        / f'{config["start_date"].strftime("%Y-%m-%d")}_{config["model_name"]}'
+    )
+
+    with open(
+        Path(input_folder, "support-shift-scheduler-output.json"), "w"
+    ) as outfile:
+        outfile.write(json.dumps(sol_shifts, indent=4))
+
+    # Write mentoring:
+    with open(Path(input_folder, "onboarding_pairings.json"), "w") as outfile:
+        outfile.write(json.dumps(sol_mentoring, indent=4))
+
+
+def run_solver(model, full_cost_list, config):
     model.Minimize(sum(full_cost_list))
     print(model.Validate())
 
@@ -23,96 +122,111 @@ def solve_model_and_extract_solution(model, full_cost_list, agent_categories, co
     solver.parameters.log_search_progress = True
     solver.parameters.num_search_workers = 8
     status = solver.Solve(model)
-    print(solver.StatusName(status))
+    return [solver, status]
 
-    if not (status in [cp_model.OPTIMAL, cp_model.FEASIBLE]):
-        print("Cannot create schedule")
-        return
 
-    else:
-        # Extract solution:
-        print("\n---------------------")
-        print("| OR-Tools schedule |")
-        print("---------------------")
+def extract_solution(
+    solver, var_veterans, var_onboarding, df_agents, agent_categories, config
+):
+    # Extract solution:
+    sol_shifts = []
+    # TODO: Change agent, agentName to simply handle and email.
 
-        print("\nSolution type: ", solver.StatusName(status))
-        print("\nMinimized cost: ", solver.ObjectiveValue())
-        print("After", solver.WallTime(), "seconds.\n")
-        schedule_results = []
+    sol_mentoring = []
 
-        # This file will contain the onboarding message for Flowdock:
-        if len(agent_categories["onboarding"]) > 0:
-            o_path = "onboarding_message.txt"
-            o_file = open(o_path, "w")
-            o_file.write(
-                "**Support agent onboarding next week**"
-                "\n\nEach new onboarding agent has been paired with a senior "
-                "support agent for each of their shifts. The senior agent "
-                "will act as a mentor for the onboarding agents, showing "
-                "them the ropes during these onboarding shifts (see the "
-                "[onboarding document]"
-                "(https://github.com/balena-io/process/blob/master/process/support/onboarding_agents_to_support.md) "
-                "for background). Here are the mentor-novice pairings "
-                "for next week:"
-            )
+    for d in range(config["num_days"]):
+        # day_shifts = {"start_date": config["days"][d], "shifts": []}
+        day_shifts = {
+            "start_date": config["days"][d].strftime("%Y-%m-%d"),
+            "shifts": [],
+        }
+        day_mentoring = {
+            "start_date": config["days"][d].strftime("%Y-%m-%d"),
+            "shifts": [],
+        }
 
-        for d in range(config["num_days"]):
-            if len(agent_categories["onboarding"]) > 0:
-                o_file.write(
-                    f"\n\n**Onboarding on {days[d].strftime('%Y-%m-%d')}**"
+        # Fetch shifts for veterans:
+        for t, track in enumerate(config["tracks"]):
+            if d in range(track["start_day"], track["end_day"] + 1):
+                for h in agent_categories["veterans"]:
+                    if (
+                        solver.Value(
+                            var_veterans["tdh"].loc[
+                                (t, d, h), "shift_duration"
+                            ]
+                        )
+                        != 0
+                    ):
+                        day_shifts["shifts"].append(
+                            {
+                                "agent": f"{h} <{df_agents.loc[h, 'email']}>",
+                                "agentName": h,
+                                "start": solver.Value(
+                                    var_veterans["tdh"].loc[
+                                        (t, d, h), "shift_start"
+                                    ]
+                                ),
+                                "end": solver.Value(
+                                    var_veterans["tdh"].loc[
+                                        (t, d, h), "shift_end"
+                                    ]
+                                ),
+                            }
+                        )
+        # Fetch shifts for onboarders:
+        for h in agent_categories["onboarding"]:
+            if (
+                solver.Value(
+                    var_onboarding["dh"].loc[(d, h), "shift_duration"]
+                )
+                != 0
+            ):
+                day_shifts["shifts"].append(
+                    {
+                        "agent": f"{h} <{df_agents.loc[h, 'email']}>",
+                        "agentName": h,
+                        "start": solver.Value(
+                            var_onboarding["dh"].loc[(d, h), "shift_start"]
+                        ),
+                        "end": solver.Value(
+                            var_onboarding["dh"].loc[(d, h), "shift_end"]
+                        ),
+                    }
                 )
 
-            day_dict = {"start_date": days[d], "shifts": []}
-
-            for t, track in enumerate(tracks):
-                if d in range(track["start_day"], track["end_day"] + 1):
-                    for h in agents_vet:
-                        if (
-                            solver.Value(
-                                v_tdh.loc[(t, d, h), "shift_duration"]
-                            )
-                            != 0
-                        ):
-                            day_dict["shifts"].append(
-                                (
-                                    h,
-                                    solver.Value(
-                                        v_tdh.loc[(t, d, h), "shift_start"]
-                                    ),
-                                    solver.Value(
-                                        v_tdh.loc[(t, d, h), "shift_end"]
-                                    ),
-                                )
-                            )
-
-            for h in agent_categories["onboarding"]:
-                if solver.Value(v_dh_on.loc[(d, h), "shift_duration"]) != 0:
-                    day_dict["shifts"].append(
-                        (
-                            h,
-                            solver.Value(v_dh_on.loc[(d, h), "shift_start"]),
-                            solver.Value(v_dh_on.loc[(d, h), "shift_end"]),
-                        )
+            for m in var_onboarding["mentors"].columns:
+                if solver.Value(var_onboarding["mentors"].loc[(d, h), m]) == 1:
+                    day_mentoring["shifts"].append(
+                        {"onboarder": h, "mentor": m}
                     )
 
-                for m in v_mentors.columns:
-                    if solver.Value(v_mentors.loc[(d, h), m]) == 1:
-                        o_file.write(f"\n{m} will mentor {h}")
+        sol_shifts.append(day_shifts)
+        sol_mentoring.append(day_mentoring)
 
-            schedule_results.append(day_dict)
-        if len(agent_categories["onboarding"]) > 0:
-            o_file.write("\n\ncc @@support_ops")
-            o_file.close()
+    # Sort shifts by start times to improve output readability:
+    for i in range(len(sol_shifts)):
+        shifts = sol_shifts[i]["shifts"]
+        sorted_shifts = sorted(shifts, key=lambda x: x["start"])
+        sol_shifts[i]["shifts"] = sorted_shifts
 
-        # Sort shifts by start times to improve output readability:
-        for i in range(len(schedule_results)):
-            shifts = schedule_results[i]["shifts"]
-            sorted_shifts = sorted(shifts, key=lambda x: x[1])
-            schedule_results[i]["shifts"] = sorted_shifts
+    # Validate shifts:
+    output_json_schema = json.load(
+        open(
+            Path(
+                get_project_root() / "lib/schemas/",
+                "support-shift-scheduler-output.schema.json",
+            )
+        )
+    )
 
-        return scheduler_utils.print_final_schedules(
-            schedule_results, df_agents, config["num_days"]
-        )  # Add input_folder as last arg here.
+    try:
+        jsonschema.validate(sol_shifts, output_json_schema)
+    except jsonschema.exceptions.ValidationError as err:
+        print("Output JSON validation error", err)
+        sys.exit(1)
+
+    print("\nSuccessfully validated JSON output.")
+    return [sol_shifts, sol_mentoring]
 
 
 def generate_solution(df_agents, agent_categories, config):
@@ -121,17 +235,51 @@ def generate_solution(df_agents, agent_categories, config):
     # Initialize model:
     model = cp_model.CpModel()
     # Set up model for veterans:
-    [model, var_veterans, full_cost_list] = setup_model_veterans(model, custom_domains, coefficients, df_agents, agent_categories, config)
+    [model, var_veterans, full_cost_list] = setup_model_veterans(
+        model,
+        custom_domains,
+        coefficients,
+        df_agents,
+        agent_categories,
+        config,
+    )
     # Extend model for onboarding if necessary:
-    if len(agent_categories["onboarding"] > 0):
-        [model, var_veterans, var_onboarding, full_cost_list] = extend_model_onboarding(model, var_veterans, custom_domains, full_cost_list, coefficients, df_agents, agent_categories, config)
-    
-
-
-# Implement constraints - veterans:
-# constraint_new_agents_non_simultaneous()
-
-  
-
-# Solve model, extract and print solution:
-final_schedule = solve_model_and_extract_solution()
+    var_onboarding = None
+    if len(agent_categories["onboarding"]) > 0:
+        [
+            model,
+            var_veterans,
+            var_onboarding,
+            full_cost_list,
+        ] = extend_model_onboarding(
+            model,
+            var_veterans,
+            custom_domains,
+            full_cost_list,
+            coefficients,
+            df_agents,
+            agent_categories,
+            config,
+        )
+    # Solve:
+    [solver, status] = run_solver(model, full_cost_list, config)
+    if status in [cp_model.OPTIMAL, cp_model.FEASIBLE]:
+        # Extract solution:
+        [sol_shifts, sol_mentoring] = extract_solution(
+            solver,
+            var_veterans,
+            var_onboarding,
+            df_agents,
+            agent_categories,
+            config,
+        )
+        # Verify solution:
+        verify_solution(
+            solver.ObjectiveValue(),
+            sol_shifts,
+            df_agents,
+            agent_categories,
+            config,
+        )
+        # Write output:
+        write_output_files(sol_shifts, sol_mentoring, config)

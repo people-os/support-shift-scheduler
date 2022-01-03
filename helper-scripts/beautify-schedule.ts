@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Balena Ltd.
+ * Copyright 2021 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,14 +41,15 @@ function prettyHourStr(hour) {
 	}
 }
 
+
 /**
  * Write beautified schedule, as well as Flowdock message, to text files.
- * @param  {object}   scheduleJSON   Scheduling algorithm output object (read from file)
+ * @param  {object}   shiftsJson   Scheduling algorithm output object (read from file)
  */
-async function writePrettifiedText(
+async function writePrettifiedShiftsText(
 	date: string,
 	scheduleName: string,
-	scheduleJSON,
+	shiftsJson,
 ) {
 	// Write pretty schedule, to be used for sanity check:
 	const agentHours = {};
@@ -56,7 +57,7 @@ async function writePrettifiedText(
 	const dailyAgents = [];
 	let maxHours = 0;
 
-	for (const epoch of scheduleJSON) {
+	for (const epoch of shiftsJson) {
 		const epochDate = new Date(epoch.start_date);
 		const maxDayHours = _.maxBy(
 			epoch.shifts,
@@ -90,8 +91,7 @@ async function writePrettifiedText(
 
 		dailyAgents.push({ day: epochDate, hours });
 	}
-	prettySchedule += `\n#rollcall\n\n`;
-	prettySchedule += 'Support hours\n-------------\n';
+	prettySchedule += '\nSupport hours\n-------------\n';
 
 	let agentHoursList = _.map(agentHours, (hours, handle) => {
 		handle = handle.replace(/ <.*>/, '');
@@ -130,7 +130,7 @@ async function writePrettifiedText(
 
 	// Write Flowdock message, with which to ping agents to check their calendars:
 	let flowdockMessage = '';
-	flowdockMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${scheduleJSON[0].start_date}).**\n\n`;
+	flowdockMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${shiftsJson[0].start_date}).**\n\n`;
 	flowdockMessage +=
 		'Please follow [this procedure](https://github.com/people-os/process/tree/master/process/support#how-to-arrange-a-support-shift-swap) if you require any changes.\n\n';
 
@@ -138,17 +138,54 @@ async function writePrettifiedText(
 		flowdockMessage += `${agent.handle}\n`;
 	}
 	await fs.writeFile(
-		`logs/${date}_${scheduleName}/flowdock-message.txt`,
+		`logs/${date}_${scheduleName}/flowdock-agents.txt`,
 		flowdockMessage,
 		'utf8',
 	);
 }
 
-async function beautify(date: string, scheduleName: string) {
-	const outputJsonObject = await readAndParseJSONSchedule(date, scheduleName);
+async function writePrettifiedOnboardingText(date, scheduleName, onboardingJson) {
+	let onboardingMessage = ("**Support agent onboarding next week**"
+	                 + "\n\nEach new onboarding agent has been paired with a senior "
+	                 + "support agent for each of their shifts. The senior agent "
+	                 + "will act as a mentor for the onboarding agents, showing "
+	                 + "them the ropes during these onboarding shifts (see the "
+	                 + "[onboarding document]"
+	                 + "(https://github.com/balena-io/process/blob/master/process/support/onboarding_agents_to_support.md) "
+	                 + "for background). Here are the mentor-novice pairings "
+	                 + "for next week:")
+	for (const epoch of onboardingJson) {
+		if (epoch.shifts.length > 0) {
+			onboardingMessage += `\n\n**Onboarding on ${epoch.start_date}**`
+			for (const shift of epoch.shifts) {
+				onboardingMessage += `\n${shift.mentor} will mentor ${shift.onboarder}.`
+			}
+		}
+	}
+	onboardingMessage += `\n\ncc @@support_ops`
+	onboardingMessage += `\n\nHappy onboarding! :ship:\n`
+	await fs.writeFile(
+		`logs/${date}_${scheduleName}/flowdock-onboarding.txt`,
+		onboardingMessage,
+		'utf8',
+	);
+}
 
-	// Write beautified-schedule.txt and flowdock-message.txt:
-	writePrettifiedText(date, scheduleName, outputJsonObject);
+
+async function readAndParseJSONOnboarding(date, scheduleName) {
+	const jsonObject = await import(
+		`../logs/${date}_${scheduleName}/onboarding_pairings.json`
+	);
+	return jsonObject;
+}
+
+async function beautify(date: string, scheduleName: string) {
+	const shiftsJson = await readAndParseJSONSchedule(date, scheduleName);
+	const onboardingJson = await readAndParseJSONOnboarding(date, scheduleName);
+
+	// Write beautified-schedule.txt, flowdock-agents.txt, flowdock_onboarding.txt:
+	writePrettifiedShiftsText(date, scheduleName, shiftsJson);
+	writePrettifiedOnboardingText(date, scheduleName, onboardingJson)
 }
 
 // Read scheduler output file name from command line:

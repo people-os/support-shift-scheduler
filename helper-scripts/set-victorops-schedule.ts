@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Balena Ltd.
+ * Copyright 2021 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ const TIMEZONE = 'Europe/London';
 
 /**
  * Load JSON object containing optimized schedule from file, and write to Support schedule Google Calendar, saving ID's of created events for reference.
- * @param  {string}   date   The date  we're targeting, eg `2021-05-03`
- * @param  {string}   scheduleName   The schedule we're targeting, eg `devOps`
+ * @param  {string}   date   The date  we're targeting, e.g. `2021-05-03`
+ * @param  {string}   scheduleName   The schedule we're targeting, e.g. `devOps`
  */
 async function createScheduleOverrides(date, scheduleName) {
 	const { victoropsUsernames } = await import(`./options/${scheduleName}.json`);

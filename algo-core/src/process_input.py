@@ -1,3 +1,18 @@
+"""
+Copyright 2021 Balena Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
 import datetime
 import math
 import pandas as pd
@@ -93,6 +108,10 @@ def remove_agents_not_available_this_week(
 
 
 def calculate_fair_shares(df_agents, total_slots_covered):
+    """Determine fair share per agent
+
+    Fair share is based on hours to be covered, and agents' current
+    teamwork balances."""
     unadjusted_slots_per_agent = total_slots_covered / float(len(df_agents))
     df_agents["fair_share"] = [
         (unadjusted_slots_per_agent + (-x) ** 0.5)
@@ -100,11 +119,13 @@ def calculate_fair_shares(df_agents, total_slots_covered):
         else (unadjusted_slots_per_agent - x ** 0.5)
         for x in df_agents["teamwork_balance"].tolist()
     ]
+    df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
     df_agents["fair_share"] = df_agents["fair_share"].apply(
         lambda x: math.trunc(x)
     )
+    print(df_agents["fair_share"])    
     return df_agents
 
 
@@ -132,11 +153,14 @@ def setup_agents_dataframe(agents, config):
                 available_slots[d][i] = 0
             for i in range(config["end_slot"], config["slots_in_day"]):
                 available_slots[d][i] = 0
-            # For agents with fixed hours, remove all availability:                
-            # TODO: when volunteered shifts are reconfigure, we need to make sure these are not zeroed out below:
-            if agent['handle'] in config["special_agent_conditions"]["agentsFixHours"]:
+            # For agents with fixed hours, remove all availability:
+            # TODO: when volunteered shifts are reconfigured, we need to make sure these are not zeroed out below:
+            if (
+                agent["handle"]
+                in config["special_agent_conditions"]["agentsFixHours"]
+            ):
                 for s in range(0, config["slots_in_day"]):
-                    available_slots[d][s] = 0                
+                    available_slots[d][s] = 0
 
         slot_ranges = slots_to_range(
             available_slots,
@@ -183,15 +207,13 @@ def setup_agents_dataframe(agents, config):
     return [df_agents, unavailable_agents]
 
 
-
-
-
 def process_input_data(input_json, sr_onboarding, sr_mentors):
     # Properties derived from input:
     config = {}
     config["start_date"] = datetime.datetime.strptime(
         input_json["options"]["startMondayDate"], "%Y-%m-%d"
     ).date()
+    config["model_name"] = input_json["options"]["modelName"]
     config["num_days"] = int(input_json["options"]["numDays"])
     config["start_slot"] = int(input_json["options"]["startHour"] * 2)
     config["end_slot"] = int(input_json["options"]["endHour"] * 2)
@@ -202,7 +224,9 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
         input_json["options"]["optimizationTimeout"]
     )
     config["tracks"] = tracks_hours_to_slots(input_json["options"]["tracks"])
-    config["special_agent_conditions"] = input_json["options"]["specialAgentConditions"]
+    config["special_agent_conditions"] = input_json["options"][
+        "specialAgentConditions"
+    ]
 
     # Additional properties:
     config["allowed_availabilities"] = [1, 2]
@@ -210,8 +234,6 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
         config["allowed_availabilities"].append(3)
 
     config["total_slots_covered"] = get_total_slots_covered(config["tracks"])
-    # work_slots = end_slot - start_slot
-    # max_daily_handovers = work_slots // min_duration - 2
     config["days"] = get_datetime_days(
         config["start_date"], config["num_days"]
     )
@@ -241,8 +263,4 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
     agent_categories["mentors"] = [
         x for x in sr_mentors.tolist() if x in df_agents.index
     ]
-
-    # Recently onboarded ("new") agents:
-    # agents_new = df_agents[df_agents.index.isin(s_new.tolist())].index.tolist()
-
     return [df_agents, agent_categories, config]
