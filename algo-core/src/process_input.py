@@ -119,13 +119,15 @@ def calculate_fair_shares(df_agents, total_slots_covered):
         else (unadjusted_slots_per_agent - x ** 0.5)
         for x in df_agents["teamwork_balance"].tolist()
     ]
-    df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
+    df_agents["fair_share"] = (
+        df_agents["fair_share"] - df_agents["fair_share"].min()
+    )
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
     df_agents["fair_share"] = df_agents["fair_share"].apply(
         lambda x: math.trunc(x)
     )
-    print(df_agents["fair_share"])    
+    print(df_agents["fair_share"])
     return df_agents
 
 

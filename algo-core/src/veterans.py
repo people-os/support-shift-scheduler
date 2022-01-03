@@ -299,7 +299,9 @@ def constraint_honour_agent_availability_veterans(
                 if not (h in agent_categories["unavailable"][d]):
                     model.AddBoolOr(
                         var_veterans["tdh"].loc[(t, d, h), "is_in_pref_range"]
-                    ).OnlyEnforceIf(var_veterans["tdh"].loc[(t, d, h), "is_agent_on"])
+                    ).OnlyEnforceIf(
+                        var_veterans["tdh"].loc[(t, d, h), "is_agent_on"]
+                    )
                     for (j, sec) in enumerate(
                         df_agents.loc[h, "slot_ranges"][d]
                     ):

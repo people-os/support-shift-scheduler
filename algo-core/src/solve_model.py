@@ -59,20 +59,32 @@ def verify_solution(
                 # Find cost due to non-ideal shift lengths:
                 shift_delta = shift_length - ideal_length
                 if shift_delta > 0:
-                    shift_length_cost += coefficients["longer_than_pref"] * shift_delta
-                    print(f"{handle} has a shift {shift_delta/2} hours longer than preferred.")
+                    shift_length_cost += (
+                        coefficients["longer_than_pref"] * shift_delta
+                    )
+                    print(
+                        f"{handle} has a shift {shift_delta/2} hours longer than preferred."
+                    )
                 elif shift_delta < 0:
-                    shift_length_cost += coefficients["shorter_than_pref"] * (- shift_delta)
-                    print(f"{handle} has a shift {-shift_delta/2} hours shorter than preferred.")
+                    shift_length_cost += coefficients["shorter_than_pref"] * (
+                        -shift_delta
+                    )
+                    print(
+                        f"{handle} has a shift {-shift_delta/2} hours shorter than preferred."
+                    )
             for slot in range(shift["start"], shift["end"]):
                 slot_value = df_agents.loc[handle, "slots"][d][slot]
                 if slot_value in config["allowed_availabilities"]:
                     slot_delta = slot_value - 1
                     slot_cost += slot_delta
                     if slot_delta == 1:
-                        print(f"30 minutes of non-preferred time was used for {handle}.")
+                        print(
+                            f"30 minutes of non-preferred time was used for {handle}."
+                        )
                     elif slot_delta == 2:
-                        print(f"30 minutes of 'ask-me-nicely' time was used for {handle}.")
+                        print(
+                            f"30 minutes of 'ask-me-nicely' time was used for {handle}."
+                        )
                 else:
                     print(
                         f"ERROR: Agent {handle} was scheduled for slot {slot} on day {config['days'][d].strftime('%Y-%m-%d')}, but is not available!"

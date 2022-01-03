@@ -212,7 +212,9 @@ def constraint_honour_agent_availability_onboarding(
             if not (h in agent_categories["unavailable"][d]):
                 model.AddBoolOr(
                     var_onboarding["dh"].loc[(d, h), "is_in_pref_range"]
-                ) .OnlyEnforceIf(var_onboarding["dh"].loc[(d, h), "is_agent_on"])
+                ).OnlyEnforceIf(
+                    var_onboarding["dh"].loc[(d, h), "is_agent_on"]
+                )
                 for (j, sec) in enumerate(df_agents.loc[h, "slot_ranges"][d]):
                     model.Add(
                         var_onboarding["dh"].loc[(d, h), "shift_start"]
