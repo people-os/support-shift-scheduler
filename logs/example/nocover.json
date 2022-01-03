@@ -1,7 +1,7 @@
 {
   "handle": "@nocover",
   "email": "nocover@balena.io",
-  "weekAverageHours": 48,
+  "teamworkBalance": 48,
   "idealShiftLength": 2,
   "availableHours": [
     [

@@ -6,9 +6,9 @@ This scheduling project enables us to schedule our engineers to cover our suppor
 
 The current version of the solver also includes the following functionality that was not recorded in the blog post:
 
-* **Onboarding of new agents:** Once newly hired engineers have been with balena for a few months, they are onboarded to support. This involves scheduling them for two 4-hour onboarding shifts per week for 2 weeks, during which they are mentored by one of a selected group of senior support agents. These onboarding shifts are additional to the default number of parallel tracks, and require their own set of solver constraints. See the "Usage" section below for more detail on how to configure this.
-* **Configuration for other support rotations:** Initially, we only used the scheduler for our regular balena.io support rotation, but we have extended its use to also scheduled other channels, i.e. our SRE on-call rotation, and the rotation for engineers providing support to the team for our internal software. The `json` configurations for these channels are maintained in the [./helper_scripts/options](./helper_scripts/options) folder.
+* **Configuration for other support rotations:** Initially, we only used the scheduler for our regular balena.io support rotation, but we have extended its use to also scheduled other channels, i.e. our SRE on-call rotation (`devOps`), and the rotation for engineers providing support to the team for our internal software (`productOS`). The `json` configurations for these channels are maintained in the [./helper_scripts/options](./helper_scripts/options) folder.
 * **Configurable tracks:** Previously, we had 2 agents on support at any given time during our support hours. However, we have since included the flexibility to configure "tracks" as needed, in the [./helper_scripts/options](./helper_scripts/options) folder. For example, our balena.io support rotation includes one layer of agents from 6 am to 3 am UK time, another layer from 8 am to 8 pm, and a third layer from noon until 5 pm. The SRE rotation, on the other hand, has a single agent on duty at all times.
+* **Onboarding of new agents:** Once newly hired engineers have been with balena for a few months, they are onboarded to balena.io support. This involves scheduling them for two 4-hour onboarding shifts per week for 2 weeks, during which they are mentored by one of a selected group of senior support agents. These onboarding shifts are additional to the default number of parallel tracks, and require their own set of solver constraints. See the "Usage" section below for more detail on how to configure this.
 
 The core of the algorithm is a constraint solver, and we currently use the [Google OR-tools CP-SAT solver](https://developers.google.com/optimization/cp/cp_solver), which is well suited to [scheduling optimisation](<https://developers.google.com/optimization/scheduling/job_shop>).
 
@@ -50,7 +50,8 @@ For assistance, please contact `@AlidaOdendaal`, or operations.
 This project makes use of the Google Sheets API to download input data, and the Google Calendar API to create calendar events, and hence needs Google authentication to be set up. *If* you'd like to set up a similar Google Cloud Project, you have to create a `.env` file in the project root directory, with one of the following variable configurations:
 
 - `GAPI_SERVICE_ACCOUNT_JWT`: The path to the JSON credentials associated with your [Google Service Account](https://cloud.google.com/compute/docs/access/service-accounts), or
-- `CREDENTIALS`, which is the path to JSON containing your Google OAuth app credentials, as well as `TOKEN`, which points to where the OAuth token will be stored once generated.
+- `CREDENTIALS`, which is the path to JSON containing your Google OAuth app credentials, as well as
+-  `TOKEN`, which points to where the OAuth token will be stored once generated.
 
 You would also need to modify the code in [`./lib/`](./lib/) and [`./helper-scripts/download-and-configure-input.ts`](./helper-scripts/download-and-configure-input.ts) to make sure that the correct data is being downloaded from your Google Sheets, and configured correctly for the scheduler.
 
@@ -58,7 +59,7 @@ You would also need to modify the code in [`./lib/`](./lib/) and [`./helper-scri
 
 ## Usage
 
-In this section, `<scheduleName>` indicates the relevant support channel, with currently supported values being `balenaio`, `devOps` and `productOS`.
+In this section, `<supportName>` indicates the relevant support channel, with currently supported values being `balenaio`, `devOps` and `productOS`.
 
 ### 1. Configure Google Sheet input
 
@@ -71,8 +72,8 @@ In the `Team Model` Google Sheet:
 In the `Teamwork Model` Google Sheet:
 
 1. If there will be new team members onboarding to support in the week to be scheduled, ensure that you have onboarded them by making appropriate entries in the `Team Responsibilities History` tab.
-2. From the `Custom scripts` menu, run `Update <scheduleName> UK Availabilities` , and wait for the script to finish.
-3. From the `Custom scripts` menu, run `Update <scheduleName> Support Scheduler Input` , and wait for the script to finish.
+2. From the `Custom scripts` menu, run `Update <supportName> UK Availabilities` , and wait for the script to finish.
+3. From the `Custom scripts` menu, run `Update <supportName> Support Scheduler Input` , and wait for the script to finish.
 
 
 
@@ -83,10 +84,10 @@ In the `Teamwork Model` Google Sheet:
 From the project root directory, run:
 
 ```bash
-$ npm run download-and-configure-input $startDate $scheduleName
+$ npm run download-and-configure-input $startDate $supportName
 ```
 
-This script will download the availability of each support agent for this cycle (compiled from working hours, time zones, time-off data, existing calendar appointments and possible opt-outs, and including e-mail addresses, teamwork balances and shift length preferences). It will create a JSON input object for the scheduling algorithm. This JSON object is validated against the [json input schema](./lib/schemas/support-shift-scheduler-input.schema.json), and then stored in the file `./logs/<startDate>_<scheduleName>/support-shift-scheduler-input.json` .
+This script will download the availability of each support agent for this cycle (compiled from working hours, time zones, time-off data, existing calendar appointments and possible opt-outs, and including e-mail addresses, teamwork balances and shift length preferences). It will create a JSON input object for the scheduling algorithm. This JSON object is validated against the [json input schema](./lib/schemas/support-shift-scheduler-input.schema.json), and then stored in the file `./logs/<startDate>_<supportName>/support-shift-scheduler-input.json` .
 
 #### For the public
 
@@ -105,7 +106,7 @@ For more detail regarding these `options`, as well as the rest of the input file
 
 ### 3. Creating input files for onboarding
 
-If there will be new team members onboarding to support in the week to be scheduled, you have to create the following 2 text files in the `./logs/<start-date>_<scheduleName>/` folder:
+If there will be new team members onboarding to support in the week to be scheduled, you have to create the following 2 text files in the `./logs/<startDate>_<supportName>/` folder:
 
 1. `onboarding_agents.txt`: A list of Github handles for the onboarding agents.
 2. `mentors.txt`: A list of Github handles for the onboarding mentors.
@@ -122,7 +123,7 @@ While in the project's root directory on your local machine, run the following o
 $ poetry shell
 ```
 
-From within the relevant `./logs/<start-date>`  directory (or `./logs/example` if you are using the example data), launch the solver with:
+From within the relevant `./logs/<startDate>_<supportName>`  directory (or `./logs/example` if you are using the example data), launch the solver with:
 
 ```bash
 $ python3 ../../algo-core --input support-shift-scheduler-input.json
@@ -137,7 +138,7 @@ If the `Solution type` is `OPTIMAL`, it means that the solver has determined thi
 ### 5. Beautifying the schedule
 
 ```bash
-$ npm run beautify-schedule $startDate $scheduleName
+$ npm run beautify-schedule $startDate $supportName
 ```
 
 This script writes a formatted schedule to the file `beautified-schedule.txt`, which is a helpful view as a sanity check that the schedule is legitimate. The script also writes message text for our internal chat to the files `flowdock-agents.txt`, which prompts the scheduled agents to check their calendars after the Google Calendar invites have been sent, and `flowdock-onboarding.txt`, which alerts the onboarders and mentors to the onboarding shifts.
@@ -153,7 +154,7 @@ If, for some reason, the schedule needs to be modified, it should be edited dire
 From the project root directory, run:
 
 ```bash
-$ npm run send-calendar-invites $startDate $scheduleName
+$ npm run send-calendar-invites $startDate $supportName
 ```
 
 to write the finalised schedule to the relevant Google Calendar, sending invites to all the associated agents.
@@ -167,7 +168,7 @@ to write the finalised schedule to the relevant Google Calendar, sending invites
 From the project root directory, run:
 
 ```bash
-$ npm run set-victorops-schedule $startDate $scheduleName
+$ npm run set-victorops-schedule $startDate $supportName
 ```
 
 to set the scheduled overrides in victorops.
