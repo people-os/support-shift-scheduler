@@ -105,7 +105,7 @@ For more detail regarding these `options`, as well as the rest of the input file
 
 ### 3. Creating input files for onboarding
 
-If there will be new team members onboarding to support in the week to be scheduled, you have to create the following 2 text files in the `./logs/<start-date>/` folder:
+If there will be new team members onboarding to support in the week to be scheduled, you have to create the following 2 text files in the `./logs/<start-date>_<scheduleName>/` folder:
 
 1. `onboarding_agents.txt`: A list of Github handles for the onboarding agents.
 2. `mentors.txt`: A list of Github handles for the onboarding mentors.
@@ -125,10 +125,10 @@ $ poetry shell
 From within the relevant `./logs/<start-date>`  directory (or `./logs/example` if you are using the example data), launch the solver with:
 
 ```bash
-$ python3 ../../algo-core/ortools_solver.py --input support-shift-scheduler-input.json
+$ python3 ../../algo-core --input support-shift-scheduler-input.json
 ```
 
-Upon completion, the algorithm will write the optimised schedule to the file `support-shift-scheduler-output.json` (after validating against the [json output schema](./lib/schemas/support-shift-scheduler-output.schema.json)), and also display a summary in the terminal.
+Upon completion, the algorithm will write the optimised schedule to the file `support-shift-scheduler-output.json` (after validating against the [json output schema](./lib/schemas/support-shift-scheduler-output.schema.json)).
 
 If the `Solution type` is `OPTIMAL`, it means that the solver has determined this to be the solution with the lowest possible cost ("pain") value given the defined parameter space. If the `Solution type` is `FEASIBLE`, it means that this solution is the best one the solver could find given the set optimisation timeout.
 
@@ -140,7 +140,7 @@ If the `Solution type` is `OPTIMAL`, it means that the solver has determined thi
 $ npm run beautify-schedule $startDate $scheduleName
 ```
 
-This script writes a formatted schedule to the file `beautified-schedule.txt`, which is a helpful view as a sanity check that the schedule is legitimate. The script also writes message text for our internal chat to the file `flowdock-message.txt`, which is used to ping the support agents to go check their calendars after the Google Calendar invites have been sent.
+This script writes a formatted schedule to the file `beautified-schedule.txt`, which is a helpful view as a sanity check that the schedule is legitimate. The script also writes message text for our internal chat to the files `flowdock-agents.txt`, which prompts the scheduled agents to check their calendars after the Google Calendar invites have been sent, and `flowdock-onboarding.txt`, which alerts the onboarders and mentors to the onboarding shifts.
 
 If, for some reason, the schedule needs to be modified, it should be edited directly in `support-shift-scheduler-output.json`, after which the `beautify-schedule` script should be rerun as above to update the text files.
 
@@ -178,8 +178,8 @@ to set the scheduled overrides in victorops.
 
 #### For balena team members
 
-* Paste the content of `flowdock-message.txt` to the support room in Flowdock.
-* If the support week involves the onboarding of new agents, paste the content of `onboarding_message.txt` to the support room in Flowdock as well.
+* Paste the contents of `flowdock-agents.txt` to the `s/support_meta` room in Flowdock.
+* If agents are onboarding this week, paste the contents of `flowdock-onboarding.txt` to `s/support_meta` as well.
 
 
 
