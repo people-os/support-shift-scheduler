@@ -96,8 +96,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, hoursInDay) {
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
 		// const email = inputByGithubHandle[handle].shift();
-		let email = inputByGithubHandle[handle].shift();
-		email = 'example@balena.io'
+		const email = inputByGithubHandle[handle].shift();
 		const teamworkBalance = _.toInteger(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
 		const availableSlots = [];
