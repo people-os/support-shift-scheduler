@@ -116,12 +116,9 @@ def calculate_fair_shares(df_agents, total_slots_covered):
     df_agents["fair_share"] = [
         (unadjusted_slots_per_agent + (-x) ** 0.5)
         if x < 0
-        else (unadjusted_slots_per_agent - x ** 0.5)
+        else 0
         for x in df_agents["teamwork_balance"].tolist()
     ]
-    df_agents["fair_share"] = (
-        df_agents["fair_share"] - df_agents["fair_share"].min()
-    )
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
     df_agents["fair_share"] = df_agents["fair_share"].apply(
@@ -173,7 +170,7 @@ def setup_agents_dataframe(agents, config):
         df_agents.loc[len(df_agents)] = {
             "handle": agent["handle"],
             "email": agent["email"],
-            "teamwork_balance": math.trunc(float(agent["teamworkBalance"])),
+            "teamwork_balance": 2 * math.trunc(float(agent["teamworkBalance"])),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
             "slots": available_slots,
             "slot_ranges": slot_ranges,

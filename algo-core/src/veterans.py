@@ -17,6 +17,7 @@ from ortools.sat.python import cp_model
 import pandas as pd
 
 week_working_slots = 80
+max_weekly_slots = 16
 
 # In the model below, the following abbreviations are used:
 # t: track
@@ -36,6 +37,7 @@ def setup_var_dataframes_veterans(agent_categories, config):
             "is_agent_on_this_week",
             "total_week_slots",
             "total_week_slots_cost",
+            # "more_than_max"
         ],
     )
 
@@ -107,6 +109,7 @@ def fill_var_dataframes_veterans(
         var_veterans["h"].loc[h, "is_agent_on_this_week"] = model.NewBoolVar(
             f"is_agent_on_this_week_{h}"
         )
+        # var_veterans["h"].loc[h, "more_than_max"] = model.NewBoolVar(f"more_than_max_{h}")
         var_veterans["h"].loc[h, "total_week_slots"] = model.NewIntVar(
             0, week_working_slots, f"total_week_slots_{h}"
         )
@@ -121,6 +124,8 @@ def fill_var_dataframes_veterans(
                         -config["max_fair_share"],
                         week_working_slots - config["min_fair_share"],
                     )
+                ] + [
+                    coefficients["overload_factor"] * coefficients["fair_share"] * x for x in range(week_working_slots)
                 ]
             ),
             f"total_week_slots_cost_{h}",
@@ -423,13 +428,11 @@ def cost_total_agent_hours_for_week(
     model, var_veterans, coefficients, df_agents, agent_categories
 ):
     """Define cost associated with total weekly hours per veteran."""
-    # v_coeff_tot_wk_hrs = model.NewIntVar(
-    #     coefficients["fair_share"], coefficients["fair_share"], "coeff_tot_wk_hrs"
-    # )
 
     for h in agent_categories["veterans"]:
+        # Find total slots per week for this agent:
         model.Add(
-            var_veterans["h"].loc[h, "total_week_slots"] != 0
+            var_veterans["h"].loc[h, "total_week_slots"] > 0
         ).OnlyEnforceIf(var_veterans["h"].loc[h, "is_agent_on_this_week"])
         model.Add(
             var_veterans["h"].loc[h, "total_week_slots"] == 0
@@ -445,14 +448,39 @@ def cost_total_agent_hours_for_week(
                 .values.tolist()
             )
         )
-        model.Add(
-            var_veterans["h"].loc[h, "total_week_slots_cost"]
-            == coefficients["fair_share"]
-            * (
-                var_veterans["h"].loc[h, "total_week_slots"]
-                - df_agents.loc[h, "fair_share"]
-            )
-        ).OnlyEnforceIf(var_veterans["h"].loc[h, "is_agent_on_this_week"])
+        if df_agents.loc[h, "fair_share"] == 0:     # Aggressive prevention of scheduling agents with positive teamwork balances:
+            model.Add(
+                var_veterans["h"].loc[h, "total_week_slots_cost"]
+                == coefficients["overload_factor"] * coefficients["fair_share"] * var_veterans["h"].loc[h, "total_week_slots"]
+            ).OnlyEnforceIf(var_veterans["h"].loc[h, "is_agent_on_this_week"])      
+        else:                
+            # model.Add(var_veterans["h"].loc[h, "total_week_slots"] > max_weekly_slots).OnlyEnforceIf(var_veterans["h"].loc[h, "more_than_max"])
+            # model.Add(var_veterans["h"].loc[h, "total_week_slots"] <= max_weekly_slots).OnlyEnforceIf(var_veterans["h"].loc[h, "more_than_max"].Not()) 
+
+            # If less than max hours, "normal" penalty:
+            model.Add(
+                var_veterans["h"].loc[h, "total_week_slots_cost"]
+                == coefficients["fair_share"]
+                * (
+                    var_veterans["h"].loc[h, "total_week_slots"]
+                    - df_agents.loc[h, "fair_share"]
+                )
+            ).OnlyEnforceIf(var_veterans["h"].loc[h, "is_agent_on_this_week"])            
+            # model.Add(
+            #     var_veterans["h"].loc[h, "total_week_slots_cost"]
+            #     == coefficients["fair_share"]
+            #     * (
+            #         var_veterans["h"].loc[h, "total_week_slots"]
+            #         - df_agents.loc[h, "fair_share"]
+            #     )
+            # ).OnlyEnforceIf([var_veterans["h"].loc[h, "is_agent_on_this_week"], var_veterans["h"].loc[h, "more_than_max"].Not()])
+
+            # Aggressive prevention of scheduling agent for more than maximum weekly load:
+            # model.Add(
+            #     var_veterans["h"].loc[h, "total_week_slots_cost"]
+            #     == coefficients["overload_factor"] * coefficients["fair_share"] * var_veterans["h"].loc[h, "total_week_slots"]
+            # ).OnlyEnforceIf([var_veterans["h"].loc[h, "is_agent_on_this_week"], var_veterans["h"].loc[h, "more_than_max"]])
+
         model.Add(
             var_veterans["h"].loc[h, "total_week_slots_cost"] == 0
         ).OnlyEnforceIf(

@@ -26,10 +26,11 @@ from .read_input import get_project_root
 
 # Cost coefficients assigned to various soft constraints:
 coefficients = {
-    "non_preferred": 4,
-    "shorter_than_pref": 4,
-    "longer_than_pref": 4,
-    "fair_share": 2,
+    "non_preferred": 1,
+    "shorter_than_pref": 1,
+    "longer_than_pref": 1,
+    "fair_share": 1,
+    "overload_factor": 3
 }
 
 
