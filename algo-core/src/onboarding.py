@@ -118,8 +118,11 @@ def fill_var_dataframes_onboarding(
 
     # h:
     for h in var_onboarding["h"].index:
-        var_onboarding["h"].loc[h, "total_week_slots"] = model.NewIntVar(
-            0, onboarding_weekly_slots, f"total_week_slots_{h}"
+        var_onboarding["h"].loc[
+            h, "total_week_slots"
+        ] = model.NewIntVarFromDomain(
+            cp_model.Domain.FromValues([0, onboarding_weekly_slots]),
+            f"total_week_slots_{h}",
         )
 
     # dh:

@@ -16,6 +16,8 @@ limitations under the License.
 from ortools.sat.python import cp_model
 import pandas as pd
 
+from .veterans import week_working_slots
+
 
 def define_custom_var_domains(coefficients, df_agents, config):
     """Define custom model variable domains."""
@@ -74,6 +76,28 @@ def define_custom_var_domains(coefficients, df_agents, config):
     duration_cost_list.sort()
     custom_domains["duration_cost"] = cp_model.Domain.FromValues(
         duration_cost_list
+    )
+
+    # Total slots per week cost domain:
+    total_week_slots_cost_list = [
+        coefficients["fair_share"] * x
+        for x in range(
+            -config["max_fair_share"],
+            week_working_slots - config["min_fair_share"],
+        )
+    ]
+    if config["overload_protection"]:
+        total_week_slots_cost_list.extend(
+            [
+                coefficients["overload_factor"]
+                * coefficients["fair_share"]
+                * x
+                for x in range(week_working_slots)
+            ]
+        )
+
+    custom_domains["total_week_slots_cost"] = cp_model.Domain.FromValues(
+        total_week_slots_cost_list
     )
 
     return custom_domains

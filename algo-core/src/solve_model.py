@@ -20,7 +20,7 @@ import jsonschema
 import sys
 
 from .custom_var_domains import define_custom_var_domains
-from .veterans import setup_model_veterans
+from .veterans import setup_model_veterans, max_weekly_slots
 from .onboarding import extend_model_onboarding
 from .read_input import get_project_root
 
@@ -30,12 +30,12 @@ coefficients = {
     "shorter_than_pref": 1,
     "longer_than_pref": 1,
     "fair_share": 1,
-    "overload_factor": 3
+    "overload_factor": 3,
 }
 
 
 # TODO: split the verification out to a separate python script, so
-# that it can be run independently after possible manual changes.
+# that it can be run independently after possible manual changes to the output json.
 def verify_solution(
     objective, sol_shifts, df_agents, agent_categories, config
 ):
@@ -52,7 +52,7 @@ def verify_solution(
             shift_length = shift["end"] - shift["start"]
 
             if handle in agent_categories["veterans"]:
-                # Find total slots per week per agent:
+                # Find total slots per week cost per agent:
                 if handle in total_week_slots_by_veteran.keys():
                     total_week_slots_by_veteran[handle] += shift_length
                 else:
@@ -93,11 +93,22 @@ def verify_solution(
                     sys.exit(1)
     print("VERIFIED: Agents only scheduled when available.")
     slot_cost = coefficients["non_preferred"] * slot_cost
+
     for handle in total_week_slots_by_veteran.keys():
-        total_week_slots_cost += coefficients["fair_share"] * (
-            total_week_slots_by_veteran[handle]
-            - df_agents.loc[handle, "fair_share"]
-        )
+        if config["overload_protection"] and (
+            df_agents.loc[handle, "fair_share"] == 0
+            or total_week_slots_by_veteran[handle] > max_weekly_slots
+        ):
+            total_week_slots_cost += (
+                coefficients["overload_factor"]
+                * coefficients["fair_share"]
+                * total_week_slots_by_veteran[handle]
+            )
+        else:
+            total_week_slots_cost += coefficients["fair_share"] * (
+                total_week_slots_by_veteran[handle]
+                - df_agents.loc[handle, "fair_share"]
+            )
     total_cost = total_week_slots_cost + shift_length_cost + slot_cost
     if total_cost == objective:
         print(f"VERIFIED: Minimized cost of {total_cost} is correct.")
