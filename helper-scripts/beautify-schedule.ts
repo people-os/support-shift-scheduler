@@ -41,7 +41,6 @@ function prettyHourStr(hour) {
 	}
 }
 
-
 /**
  * Write beautified schedule, as well as Flowdock message, to text files.
  * @param  {object}   shiftsJson   Scheduling algorithm output object (read from file)
@@ -144,33 +143,37 @@ async function writePrettifiedShiftsText(
 	);
 }
 
-async function writePrettifiedOnboardingText(date, scheduleName, onboardingJson) {
-	let onboardingMessage = ("**Support agent onboarding next week**"
-	                 + "\n\nEach new onboarding agent has been paired with a senior "
-	                 + "support agent for each of their shifts. The senior agent "
-	                 + "will act as a mentor for the onboarding agents, showing "
-	                 + "them the ropes during these onboarding shifts (see the "
-	                 + "[onboarding document]"
-	                 + "(https://github.com/balena-io/process/blob/master/process/support/onboarding_agents_to_support.md) "
-	                 + "for background). Here are the mentor-novice pairings "
-	                 + "for next week:")
+async function writePrettifiedOnboardingText(
+	date,
+	scheduleName,
+	onboardingJson,
+) {
+	let onboardingMessage =
+		'**Support agent onboarding next week**' +
+		'\n\nEach new onboarding agent has been paired with a senior ' +
+		'support agent for each of their shifts. The senior agent ' +
+		'will act as a mentor for the onboarding agents, showing ' +
+		'them the ropes during these onboarding shifts (see the ' +
+		'[onboarding document]' +
+		'(https://github.com/balena-io/process/blob/master/process/support/onboarding_agents_to_support.md) ' +
+		'for background). Here are the mentor-novice pairings ' +
+		'for next week:';
 	for (const epoch of onboardingJson) {
 		if (epoch.shifts.length > 0) {
-			onboardingMessage += `\n\n**Onboarding on ${epoch.start_date}**`
+			onboardingMessage += `\n\n**Onboarding on ${epoch.start_date}**`;
 			for (const shift of epoch.shifts) {
-				onboardingMessage += `\n${shift.mentor} will mentor ${shift.onboarder}.`
+				onboardingMessage += `\n${shift.mentor} will mentor ${shift.onboarder}.`;
 			}
 		}
 	}
-	onboardingMessage += `\n\ncc @@support_ops`
-	onboardingMessage += `\n\nHappy onboarding! :ship:\n`
+	onboardingMessage += `\n\ncc @@support_ops`;
+	onboardingMessage += `\n\nHappy onboarding! :ship:\n`;
 	await fs.writeFile(
 		`logs/${date}_${scheduleName}/flowdock-onboarding.txt`,
 		onboardingMessage,
 		'utf8',
 	);
 }
-
 
 async function readAndParseJSONOnboarding(date, scheduleName) {
 	const jsonObject = await import(
@@ -185,7 +188,7 @@ async function beautify(date: string, scheduleName: string) {
 
 	// Write beautified-schedule.txt, flowdock-agents.txt, flowdock_onboarding.txt:
 	writePrettifiedShiftsText(date, scheduleName, shiftsJson);
-	writePrettifiedOnboardingText(date, scheduleName, onboardingJson)
+	writePrettifiedOnboardingText(date, scheduleName, onboardingJson);
 }
 
 // Read scheduler output file name from command line:
