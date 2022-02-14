@@ -107,16 +107,25 @@ def remove_agents_not_available_this_week(
     return df_agents
 
 
-def calculate_fair_shares(df_agents, total_slots_covered):
+def calculate_fair_shares(df_agents, total_slots_covered, config):
     """Determine fair share per agent
 
     Fair share is based on hours to be covered, and agents' current
     teamwork balances."""
     unadjusted_slots_per_agent = total_slots_covered / float(len(df_agents))
-    df_agents["fair_share"] = [
-        (unadjusted_slots_per_agent + (-x) ** 0.5) if x < 0 else 0
-        for x in df_agents["teamwork_balance"].tolist()
-    ]
+    if config["overload_protection"]:
+        df_agents["fair_share"] = [
+            (unadjusted_slots_per_agent + (-x) ** 0.5) if x < 0 else 0
+            for x in df_agents["teamwork_balance"].tolist()
+        ]
+    else:
+        df_agents["fair_share"] = [
+            (unadjusted_slots_per_agent + (-x) ** 0.5) if x < 0 else 
+            (unadjusted_slots_per_agent - x ** 0.5)
+            for x in df_agents["teamwork_balance"].tolist()
+        ]    
+        df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
+
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
     df_agents["fair_share"] = df_agents["fair_share"].apply(
@@ -201,7 +210,7 @@ def setup_agents_dataframe(agents, config):
     )
 
     # Calculate fair shares per agent:
-    df_agents = calculate_fair_shares(df_agents, config["total_slots_covered"])
+    df_agents = calculate_fair_shares(df_agents, config["total_slots_covered"], config)
 
     return [df_agents, unavailable_agents]
 
