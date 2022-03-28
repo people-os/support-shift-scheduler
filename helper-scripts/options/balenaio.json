@@ -15,40 +15,7 @@
   "specialAgentConditions": {
     "agentsMaxHoursShift": [],
     "agentsMinHoursWeek": [],
-    "agentsMaxHoursWeek": [
-      {
-        "handle": "@andrewnhem",
-        "value": 0
-      },
-      {
-        "handle": "@chrisys",
-        "value": 0
-      },
-      {
-        "handle": "@jazzagi",
-        "value": 0
-      },
-      {
-        "handle": "@joehounsham",
-        "value": 0
-      },                      
-      {
-        "handle": "@konmouz",
-        "value": 0
-      },   
-      {
-        "handle": "@lizzieepton",
-        "value": 0
-      },   
-      {
-        "handle": "@poshrolls",
-        "value": 0
-      },   
-      {
-        "handle": "@rosswesleyporter",
-        "value": 0
-      }                
-    ],
+    "agentsMaxHoursWeek": [],
     "agentsFixHours": []
   },
   "tracks": [
