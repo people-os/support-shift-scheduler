@@ -44,7 +44,7 @@ def get_datetime_days(start_date, num_days):
     return days
 
 
-def slots_to_range(available_slots, end_hour, allowed_availabilities):
+def slots_to_range(available_slots, end_slot, allowed_availabilities):
     """Convert per-hour availability flags into ranges format."""
     slot_ranges = []
 
@@ -65,8 +65,8 @@ def slots_to_range(available_slots, end_hour, allowed_availabilities):
                 if value not in allowed_availabilities:  # Unavailable
                     day_ranges.append([start, i])
                     start = None
-                elif i == end_hour - 1:  # Last slot
-                    day_ranges.append([start, end_hour])
+                elif i == end_slot - 1:  # Last slot
+                    day_ranges.append([start, end_slot])
                 else:
                     continue
 
@@ -158,15 +158,13 @@ def setup_agents_dataframe(agents, config):
             # Set availability to 0 outside balena support hours:
             for i in range(config["start_slot"]):
                 available_slots[d][i] = 0
-            for i in range(config["end_slot"], config["slots_in_day"]):
-                available_slots[d][i] = 0
             # For agents with fixed hours, remove all availability:
             # TODO: when volunteered shifts are reconfigured, we need to make sure these are not zeroed out below:
             if (
                 agent["handle"]
                 in config["special_agent_conditions"]["agentsFixHours"]
             ):
-                for s in range(0, config["slots_in_day"]):
+                for s in range(0, config["end_slot"]):
                     available_slots[d][s] = 0
 
         slot_ranges = slots_to_range(
@@ -225,7 +223,6 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
     config["num_days"] = int(input_json["options"]["numDays"])
     config["start_slot"] = int(input_json["options"]["startHour"] * 2)
     config["end_slot"] = int(input_json["options"]["endHour"] * 2)
-    config["slots_in_day"] = int(input_json["options"]["hoursInDay"] * 2)
     config["min_duration"] = int(input_json["options"]["shiftMinDuration"]) * 2
     config["max_duration"] = int(input_json["options"]["shiftMaxDuration"]) * 2
     config["optimization_timeout"] = int(

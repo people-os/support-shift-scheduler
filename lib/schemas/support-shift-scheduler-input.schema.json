@@ -86,12 +86,6 @@
           "minimum": 0,
           "maximum": 54
         },
-        "hoursInDay": {
-          "description": "Balena number of hours in 'support day'",
-          "type": "number",
-          "minimum": 0,
-          "maximum": 48          
-        },
         "shiftMinDuration": {
           "description": "Minimum duration of a shift (default: 2)",
           "type": "number"
@@ -133,7 +127,7 @@
 
         }
       },
-      "required": ["startMondayDate", "numDays", "startHour", "endHour", "shiftMinDuration", "shiftMaxDuration", "hoursInDay", "optimizationTimeout", "tracks"]
+      "required": ["startMondayDate", "numDays", "startHour", "endHour", "shiftMinDuration", "shiftMaxDuration", "optimizationTimeout", "tracks"]
     }
   },
   "required": [ "agents", "options" ]

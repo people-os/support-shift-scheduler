@@ -83,7 +83,7 @@ function parseAvailability(availability) {
  * @param  {number} numDays     Number of consecutive days to schedule
  * @return {Promise<object>}             Parsed input object for scheduler
  */
-async function parseInput(rawInput, startDate = null, numDays = 5, hoursInDay) {
+async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 	if (_.isEmpty(startDate)) {
 		throw new Error('Need start date');
 	}
@@ -95,7 +95,6 @@ async function parseInput(rawInput, startDate = null, numDays = 5, hoursInDay) {
 	await checkForDuplicates(inputByGithubHandle);
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
-		// const email = inputByGithubHandle[handle].shift();
 		const email = inputByGithubHandle[handle].shift();
 		const teamworkBalance = _.toInteger(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
@@ -118,8 +117,8 @@ async function parseInput(rawInput, startDate = null, numDays = 5, hoursInDay) {
 	schedulerInput.agents.forEach((agent) => {
 		agent.availableSlots.forEach((day, dayIndex) => {
 			const followingDay = dayIndex + 1;
-			if (dayIndex < 5) {
-				for (let i = 0; i < (hoursInDay - 24) * 2; i++) {
+			if (dayIndex < 5 && endHour > 24) {
+				for (let i = 0; i < (endHour - 24) * 2; i++) {
 					day.push(agent.availableSlots[followingDay][i]);
 				}
 			}
@@ -149,7 +148,7 @@ export async function getSchedulerInput(auth, nextMondayDate, support) {
 		result.data.values,
 		nextMondayDate,
 		support.numDays + 1,
-		support.hoursInDay,
+		support.endHour,
 	);
 	return parsedInput;
 }

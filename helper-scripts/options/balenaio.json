@@ -3,7 +3,6 @@
   "numDays": 5,
   "startHour": 6,
   "endHour": 27,
-  "hoursInDay": 27,
   "shiftMinDuration": 2,
   "shiftMaxDuration": 8,
   "useThrees" : false,
