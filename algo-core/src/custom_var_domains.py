@@ -86,15 +86,6 @@ def define_custom_var_domains(coefficients, df_agents, config):
             week_working_slots - config["min_fair_share"],
         )
     ]
-    if config["overload_protection"]:
-        total_week_slots_cost_list.extend(
-            [
-                coefficients["overload_factor"]
-                * coefficients["fair_share"]
-                * x
-                for x in range(week_working_slots)
-            ]
-        )
 
     custom_domains["total_week_slots_cost"] = cp_model.Domain.FromValues(
         total_week_slots_cost_list

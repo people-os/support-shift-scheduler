@@ -113,18 +113,12 @@ def calculate_fair_shares(df_agents, total_slots_covered, config):
     Fair share is based on hours to be covered, and agents' current
     teamwork balances."""
     unadjusted_slots_per_agent = total_slots_covered / float(len(df_agents))
-    if config["overload_protection"]:
-        df_agents["fair_share"] = [
-            (unadjusted_slots_per_agent + (-x) ** 0.5) if x < 0 else 0
-            for x in df_agents["teamwork_balance"].tolist()
-        ]
-    else:
-        df_agents["fair_share"] = [
-            (unadjusted_slots_per_agent + (-x) ** 0.5) if x < 0 else 
-            (unadjusted_slots_per_agent - x ** 0.5)
-            for x in df_agents["teamwork_balance"].tolist()
-        ]    
-        df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
+    df_agents["fair_share"] = [
+        (unadjusted_slots_per_agent + (-x) ** 0.5) if x < 0 else 
+        (unadjusted_slots_per_agent - x ** 0.5)
+        for x in df_agents["teamwork_balance"].tolist()
+    ]    
+    df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
 
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
@@ -237,8 +231,6 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
     config["allowed_availabilities"] = [1, 2]
     if input_json["options"]["useThrees"]:
         config["allowed_availabilities"].append(3)
-
-    config["overload_protection"] = input_json["options"]["overloadProtection"]
 
     config["total_slots_covered"] = get_total_slots_covered(config["tracks"])
     config["days"] = get_datetime_days(
