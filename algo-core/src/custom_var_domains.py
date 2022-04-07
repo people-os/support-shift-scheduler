@@ -81,10 +81,7 @@ def define_custom_var_domains(coefficients, df_agents, config):
     # Total slots per week cost domain:
     total_week_slots_cost_list = [
         coefficients["fair_share"] * x
-        for x in range(
-            -config["max_fair_share"],
-            week_working_slots - config["min_fair_share"],
-        )
+        for x in range(0, week_working_slots - config["min_fair_share"])
     ]
 
     custom_domains["total_week_slots_cost"] = cp_model.Domain.FromValues(

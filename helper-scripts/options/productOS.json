@@ -6,7 +6,7 @@
     "shiftMinDuration": 1,
     "shiftMaxDuration": 8,
     "useThrees" : false,    
-    "optimizationTimeout": 600,
+    "optimizationTimeout": 0.2,
     "logSheet": "1ABUWJZaSMfUSWZ8mux4SzXxiVaED7-UcsUcCKZ-Xv30",
     "calendarID":"c_2dg02cmijv3j0lvseujj5ioepg@group.calendar.google.com",
     "useServiceAccount": false,

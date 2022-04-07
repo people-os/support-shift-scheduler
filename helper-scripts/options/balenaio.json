@@ -6,7 +6,7 @@
   "shiftMinDuration": 2,
   "shiftMaxDuration": 8,
   "useThrees" : false,
-  "optimizationTimeout": 3600,
+  "optimizationTimeout": 1,
   "logSheet": "1HlYuuiVTXQwxei99a7KKBBzGHG3ggx38W99yjZY40TY",
   "calendarID":"resin.io_2klk2f26ivo04qq5ktlkva1neg@group.calendar.google.com",
   "useServiceAccount": true,
@@ -18,7 +18,9 @@
   },
   "tracks": [
     { "start_hour": 6, "end_hour": 27, "start_day": 0, "end_day": 4 },
-    { "start_hour": 8, "end_hour": 20, "start_day": 0, "end_day": 4 },
-    { "start_hour": 10, "end_hour": 17, "start_day": 0, "end_day": 4 }
+    { "start_hour": 8, "end_hour": 24, "start_day": 0, "end_day": 4 },
+    { "start_hour": 8, "end_hour": 22, "start_day": 0, "end_day": 4 },
+    { "start_hour": 9, "end_hour": 18, "start_day": 0, "end_day": 4 },
+    { "start_hour": 11, "end_hour": 17, "start_day": 0, "end_day": 4 }
   ]
 }

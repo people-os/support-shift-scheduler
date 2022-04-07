@@ -17,7 +17,6 @@ from ortools.sat.python import cp_model
 import pandas as pd
 
 week_working_slots = 80
-max_weekly_slots = 16
 
 # In the model below, the following abbreviations are used:
 # t: track
@@ -30,7 +29,8 @@ def setup_var_dataframes_veterans(agent_categories, config):
     """Create dataframes that will contain model variables for veterans."""
     var_veterans = {}
     col_names = [
-        "is_agent_on_this_week",
+        # "is_agent_on_this_week",
+        "more_than_fair_share",
         "total_week_slots",
         "total_week_slots_cost",
     ]
@@ -104,8 +104,11 @@ def fill_var_dataframes_veterans(
     """Fill veteran variable dataframes with OR-Tools model variables."""
     # h - veterans:
     for h in var_veterans["h"].index:
-        var_veterans["h"].loc[h, "is_agent_on_this_week"] = model.NewBoolVar(
-            f"is_agent_on_this_week_{h}"
+        # var_veterans["h"].loc[h, "is_agent_on_this_week"] = model.NewBoolVar(
+        #     f"is_agent_on_this_week_{h}"
+        # )
+        var_veterans["h"].loc[h, "more_than_fair_share"] = model.NewBoolVar(
+            f"more_than_fair_share_{h}"
         )
         var_veterans["h"].loc[h, "total_week_slots"] = model.NewIntVar(
             0, week_working_slots, f"total_week_slots_{h}"
@@ -417,15 +420,24 @@ def cost_total_agent_hours_for_week(
     """Define cost associated with total weekly hours per veteran."""
 
     for h in agent_categories["veterans"]:
-        # Find total slots per week for this agent:
+        # Booleans associated with total_week_slots:
+        # model.Add(
+        #     var_veterans["h"].loc[h, "total_week_slots"] > 0
+        # ).OnlyEnforceIf(var_veterans["h"].loc[h, "is_agent_on_this_week"])
+        # model.Add(
+        #     var_veterans["h"].loc[h, "total_week_slots"] == 0
+        # ).OnlyEnforceIf(
+        #     var_veterans["h"].loc[h, "is_agent_on_this_week"].Not()
+        # )
         model.Add(
-            var_veterans["h"].loc[h, "total_week_slots"] > 0
-        ).OnlyEnforceIf(var_veterans["h"].loc[h, "is_agent_on_this_week"])
+            var_veterans["h"].loc[h, "total_week_slots"] > df_agents.loc[h, "fair_share"]
+        ).OnlyEnforceIf(var_veterans["h"].loc[h, "more_than_fair_share"])
         model.Add(
-            var_veterans["h"].loc[h, "total_week_slots"] == 0
+            var_veterans["h"].loc[h, "total_week_slots"] <= df_agents.loc[h, "fair_share"]
         ).OnlyEnforceIf(
-            var_veterans["h"].loc[h, "is_agent_on_this_week"].Not()
-        )
+            var_veterans["h"].loc[h, "more_than_fair_share"].Not()
+        )  
+        # Define total_week_slots:
         model.Add(
             var_veterans["h"].loc[h, "total_week_slots"]
             == sum(
@@ -433,7 +445,8 @@ def cost_total_agent_hours_for_week(
                 .xs(h, axis=0, level=2, drop_level=False)
                 .values.tolist()
             )
-        )
+        )              
+        # Cost associated with total_week_slots:
         model.Add(
             var_veterans["h"].loc[h, "total_week_slots_cost"]
             == coefficients["fair_share"]
@@ -441,11 +454,11 @@ def cost_total_agent_hours_for_week(
                 var_veterans["h"].loc[h, "total_week_slots"]
                 - df_agents.loc[h, "fair_share"]
             )
-        ).OnlyEnforceIf(var_veterans["h"].loc[h, "is_agent_on_this_week"])
+        ).OnlyEnforceIf(var_veterans["h"].loc[h, "more_than_fair_share"])
         model.Add(
             var_veterans["h"].loc[h, "total_week_slots_cost"] == 0
         ).OnlyEnforceIf(
-            var_veterans["h"].loc[h, "is_agent_on_this_week"].Not()
+            var_veterans["h"].loc[h, "more_than_fair_share"].Not()
         )
     return model
 
