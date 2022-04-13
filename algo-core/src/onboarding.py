@@ -226,13 +226,11 @@ def constraint_honour_agent_availability_onboarding(
                         var_onboarding["dh"].loc[(d, h), "is_in_pref_range"][j]
                     )
                     model.Add(
-                        var_onboarding["dh"].loc[(d, h), "shift_start"]
-                        + var_onboarding["dh"].loc[(d, h), "shift_duration"]
+                        var_onboarding["dh"].loc[(d, h), "shift_end"]
                         <= sec[1]
                     ).OnlyEnforceIf(
                         var_onboarding["dh"].loc[(d, h), "is_in_pref_range"][j]
                     )
-
     return model
 
 

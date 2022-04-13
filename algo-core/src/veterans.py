@@ -129,15 +129,15 @@ def fill_var_dataframes_veterans(
             for h in agent_categories["veterans"]:
                 if (
                     h in agent_categories["unavailable"][d]
-                    or custom_domains["prefs"].loc[(d, h)].Min()
+                    or df_agents.loc[h, "slot_ranges"][d][0][0]
                     > track["end_slot"]
                 ):
                     var_veterans["tdh"].loc[
                         (t, d, h), "shift_start"
-                    ] = model.NewIntVar(8, 8, f"shift_start_{t}_{d}_{h}")
+                    ] = model.NewIntVar(12, 12, f"shift_start_{t}_{d}_{h}")
                     var_veterans["tdh"].loc[
                         (t, d, h), "shift_end"
-                    ] = model.NewIntVar(8, 8, f"shift_end_{t}_{d}_{h}")
+                    ] = model.NewIntVar(12, 12, f"shift_end_{t}_{d}_{h}")
                     var_veterans["tdh"].loc[
                         (t, d, h), "shift_duration"
                     ] = model.NewIntVar(0, 0, f"shift_duration_{t}_{d}_{h}")
@@ -291,7 +291,7 @@ def constraint_honour_agent_availability_veterans(
     for t, track in enumerate(config["tracks"]):
         for d in range(track["start_day"], track["end_day"] + 1):
             for h in agent_categories["veterans"]:
-                if not (h in agent_categories["unavailable"][d]):
+                if not (h in agent_categories["unavailable"][d] or df_agents.loc[h, "slot_ranges"][d][0][0] > track["end_slot"]):
                     model.AddBoolOr(
                         var_veterans["tdh"].loc[(t, d, h), "is_in_pref_range"]
                     ).OnlyEnforceIf(
@@ -313,12 +313,8 @@ def constraint_honour_agent_availability_veterans(
                             )
                             model.Add(
                                 var_veterans["tdh"].loc[
-                                    (t, d, h), "shift_start"
-                                ]
-                                + var_veterans["tdh"].loc[
-                                    (t, d, h), "shift_duration"
-                                ]
-                                <= sec[1]
+                                    (t, d, h), "shift_end"
+                                ] <= sec[1]
                             ).OnlyEnforceIf(
                                 var_veterans["tdh"].loc[
                                     (t, d, h), "is_in_pref_range"
@@ -362,7 +358,8 @@ def constraint_various_custom_conditions(
         slots = int(agent["value"] * 2)
         for t, track in enumerate(config["tracks"]):
             for d in range(track["start_day"], track["end_day"] + 1):
-                if not (handle in agent_categories["unavailable"][d]):
+                if not (handle in agent_categories["unavailable"][d] or df_agents.loc[handle, "slot_ranges"][d][0][0]
+                    > track["end_slot"]):
                     model.Add(
                         var_veterans["tdh"].loc[
                             (t, d, handle), "shift_duration"
@@ -415,7 +412,7 @@ def constraint_various_custom_conditions(
 
 
 def cost_total_agent_hours_for_week(
-    model, var_veterans, coefficients, df_agents, agent_categories, config
+    model, var_veterans, coefficients, df_agents, agent_categories
 ):
     """Define cost associated with total weekly hours per veteran."""
 
@@ -647,7 +644,7 @@ def setup_model_veterans(
     )
     # Add cost:
     model = cost_total_agent_hours_for_week(
-        model, var_veterans, coefficients, df_agents, agent_categories, config
+        model, var_veterans, coefficients, df_agents, agent_categories
     )
     model = cost_shift_duration(
         model,

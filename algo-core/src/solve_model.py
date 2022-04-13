@@ -95,11 +95,9 @@ def verify_solution(
 
     for handle in total_week_slots_by_veteran.keys():
         if total_week_slots_by_veteran[handle] > df_agents.loc[handle, "fair_share"]:
-            total_week_slots_cost += coefficients["fair_share"] * (
-                total_week_slots_by_veteran[handle]
-                - df_agents.loc[handle, "fair_share"]
-            )
-            print(f"{handle} was scheduled for {total_week_slots_by_veteran[handle]*0.5} hours more than their fair share.")
+            slots_more_than_fair_share = total_week_slots_by_veteran[handle] - df_agents.loc[handle, "fair_share"]
+            total_week_slots_cost += coefficients["fair_share"] * slots_more_than_fair_share
+            print(f"{handle} was scheduled for {slots_more_than_fair_share*0.5} hours more than their fair share.")
     total_cost = total_week_slots_cost + shift_length_cost + slot_cost
     if total_cost == objective:
         print(f"VERIFIED: Minimized cost of {total_cost} is correct.")

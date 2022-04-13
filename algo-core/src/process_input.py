@@ -112,13 +112,13 @@ def calculate_fair_shares(df_agents, total_slots_covered, config):
 
     Fair share is based on hours to be covered, and agents' current
     teamwork balances."""
-    df_agents["fair_share"] = [-x for x in df_agents["teamwork_balance"].tolist()]
+    # df_agents["fair_share"] = [-x for x in df_agents["teamwork_balance"].tolist()]
     # unadjusted_slots_per_agent = total_slots_covered / float(len(df_agents))
-    # df_agents["fair_share"] = [
-    #     (unadjusted_slots_per_agent + (-x) ** 0.5) if x < 0 else 
-    #     (unadjusted_slots_per_agent - x ** 0.5)
-    #     for x in df_agents["teamwork_balance"].tolist()
-    # ]    
+    df_agents["fair_share"] = [
+        ((-x) ** 0.5) if x < 0 else 
+        (- x ** 0.5)
+        for x in df_agents["teamwork_balance"].tolist()
+    ]    
     df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
 
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
@@ -220,9 +220,7 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
     config["end_slot"] = int(input_json["options"]["endHour"] * 2)
     config["min_duration"] = int(input_json["options"]["shiftMinDuration"]) * 2
     config["max_duration"] = int(input_json["options"]["shiftMaxDuration"]) * 2
-    config["optimization_timeout"] = 3600 * int(
-        input_json["options"]["optimizationTimeout"]
-    )
+    config["optimization_timeout"] = int(3600 * input_json["options"]["optimizationTimeout"])
     config["tracks"] = tracks_hours_to_slots(input_json["options"]["tracks"])
     config["special_agent_conditions"] = input_json["options"][
         "specialAgentConditions"
