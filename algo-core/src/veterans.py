@@ -32,6 +32,7 @@ def setup_var_dataframes_veterans(agent_categories, config):
         # "is_agent_on_this_week",
         "more_than_fair_share",
         "total_week_slots",
+        "total_week_slots_squared",
         "total_week_slots_cost",
     ]
     var_veterans["h"] = pd.DataFrame(
@@ -113,7 +114,12 @@ def fill_var_dataframes_veterans(
         var_veterans["h"].loc[h, "total_week_slots"] = model.NewIntVar(
             0, week_working_slots, f"total_week_slots_{h}"
         )
-
+        var_veterans["h"].loc[h, "total_week_slots_squared"] = model.NewIntVarFromDomain(
+            cp_model.Domain.FromValues(
+                [x ** 2 for x in range(0, week_working_slots)]
+            ),
+            f"total_week_slots_squared_{h}",
+        )
         var_veterans["h"].loc[
             h, "total_week_slots_cost"
         ] = model.NewIntVarFromDomain(
@@ -442,14 +448,19 @@ def cost_total_agent_hours_for_week(
                 .xs(h, axis=0, level=2, drop_level=False)
                 .values.tolist()
             )
-        )              
+        )
+        # Define total_week_slots_squared:
+        model.AddMultiplicationEquality(
+            var_veterans["h"].loc[h, "total_week_slots_squared"],
+            [var_veterans["h"].loc[h, "total_week_slots"], var_veterans["h"].loc[h, "total_week_slots"]],
+        )
+
         # Cost associated with total_week_slots:
         model.Add(
             var_veterans["h"].loc[h, "total_week_slots_cost"]
             == coefficients["fair_share"]
             * (
-                var_veterans["h"].loc[h, "total_week_slots"]
-                - df_agents.loc[h, "fair_share"]
+                var_veterans["h"].loc[h, "total_week_slots_squared"] - 2 * var_veterans["h"].loc[h, "total_week_slots"] * df_agents.loc[h, "fair_share"] + (df_agents.loc[h, "fair_share"])**2
             )
         ).OnlyEnforceIf(var_veterans["h"].loc[h, "more_than_fair_share"])
         model.Add(

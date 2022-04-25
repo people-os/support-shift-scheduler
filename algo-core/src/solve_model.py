@@ -26,9 +26,9 @@ from .read_input import get_project_root
 
 # Cost coefficients assigned to various soft constraints:
 coefficients = {
-    "non_preferred": 1,
-    "shorter_than_pref": 1,
-    "longer_than_pref": 1,
+    "non_preferred": 2,
+    "shorter_than_pref": 2,
+    "longer_than_pref": 2,
     "fair_share": 1,
 }
 
@@ -96,7 +96,7 @@ def verify_solution(
     for handle in total_week_slots_by_veteran.keys():
         if total_week_slots_by_veteran[handle] > df_agents.loc[handle, "fair_share"]:
             slots_more_than_fair_share = total_week_slots_by_veteran[handle] - df_agents.loc[handle, "fair_share"]
-            total_week_slots_cost += coefficients["fair_share"] * slots_more_than_fair_share
+            total_week_slots_cost += coefficients["fair_share"] * slots_more_than_fair_share**2
             print(f"{handle} was scheduled for {slots_more_than_fair_share*0.5} hours more than their fair share.")
     total_cost = total_week_slots_cost + shift_length_cost + slot_cost
     if total_cost == objective:

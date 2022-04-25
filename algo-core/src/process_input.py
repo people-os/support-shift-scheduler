@@ -126,7 +126,7 @@ def calculate_fair_shares(df_agents, total_slots_covered, config):
     df_agents["fair_share"] = df_agents["fair_share"].apply(
         lambda x: math.trunc(x)
     )
-    print("Fair shares (hours per week):\n")
+    print("\nFair shares (hours per week):\n")
     print(df_agents["fair_share"]/2.0)
     return df_agents
 
