@@ -50,7 +50,7 @@
     "@types/readline-sync": "^1.4.4",
     "husky": "^7.0.4",
     "lint-staged": "^11.1.2",
-    "typescript": "^4.5.3"
+    "typescript": "^4.6.4"
   },
   "versionist": {
     "publishedAt": "2021-12-13T08:01:57.864Z"
