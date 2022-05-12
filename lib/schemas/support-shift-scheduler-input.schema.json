@@ -20,6 +20,10 @@
             "type": "string",
             "pattern": "[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,4}"
           },
+          "weight": {
+            "description": "Responsibility weight on Monday of week to be scheduled",
+            "type": "number"
+          },
           "teamworkBalance": {
             "description": "Current teamwork balance",
             "type": "number"
@@ -49,7 +53,7 @@
             }
           }
         },
-        "required": [ "handle", "email", "teamworkBalance", "idealShiftLength", "availableSlots"]
+        "required": [ "handle", "email", "weight", "teamworkBalance", "idealShiftLength", "availableSlots"]
       }
     },
     "options": {

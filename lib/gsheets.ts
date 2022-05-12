@@ -55,6 +55,7 @@ async function createAgent(opts) {
 	const requiredOpts = [
 		'handle',
 		'email',
+		'weight',
 		'teamworkBalance',
 		'idealShiftLength',
 		'availableSlots',
@@ -96,6 +97,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
 		const email = inputByGithubHandle[handle].shift();
+		const weight = Number(inputByGithubHandle[handle].shift())
 		const teamworkBalance = _.toInteger(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
 		const availableSlots = [];
@@ -108,6 +110,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 		const newAgent = await createAgent({
 			handle,
 			email,
+			weight,
 			teamworkBalance,
 			idealShiftLength,
 			availableSlots,

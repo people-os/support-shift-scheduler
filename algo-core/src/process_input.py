@@ -110,15 +110,17 @@ def remove_agents_not_available_this_week(
 def calculate_fair_shares(df_agents, total_slots_covered, config):
     """Determine fair share per agent
 
-    Fair share is based on hours to be covered, and agents' current
-    teamwork balances."""
+    Fair share is based on hours to be covered, agents' responsibility weights
+    and agents' current teamwork balances."""
     # df_agents["fair_share"] = [-x for x in df_agents["teamwork_balance"].tolist()]
-    # unadjusted_slots_per_agent = total_slots_covered / float(len(df_agents))
-    df_agents["fair_share"] = [
-        ((-x) ** 0.5) if x < 0 else 
-        (- x ** 0.5)
-        for x in df_agents["teamwork_balance"].tolist()
-    ]    
+    unadjusted_slots_per_agent = total_slots_covered / df_agents["weight"].sum()
+    df_agents["fair_share"] = unadjusted_slots_per_agent * df_agents['weight']
+    for handle in df_agents.index:
+        balance = df_agents.loc[handle, "teamwork_balance"]
+        if balance < 0:
+            df_agents.loc[handle, "fair_share"] = df_agents.loc[handle, "fair_share"] + (-balance)**0.2
+        else:
+            df_agents.loc[handle, "fair_share"] = df_agents.loc[handle, "fair_share"] - balance**0.2 
     df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
 
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
@@ -138,6 +140,7 @@ def setup_agents_dataframe(agents, config):
         columns=[
             "handle",
             "email",
+            "weight",
             "teamwork_balance",
             "ideal_shift_length",
             "slots",
@@ -171,6 +174,10 @@ def setup_agents_dataframe(agents, config):
         df_agents.loc[len(df_agents)] = {
             "handle": agent["handle"],
             "email": agent["email"],
+             # Modifier on weight below is just temporary to avoid
+             # overscheduling SREs (with weight = 2) on regular support 
+             # until we make scheduler forward-looking 
+            "weight": agent["weight"] if agent["weight"] <=1 else 1,
             "teamwork_balance": 2
             * math.trunc(float(agent["teamworkBalance"])),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
@@ -204,7 +211,6 @@ def setup_agents_dataframe(agents, config):
 
     # Calculate fair shares per agent:
     df_agents = calculate_fair_shares(df_agents, config["total_slots_covered"], config)
-
     return [df_agents, unavailable_agents]
 
 

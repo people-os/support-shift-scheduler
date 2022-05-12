@@ -1,9 +1,7 @@
-@pdcastro
 @thgreasi
 @majorz
 @ab77
 @20k-ultra
-@dtischler
 @alanb128
 @alexgg
 @anujdeshpande
@@ -14,12 +12,10 @@
 @dfunckt
 @ereski
 @fisehara
-@floion
 @gantonayde
 @iamsolankiamit
 @jakogut
 @jmakivic
-@joshbwlng
 @jsreds
 @karaxuna
 @kb2ma
@@ -38,7 +34,6 @@
 @pranasziaukas
 @rahul-thakoor
 @rcooke-warwick
-@robertgzr
 @rosswesleyporter
 @somombo
 @srlowe
