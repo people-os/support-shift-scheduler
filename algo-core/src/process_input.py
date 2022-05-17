@@ -16,7 +16,9 @@ limitations under the License.
 import datetime
 import math
 import pandas as pd
+import numpy as np
 
+balance_compensation_index = 3
 
 def tracks_hours_to_slots(tracks):
     for track in tracks:
@@ -107,22 +109,13 @@ def remove_agents_not_available_this_week(
     return df_agents
 
 
-def calculate_fair_shares(df_agents, total_slots_covered, config):
+def calculate_fair_shares(df_agents, total_slots_covered):
     """Determine fair share per agent
 
     Fair share is based on hours to be covered, agents' responsibility weights
     and agents' current teamwork balances."""
-    # df_agents["fair_share"] = [-x for x in df_agents["teamwork_balance"].tolist()]
     unadjusted_slots_per_agent = total_slots_covered / df_agents["weight"].sum()
-    df_agents["fair_share"] = unadjusted_slots_per_agent * df_agents['weight']
-    for handle in df_agents.index:
-        balance = df_agents.loc[handle, "teamwork_balance"]
-        if balance < 0:
-            df_agents.loc[handle, "fair_share"] = df_agents.loc[handle, "fair_share"] + (-balance)**0.2
-        else:
-            df_agents.loc[handle, "fair_share"] = df_agents.loc[handle, "fair_share"] - balance**0.2 
-    df_agents["fair_share"] = df_agents["fair_share"] - df_agents["fair_share"].min()
-
+    df_agents["fair_share"] = unadjusted_slots_per_agent * df_agents['weight'] * (1 - np.tanh(0.0001 * balance_compensation_index * df_agents["teamwork_balance"]))
     rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
     df_agents["fair_share"] = df_agents["fair_share"].apply(
@@ -177,7 +170,7 @@ def setup_agents_dataframe(agents, config):
              # Modifier on weight below is just temporary to avoid
              # overscheduling SREs (with weight = 2) on regular support 
              # until we make scheduler forward-looking 
-            "weight": agent["weight"] if agent["weight"] <=1 else 1,
+            "weight": agent["weight"] if config["model_name"] == 'devOps' else min(1, agent["weight"]),
             "teamwork_balance": 2
             * math.trunc(float(agent["teamworkBalance"])),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
@@ -210,7 +203,7 @@ def setup_agents_dataframe(agents, config):
     )
 
     # Calculate fair shares per agent:
-    df_agents = calculate_fair_shares(df_agents, config["total_slots_covered"], config)
+    df_agents = calculate_fair_shares(df_agents, config["total_slots_covered"])
     return [df_agents, unavailable_agents]
 
 
