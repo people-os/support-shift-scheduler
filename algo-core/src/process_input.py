@@ -18,7 +18,7 @@ import math
 import pandas as pd
 import numpy as np
 
-balance_compensation_index = 3
+rebalancing_urgency = 3
 
 def tracks_hours_to_slots(tracks):
     for track in tracks:
@@ -114,10 +114,14 @@ def calculate_fair_shares(df_agents, total_slots_covered):
 
     Fair share is based on hours to be covered, agents' responsibility weights
     and agents' current teamwork balances."""
-    unadjusted_slots_per_agent = total_slots_covered / df_agents["weight"].sum()
-    df_agents["fair_share"] = unadjusted_slots_per_agent * df_agents['weight'] * (1 - np.tanh(0.0001 * balance_compensation_index * df_agents["teamwork_balance"]))
-    rescaling_factor = total_slots_covered / df_agents["fair_share"].sum()
-    df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor
+    total_next_week = total_slots_covered + df_agents["next_week_credit"].sum()
+    df_agents["fair_share"] = total_next_week * df_agents['weight'] / df_agents["weight"].sum() * (1 - np.tanh(0.0001 * rebalancing_urgency * df_agents["teamwork_balance"]))
+    rescaling_factor1 = total_next_week / df_agents["fair_share"].sum()
+    df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor1
+    df_agents["fair_share"] = df_agents["fair_share"] - df_agents["next_week_credit"] 
+    df_agents["fair_share"] = df_agents["fair_share"].apply(lambda x: x if x >= 0 else 0)
+    rescaling_factor2 = total_slots_covered / df_agents["fair_share"].sum()
+    df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor2
     df_agents["fair_share"] = df_agents["fair_share"].apply(
         lambda x: math.trunc(x)
     )
@@ -135,6 +139,7 @@ def setup_agents_dataframe(agents, config):
             "email",
             "weight",
             "teamwork_balance",
+            "next_week_credit",
             "ideal_shift_length",
             "slots",
             "slot_ranges",
@@ -171,8 +176,8 @@ def setup_agents_dataframe(agents, config):
              # overscheduling SREs (with weight = 2) on regular support 
              # until we make scheduler forward-looking 
             "weight": agent["weight"] if config["model_name"] == 'devOps' else min(1, agent["weight"]),
-            "teamwork_balance": 2
-            * math.trunc(float(agent["teamworkBalance"])),
+            "teamwork_balance": 2 * float(agent["teamworkBalance"]),
+            "next_week_credit": 2 * float(agent["nextWeekCredit"]),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
             "slots": available_slots,
             "slot_ranges": slot_ranges,

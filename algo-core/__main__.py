@@ -26,6 +26,6 @@ from src.solve_model import generate_solution
 )
 
 # Configure, solve and save model:
-solution = generate_solution(df_agents, agent_categories, config)
+# solution = generate_solution(df_agents, agent_categories, config)
 
 # TODO: configure functionality for volunteered shifts.
