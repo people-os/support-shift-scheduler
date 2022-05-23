@@ -18,7 +18,7 @@ import math
 import pandas as pd
 import numpy as np
 
-rebalancing_urgency = 3
+rebalancing_urgency = 2
 
 def tracks_hours_to_slots(tracks):
     for track in tracks:
