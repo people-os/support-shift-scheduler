@@ -8,10 +8,11 @@ license = "Apache-2.0"
 [tool.poetry.dependencies]
 python = "^3.8"
 pandas = "^1.0.5"
-ortools = "^9"
+ortools = "9.1.9490"
 python_dateutil = "^2.8.1"
 colorama = "^0.4.3"
 jsonschema = "^3.2.0"
+numpy = "^1.22.3"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Balena Ltd.
+ * Copyright 2019-2022 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,9 +55,11 @@ async function createAgent(opts) {
 	const requiredOpts = [
 		'handle',
 		'email',
-		'weekAverageHours',
+		'weight',
+		'teamworkBalance',
+		'nextWeekCredit',
 		'idealShiftLength',
-		'availableHours',
+		'availableSlots',
 	];
 	for (const opt of requiredOpts) {
 		if (opts[opt] === undefined) {
@@ -83,7 +85,7 @@ function parseAvailability(availability) {
  * @param  {number} numDays     Number of consecutive days to schedule
  * @return {Promise<object>}             Parsed input object for scheduler
  */
-async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
+async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 	if (_.isEmpty(startDate)) {
 		throw new Error('Need start date');
 	}
@@ -96,41 +98,38 @@ async function parseInput(rawInput, startDate = null, numDays = 5, slotsInDay) {
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
 		const email = inputByGithubHandle[handle].shift();
-
-		const weekAverageHours = _.toInteger(inputByGithubHandle[handle].shift());
-
+		const weight = Number(inputByGithubHandle[handle].shift())
+		const teamworkBalance = Number(inputByGithubHandle[handle].shift());
+		const nextWeekCredit = Number(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
-
-		const availableHours = [];
-
+		const availableSlots = [];
 		for (let i = 0; i < numDays; i++) {
-			const hourAvailability = inputByGithubHandle[handle]
+			const slotAvailability = inputByGithubHandle[handle]
 				.splice(0, 48)
 				.map(parseAvailability);
-
-			availableHours.push(hourAvailability);
+			availableSlots.push(slotAvailability);
 		}
-
 		const newAgent = await createAgent({
 			handle,
 			email,
-			weekAverageHours,
+			weight,
+			teamworkBalance,
+			nextWeekCredit,
 			idealShiftLength,
-			availableHours,
+			availableSlots,
 		});
 		schedulerInput.agents.push(newAgent);
 	}
-	console.log(slotsInDay);
 	schedulerInput.agents.forEach((agent) => {
-		agent.availableHours.forEach((day, dayIndex) => {
+		agent.availableSlots.forEach((day, dayIndex) => {
 			const followingDay = dayIndex + 1;
-			if (dayIndex < 5) {
-				for (let i = 0; i < (slotsInDay - 24) * 2; i++) {
-					day.push(agent.availableHours[followingDay][i]);
+			if (dayIndex < 5 && endHour > 24) {
+				for (let i = 0; i < (endHour - 24) * 2; i++) {
+					day.push(agent.availableSlots[followingDay][i]);
 				}
 			}
 		});
-		agent.availableHours.splice(5, 1);
+		agent.availableSlots.splice(5, 1);
 	});
 	schedulerInput.options['startMondayDate'] = startDate;
 	return schedulerInput;
@@ -154,8 +153,8 @@ export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const parsedInput = await parseInput(
 		result.data.values,
 		nextMondayDate,
-		support.numConsecutiveDays + 1,
-		support.slotsInDay,
+		support.numDays + 1,
+		support.endHour,
 	);
 	return parsedInput;
 }

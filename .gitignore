@@ -3,7 +3,7 @@
 !/logs/example/
 node_modules/
 .vscode/*
-*/__pycache__/
+**/__pycache__/
 .idea/*
 creds.json
 token.json

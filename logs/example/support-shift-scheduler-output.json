@@ -1,261 +1,434 @@
 [
     {
-        "start_date": "2020-08-24",
+        "start_date": "2022-01-03",
         "shifts": [
             {
-                "agent": "@nghiant2710 <james@balena.io>",
-                "start": 8,
-                "end": 12
-            },
-            {
-                "agent": "@anujdeshpande <anuj@balena.io>",
-                "start": 8,
-                "end": 12
-            },
-            {
-                "agent": "@robertgzr <robertg@balena.io>",
-                "start": 8,
-                "end": 12
-            },
-            {
-                "agent": "@jviotti <juan@balena.io>",
+                "agent": "@vipulgupta2048 <example@balena.io>",
+                "agentName": "@vipulgupta2048",
                 "start": 12,
-                "end": 16
-            },
-            {
-                "agent": "@sradevski <stevche@balena.io>",
-                "start": 12,
-                "end": 16
-            },
-            {
-                "agent": "@ntzovanis <nicolas@balena.io>",
-                "start": 16,
                 "end": 20
             },
             {
-                "agent": "@nazrhom <giovanni@balena.io>",
+                "agent": "@iamsolankiamit <example@balena.io>",
+                "agentName": "@iamsolankiamit",
                 "start": 16,
-                "end": 19
+                "end": 24
             },
             {
-                "agent": "@ereski <carol@balena.io>",
-                "start": 19,
-                "end": 22
-            },
-            {
-                "agent": "@saintaardvark <hugh@balena.io>",
+                "agent": "@srlowe <example@balena.io>",
+                "agentName": "@srlowe",
                 "start": 20,
-                "end": 24
+                "end": 26
             },
             {
-                "agent": "@jimsynz <jamesh@balena.io>",
-                "start": 22,
-                "end": 24
+                "agent": "@jsreds <example@balena.io>",
+                "agentName": "@jsreds",
+                "start": 24,
+                "end": 32
+            },
+            {
+                "agent": "@nitishagar <example@balena.io>",
+                "agentName": "@nitishagar",
+                "start": 24,
+                "end": 30
+            },
+            {
+                "agent": "@toochevere <example@balena.io>",
+                "agentName": "@toochevere",
+                "start": 26,
+                "end": 32
+            },
+            {
+                "agent": "@dfunckt <example@balena.io>",
+                "agentName": "@dfunckt",
+                "start": 30,
+                "end": 34
+            },
+            {
+                "agent": "@alanb128 <example@balena.io>",
+                "agentName": "@alanb128",
+                "start": 32,
+                "end": 43
+            },
+            {
+                "agent": "@fisehara <example@balena.io>",
+                "agentName": "@fisehara",
+                "start": 32,
+                "end": 36
+            },
+            {
+                "agent": "@builder555 <example@balena.io>",
+                "agentName": "@builder555",
+                "start": 32,
+                "end": 40
+            },
+            {
+                "agent": "@danthegoodman1 <example@balena.io>",
+                "agentName": "@danthegoodman1",
+                "start": 36,
+                "end": 40
+            },
+            {
+                "agent": "@kb2ma <example@balena.io>",
+                "agentName": "@kb2ma",
+                "start": 43,
+                "end": 47
+            },
+            {
+                "agent": "@somombo <example@balena.io>",
+                "agentName": "@somombo",
+                "start": 47,
+                "end": 54
             }
         ]
     },
     {
-        "start_date": "2020-08-25",
+        "start_date": "2022-01-04",
         "shifts": [
             {
-                "agent": "@vipulgupta2048 <vipul@balena.io>",
-                "start": 8,
-                "end": 10
-            },
-            {
-                "agent": "@dfunckt <akis@balena.io>",
-                "start": 8,
-                "end": 10
-            },
-            {
-                "agent": "@mpous <marc@balena.io>",
-                "start": 10,
-                "end": 12
-            },
-            {
-                "agent": "@rcooke-warwick <ryan@balena.io>",
-                "start": 10,
-                "end": 14
-            },
-            {
-                "agent": "@zvin <alexis@balena.io>",
+                "agent": "@anujdeshpande <example@balena.io>",
+                "agentName": "@anujdeshpande",
                 "start": 12,
-                "end": 16
+                "end": 18
             },
             {
-                "agent": "@juanfridano <juanfr@balena.io>",
-                "start": 14,
+                "agent": "@codewithcheese <example@balena.io>",
+                "agentName": "@codewithcheese",
+                "start": 16,
+                "end": 20
+            },
+            {
+                "agent": "@alexgg <example@balena.io>",
+                "agentName": "@alexgg",
+                "start": 18,
+                "end": 24
+            },
+            {
+                "agent": "@robertgzr <example@balena.io>",
+                "agentName": "@robertgzr",
+                "start": 20,
+                "end": 26
+            },
+            {
+                "agent": "@jazzagi <example@balena.io>",
+                "agentName": "@jazzagi",
+                "start": 24,
+                "end": 29
+            },
+            {
+                "agent": "@lizzieepton <example@balena.io>",
+                "agentName": "@lizzieepton",
+                "start": 24,
+                "end": 28
+            },
+            {
+                "agent": "@mtoman <example@balena.io>",
+                "agentName": "@mtoman",
+                "start": 26,
+                "end": 34
+            },
+            {
+                "agent": "@gantonayde <example@balena.io>",
+                "agentName": "@gantonayde",
+                "start": 28,
+                "end": 34
+            },
+            {
+                "agent": "@20k-ultra <example@balena.io>",
+                "agentName": "@20k-ultra",
+                "start": 29,
+                "end": 37
+            },
+            {
+                "agent": "@builder555 <example@balena.io>",
+                "agentName": "@builder555",
+                "start": 29,
+                "end": 37
+            },
+            {
+                "agent": "@ereski <example@balena.io>",
+                "agentName": "@ereski",
+                "start": 34,
+                "end": 40
+            },
+            {
+                "agent": "@pipex <example@balena.io>",
+                "agentName": "@pipex",
+                "start": 37,
+                "end": 45
+            },
+            {
+                "agent": "@dtischler <example@balena.io>",
+                "agentName": "@dtischler",
+                "start": 45,
+                "end": 54
+            }
+        ]
+    },
+    {
+        "start_date": "2022-01-05",
+        "shifts": [
+            {
+                "agent": "@pranavpeshwe <example@balena.io>",
+                "agentName": "@pranavpeshwe",
+                "start": 12,
+                "end": 24
+            },
+            {
+                "agent": "@jazzagi <example@balena.io>",
+                "agentName": "@jazzagi",
+                "start": 16,
+                "end": 20
+            },
+            {
+                "agent": "@rcooke-warwick <example@balena.io>",
+                "agentName": "@rcooke-warwick",
+                "start": 20,
+                "end": 28
+            },
+            {
+                "agent": "@lizzieepton <example@balena.io>",
+                "agentName": "@lizzieepton",
+                "start": 24,
+                "end": 28
+            },
+            {
+                "agent": "@pdcastro <example@balena.io>",
+                "agentName": "@pdcastro",
+                "start": 24,
+                "end": 28
+            },
+            {
+                "agent": "@ntzovanis <example@balena.io>",
+                "agentName": "@ntzovanis",
+                "start": 28,
+                "end": 34
+            },
+            {
+                "agent": "@majorz <example@balena.io>",
+                "agentName": "@majorz",
+                "start": 28,
+                "end": 36
+            },
+            {
+                "agent": "@konmouz <example@balena.io>",
+                "agentName": "@konmouz",
+                "start": 28,
+                "end": 34
+            },
+            {
+                "agent": "@myarmolinsky <example@balena.io>",
+                "agentName": "@myarmolinsky",
+                "start": 28,
+                "end": 36
+            },
+            {
+                "agent": "@the-real-kenna <example@balena.io>",
+                "agentName": "@the-real-kenna",
+                "start": 34,
+                "end": 38
+            },
+            {
+                "agent": "@danthegoodman1 <example@balena.io>",
+                "agentName": "@danthegoodman1",
+                "start": 36,
+                "end": 40
+            },
+            {
+                "agent": "@toochevere <example@balena.io>",
+                "agentName": "@toochevere",
+                "start": 38,
+                "end": 44
+            },
+            {
+                "agent": "@andrewnhem <example@balena.io>",
+                "agentName": "@andrewnhem",
+                "start": 44,
+                "end": 48
+            },
+            {
+                "agent": "@cywang117 <example@balena.io>",
+                "agentName": "@cywang117",
+                "start": 48,
+                "end": 54
+            }
+        ]
+    },
+    {
+        "start_date": "2022-01-06",
+        "shifts": [
+            {
+                "agent": "@anujdeshpande <example@balena.io>",
+                "agentName": "@anujdeshpande",
+                "start": 12,
                 "end": 17
             },
             {
-                "agent": "@ljewalsh <lucy-jane@balena.io>",
+                "agent": "@phil-d-wilson <example@balena.io>",
+                "agentName": "@phil-d-wilson",
                 "start": 16,
-                "end": 19
+                "end": 20
             },
             {
-                "agent": "@alanb128 <alan@balena.io>",
+                "agent": "@jazzagi <example@balena.io>",
+                "agentName": "@jazzagi",
                 "start": 17,
-                "end": 19
+                "end": 21
             },
             {
-                "agent": "@floion <florin@balena.io>",
-                "start": 19,
-                "end": 24
+                "agent": "@chrisys <example@balena.io>",
+                "agentName": "@chrisys",
+                "start": 20,
+                "end": 26
             },
             {
-                "agent": "@wrboyce <will@balena.io>",
-                "start": 19,
-                "end": 24
+                "agent": "@markcorbinuk <example@balena.io>",
+                "agentName": "@markcorbinuk",
+                "start": 21,
+                "end": 29
+            },
+            {
+                "agent": "@pdcastro <example@balena.io>",
+                "agentName": "@pdcastro",
+                "start": 24,
+                "end": 28
+            },
+            {
+                "agent": "@tmigone <example@balena.io>",
+                "agentName": "@tmigone",
+                "start": 26,
+                "end": 32
+            },
+            {
+                "agent": "@gantonayde <example@balena.io>",
+                "agentName": "@gantonayde",
+                "start": 28,
+                "end": 34
+            },
+            {
+                "agent": "@20k-ultra <example@balena.io>",
+                "agentName": "@20k-ultra",
+                "start": 29,
+                "end": 37
+            },
+            {
+                "agent": "@myarmolinsky <example@balena.io>",
+                "agentName": "@myarmolinsky",
+                "start": 29,
+                "end": 37
+            },
+            {
+                "agent": "@poshrolls <example@balena.io>",
+                "agentName": "@poshrolls",
+                "start": 32,
+                "end": 36
+            },
+            {
+                "agent": "@fisehara <example@balena.io>",
+                "agentName": "@fisehara",
+                "start": 36,
+                "end": 40
+            },
+            {
+                "agent": "@jmakivic <example@balena.io>",
+                "agentName": "@jmakivic",
+                "start": 37,
+                "end": 43
+            },
+            {
+                "agent": "@nucleardreamer <example@balena.io>",
+                "agentName": "@nucleardreamer",
+                "start": 43,
+                "end": 48
+            },
+            {
+                "agent": "@cywang117 <example@balena.io>",
+                "agentName": "@cywang117",
+                "start": 48,
+                "end": 54
             }
         ]
     },
     {
-        "start_date": "2020-08-26",
+        "start_date": "2022-01-07",
         "shifts": [
             {
-                "agent": "@kaisoz <tomast@balena.io>",
-                "start": 8,
-                "end": 10
-            },
-            {
-                "agent": "@codewithcheese <thomasm@balena.io>",
-                "start": 8,
-                "end": 12
-            },
-            {
-                "agent": "@mpous <marc@balena.io>",
-                "start": 10,
-                "end": 12
-            },
-            {
-                "agent": "@srlowe <scott@balena.io>",
+                "agent": "@nghiant2710 <example@balena.io>",
+                "agentName": "@nghiant2710",
                 "start": 12,
-                "end": 16
-            },
-            {
-                "agent": "@stefkors <stef@balena.io>",
-                "start": 12,
-                "end": 15
-            },
-            {
-                "agent": "@jtonello <johnt@balena.io>",
-                "start": 15,
-                "end": 19
-            },
-            {
-                "agent": "@alexgg <alexg@balena.io>",
-                "start": 16,
-                "end": 19
-            },
-            {
-                "agent": "@floion <florin@balena.io>",
-                "start": 19,
-                "end": 24
-            },
-            {
-                "agent": "@20k-ultra <miguel@balena.io>",
-                "start": 19,
-                "end": 24
-            }
-        ]
-    },
-    {
-        "start_date": "2020-08-27",
-        "shifts": [
-            {
-                "agent": "@curcuz <carlo@balena.io>",
-                "start": 8,
-                "end": 12
-            },
-            {
-                "agent": "@jsreds <andrear@balena.io>",
-                "start": 8,
-                "end": 11
-            },
-            {
-                "agent": "@iamsolankiamit <amit@balena.io>",
-                "start": 11,
-                "end": 15
-            },
-            {
-                "agent": "@dfunckt <akis@balena.io>",
-                "start": 12,
-                "end": 14
-            },
-            {
-                "agent": "@ljewalsh <lucy-jane@balena.io>",
-                "start": 14,
-                "end": 19
-            },
-            {
-                "agent": "@mtolba <mahmoud@balena.io>",
-                "start": 15,
-                "end": 17
-            },
-            {
-                "agent": "@alanb128 <alan@balena.io>",
-                "start": 17,
                 "end": 20
             },
             {
-                "agent": "@floion <florin@balena.io>",
-                "start": 19,
-                "end": 24
-            },
-            {
-                "agent": "@samothx <thomasr@balena.io>",
-                "start": 20,
-                "end": 24
-            }
-        ]
-    },
-    {
-        "start_date": "2020-08-28",
-        "shifts": [
-            {
-                "agent": "@curcuz <carlo@balena.io>",
-                "start": 8,
-                "end": 12
-            },
-            {
-                "agent": "@kaisoz <tomast@balena.io>",
-                "start": 8,
-                "end": 10
-            },
-            {
-                "agent": "@karaxuna <kakhaber@balena.io>",
-                "start": 10,
-                "end": 14
-            },
-            {
-                "agent": "@majorz <zahari@balena.io>",
-                "start": 12,
-                "end": 16
-            },
-            {
-                "agent": "@mtolba <mahmoud@balena.io>",
-                "start": 14,
-                "end": 16
-            },
-            {
-                "agent": "@dt-rush <nickp@balena.io>",
+                "agent": "@hades32 <example@balena.io>",
+                "agentName": "@hades32",
                 "start": 16,
                 "end": 20
             },
             {
-                "agent": "@ab77 <anton@balena.io>",
-                "start": 16,
-                "end": 20
-            },
-            {
-                "agent": "@pipex <felipe@balena.io>",
+                "agent": "@poshrolls <example@balena.io>",
+                "agentName": "@poshrolls",
                 "start": 20,
                 "end": 24
             },
             {
-                "agent": "@dtischler <david@balena.io>",
+                "agent": "@cristidragomir97 <example@balena.io>",
+                "agentName": "@cristidragomir97",
                 "start": 20,
-                "end": 24
+                "end": 28
+            },
+            {
+                "agent": "@cmfcruz <example@balena.io>",
+                "agentName": "@cmfcruz",
+                "start": 24,
+                "end": 30
+            },
+            {
+                "agent": "@pdcastro <example@balena.io>",
+                "agentName": "@pdcastro",
+                "start": 24,
+                "end": 28
+            },
+            {
+                "agent": "@joehounsham <example@balena.io>",
+                "agentName": "@joehounsham",
+                "start": 28,
+                "end": 36
+            },
+            {
+                "agent": "@thgreasi <example@balena.io>",
+                "agentName": "@thgreasi",
+                "start": 28,
+                "end": 34
+            },
+            {
+                "agent": "@page- <example@balena.io>",
+                "agentName": "@page-",
+                "start": 30,
+                "end": 34
+            },
+            {
+                "agent": "@lmbarros <example@balena.io>",
+                "agentName": "@lmbarros",
+                "start": 34,
+                "end": 40
+            },
+            {
+                "agent": "@mehalter <example@balena.io>",
+                "agentName": "@mehalter",
+                "start": 36,
+                "end": 40
+            },
+            {
+                "agent": "@rosswesleyporter <example@balena.io>",
+                "agentName": "@rosswesleyporter",
+                "start": 40,
+                "end": 48
+            },
+            {
+                "agent": "@cywang117 <example@balena.io>",
+                "agentName": "@cywang117",
+                "start": 48,
+                "end": 54
             }
         ]
     }
