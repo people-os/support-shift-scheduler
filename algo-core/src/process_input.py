@@ -18,7 +18,7 @@ import math
 import pandas as pd
 import numpy as np
 
-rebalancing_urgency = 2
+rebalancing_urgency = 3
 
 def tracks_hours_to_slots(tracks):
     for track in tracks:
@@ -112,8 +112,9 @@ def remove_agents_not_available_this_week(
 def calculate_fair_shares(df_agents, total_slots_covered):
     """Determine fair share per agent
 
-    Fair share is based on hours to be covered, agents' responsibility weights
-    and agents' current teamwork balances."""
+    Fair share is based on hours to be covered, agents' responsibility 
+    weights, existing scheduled teamwork for next week, and agents' 
+    current teamwork balances."""
     total_next_week = total_slots_covered + df_agents["next_week_credit"].sum()
     df_agents["fair_share"] = total_next_week * df_agents['weight'] / df_agents["weight"].sum() * (1 - np.tanh(0.0001 * rebalancing_urgency * df_agents["teamwork_balance"]))
     rescaling_factor1 = total_next_week / df_agents["fair_share"].sum()
