@@ -72,8 +72,7 @@ In the `Team Model` Google Sheet:
 In the `Teamwork Model` Google Sheet:
 
 1. If there will be new team members onboarding to support in the week to be scheduled, ensure that you have onboarded them by making appropriate entries in the `Team Responsibilities History` tab.
-2. From the `Custom scripts` menu, run `Update <supportName> UK Availabilities` , and wait for the script to finish.
-3. From the `Custom scripts` menu, run `Update <supportName> Support Scheduler Input` , and wait for the script to finish.
+2. From the `Custom scripts` menu, run `Trigger full prep for <supportName> scheduler run` , and wait for the script to finish.
 
 
 

@@ -18,7 +18,7 @@ import math
 import pandas as pd
 import numpy as np
 
-rebalancing_urgency = 3
+rebalancing_urgency = 5
 
 def tracks_hours_to_slots(tracks):
     for track in tracks:
@@ -127,7 +127,7 @@ def calculate_fair_shares(df_agents, total_slots_covered):
         lambda x: math.trunc(x)
     )
     print("\nFair shares (hours per week):\n")
-    print(df_agents["fair_share"]/2.0)
+    print((df_agents["fair_share"]/2.0).to_string())
     return df_agents
 
 
