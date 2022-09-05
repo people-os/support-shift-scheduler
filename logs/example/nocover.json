@@ -1,7 +1,9 @@
 {
   "handle": "@nocover",
   "email": "nocover@balena.io",
+  "weight": 1,
   "teamworkBalance": 1000,
+  "nextWeekCredit": 0,
   "idealShiftLength": 2,
   "availableSlots": [
     [
