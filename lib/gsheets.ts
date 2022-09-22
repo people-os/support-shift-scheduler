@@ -98,7 +98,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
 		const email = inputByGithubHandle[handle].shift();
-		const weight = Number(inputByGithubHandle[handle].shift())
+		const weight = Number(inputByGithubHandle[handle].shift());
 		const teamworkBalance = Number(inputByGithubHandle[handle].shift());
 		const nextWeekCredit = Number(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());

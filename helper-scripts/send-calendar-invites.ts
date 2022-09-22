@@ -47,7 +47,10 @@ async function createEventResourceArray(shiftsObject, longName: string) {
 
 			eventResource.summary = `${handle} on ${longName}`;
 			eventResource.description =
-				'Resources on support: ' + process.env.SUPPORT_RESOURCES + '\n\nPlease ack in the paid support thread before your shift: ' + process.env.SUPPORT_THREAD;
+				'Resources on support: ' +
+				process.env.SUPPORT_RESOURCES +
+				'\n\nPlease ack in the paid support thread before your shift: ' +
+				process.env.SUPPORT_THREAD;
 			eventResource.start = {
 				timeZone: TIMEZONE,
 				dateTime: isoDateWithoutTimezone(start),
