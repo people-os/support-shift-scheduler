@@ -26,11 +26,12 @@ filename_mentors = "mentors.txt"
 
 
 def get_project_root() -> Path:
+    """Find root directory of project."""
     return Path(__file__).parent.parent.parent
 
 
 def parse_json_input():
-    """Read, validate and return json input."""
+    """Read, validate and return json scheduler input."""
     # Get input file name:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -56,7 +57,6 @@ def parse_json_input():
 
 def read_onboarding_files(input_folder):
     """Read agent handles from onboarding-related files into pandas series."""
-
     if (path := Path(input_folder, filename_onboarding)).exists():
         ser_o = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
     else:
@@ -70,11 +70,13 @@ def read_onboarding_files(input_folder):
 
 
 def read_input_files():
+    """Read all input for scheduler run from relevant logs folder."""
     input_json = parse_json_input()
     input_folder = (
         get_project_root()
         / "logs"
-        / f'{input_json["options"]["startMondayDate"]}_{input_json["options"]["modelName"]}'
+        / f'{input_json["options"]["startMondayDate"]}_'
+        f'{input_json["options"]["modelName"]}'
     )
     [sr_onboarding, sr_mentors] = read_onboarding_files(input_folder)
     return [input_json, sr_onboarding, sr_mentors]

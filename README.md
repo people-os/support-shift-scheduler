@@ -6,8 +6,8 @@ This scheduling project enables us to schedule our engineers to cover our suppor
 
 The current version of the solver also includes the following functionality that was not recorded in the blog post:
 
-* **Configuration for other support rotations:** Initially, we only used the scheduler for our regular balena.io support rotation, but we have extended its use to also scheduled other channels, i.e. our SRE on-call rotation (`devOps`), and the rotation for engineers providing support to the team for our internal software (`productOS`). The `json` configurations for these channels are maintained in the [./helper_scripts/options](./helper_scripts/options) folder.
-* **Configurable tracks:** Previously, we had 2 agents on support at any given time during our support hours. However, we have since included the flexibility to configure "tracks" as needed, in the [./helper_scripts/options](./helper_scripts/options) folder. For example, our balena.io support rotation includes one layer of agents from 6 am to 3 am UK time, another layer from 8 am to 8 pm, and a third layer from noon until 5 pm. The SRE rotation, on the other hand, has a single agent on duty at all times.
+* **Configuration for other support rotations:** Initially, we only used the scheduler for our regular balena.io support rotation, but we have extended its use to also scheduled other channels, i.e. the auditors of our regular support rotation (`supportAuditing`), our SRE on-call rotation (`devOps`), and the rotation for engineers providing support to the team for our internal software (`productOS`). The `json` configurations for these channels are maintained in the [./helper_scripts/options](./helper_scripts/options) folder.
+* **Configurable tracks:** Previously, we had 2 agents on support at any given time during our support hours. However, we have since included the ability to specify a highly customizable configuration of parallel "tracks" through the `hoursCoverage` and `agentDistribution` options, in the [./helper_scripts/options](./helper_scripts/options) folder.
 * **Onboarding of new agents:** Once newly hired engineers have been with balena for a few months, they are onboarded to balena.io support. This involves scheduling them for two 4-hour onboarding shifts per week for 2 weeks, during which they are mentored by one of a selected group of senior support agents. These onboarding shifts are additional to the default number of parallel tracks, and require their own set of solver constraints. See the "Usage" section below for more detail on how to configure this.
 
 The core of the algorithm is a constraint solver, and we currently use the [Google OR-tools CP-SAT solver](https://developers.google.com/optimization/cp/cp_solver), which is well suited to [scheduling optimisation](<https://developers.google.com/optimization/scheduling/job_shop>).
@@ -36,10 +36,10 @@ $ poetry install
 You will also need:
 
 - For creating a `balena.io` schedule, a JSON file with credentials associated with the existing service account of our `Support Algo Calendar` Google Cloud project.
-- Alternatively, for creating a `devOps` or `productOS` schedule (where a service account is not used), a JSON file containing your Google OAuth app credentials.
+- Alternatively, for creating a `devOps`, `productOS` or `supportAuditing` schedule (where a service account is not used), a JSON file containing your Google OAuth app credentials.
 - A `.env` file in the project root directory, which you can base on the included [.env.dist](.env.dist).
 
-For assistance, please contact `@AlidaOdendaal`, or operations.
+For assistance, please contact `@AlidaOdendaal`, or teamOS operations.
 
 
 
@@ -140,7 +140,7 @@ If the `Solution type` is `OPTIMAL`, it means that the solver has determined thi
 $ npm run beautify-schedule $startDate $supportName
 ```
 
-This script writes a formatted schedule to the file `beautified-schedule.txt`, which is a helpful view as a sanity check that the schedule is legitimate. The script also writes message text for our internal chat to the files `flowdock-agents.txt`, which prompts the scheduled agents to check their calendars after the Google Calendar invites have been sent, and `flowdock-onboarding.txt`, which alerts the onboarders and mentors to the onboarding shifts.
+This script writes a formatted schedule to the file `beautified-schedule.txt`, which is a helpful view as a sanity check that the schedule is legitimate. The script also writes message text for our internal chat to the files `markdown-agents.txt`, which prompts the scheduled agents to check their calendars after the Google Calendar invites have been sent, and `markdown-onboarding.txt`, which alerts the onboarders and mentors to the onboarding shifts.
 
 If, for some reason, the schedule needs to be modified, it should be edited directly in `support-shift-scheduler-output.json`, after which the `beautify-schedule` script should be rerun as above to update the text files.
 
@@ -174,12 +174,12 @@ to set the scheduled overrides in victorops.
 
 
 
-### 8. Notify the team in Flowdock
+### 8. Notify the team in Jellyfish
 
 #### For balena team members
 
-* Paste the contents of `flowdock-agents.txt` to the `s/support_meta` room in Flowdock.
-* If agents are onboarding this week, paste the contents of `flowdock-onboarding.txt` to `s/support_meta` as well.
+* Paste the contents of `markdown-agents.txt` to a new thread in the `balena-io` loop in Jellyfish.
+* If agents are onboarding this week, paste the contents of `markdown-onboarding.txt` to this thread as well.
 
 
 

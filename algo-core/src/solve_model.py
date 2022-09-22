@@ -34,11 +34,12 @@ coefficients = {
 
 
 # TODO: split the verification out to a separate python script, so
-# that it can be run independently after possible manual changes to the output json.
+# that it can be run independently after possible manual changes to the
+# output json.
 def verify_solution(
     objective, sol_shifts, df_agents, agent_categories, config
 ):
-    """Verify schedule against availability, and verify cost"""
+    """Verify schedule against availability, and verify cost."""
     slot_cost = 0
     shift_length_cost = 0
     total_week_slots_cost = 0
@@ -63,14 +64,16 @@ def verify_solution(
                         coefficients["longer_than_pref"] * shift_delta
                     )
                     print(
-                        f"{handle} has a shift {shift_delta/2} hours longer than preferred."
+                        f"{handle} has a shift {shift_delta/2} "
+                        "hours longer than preferred."
                     )
                 elif shift_delta < 0:
                     shift_length_cost += coefficients["shorter_than_pref"] * (
                         -shift_delta
                     )
                     print(
-                        f"{handle} has a shift {-shift_delta/2} hours shorter than preferred."
+                        f"{handle} has a shift {-shift_delta/2} "
+                        "hours shorter than preferred."
                     )
             for slot in range(shift["start"], shift["end"]):
                 slot_value = df_agents.loc[handle, "slots"][d][slot]
@@ -79,35 +82,52 @@ def verify_solution(
                     slot_cost += slot_delta
                     if slot_delta == 1:
                         print(
-                            f"30 minutes of non-preferred time was used for {handle}."
+                            "30 minutes of non-preferred "
+                            f"time was used for {handle}."
                         )
                     elif slot_delta == 2:
                         print(
-                            f"30 minutes of 'ask-me-nicely' time was used for {handle}."
+                            "30 minutes of 'ask-me-nicely' "
+                            f"time was used for {handle}."
                         )
                 else:
                     print(
-                        f"ERROR: Agent {handle} was scheduled for slot {slot} on day {config['days'][d].strftime('%Y-%m-%d')}, but is not available!"
+                        f"ERROR: Agent {handle} was scheduled for slot {slot}"
+                        f" on day {config['days'][d].strftime('%Y-%m-%d')}, "
+                        "but is not available!"
                     )
                     sys.exit(1)
     print("VERIFIED: Agents only scheduled when available.")
     slot_cost = coefficients["non_preferred"] * slot_cost
 
     for handle in total_week_slots_by_veteran.keys():
-        if total_week_slots_by_veteran[handle] > df_agents.loc[handle, "fair_share"]:
-            slots_more_than_fair_share = total_week_slots_by_veteran[handle] - df_agents.loc[handle, "fair_share"]
-            total_week_slots_cost += coefficients["fair_share"] * slots_more_than_fair_share**2
-            print(f"{handle} was scheduled for {slots_more_than_fair_share*0.5} hours more than their fair share.")
+        if (
+            total_week_slots_by_veteran[handle]
+            > df_agents.loc[handle, "fair_share"]
+        ):
+            slots_more_than_fair_share = (
+                total_week_slots_by_veteran[handle]
+                - df_agents.loc[handle, "fair_share"]
+            )
+            total_week_slots_cost += (
+                coefficients["fair_share"] * slots_more_than_fair_share**2
+            )
+            print(
+                f"{handle} was scheduled for {slots_more_than_fair_share*0.5}"
+                " hours more than their fair share."
+            )
     total_cost = total_week_slots_cost + shift_length_cost + slot_cost
     if total_cost == objective:
         print(f"VERIFIED: Minimized cost of {total_cost} is correct.")
     else:
         print(
-            f"WARNING: The solver found a minimized cost of {objective}, while the calculated cost is {total_cost}!"
+            f"WARNING: The solver found a minimized cost of {objective}, "
+            f"while the calculated cost is {total_cost}!"
         )
 
 
 def write_output_files(sol_shifts, sol_mentoring, config):
+    """Write output files containing solution of solver run."""
     # Write shifts:
     input_folder = (
         get_project_root()
@@ -126,6 +146,7 @@ def write_output_files(sol_shifts, sol_mentoring, config):
 
 
 def run_solver(model, full_cost_list, config):
+    """Given the defined model, solve by minizing defined cost function."""
     model.Minimize(sum(full_cost_list))
     print(model.Validate())
 
@@ -141,6 +162,7 @@ def run_solver(model, full_cost_list, config):
 def extract_solution(
     solver, var_veterans, var_onboarding, df_agents, agent_categories, config
 ):
+    """Extract resulting shifts from optimized parameters found by solver."""
     # Extract solution:
     sol_shifts = []
     # TODO: Change agent, agentName to simply handle and email.
@@ -159,33 +181,23 @@ def extract_solution(
         }
 
         # Fetch shifts for veterans:
-        for t, track in enumerate(config["tracks"]):
-            if d in range(track["start_day"], track["end_day"] + 1):
-                for h in agent_categories["veterans"]:
-                    if (
-                        solver.Value(
-                            var_veterans["tdh"].loc[
-                                (t, d, h), "shift_duration"
-                            ]
-                        )
-                        != 0
-                    ):
-                        day_shifts["shifts"].append(
-                            {
-                                "agent": f"{h} <{df_agents.loc[h, 'email']}>",
-                                "agentName": h,
-                                "start": solver.Value(
-                                    var_veterans["tdh"].loc[
-                                        (t, d, h), "shift_start"
-                                    ]
-                                ),
-                                "end": solver.Value(
-                                    var_veterans["tdh"].loc[
-                                        (t, d, h), "shift_end"
-                                    ]
-                                ),
-                            }
-                        )
+        for h in agent_categories["veterans"]:
+            if (
+                solver.Value(var_veterans["dh"].loc[(d, h), "shift_duration"])
+                != 0
+            ):
+                day_shifts["shifts"].append(
+                    {
+                        "agent": f"{h} <{df_agents.loc[h, 'email']}>",
+                        "agentName": h,
+                        "start": solver.Value(
+                            var_veterans["dh"].loc[(d, h), "shift_start"]
+                        ),
+                        "end": solver.Value(
+                            var_veterans["dh"].loc[(d, h), "shift_end"]
+                        ),
+                    }
+                )
         # Fetch shifts for onboarders:
         for h in agent_categories["onboarding"]:
             if (
@@ -243,6 +255,7 @@ def extract_solution(
 
 
 def generate_solution(df_agents, agent_categories, config):
+    """Construct and solve CpModel, verify and output solution."""
     # Define custom variable domains:
     custom_domains = define_custom_var_domains(coefficients, df_agents, config)
     # Initialize model:

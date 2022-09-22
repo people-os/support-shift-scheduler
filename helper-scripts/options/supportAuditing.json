@@ -1,0 +1,23 @@
+{
+    "modelName": "supportAuditing",
+    "longName": "support auditing",
+    "numDays": 5,
+    "startHour": 3,
+    "endHour": 27,
+    "shiftMinDuration": 1,
+    "shiftMaxDuration": 8,
+    "useTwos": false,
+    "useThrees" : false,    
+    "optimizationTimeout": 0.2,
+    "logSheet": "1Qwq8UZ8qK4bnmEWxEe6W40LtZBH3lCDREejPe0AMVq0",
+    "calendarID":"c_0ik5nh3f4be67hq034l1ijvikg@group.calendar.google.com",
+    "useServiceAccount": true,
+    "specialAgentConditions": {},
+    "hoursCoverage": [
+      {"start_day": 0, "end_day": 4, "min_hours": 8, "max_hours": 15}
+    ],
+    "agentDistribution": [
+      {"start_day": 0, "end_day": 4, "start_hour": 3, "end_hour": 27, "min_agents": 0, "max_agents": 1}
+    ]
+  }
+  
