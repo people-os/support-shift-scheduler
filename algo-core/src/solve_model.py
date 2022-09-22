@@ -159,33 +159,31 @@ def extract_solution(
         }
 
         # Fetch shifts for veterans:
-        for t, track in enumerate(config["tracks"]):
-            if d in range(track["start_day"], track["end_day"] + 1):
-                for h in agent_categories["veterans"]:
-                    if (
-                        solver.Value(
-                            var_veterans["tdh"].loc[
-                                (t, d, h), "shift_duration"
+        for h in agent_categories["veterans"]:
+            if (
+                solver.Value(
+                    var_veterans["dh"].loc[
+                        (d, h), "shift_duration"
+                    ]
+                )
+                != 0
+            ):
+                day_shifts["shifts"].append(
+                    {
+                        "agent": f"{h} <{df_agents.loc[h, 'email']}>",
+                        "agentName": h,
+                        "start": solver.Value(
+                            var_veterans["dh"].loc[
+                                (d, h), "shift_start"
                             ]
-                        )
-                        != 0
-                    ):
-                        day_shifts["shifts"].append(
-                            {
-                                "agent": f"{h} <{df_agents.loc[h, 'email']}>",
-                                "agentName": h,
-                                "start": solver.Value(
-                                    var_veterans["tdh"].loc[
-                                        (t, d, h), "shift_start"
-                                    ]
-                                ),
-                                "end": solver.Value(
-                                    var_veterans["tdh"].loc[
-                                        (t, d, h), "shift_end"
-                                    ]
-                                ),
-                            }
-                        )
+                        ),
+                        "end": solver.Value(
+                            var_veterans["dh"].loc[
+                                (d, h), "shift_end"
+                            ]
+                        ),
+                    }
+                )
         # Fetch shifts for onboarders:
         for h in agent_categories["onboarding"]:
             if (

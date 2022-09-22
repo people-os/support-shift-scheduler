@@ -144,7 +144,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
  */
 export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const sheets = google.sheets({ version: 'v4', auth });
-	const range = nextMondayDate + '_input!A3:KF';
+	const range = nextMondayDate + '_input!A3:KH';
 	const result = await sheets.spreadsheets.values.get({
 		spreadsheetId: support.logSheet,
 		range,

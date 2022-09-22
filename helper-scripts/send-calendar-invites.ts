@@ -31,10 +31,10 @@ function isoDateWithoutTimezone(date) {
 /**
  * From the object containing the optimized shifts, create array of "events resources" in the format required by the Google Calendar API.
  * @param  {object}   shiftsObject   Shifts optimized by scheduling algorithm
- * @param  {string}   scheduleName   The schedule we're targeting, eg `balenaio`
+ * @param  {string}   modelName   The schedule we're targeting, eg `balenaio`
  * @return {Promise<Array<calendar_v3.Schema$Event>>}                   Array of events resources to be passed to Google Calendar API.
  */
-async function createEventResourceArray(shiftsObject, scheduleName: string) {
+async function createEventResourceArray(shiftsObject, longName: string) {
 	const returnArray: calendar_v3.Schema$Event[] = [];
 	for (const epoch of shiftsObject) {
 		const date = new Date(epoch.start_date);
@@ -45,9 +45,9 @@ async function createEventResourceArray(shiftsObject, scheduleName: string) {
 			const [handle, $email] = shift.agent.split(' ');
 			const email = $email.match(new RegExp(/<(.*)>/))[1];
 
-			eventResource.summary = `${handle} on ${scheduleName} support`;
+			eventResource.summary = `${handle} on ${longName}`;
 			eventResource.description =
-				'Resources on support: ' + process.env.SUPPORT_RESOURCES;
+				'Resources on support: ' + process.env.SUPPORT_RESOURCES + '\n\nPlease ack in the paid support thread before your shift: ' + process.env.SUPPORT_THREAD;
 			eventResource.start = {
 				timeZone: TIMEZONE,
 				dateTime: isoDateWithoutTimezone(start),
@@ -68,16 +68,16 @@ async function createEventResourceArray(shiftsObject, scheduleName: string) {
 /**
  * Load JSON object containing optimized schedule from file, and write to Support schedule Google Calendar, saving ID's of created events for reference.
  * @param  {string}   date   The date  we're targeting, eg `2021-05-03`
- * @param  {string}   scheduleName   The schedule we're targeting, eg `balenaio`
+ * @param  {string}   modelName   The schedule we're targeting, eg `balenaio`
  */
-async function createEvents(date, scheduleName) {
-	const support = await import(`./options/${scheduleName}.json`);
+async function createEvents(date, modelName) {
+	const support = await import(`./options/${modelName}.json`);
 
 	try {
-		const shiftsObject = await readAndParseJSONSchedule(date, scheduleName);
+		const shiftsObject = await readAndParseJSONSchedule(date, modelName);
 		const eventResourceArray = await createEventResourceArray(
 			shiftsObject,
-			scheduleName,
+			support.longName,
 		);
 		const authClient = await getAuthClient(support);
 		const calendar = google.calendar({ version: 'v3' });
@@ -101,7 +101,7 @@ async function createEvents(date, scheduleName) {
 		}
 		await fs.writeFile(
 			__dirname +
-				`/../logs/${date}_${scheduleName}/event-ids-written-to-calendar.json`,
+				`/../logs/${date}_${modelName}/event-ids-written-to-calendar.json`,
 			JSON.stringify(eventIDs, null, 2),
 		);
 	} catch (e) {
@@ -115,7 +115,7 @@ if (args.length !== 2) {
 	console.log(`Usage: node ${__filename} <yyyy-mm-dd> <model-name>`);
 	process.exit(1);
 }
-const [$date, $scheduleName] = args;
+const [$date, $modelName] = args;
 
 // Create calendar events:
-createEvents($date, $scheduleName);
+createEvents($date, $modelName);

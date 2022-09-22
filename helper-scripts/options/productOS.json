@@ -1,10 +1,12 @@
 {
     "modelName": "productOS",
+    "longName": "productOS support",
     "numDays": 5,
-    "startHour": 8,
-    "endHour": 17,
+    "startHour": 3,
+    "endHour": 27,
     "shiftMinDuration": 1,
     "shiftMaxDuration": 8,
+    "useTwos": false,
     "useThrees" : false,    
     "optimizationTimeout": 0.2,
     "logSheet": "1ABUWJZaSMfUSWZ8mux4SzXxiVaED7-UcsUcCKZ-Xv30",
@@ -16,8 +18,11 @@
       "agentsMaxHoursWeek": [],
       "agentsFixHours": []
     },
-    "tracks": [
-      { "start_hour": 8, "end_hour": 17, "start_day": 0, "end_day": 4 }
+    "hoursCoverage": [
+      {"start_day": 0, "end_day": 4, "min_hours": 10, "max_hours": 15}
+    ],
+    "agentDistribution": [
+      {"start_day": 0, "end_day": 4, "start_hour": 3, "end_hour": 27, "min_agents": 0, "max_agents": 1}
     ]
   }
   

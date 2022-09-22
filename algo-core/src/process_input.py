@@ -18,24 +18,29 @@ import math
 import pandas as pd
 import numpy as np
 
-rebalancing_urgency = 5
+rebalancing_urgency = 8
 
-def tracks_hours_to_slots(tracks):
-    for track in tracks:
-        track["start_slot"] = track["start_hour"] * 2
-        track["end_slot"] = track["end_hour"] * 2
-    return tracks
+# def tracks_hours_to_slots(tracks):
+#     for track in tracks:
+#         track["start_slot"] = track["start_hour"] * 2
+#         track["end_slot"] = track["end_hour"] * 2
+#     return tracks
 
 
-def get_total_slots_covered(tracks):
+# def get_total_slots_covered(tracks):
+#     total_slots_covered = 0
+#     for t, track in enumerate(tracks):
+#         for d in range(track["start_day"], track["end_day"] + 1):
+#             total_slots_covered += 2 * (
+#                 track["end_hour"] - track["start_hour"]
+#             )
+#     return total_slots_covered
+
+def get_total_slots_covered(hours_coverage):
     total_slots_covered = 0
-    for t, track in enumerate(tracks):
-        for d in range(track["start_day"], track["end_day"] + 1):
-            total_slots_covered += 2 * (
-                track["end_hour"] - track["start_hour"]
-            )
+    for day_cover in hours_coverage:
+        total_slots_covered += day_cover["max_slots"]
     return total_slots_covered
-
 
 def get_datetime_days(start_date, num_days):
     delta = datetime.timedelta(days=1)
@@ -157,10 +162,8 @@ def setup_agents_dataframe(agents, config):
                 available_slots[d][i] = 0
             # For agents with fixed hours, remove all availability:
             # TODO: when volunteered shifts are reconfigured, we need to make sure these are not zeroed out below:
-            if (
-                agent["handle"]
-                in config["special_agent_conditions"]["agentsFixHours"]
-            ):
+            if ("agentsFixHours" in config["special_agent_conditions"]) and (agent["handle"]
+                in config["special_agent_conditions"]["agentsFixHours"]):
                 for s in range(0, config["end_slot"]):
                     available_slots[d][s] = 0
 
@@ -173,10 +176,7 @@ def setup_agents_dataframe(agents, config):
         df_agents.loc[len(df_agents)] = {
             "handle": agent["handle"],
             "email": agent["email"],
-             # Modifier on weight below is just temporary to avoid
-             # overscheduling SREs (with weight = 2) on regular support 
-             # until we make scheduler forward-looking 
-            "weight": agent["weight"] if config["model_name"] == 'devOps' else min(1, agent["weight"]),
+            "weight": agent["weight"],
             "teamwork_balance": 2 * float(agent["teamworkBalance"]),
             "next_week_credit": 2 * float(agent["nextWeekCredit"]),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
@@ -226,17 +226,27 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
     config["min_duration"] = int(input_json["options"]["shiftMinDuration"]) * 2
     config["max_duration"] = int(input_json["options"]["shiftMaxDuration"]) * 2
     config["optimization_timeout"] = int(3600 * input_json["options"]["optimizationTimeout"])
-    config["tracks"] = tracks_hours_to_slots(input_json["options"]["tracks"])
     config["special_agent_conditions"] = input_json["options"][
         "specialAgentConditions"
     ]
+    config["hours_coverage"] = input_json["options"]["hoursCoverage"]
+    for h_cover, _ in enumerate(config["hours_coverage"]):
+        config["hours_coverage"][h_cover]["min_slots"] = config["hours_coverage"][h_cover]["min_hours"] * 2
+        config["hours_coverage"][h_cover]["max_slots"] = config["hours_coverage"][h_cover]["max_hours"] * 2
+
+    config["agent_distribution"] = input_json["options"]["agentDistribution"]
+    for a_distribution, _ in enumerate(config["agent_distribution"]):
+        config["agent_distribution"][a_distribution]["start_slot"] = config["agent_distribution"][a_distribution]["start_hour"] * 2
+        config["agent_distribution"][a_distribution]["end_slot"] = config["agent_distribution"][a_distribution]["end_hour"] * 2
 
     # Additional properties:
-    config["allowed_availabilities"] = [1, 2]
+    config["allowed_availabilities"] = [1]
+    if input_json["options"]["useTwos"]:
+        config["allowed_availabilities"].append(2)    
     if input_json["options"]["useThrees"]:
         config["allowed_availabilities"].append(3)
 
-    config["total_slots_covered"] = get_total_slots_covered(config["tracks"])
+    config["total_slots_covered"] = get_total_slots_covered(config["hours_coverage"])
     config["days"] = get_datetime_days(
         config["start_date"], config["num_days"]
     )

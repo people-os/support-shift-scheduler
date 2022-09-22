@@ -7,7 +7,6 @@
 @anujdeshpande
 @builder555
 @cmfcruz
-@cristidragomir97
 @cywang117
 @dfunckt
 @ereski
@@ -17,7 +16,6 @@
 @jakogut
 @jmakivic
 @jsreds
-@karaxuna
 @kb2ma
 @klutchell
 @konmouz
@@ -36,9 +34,6 @@
 @rcooke-warwick
 @rosswesleyporter
 @somombo
-@srlowe
-@stathismor
-@tmigone
 @toochevere
 @vipulgupta2048
 @zwhitchcox

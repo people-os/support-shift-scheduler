@@ -42,7 +42,7 @@ function prettyHourStr(hour) {
 }
 
 /**
- * Write beautified schedule, as well as Flowdock message, to text files.
+ * Write beautified schedule, as well as Markdown message, to text files.
  * @param  {object}   shiftsJson   Scheduling algorithm output object (read from file)
  */
 async function writePrettifiedShiftsText(
@@ -127,18 +127,18 @@ async function writePrettifiedShiftsText(
 		'utf8',
 	);
 
-	// Write Flowdock message, with which to ping agents to check their calendars:
-	let flowdockMessage = '';
-	flowdockMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${shiftsJson[0].start_date}).**\n\n`;
-	flowdockMessage +=
-		'Please follow [this procedure](https://github.com/people-os/process/tree/master/process/support#how-to-arrange-a-support-shift-swap) if you require any changes.\n\n';
+	// Write Markdown message, with which to ping agents to check their calendars:
+	let markdownMessage = '';
+	markdownMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${shiftsJson[0].start_date}).**\n\n`;
+	markdownMessage +=
+		'Please follow [this procedure](https://github.com/people-os/process/tree/master/process/support#what-if-you-cannot-make-the-shift-you-have-been-allocated) if you require any changes.\n\n';
 
 	for (const agent of agentHoursList) {
-		flowdockMessage += `${agent.handle}\n`;
+		markdownMessage += `${agent.handle}\n`;
 	}
 	await fs.writeFile(
-		`logs/${date}_${scheduleName}/flowdock-agents.txt`,
-		flowdockMessage,
+		`logs/${date}_${scheduleName}/markdown-agents.txt`,
+		markdownMessage,
 		'utf8',
 	);
 }
@@ -169,7 +169,7 @@ async function writePrettifiedOnboardingText(
 	onboardingMessage += `\n\ncc @@support_ops`;
 	onboardingMessage += `\n\nHappy onboarding! :ship:\n`;
 	await fs.writeFile(
-		`logs/${date}_${scheduleName}/flowdock-onboarding.txt`,
+		`logs/${date}_${scheduleName}/markdown-onboarding.txt`,
 		onboardingMessage,
 		'utf8',
 	);
@@ -186,7 +186,7 @@ async function beautify(date: string, scheduleName: string) {
 	const shiftsJson = await readAndParseJSONSchedule(date, scheduleName);
 	const onboardingJson = await readAndParseJSONOnboarding(date, scheduleName);
 
-	// Write beautified-schedule.txt, flowdock-agents.txt, flowdock_onboarding.txt:
+	// Write beautified-schedule.txt, markdown-agents.txt, markdown-onboarding.txt:
 	writePrettifiedShiftsText(date, scheduleName, shiftsJson);
 	writePrettifiedOnboardingText(date, scheduleName, onboardingJson);
 }
