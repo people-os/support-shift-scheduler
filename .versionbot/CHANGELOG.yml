@@ -1,0 +1,2763 @@
+- commits:
+    - subject: Add repo.yml for flowzone versioning
+      hash: 7d704c2f1f961c3348bab6b1ea3f7c4517e15d1c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Switch from balenaCI to flowzone
+      hash: 72d2d59cd549a40331d76d0668cea2cf3b9f6345
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+  version: 4.0.4
+  title: ""
+  date: 2022-09-27T10:12:18.857Z
+- version: 4.0.3
+  date: 2022-09-05T14:59:02Z
+  commits:
+    - hash: e96ebbd3e6ba693948bb04ea664aa5f8ed94f03d
+      author: Carlo Miguel F. Cruz
+      footers:
+        change-type: patch
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      subject: Adds olamiko to the list of DevOps agents.
+      body: null
+- version: 4.0.2
+- date: 2022-07-12T11:42:01Z
+- commits:
+    - hash: cdcc217cf4a73dc3f8a07f45a1f7d55864ba8b20
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update README to reflect new script config in Teamwork Model
+- commits:
+    - ? body
+- version: 4.0.1
+- date: 2022-06-09T22:33:38Z
+- commits:
+    - hash: 66e09d6d6aa8e54c4828c33004ef7609819eeab8
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Reconfigure support coverage upon recalculation of available teamwork
+        hours
+- commits:
+    - ? body
+- version: 4.0.0
+- date: 2022-05-30T15:03:27Z
+- commits:
+    - hash: 620b99e51a88101246323b54253b9fc5dbee1a87
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Start implementing the new cost function
+- commits:
+    - ? body
+- commits:
+    - hash: aef907d400ab1041df56d8c78c76278b2d2ead7c
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Still working on refactoring with new cost function
+- commits:
+    - ? body
+- commits:
+    - hash: d9b5a43d637e1da329678e6199b4280f5ec32ccb
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Updating README...
+- commits:
+    - ? body
+- commits:
+    - hash: 320b511d614b4956cab8a1ccab4527ccaefcaccc
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Updating README...
+- commits:
+    - ? body
+- commits:
+    - hash: aef1b4cdb83faf127b58c7bdf28d76be2da3b0f0
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update README and nocover.json
+- commits:
+    - ? body
+- commits:
+    - hash: 8880380567af4caeee56860fa817f048db216787
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Reformat python code with black
+- commits:
+    - ? body
+- commits:
+    - hash: 7e38ffce8dd5f08ccdaf613c7fe94eff559cf618
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Revert example e-mail output
+- commits:
+    - ? body
+- commits:
+    - hash: 7a92314cc8c8e7390faa850be8edf52247e73b6f
+- commits:
+    - author: Carlo Miguel F. Cruz
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+- commits:
+    - subject: Update no-coverage agent example JSON.
+- commits:
+    - ? body
+- commits:
+    - hash: d75386f49522510a495fc7c2c95df63cee62e03e
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update cost function
+- commits:
+    - ? body
+- commits:
+    - hash: 00f584a00a6c17797b1a39782a2ff4dc00dad49d
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - subject: Merge branch 'new-cost-function' of
+        github.com:people-os/support-shift-scheduler into new-cost-function
+- commits:
+    - ? body
+- commits:
+    - hash: e9a2be001c863becc144598b191dde8c3f4ea5bb
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Add extra penalty for overload (positive balance or >8hr/week)
+- commits:
+    - ? body
+- commits:
+    - hash: 6618049460ddf4b8ea4170af58161fc0d2fc2f7b
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "logs/example/support-shift-scheduler-input.json: include
+        overloadProtection"
+- commits:
+    - ? body
+- commits:
+    - hash: cfdb3323cdbe83ce3be209880b9c6f6f9e825f99
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Rerun lint-fix and update package-lock.json
+- commits:
+    - ? body
+- commits:
+    - hash: e654811de3d73cb4927995d7e10d1dc675f36674
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "algo-core/src/process_input.py: Skip overload protection in fair_shares"
+- commits:
+    - ? body
+- commits:
+    - hash: f487d885575be3868346a0803c9bbe7c65f955b3
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Extend support hours
+- commits:
+    - ? body
+- commits:
+    - hash: bb3895b51b3c9716fa47b3a65662136e2b0e0b14
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Properly ignore algo-core/src/__pycache__/
+- commits:
+    - ? body
+- commits:
+    - hash: de81a8751d1d4ef54d8707282487f555ed3559db
+- commits:
+    - author: Carlo Miguel F. Cruz
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+- commits:
+    - subject: Update DevOps usernames list.
+- commits:
+    - ? body
+- commits:
+    - hash: e6e36c3011dea6b187fbe48c12c769574f6c03ad
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Change copyright range to 2019-2022
+- commits:
+    - ? body
+- commits:
+    - hash: df7a88b35b00118b9fc257315ccc79c68889e577
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update handling of endHour and end_slot
+- commits:
+    - ? body
+- commits:
+    - hash: e2453afa132677dbb0a24a960f1adf112fc95206
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Remove overload protection based on AlexM's recommendation
+- commits:
+    - ? body
+- commits:
+    - hash: 008771712a74256d6048a135b2c515b76be0b2d6
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Simplify logic related to fair share per agent
+- commits:
+    - ? body
+- commits:
+    - hash: 80d48484080fdd3e6fd50a393af254e19bc97d09
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Patch optimization time calculation, unavailable agent handling
+- commits:
+    - ? body
+- commits:
+    - hash: 2e11773778293760eb9300018778409f08e94df5
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update cost function to better optimize fair share allocation
+- commits:
+    - ? body
+- commits:
+    - hash: 419d9bac5e89d54dcaf69e80b741778502b670fd
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: First attempt including responsibility weights in fair share calc
+- commits:
+    - ? body
+- commits:
+    - hash: 17cbe1f1e63e8237f3d557b4dd7b5bd44e543ce8
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Reconfigure fair share calculation in terms of hyperbolic tangent
+- commits:
+    - ? body
+- commits:
+    - hash: c820ad84f8d16f74129b62945748cac20c73423c
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Include teamwork already scheduled for coming week in scheduler input
+- commits:
+    - ? body
+- commits:
+    - hash: 182629c3eb1dd18722c971fe5f78c5fc04a563ce
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Reactivate solver, and tweak rebalancing urgency
+- commits:
+    - ? body
+- version: 3.2.10
+- date: 2021-12-13T08:03:01Z
+- commits:
+    - hash: 336201c018e16a8d35a1913f0fb25c159fe0a72b
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update swaps portion of Flowdock message
+- commits:
+    - ? body
+- version: 3.2.9
+- date: 2021-12-11T13:55:03Z
+- commits:
+    - hash: 89fbd8d8e0d110bb56ddce6bc49d9c30d2af9daf
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump typescript from 4.4.2 to 4.5.3"
+- commits:
+    - body: >-
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.4.2
+        to 4.5.3.
+
+        - [Release notes](https://github.com/Microsoft/TypeScript/releases)
+
+        - [Commits](https://github.com/Microsoft/TypeScript/commits)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: typescript
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-minor
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.2.8
+- date: 2021-12-11T13:48:14Z
+- commits:
+    - hash: 16756cd3dd2187d9bcde062a92ef6d70d1d5ed88
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump ts-node from 10.2.1 to 10.4.0"
+- commits:
+    - body: >-
+        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 10.2.1 to
+        10.4.0.
+
+        - [Release notes](https://github.com/TypeStrong/ts-node/releases)
+
+        - [Commits](https://github.com/TypeStrong/ts-node/compare/v10.2.1...v10.4.0)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: ts-node
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-minor
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.2.7
+- date: 2021-12-11T13:41:41Z
+- commits:
+    - hash: 958cfec190a2e3997dfb0f8640761bcf9aad7c35
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/lodash from 4.14.172 to 4.14.178"
+- commits:
+    - body: >-
+        Bumps
+        [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash)
+        from 4.14.172 to 4.14.178.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/lodash"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.2.6
+- date: 2021-12-11T13:36:36Z
+- commits:
+    - hash: 78d35242408a705bbba6b485ae2d145a1f3fca7e
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/node from 15.12.5 to 16.11.12"
+- commits:
+    - body: >-
+        Bumps
+        [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node)
+        from 15.12.5 to 16.11.12.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/node"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.2.5
+- date: 2021-12-11T13:29:36Z
+- commits:
+    - hash: 111336300a6ee8c8ffd2b341f500fd25072ecb01
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump ansi-regex from 5.0.0 to 5.0.1"
+- commits:
+    - body: >-
+        Bumps [ansi-regex](https://github.com/chalk/ansi-regex) from 5.0.0 to
+        5.0.1.
+
+        - [Release notes](https://github.com/chalk/ansi-regex/releases)
+
+        - [Commits](https://github.com/chalk/ansi-regex/compare/v5.0.0...v5.0.1)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: ansi-regex
+
+        dependency-type: indirect
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.2.4
+- date: 2021-12-11T13:24:05Z
+- commits:
+    - hash: 091d4bb52f01b36d2949a3a3a30d12fa441cb32e
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump googleapis from 85.0.0 to 92.0.0"
+- commits:
+    - body: >-
+        Bumps
+        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        from 85.0.0 to 92.0.0.
+
+        - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
+
+        - [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/main/CHANGELOG.md)
+
+        - [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/googleapis-v85.0.0...googleapis-v92.0.0)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: googleapis
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.2.3
+- date: 2021-10-27T21:17:19Z
+- commits:
+    - hash: 8a6d9beb1cbc615f2b1c2a040f61a09a1e882f3b
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Extend slot_cost domain in ortools_solver.py to accommodate 3s
+- commits:
+    - ? body
+- version: 3.2.2
+- date: 2021-10-25T19:50:19Z
+- commits:
+    - hash: 4d2719ce3e4377354e2ab7612bd543597afdddaa
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "lib/gsheets.ts: Allow 3-slot as a preference as well"
+- commits:
+    - ? body
+- version: 3.2.1
+- date: 2021-09-23T09:09:29Z
+- commits:
+    - hash: dac88ef7b1109c0c15a5423ee3653be6041b97b6
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump log from 6.1.0 to 6.2.0"
+- commits:
+    - body: |-
+        Bumps [log](https://github.com/medikoo/log) from 6.1.0 to 6.2.0.
+        - [Release notes](https://github.com/medikoo/log/releases)
+        - [Changelog](https://github.com/medikoo/log/blob/master/CHANGELOG.md)
+        - [Commits](https://github.com/medikoo/log/compare/v6.1.0...v6.2.0)
+        ---
+        updated-dependencies:
+        - dependency-name: log
+        dependency-type: direct:production
+        update-type: version-update:semver-minor
+        ...
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.2.0
+- date: 2021-09-21T13:01:39Z
+- commits:
+    - hash: 7da719b955d70f7ae3af27550c1040afe65f2276
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - subject: Allow specifying valid availability values
+- commits:
+    - ? body
+- version: 3.1.35
+- date: 2021-09-20T08:06:12Z
+- commits:
+    - hash: a7dd1e06f5ae6d00756a6263a9937666376cecec
+- commits:
+    - author: Carlo Miguel F. Cruz
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+- commits:
+    - subject: Add 20k-ultra & Ereski to DevOps rotation.
+- commits:
+    - ? body
+- version: 3.1.34
+- date: 2021-09-16T09:38:16Z
+- commits:
+    - hash: 3cea59d91bf0e4442da3bf19fb641d8a95453c66
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump axios from 0.21.1 to 0.21.4"
+- commits:
+    - body: |-
+        Bumps [axios](https://github.com/axios/axios) from 0.21.1 to 0.21.4.
+        - [Release notes](https://github.com/axios/axios/releases)
+        - [Changelog](https://github.com/axios/axios/blob/master/CHANGELOG.md)
+        - [Commits](https://github.com/axios/axios/compare/v0.21.1...v0.21.4)
+        ---
+        updated-dependencies:
+        - dependency-name: axios
+        dependency-type: indirect
+        ...
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.33
+- date: 2021-09-14T20:41:25Z
+- commits:
+    - hash: 30132cb1c5f20bf4b5bc1dc4ce4475ccb560ff10
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump ts-node from 10.0.0 to 10.2.1"
+- commits:
+    - body: >-
+        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 10.0.0 to
+        10.2.1.
+
+        - [Release notes](https://github.com/TypeStrong/ts-node/releases)
+
+        - [Commits](https://github.com/TypeStrong/ts-node/compare/v10.0.0...v10.2.1)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: ts-node
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-minor
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.32
+- date: 2021-09-08T05:45:12Z
+- commits:
+    - hash: 3c6940135a9fa8c22ce9f9419c5b2efb18a24b14
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump log from 6.0.0 to 6.1.0"
+- commits:
+    - body: |-
+        Bumps [log](https://github.com/medikoo/log) from 6.0.0 to 6.1.0.
+        - [Release notes](https://github.com/medikoo/log/releases)
+        - [Changelog](https://github.com/medikoo/log/blob/master/CHANGELOG.md)
+        - [Commits](https://github.com/medikoo/log/compare/v6.0.0...v6.1.0)
+        ---
+        updated-dependencies:
+        - dependency-name: log
+        dependency-type: direct:production
+        update-type: version-update:semver-minor
+        ...
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.31
+- date: 2021-09-07T17:47:58Z
+- commits:
+    - hash: 887794f4926d0583b9a2d3b5938d347fd4b1a3ba
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump typescript from 4.3.5 to 4.4.2"
+- commits:
+    - body: >-
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.5
+        to 4.4.2.
+
+        - [Release notes](https://github.com/Microsoft/TypeScript/releases)
+
+        - [Commits](https://github.com/Microsoft/TypeScript/compare/v4.3.5...v4.4.2)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: typescript
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-minor
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.30
+- date: 2021-09-03T11:24:29Z
+- commits:
+    - hash: 984fc9a8f1ee0d4a96b53aed80afd00f97a1fefe
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump googleapis from 76.0.0 to 85.0.0"
+- commits:
+    - body: >-
+        Bumps
+        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        from 76.0.0 to 85.0.0.
+
+        - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
+
+        - [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/master/CHANGELOG.md)
+
+        - [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/googleapis-v76.0.0...googleapis-v85.0.0)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: googleapis
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.29
+- date: 2021-09-02T21:04:18Z
+- commits:
+    - hash: bbc7bd1336ec541956c1b6ffe8cdc3dc67ac4611
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/mkdirp from 1.0.1 to 1.0.2"
+- commits:
+    - body: >-
+        Bumps
+        [@types/mkdirp](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mkdirp)
+        from 1.0.1 to 1.0.2.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mkdirp)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/mkdirp"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.28
+- date: 2021-09-02T20:57:45Z
+- commits:
+    - hash: df09a67756edc8fb90af007af123a07c17f50adf
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/mz from 2.7.3 to 2.7.4"
+- commits:
+    - body: >-
+        Bumps
+        [@types/mz](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mz)
+        from 2.7.3 to 2.7.4.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mz)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/mz"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.27
+- date: 2021-09-02T20:50:58Z
+- commits:
+    - hash: 9e41d32c588faed410b2ecf8540a9fbf2ea2b332
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump lint-staged from 11.0.0 to 11.1.2"
+- commits:
+    - body: >-
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 11.0.0
+        to 11.1.2.
+
+        - [Release notes](https://github.com/okonet/lint-staged/releases)
+
+        - [Commits](https://github.com/okonet/lint-staged/compare/v11.0.0...v11.1.2)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: lint-staged
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-minor
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.26
+- date: 2021-09-02T10:29:31Z
+- commits:
+    - hash: b068cf2d0d1695c62ceeb893e94f3984a7e8896c
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/lodash from 4.14.170 to 4.14.172"
+- commits:
+    - body: >-
+        Bumps
+        [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash)
+        from 4.14.170 to 4.14.172.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/lodash"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.25
+- date: 2021-09-02T10:17:48Z
+- commits:
+    - hash: 46b889c050c54694fdc60adf4b16c3174d3454f6
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/readline-sync from 1.4.3 to 1.4.4"
+- commits:
+    - body: >-
+        Bumps
+        [@types/readline-sync](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/readline-sync)
+        from 1.4.3 to 1.4.4.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/readline-sync)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/readline-sync"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.24
+- date: 2021-09-02T10:00:23Z
+- commits:
+    - hash: 54a8887d3d277f4d34b07d120b63e6a6e5c8e5e1
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/bluebird from 3.5.35 to 3.5.36"
+- commits:
+    - body: >-
+        Bumps
+        [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/bluebird)
+        from 3.5.35 to 3.5.36.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/bluebird)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/bluebird"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.23
+- date: 2021-09-02T09:54:23Z
+- commits:
+    - hash: e656c9a3a2c4f4dd1952b673c5db7e0dd4d86e03
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump husky from 6.0.0 to 7.0.2"
+- commits:
+    - body: |-
+        Bumps [husky](https://github.com/typicode/husky) from 6.0.0 to 7.0.2.
+        - [Release notes](https://github.com/typicode/husky/releases)
+        - [Commits](https://github.com/typicode/husky/compare/v6.0.0...v7.0.2)
+        ---
+        updated-dependencies:
+        - dependency-name: husky
+        dependency-type: direct:development
+        update-type: version-update:semver-major
+        ...
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.22
+- date: 2021-09-02T08:36:15Z
+- commits:
+    - hash: 07a84f88fba83c3d57097a328ac412eb35057b16
+- commits:
+    - author: Carlo Miguel F. Cruz
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+- commits:
+    - subject: "DevOps: Adds danthegoodman1 to the list."
+- commits:
+    - body: |-
+        Also adds a nocover.json file that can be used to modify
+        the input to add a placeholder agent. The placeholder
+        allows us to identify defeciencies in the coverage schedule.
+- version: 3.1.21
+- date: 2021-09-02T07:35:58Z
+- commits:
+    - hash: bf987e21640a05e787d72a80ee56736c056ac4c4
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "download-and-configure-input.ts: Fix for input file not being written"
+- commits:
+    - ? body
+- commits:
+    - hash: 71aea0c1190a543c40532c818f7271aac1d62695
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "download-and-configure-input.ts: Fix fs import syntax"
+- commits:
+    - ? body
+- commits:
+    - hash: d3942d2faeb98ecd9ef8e9658157c3f89ca80b84
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Rerun lint-fix
+- commits:
+    - ? body
+- version: 3.1.20
+- date: 2021-09-01T16:43:26Z
+- commits:
+    - hash: 9b1a02d3fd2fb5541ee601926efb11472f7b1557
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update balena.io options
+- commits:
+    - ? body
+- version: 3.1.19
+- date: 2021-07-10T10:11:06Z
+- commits:
+    - hash: 27d3fcf6181dd60ea66edfcafeb007540aeb026e
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump typescript from 4.3.2 to 4.3.5"
+- commits:
+    - body: >-
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.2
+        to 4.3.5.
+
+        - [Release notes](https://github.com/Microsoft/TypeScript/releases)
+
+        - [Commits](https://github.com/Microsoft/TypeScript/compare/v4.3.2...v4.3.5)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: typescript
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.18
+- date: 2021-06-30T15:46:21Z
+- commits:
+    - hash: e10da986970b4e522c1374f8485286a9f7109e87
+- commits:
+    - author: gelbal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Fırat Gelbal firat@balena.io
+- commits:
+    - subject: Remove codeowners file
+- commits:
+    - ? body
+- version: 3.1.17
+- date: 2021-06-28T13:30:27Z
+- commits:
+    - hash: 264355ae10b9b743e6cc2c40b7fbd3698f55e192
+- commits:
+    - author: Pranas Ziaukas
+- commits:
+    - subject: "patch: Remove Matt from the list of devOps"
+- commits:
+    - ? body
+- version: 3.1.16
+- date: 2021-06-28T11:22:11Z
+- commits:
+    - hash: 167e25fb07b94a72d03263ddc56b00dde696a6fe
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/node from 15.12.2 to 15.12.5"
+- commits:
+    - body: >-
+        Bumps
+        [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node)
+        from 15.12.2 to 15.12.5.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/node"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.15
+- date: 2021-06-28T11:15:03Z
+- commits:
+    - hash: a4fc7b1614cc7a18b5fb5dbccd378da9283542b4
+- commits:
+    - author: Pranas Ziaukas
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Pranas Ziaukas <pranas@balena.io>
+- commits:
+    - subject: Apply the latest code styling
+- commits:
+    - ? body
+- version: 3.1.14
+- date: 2021-06-28T11:01:56Z
+- commits:
+    - hash: 08bc7de7d80b4dee679d1cc94a43b2480f10845b
+- commits:
+    - author: Carlo Miguel Cruz
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Carlo Miguel Cruz <carloc@balena.io>
+- commits:
+    - subject: Passes null as a required second argument to mkdirpAsync.
+- commits:
+    - ? body
+- version: 3.1.13
+- date: 2021-06-28T08:36:31Z
+- commits:
+    - hash: d53f4164978287ce4d12255f37748ec1cd01a5d9
+- commits:
+    - author: Pranas Ziaukas
+- commits:
+    - subject: "patch: Remove Jordan from the list of agents"
+- commits:
+    - ? body
+- version: 3.1.12
+- date: 2021-06-11T12:20:53Z
+- commits:
+    - hash: a54491c108d8eb763b34222ff4a3d8ce20e39e44
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/lodash from 4.14.168 to 4.14.170"
+- commits:
+    - body: >-
+        Bumps
+        [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash)
+        from 4.14.168 to 4.14.170.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/lodash"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.11
+- date: 2021-06-11T12:13:12Z
+- commits:
+    - hash: 8873ffe8d23983940b8ce6599b3d849c9ef0d74a
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump googleapis from 45.0.0 to 76.0.0"
+- commits:
+    - body: >-
+        Bumps
+        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        from 45.0.0 to 76.0.0.
+
+        - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
+
+        - [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/master/CHANGELOG.md)
+
+        - [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/v45.0.0...googleapis-v76.0.0)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: googleapis
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.10
+- date: 2021-06-10T08:24:29Z
+- commits:
+    - hash: 3b7ec848567aa708074ef8d1ce71efe182e824dd
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump dotenv from 8.2.0 to 10.0.0"
+- commits:
+    - body: >-
+        Bumps [dotenv](https://github.com/motdotla/dotenv) from 8.2.0 to 10.0.0.
+
+        - [Release notes](https://github.com/motdotla/dotenv/releases)
+
+        - [Changelog](https://github.com/motdotla/dotenv/blob/master/CHANGELOG.md)
+
+        - [Commits](https://github.com/motdotla/dotenv/compare/v8.2.0...v10.0.0)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: dotenv
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.9
+- date: 2021-06-10T08:17:28Z
+- commits:
+    - hash: 122fb4089973cd4aea967499e3c62e103964a1f1
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump husky from 3.1.0 to 6.0.0"
+- commits:
+    - body: |-
+        Bumps [husky](https://github.com/typicode/husky) from 3.1.0 to 6.0.0.
+        - [Release notes](https://github.com/typicode/husky/releases)
+        - [Commits](https://github.com/typicode/husky/compare/v3.1.0...v6.0.0)
+        ---
+        updated-dependencies:
+        - dependency-name: husky
+        dependency-type: direct:development
+        update-type: version-update:semver-major
+        ...
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.8
+- date: 2021-06-10T08:11:06Z
+- commits:
+    - hash: 87133ec2f8b9535ceb9359956869a6321872359b
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/mkdirp from 0.5.2 to 1.0.1"
+- commits:
+    - body: >-
+        Bumps
+        [@types/mkdirp](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mkdirp)
+        from 0.5.2 to 1.0.1.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mkdirp)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/mkdirp"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.7
+- date: 2021-06-10T08:04:08Z
+- commits:
+    - hash: 8c6538430f56396f3dd2dfdacc8e4a00b053229d
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @balena/lint from 5.4.1 to 6.1.1"
+- commits:
+    - body: >-
+        Bumps
+        [@balena/lint](https://github.com/balena-io-modules/node-balena-lint)
+        from 5.4.1 to 6.1.1.
+
+        - [Release notes](https://github.com/balena-io-modules/node-balena-lint/releases)
+
+        - [Changelog](https://github.com/balena-io-modules/node-balena-lint/blob/master/CHANGELOG.md)
+
+        - [Commits](https://github.com/balena-io-modules/node-balena-lint/compare/v5.4.1...v6.1.1)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@balena/lint"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.6
+- date: 2021-06-10T07:58:04Z
+- commits:
+    - hash: f8a41483f36974b11b5a35499168e8edfc360289
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump ts-node from 9.1.1 to 10.0.0"
+- commits:
+    - body: >-
+        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 9.1.1 to
+        10.0.0.
+
+        - [Release notes](https://github.com/TypeStrong/ts-node/releases)
+
+        - [Commits](https://github.com/TypeStrong/ts-node/compare/v9.1.1...v10.0.0)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: ts-node
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.5
+- date: 2021-06-09T09:26:20Z
+- commits:
+    - hash: 212b106aacf18e2584d947f92db98dd585d486e3
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/bluebird from 3.5.33 to 3.5.35"
+- commits:
+    - body: >-
+        Bumps
+        [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/bluebird)
+        from 3.5.33 to 3.5.35.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/bluebird)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/bluebird"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-patch
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.4
+- date: 2021-06-09T09:13:22Z
+- commits:
+    - hash: 5bd5915381b0848b25f0042af4b7c130eab352ad
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump lint-staged from 10.5.4 to 11.0.0"
+- commits:
+    - body: >-
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 10.5.4
+        to 11.0.0.
+
+        - [Release notes](https://github.com/okonet/lint-staged/releases)
+
+        - [Commits](https://github.com/okonet/lint-staged/compare/v10.5.4...v11.0.0)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: lint-staged
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.3
+- date: 2021-06-09T09:05:53Z
+- commits:
+    - hash: a4185c5a02bc0b525040e864949012f03db33460
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump mkdirp from 0.5.5 to 1.0.4"
+- commits:
+    - body: >-
+        Bumps [mkdirp](https://github.com/isaacs/node-mkdirp) from 0.5.5 to
+        1.0.4.
+
+        - [Release notes](https://github.com/isaacs/node-mkdirp/releases)
+
+        - [Changelog](https://github.com/isaacs/node-mkdirp/blob/master/CHANGELOG.md)
+
+        - [Commits](https://github.com/isaacs/node-mkdirp/compare/v0.5.5...v1.0.4)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: mkdirp
+
+        dependency-type: direct:production
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.2
+- date: 2021-06-09T08:57:58Z
+- commits:
+    - hash: c143207db8b22c59bd5ce76b0bc67a57c51ecf68
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump typescript from 4.2.4 to 4.3.2"
+- commits:
+    - body: >-
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.2.4
+        to 4.3.2.
+
+        - [Release notes](https://github.com/Microsoft/TypeScript/releases)
+
+        - [Commits](https://github.com/Microsoft/TypeScript/compare/v4.2.4...v4.3.2)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: typescript
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-minor
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.1
+- date: 2021-06-09T08:50:12Z
+- commits:
+    - hash: 6064d2a9641cf2e99a37eb8e28be3b77f6971539
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - subject: "patch: bump @types/node from 14.14.41 to 15.12.2"
+- commits:
+    - body: >-
+        Bumps
+        [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node)
+        from 14.14.41 to 15.12.2.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/node"
+
+        dependency-type: direct:development
+
+        update-type: version-update:semver-major
+
+        ...
+
+        Signed-off-by: dependabot[bot] <support@github.com>
+- version: 3.1.0
+- date: 2021-06-09T08:39:03Z
+- commits:
+    - hash: 600ad4ae27c6e4b45b1dc51a8bf262949fd16fcc
+- commits:
+    - author: Pranas Ziaukas
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - footers:
+        connects-to: "#44"
+- commits:
+    - footers:
+        signed-off-by: Pranas Ziaukas <pranas@balena.io>
+- commits:
+    - subject: Configure Dependabot
+- commits:
+    - ? body
+- version: 3.0.17
+- date: 2021-06-08T21:27:47Z
+- commits:
+    - hash: b8313dbf64264eae588f3d0d85ecebd5a5b57f8d
+- commits:
+    - author: Pranas Ziaukas
+- commits:
+    - subject: "patch: Remove Hugh from the list of agents"
+- commits:
+    - body: Making sure we're not keeping dead references in code.
+- commits:
+    - hash: fea2bcaf27d202cc4ff220fde39f973a6d3de07b
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - subject: Merge branch 'master' into remove-hugh
+- commits:
+    - ? body
+- version: 3.0.16
+- date: 2021-06-02T09:58:30Z
+- commits:
+    - hash: 150812efef5f0b014cd9cc5008fe7f8cdae06cfe
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Remove ticks in onboarding message, increase Rafael's max hours
+- commits:
+    - ? body
+- version: 3.0.15
+- date: 2021-05-25T17:10:31Z
+- commits:
+    - hash: fe25c0e8cb73b997aaeb06cc10a59a448f06ebf6
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Remove next cycle date reference from README
+- commits:
+    - ? body
+- version: 3.0.14
+- date: 2021-05-21T10:43:54Z
+- commits:
+    - hash: d4de7a3a4e42fe82cea17d6eefb28deabbedbb23
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Require schedule start date as command line argument
+- commits:
+    - body: |-
+        Previously, this date was read from the "Next Cycle Dates" sheet in
+        the Team Model. However, this sheet is being phased out, and it is
+        simpler to simply provide the Monday start date in the command line.
+- commits:
+    - hash: d0bfac37f6040d02c20b343b65bffbcda2065adc
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - subject: Merge branch 'master' into alidaodendaal-start-date-as-argument
+- commits:
+    - ? body
+- commits:
+    - hash: 78e12ebc451c27434e345241285ea59e35d9a3a5
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "README.md: Partial update for startDate as arg for download"
+- commits:
+    - ? body
+- version: 3.0.13
+- date: 2021-05-21T08:45:43Z
+- commits:
+    - hash: 8ff160314eed90f5a6119082e51f32c4ab4b55ec
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "helper-scripts/options/balenaio.json: Tweak custom settings"
+- commits:
+    - ? body
+- version: 3.0.12
+- date: 2021-05-20T12:27:52Z
+- commits:
+    - hash: 2ac32ce43d1cfccf0e833a2d7a777073b614d0d0
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Add missed file for ortools update
+- commits:
+    - ? body
+- version: 3.0.11
+- date: 2021-05-20T12:17:54Z
+- commits:
+    - hash: 128bce7bc5854e5a66171ecce6f5ea8645edd1ce
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Update ortools to 9.0
+- commits:
+    - ? body
+- version: 3.0.10
+- date: 2021-05-11T09:23:14Z
+- commits:
+    - hash: ab0a4c97d2b0f4770a4c209ab1ee2915867541c6
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - footers:
+        signed-off-by: dependabot[bot] <support@github.com>
+- commits:
+    - subject: "patch: Bump hosted-git-info from 2.8.8 to 2.8.9"
+- commits:
+    - body: >-
+        Bumps [hosted-git-info](https://github.com/npm/hosted-git-info) from
+        2.8.8 to 2.8.9.
+
+        - [Release notes](https://github.com/npm/hosted-git-info/releases)
+
+        - [Changelog](https://github.com/npm/hosted-git-info/blob/v2.8.9/CHANGELOG.md)
+
+        - [Commits](https://github.com/npm/hosted-git-info/compare/v2.8.8...v2.8.9)
+- version: 3.0.9
+- date: 2021-05-11T09:07:53Z
+- commits:
+    - hash: c3fe08f67ea83ccaa969e39d4993d4a1066bbde5
+- commits:
+    - author: dependabot[bot]
+- commits:
+    - footers:
+        signed-off-by: dependabot[bot] <support@github.com>
+- commits:
+    - subject: "patch: Bump node-fetch from 2.6.0 to 2.6.1"
+- commits:
+    - body: >-
+        Bumps [node-fetch](https://github.com/bitinn/node-fetch) from 2.6.0 to
+        2.6.1.
+
+        - [Release notes](https://github.com/bitinn/node-fetch/releases)
+
+        - [Changelog](https://github.com/node-fetch/node-fetch/blob/master/docs/CHANGELOG.md)
+
+        - [Commits](https://github.com/bitinn/node-fetch/compare/v2.6.0...v2.6.1)
+- version: 3.0.8
+- date: 2021-05-04T12:35:17Z
+- commits:
+    - hash: be00779b6d0f2af11143df2fbf6bd78fc89d5f19
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Avoid timezone issues when beautifying the schedule
+- commits:
+    - ? body
+- version: 3.0.7
+- date: 2021-05-03T18:29:11Z
+- commits:
+    - hash: d551949947dce0ad7bbc43c8a7469b460a7ca710
+- commits:
+    - author: Matthew McGinn
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Matthew McGinn <matthew@balena.io>
+- commits:
+    - subject: "meta: add auth files to gitignore, mention setting timezone for
+        beautification"
+- commits:
+    - ? body
+- version: 3.0.6
+- date: 2021-05-03T18:07:22Z
+- commits:
+    - hash: eb67fc06ac679a3f5498e1eb70ae56b7ca175035
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Make devOps min/max shifts more flexible to reduce infeasible schedules
+- commits:
+    - ? body
+- version: 3.0.5
+- date: 2021-05-03T17:40:39Z
+- commits:
+    - hash: e00e993dfe4af7849a037ad845d150cfa29320bf
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Include `agentName` in the output for use in set-victorops-schedule
+- commits:
+    - ? body
+- version: 3.0.4
+- date: 2021-05-03T16:12:45Z
+- commits:
+    - hash: 4fdea4c749a7bc9f1e849030d99b4d55be794061
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Remove unnecessary entries from `.env.dist`
+- commits:
+    - ? body
+- commits:
+    - hash: e3dc9af49cbc14cf08168c243fbe07871437a291
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Add dummy victorops entries to `.env.dist`
+- commits:
+    - ? body
+- version: 3.0.3
+- date: 2021-04-29T14:17:26Z
+- commits:
+    - hash: 58e1b2c2a9e78c238b450275ed10221a238dbb32
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Clean up fetching of gsheets agents data
+- commits:
+    - ? body
+- version: 3.0.2
+- date: 2021-04-28T17:06:47Z
+- commits:
+    - hash: 9c23ac33e15b002a775e9ea4c906e7cefaacde25
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert beautify-schedule to ts and accept the date and schedule name
+- commits:
+    - ? body
+- commits:
+    - hash: 6569c5cb759d1002dc15702fa5dc3e72cf0be100
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Remove support for js now that it's all in typescript
+- commits:
+    - ? body
+- version: 3.0.1
+- date: 2021-04-28T16:46:31Z
+- commits:
+    - hash: 7627050bfea497f833edb54e87e7dbc5e4c053d8
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert beautify-schedule to ts and accept the date and schedule name
+- commits:
+    - ? body
+- version: 3.0.0
+- date: 2021-04-28T15:48:17Z
+- commits:
+    - hash: 181111fc56363567d8a08f548b4b86f31c824263
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - subject: Change send-calendar-invites to accept the date and schedule name
+- commits:
+    - body: |-
+        This avoids needing to pass the full path since it can be inferred from
+        those two elements
+- version: 2.2.0
+- date: 2021-04-28T15:30:57Z
+- commits:
+    - hash: b6888e149930d007b665b215412af3e3dc655a76
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - subject: Add set-victorops-schedule script for the devops schedule in victorops
+- commits:
+    - ? body
+- version: 2.1.11
+- date: 2021-04-27T13:34:50Z
+- commits:
+    - hash: 31f8cd0e418b1918f43d2cc8530bc3ec4dd550f4
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert download-and-configure-input to typescript
+- commits:
+    - ? body
+- commits:
+    - hash: ea765cecc883182a6ac72bf7ae2e8c19d47adbfa
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert send-calendar-invites to typescript
+- commits:
+    - ? body
+- commits:
+    - hash: 27ea75b00f65cb2408303e6b30d5c7ba9f029df8
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert lib/gsheets to typescript
+- commits:
+    - ? body
+- commits:
+    - hash: 0c186ad7c3f2a94e928fcf965784bcdab38ee971
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert lib/gauth to typescript
+- commits:
+    - ? body
+- commits:
+    - hash: 41edd7836010ab32fcaf65a759057521361a3cd3
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert lib/validate-json to typescript
+- commits:
+    - ? body
+- version: 2.1.10
+- date: 2021-04-27T11:28:16Z
+- commits:
+    - hash: 05276216b1d82ad743c2372f3dd8ac4cf7282bd3
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Use standard date methods/math for handling calendar invite dates
+- commits:
+    - ? body
+- version: 2.1.9
+- date: 2021-04-27T10:22:12Z
+- commits:
+    - hash: 92a061684fd938dc120c6018afadff10bb860404
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Allow beautify-schedule to work for any length of "day"
+- commits:
+    - ? body
+- version: 2.1.8
+- date: 2021-04-19T17:26:26Z
+- commits:
+    - hash: 7ec3da51eb2a143bd8672bfefd3a9f53d257f904
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Add type-checking for js files
+- commits:
+    - ? body
+- version: 2.1.7
+- date: 2021-04-19T14:59:54Z
+- commits:
+    - hash: d47b087fb637cc5739c165505ebfa5910e830002
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Remove `fs` from package.json - it's a built in module
+- commits:
+    - ? body
+- version: 2.1.6
+- date: 2021-04-19T14:09:02Z
+- commits:
+    - hash: 22eb32f3b7b38584a09d3f598af19594b680b47a
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Update to use @balena/lint for linting
+- commits:
+    - ? body
+- version: 2.1.5
+- date: 2021-04-19T13:37:16Z
+- commits:
+    - hash: c71fb3345130e83f47602cfebbee80448be1e47e
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Allow beautifying a schedule containing any number of days
+- commits:
+    - ? body
+- version: 2.1.4
+- date: 2021-04-19T10:11:28Z
+- commits:
+    - hash: b3843316f1421eec3cf749861e1ea7a63183eca1
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update output to include @@support_ops
+- commits:
+    - ? body
+- version: 2.1.3
+- date: 2021-04-13T13:44:36Z
+- commits:
+    - hash: 91369128441c5823cc9e0736332b86eef045ee43
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Various small option updates
+- commits:
+    - ? body
+- version: 2.1.2
+- date: 2021-03-11T11:41:06Z
+- commits:
+    - hash: 4336e0ce3b014db84cf2240cba730a7e8b1f7c13
+- commits:
+    - author: JuanFRidano
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: JuanFRidano <juanfr@balena.io>
+- commits:
+    - subject: extend support options
+- commits:
+    - ? body
+- version: 2.1.1
+- date: 2021-03-03T09:28:44Z
+- commits:
+    - hash: 7317d5e4cdd04ccf805554f1530b63613be16d3f
+- commits:
+    - author: JuanFRidano
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: JuanFRidano <juanfr@balena.io>
+- commits:
+    - subject: Refactor onboarding and correct constrains for flexible tracks
+- commits:
+    - ? body
+- commits:
+    - hash: bdef4bc806bc95bd798b1286daebef218bfd0b29
+- commits:
+    - author: JuanFRidano
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: JuanFRidano <juanfr@balena.io>
+- commits:
+    - subject: Change Scheduler to use slots (half_hours) instead of full hours
+- commits:
+    - ? body
+- commits:
+    - hash: 6d02d2857d71bc3afc58bc323157f4c52e32658b
+- commits:
+    - author: JuanFRidano
+- commits:
+    - subject: add max hours constrains and fix schemas
+- commits:
+    - ? body
+- commits:
+    - hash: db7f6d28d8cb5a77ac72c7b57b76b1e95e59e40c
+- commits:
+    - author: JuanFRidano
+- commits:
+    - subject: improve js code
+- commits:
+    - ? body
+- commits:
+    - hash: 1694cceec49b7b5bc10bc0f3e911d166842be3e0
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Alida Odendaal <alida@balena.io>
+- commits:
+    - subject: "send-calendar-invites.js: Fix handling of 23:30 in getDate function."
+- commits:
+    - ? body
+- commits:
+    - hash: f362dcc7cd2e5e8de4028eb32396b6e1d2a46d19
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Alida Odendaal <alida@balena.io>
+- commits:
+    - subject: Fix handling of actual track start times.
+- commits:
+    - ? body
+- commits:
+    - hash: d4493c2df29e88914c73f064bbc61996e7e83047
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Alida Odendaal <alida@balena.io>
+- commits:
+    - subject: "balena.json: Remove maximum hours option for samothx, since he left
+        balena"
+- commits:
+    - ? body
+- commits:
+    - hash: d930410984f6a832e9231035987e65275cb4927a
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Alida Odendaal <alida@balena.io>
+- commits:
+    - subject: Update Python requirement to ^3.8, since 3.7 not compatible with :=
+- commits:
+    - ? body
+- commits:
+    - hash: 19b506aefffe2bd2b7e8e2cf7f4166fdfd54d065
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Alida Odendaal <alida@balena.io>
+- commits:
+    - subject: Fix various bugs to complete transformation from "hour" to "slot"
+- commits:
+    - ? body
+- commits:
+    - hash: 5c77a29c1cb68b080d038d2330b5fb8f45e0729c
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "pyproject.toml: Change OR-Tools requirement to newest version: 8.1"
+- commits:
+    - ? body
+- commits:
+    - hash: 2c3c878cd3f9c88cdc33e7c77e8d0899393fe8d3
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "ortools_solver.py: Remove indentation to prevent redundant onboarding
+        shifts"
+- commits:
+    - ? body
+- commits:
+    - hash: 84a1b5fc742995e0608fc207491448afa8ce0ca1
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "onboarding.py: Fix constraint preventing onboarding on Mon before 14:00"
+- commits:
+    - ? body
+- commits:
+    - hash: 07cdb4980834e4ee6529b13eaef8b00a595b0481
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Fix link to onboarding document in onboarding_message.txt
+- commits:
+    - ? body
+- commits:
+    - hash: 77962dc95410debf117fdf756cc80fb41aec7b46
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update default balena options
+- commits:
+    - ? body
+- commits:
+    - hash: e78041e454688199c0264afe9c276548de63a939
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: options/balena.json Set minimum hours for Georgia
+- commits:
+    - ? body
+- commits:
+    - hash: 22d1f020d37cf6cae757bb7e24ee3ad79bc59739
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update onboarding shift lengths, and customer support hours
+- commits:
+    - ? body
+- version: 2.1.0
+- date: 2020-08-26T14:17:34Z
+- commits:
+    - hash: 6a109148aa602cc49fef591b640f80a049863004
+- commits:
+    - author: JuanFRidano
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - footers:
+        signed-off-by: JuanFRidano <juanfr@balena.io>
+- commits:
+    - subject: extend support hours to following day and make tracks configurable
+- commits:
+    - ? body
+- version: 2.0.0
+- date: 2020-08-21T14:49:36Z
+- commits:
+    - hash: 2960b5c77c7059b7743d767d21646f2702ba1042
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Add onboarding functionality and improve code readability
+- commits:
+    - ? body
+- commits:
+    - hash: 3bac9c6c8a718e8af500e5b47778feb5ab68882c
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "CODEOWNERS: Update owners and fix syntax"
+- commits:
+    - ? body
+- commits:
+    - hash: 8b935fd179f28b957c8513504e62f47b8628f894
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Exclude Georgia from dynamic scheduling
+- commits:
+    - ? body
+- commits:
+    - hash: 801456c5366b3d4dd07e248687fa8ae8348c0cd1
+- commits:
+    - author: JuanFRidano
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: JuanFRidano <juanfr@balena.io>
+- commits:
+    - subject: added PR corrections
+- commits:
+    - ? body
+- version: 1.0.6
+- date: 2020-02-11T07:19:28Z
+- commits:
+    - hash: 8eb8b227820fae7b6dd63a48b9f7410a853be951
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "send-calendar-invites: Change const statement to let"
+- commits:
+    - ? body
+- version: 1.0.5
+- date: 2019-12-17T14:08:55Z
+- commits:
+    - hash: 40572a5bf28288254c39a3d9ef553badc41b41e9
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Remove Greg's handle from example input
+- commits:
+    - ? body
+- version: 1.0.4
+- date: 2019-12-13T11:48:33Z
+- commits:
+    - hash: f6b56d5e2fa82b4a399b60bd0b0fc1b2f16343df
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Remove night shifts from example input, update readme with new timeout
+- commits:
+    - ? body
+- version: 1.0.3
+- date: 2019-12-13T10:04:10Z
+- commits:
+    - hash: 185d88a265d9ab3279bf25c7fb21dfda302f15bc
+- commits:
+    - author: Stevche Radevski
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Stevche Radevski <stevche@balena.io>
+- commits:
+    - subject: Change sample input to camelcase, reduce timeout duration
+- commits:
+    - ? body
+- version: 1.0.2
+- date: 2019-12-03T16:15:34Z
+- commits:
+    - hash: 899b8fd83b0517948138926f3475992fdadf0c96
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - footers:
+        connects-to: "#4"
+- commits:
+    - subject: Update link to newly published scheduling blog post in README.md
+- commits:
+    - ? body
+- version: 1.0.1
+- date: 2019-12-03T14:34:19Z
+- commits:
+    - hash: 50e355285bb27504ff8dafa0dda54f77ce26e5c8
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - footers:
+        connects-to: "#2"
+- commits:
+    - subject: Apply various updates after second review round
+- commits:
+    - ? body
+- version: 1.0.0
+- date: 2019-12-02T09:22:09Z
+- commits:
+    - hash: c4b09244fa728e6ad4eb8461c39a19a3d84b51b6
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: "All: Initial repository setup"
+- commits:
+    - ? body
+- commits:
+    - hash: f95343fd5ba2bf9e2e43b4f729774f6fc53c185e
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: major
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Add package-lock.json and logs-example, update package.json
+- commits:
+    - ? body
+- commits:
+    - hash: 47f602a6029a0bb387e1671034e00d34f4fec764
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update path for logs folders
+- commits:
+    - ? body
+- commits:
+    - hash: 6ab754413b19b558dbe401bfde29d553b6f0ee81
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Use example e-mails in example data
+- commits:
+    - ? body
+- commits:
+    - hash: 7f85c4366aa8ac4ef8845c138068ef61ce5505e5
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Use example e-mail in example output
+- commits:
+    - ? body
+- commits:
+    - hash: e8fc4119439163b84cc39ff982ba526a59cfe123
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update package.json to pass PR checks
+- commits:
+    - ? body
+- commits:
+    - hash: dc7184370af7ed4f0c2ce947f16816e7bf9481ee
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update licensing info in readme
+- commits:
+    - ? body
+- commits:
+    - hash: 97ae1729400ea2543cf4eff053f4a0ce959e6825
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Add private=true property to package.json to prevent publication
+- commits:
+    - ? body
+- commits:
+    - hash: 162740eba00774321590b7eb03c72cfba29c881e
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        co-authored-by: Roman Mazur <roman@balena.io>
+- commits:
+    - subject: Update name in package.json
+- commits:
+    - ? body
+- commits:
+    - hash: 19b3057aee87348bd46654492a658749335d361d
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update package.json and requirements.txt (adding jsonschema)
+- commits:
+    - ? body
+- commits:
+    - hash: e384515e97e8f30ab13c13ecb3fb47c377c2fac4
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Remove private=true from package.json again
+- commits:
+    - ? body
+- commits:
+    - hash: 6111558c19f09b646ca3d3e876c73e9ad02e89de
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update date formatting in beautify-schedule.js
+- commits:
+    - ? body
+- commits:
+    - hash: 10bff7183181a05dfcb3e6a4c6bcb7974d5cd8c0
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Re-add private=true in package.json
+- commits:
+    - ? body
+- commits:
+    - hash: 72290d0f318f6b5f7996889ba58f97afde073108
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update following preliminary review
+- commits:
+    - ? body
+- commits:
+    - hash: 3db978ca58b667a25bc69961fee2c5fced23bf68
+- commits:
+    - author: AlidaOdendaal
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+- commits:
+    - subject: Update logs-example following preliminary review
+- commits:
+    - ? body
