@@ -1,4 +1,32 @@
 - commits:
+    - subject: "patch: bump @types/node from 16.11.24 to 18.11.9"
+      hash: c1ca372f3499a6157f60ff9dd35692c7d22a0d8a
+      body: >
+        Bumps
+        [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node)
+        from 16.11.24 to 18.11.9.
+
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
+
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: "@types/node"
+          dependency-type: direct:development
+          update-type: version-update:semver-major
+        ...
+      footer:
+        Signed-off-by: dependabot[bot] <support@github.com>
+        signed-off-by: dependabot[bot] <support@github.com>
+      author: dependabot[bot]
+      nested: []
+  version: 4.0.5
+  date: 2022-11-01T22:12:06.910Z
+- commits:
     - subject: Add repo.yml for flowzone versioning
       hash: 7d704c2f1f961c3348bab6b1ea3f7c4517e15d1c
       body: ""
