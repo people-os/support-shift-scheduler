@@ -1,4 +1,18 @@
 - commits:
+    - subject: Reconfigure tracks ito hours of coverage and agent distribution
+      hash: 85cfad0ea51a58e38268dcbfbb104905fe3bdf65
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 5.0.0
+  title: ""
+  date: 2022-12-21T13:52:45.971Z
+- commits:
     - subject: Add repo.yml for flowzone versioning
       hash: 7d704c2f1f961c3348bab6b1ea3f7c4517e15d1c
       body: ""
@@ -43,7 +57,7 @@
 - commits:
     - subject: Update README to reflect new script config in Teamwork Model
 - commits:
-    - ? body
+    - body: null
 - version: 4.0.1
 - date: 2022-06-09T22:33:38Z
 - commits:
@@ -60,7 +74,7 @@
     - subject: Reconfigure support coverage upon recalculation of available teamwork
         hours
 - commits:
-    - ? body
+    - body: null
 - version: 4.0.0
 - date: 2022-05-30T15:03:27Z
 - commits:
@@ -76,7 +90,7 @@
 - commits:
     - subject: Start implementing the new cost function
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: aef907d400ab1041df56d8c78c76278b2d2ead7c
 - commits:
@@ -90,7 +104,7 @@
 - commits:
     - subject: Still working on refactoring with new cost function
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: d9b5a43d637e1da329678e6199b4280f5ec32ccb
 - commits:
@@ -104,7 +118,7 @@
 - commits:
     - subject: Updating README...
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 320b511d614b4956cab8a1ccab4527ccaefcaccc
 - commits:
@@ -118,7 +132,7 @@
 - commits:
     - subject: Updating README...
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: aef1b4cdb83faf127b58c7bdf28d76be2da3b0f0
 - commits:
@@ -132,7 +146,7 @@
 - commits:
     - subject: Update README and nocover.json
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 8880380567af4caeee56860fa817f048db216787
 - commits:
@@ -146,7 +160,7 @@
 - commits:
     - subject: Reformat python code with black
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 7e38ffce8dd5f08ccdaf613c7fe94eff559cf618
 - commits:
@@ -160,7 +174,7 @@
 - commits:
     - subject: Revert example e-mail output
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 7a92314cc8c8e7390faa850be8edf52247e73b6f
 - commits:
@@ -174,7 +188,7 @@
 - commits:
     - subject: Update no-coverage agent example JSON.
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: d75386f49522510a495fc7c2c95df63cee62e03e
 - commits:
@@ -188,7 +202,7 @@
 - commits:
     - subject: Update cost function
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 00f584a00a6c17797b1a39782a2ff4dc00dad49d
 - commits:
@@ -197,7 +211,7 @@
     - subject: Merge branch 'new-cost-function' of
         github.com:people-os/support-shift-scheduler into new-cost-function
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e9a2be001c863becc144598b191dde8c3f4ea5bb
 - commits:
@@ -211,7 +225,7 @@
 - commits:
     - subject: Add extra penalty for overload (positive balance or >8hr/week)
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 6618049460ddf4b8ea4170af58161fc0d2fc2f7b
 - commits:
@@ -226,7 +240,7 @@
     - subject: "logs/example/support-shift-scheduler-input.json: include
         overloadProtection"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: cfdb3323cdbe83ce3be209880b9c6f6f9e825f99
 - commits:
@@ -240,7 +254,7 @@
 - commits:
     - subject: Rerun lint-fix and update package-lock.json
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e654811de3d73cb4927995d7e10d1dc675f36674
 - commits:
@@ -254,7 +268,7 @@
 - commits:
     - subject: "algo-core/src/process_input.py: Skip overload protection in fair_shares"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: f487d885575be3868346a0803c9bbe7c65f955b3
 - commits:
@@ -268,7 +282,7 @@
 - commits:
     - subject: Extend support hours
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: bb3895b51b3c9716fa47b3a65662136e2b0e0b14
 - commits:
@@ -282,7 +296,7 @@
 - commits:
     - subject: Properly ignore algo-core/src/__pycache__/
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: de81a8751d1d4ef54d8707282487f555ed3559db
 - commits:
@@ -296,7 +310,7 @@
 - commits:
     - subject: Update DevOps usernames list.
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e6e36c3011dea6b187fbe48c12c769574f6c03ad
 - commits:
@@ -310,7 +324,7 @@
 - commits:
     - subject: Change copyright range to 2019-2022
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: df7a88b35b00118b9fc257315ccc79c68889e577
 - commits:
@@ -324,7 +338,7 @@
 - commits:
     - subject: Update handling of endHour and end_slot
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e2453afa132677dbb0a24a960f1adf112fc95206
 - commits:
@@ -338,7 +352,7 @@
 - commits:
     - subject: Remove overload protection based on AlexM's recommendation
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 008771712a74256d6048a135b2c515b76be0b2d6
 - commits:
@@ -352,7 +366,7 @@
 - commits:
     - subject: Simplify logic related to fair share per agent
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 80d48484080fdd3e6fd50a393af254e19bc97d09
 - commits:
@@ -366,7 +380,7 @@
 - commits:
     - subject: Patch optimization time calculation, unavailable agent handling
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 2e11773778293760eb9300018778409f08e94df5
 - commits:
@@ -380,7 +394,7 @@
 - commits:
     - subject: Update cost function to better optimize fair share allocation
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 419d9bac5e89d54dcaf69e80b741778502b670fd
 - commits:
@@ -394,7 +408,7 @@
 - commits:
     - subject: First attempt including responsibility weights in fair share calc
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 17cbe1f1e63e8237f3d557b4dd7b5bd44e543ce8
 - commits:
@@ -408,7 +422,7 @@
 - commits:
     - subject: Reconfigure fair share calculation in terms of hyperbolic tangent
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: c820ad84f8d16f74129b62945748cac20c73423c
 - commits:
@@ -422,7 +436,7 @@
 - commits:
     - subject: Include teamwork already scheduled for coming week in scheduler input
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 182629c3eb1dd18722c971fe5f78c5fc04a563ce
 - commits:
@@ -436,7 +450,7 @@
 - commits:
     - subject: Reactivate solver, and tweak rebalancing urgency
 - commits:
-    - ? body
+    - body: null
 - version: 3.2.10
 - date: 2021-12-13T08:03:01Z
 - commits:
@@ -452,7 +466,7 @@
 - commits:
     - subject: Update swaps portion of Flowdock message
 - commits:
-    - ? body
+    - body: null
 - version: 3.2.9
 - date: 2021-12-11T13:55:03Z
 - commits:
@@ -463,8 +477,8 @@
     - subject: "patch: bump typescript from 4.4.2 to 4.5.3"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.4.2
-        to 4.5.3.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.4.2 to
+        4.5.3.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -613,8 +627,7 @@
     - subject: "patch: bump googleapis from 85.0.0 to 92.0.0"
 - commits:
     - body: >-
-        Bumps
-        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client)
         from 85.0.0 to 92.0.0.
 
         - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
@@ -651,7 +664,7 @@
 - commits:
     - subject: Extend slot_cost domain in ortools_solver.py to accommodate 3s
 - commits:
-    - ? body
+    - body: null
 - version: 3.2.2
 - date: 2021-10-25T19:50:19Z
 - commits:
@@ -667,7 +680,7 @@
 - commits:
     - subject: "lib/gsheets.ts: Allow 3-slot as a preference as well"
 - commits:
-    - ? body
+    - body: null
 - version: 3.2.1
 - date: 2021-09-23T09:09:29Z
 - commits:
@@ -701,7 +714,7 @@
 - commits:
     - subject: Allow specifying valid availability values
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.35
 - date: 2021-09-20T08:06:12Z
 - commits:
@@ -717,7 +730,7 @@
 - commits:
     - subject: Add 20k-ultra & Ereski to DevOps rotation.
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.34
 - date: 2021-09-16T09:38:16Z
 - commits:
@@ -799,8 +812,8 @@
     - subject: "patch: bump typescript from 4.3.5 to 4.4.2"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.5
-        to 4.4.2.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.5 to
+        4.4.2.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -829,8 +842,7 @@
     - subject: "patch: bump googleapis from 76.0.0 to 85.0.0"
 - commits:
     - body: >-
-        Bumps
-        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client)
         from 76.0.0 to 85.0.0.
 
         - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
@@ -924,8 +936,8 @@
     - subject: "patch: bump lint-staged from 11.0.0 to 11.1.2"
 - commits:
     - body: >-
-        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 11.0.0
-        to 11.1.2.
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 11.0.0 to
+        11.1.2.
 
         - [Release notes](https://github.com/okonet/lint-staged/releases)
 
@@ -1091,7 +1103,7 @@
 - commits:
     - subject: "download-and-configure-input.ts: Fix for input file not being written"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 71aea0c1190a543c40532c818f7271aac1d62695
 - commits:
@@ -1105,7 +1117,7 @@
 - commits:
     - subject: "download-and-configure-input.ts: Fix fs import syntax"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: d3942d2faeb98ecd9ef8e9658157c3f89ca80b84
 - commits:
@@ -1119,7 +1131,7 @@
 - commits:
     - subject: Rerun lint-fix
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.20
 - date: 2021-09-01T16:43:26Z
 - commits:
@@ -1135,7 +1147,7 @@
 - commits:
     - subject: Update balena.io options
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.19
 - date: 2021-07-10T10:11:06Z
 - commits:
@@ -1146,8 +1158,8 @@
     - subject: "patch: bump typescript from 4.3.2 to 4.3.5"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.2
-        to 4.3.5.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.2 to
+        4.3.5.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -1181,7 +1193,7 @@
 - commits:
     - subject: Remove codeowners file
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.17
 - date: 2021-06-28T13:30:27Z
 - commits:
@@ -1191,7 +1203,7 @@
 - commits:
     - subject: "patch: Remove Matt from the list of devOps"
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.16
 - date: 2021-06-28T11:22:11Z
 - commits:
@@ -1238,7 +1250,7 @@
 - commits:
     - subject: Apply the latest code styling
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.14
 - date: 2021-06-28T11:01:56Z
 - commits:
@@ -1254,7 +1266,7 @@
 - commits:
     - subject: Passes null as a required second argument to mkdirpAsync.
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.13
 - date: 2021-06-28T08:36:31Z
 - commits:
@@ -1264,7 +1276,7 @@
 - commits:
     - subject: "patch: Remove Jordan from the list of agents"
 - commits:
-    - ? body
+    - body: null
 - version: 3.1.12
 - date: 2021-06-11T12:20:53Z
 - commits:
@@ -1306,8 +1318,7 @@
     - subject: "patch: bump googleapis from 45.0.0 to 76.0.0"
 - commits:
     - body: >-
-        Bumps
-        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client)
         from 45.0.0 to 76.0.0.
 
         - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
@@ -1515,8 +1526,8 @@
     - subject: "patch: bump lint-staged from 10.5.4 to 11.0.0"
 - commits:
     - body: >-
-        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 10.5.4
-        to 11.0.0.
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 10.5.4 to
+        11.0.0.
 
         - [Release notes](https://github.com/okonet/lint-staged/releases)
 
@@ -1545,8 +1556,7 @@
     - subject: "patch: bump mkdirp from 0.5.5 to 1.0.4"
 - commits:
     - body: >-
-        Bumps [mkdirp](https://github.com/isaacs/node-mkdirp) from 0.5.5 to
-        1.0.4.
+        Bumps [mkdirp](https://github.com/isaacs/node-mkdirp) from 0.5.5 to 1.0.4.
 
         - [Release notes](https://github.com/isaacs/node-mkdirp/releases)
 
@@ -1577,8 +1587,8 @@
     - subject: "patch: bump typescript from 4.2.4 to 4.3.2"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.2.4
-        to 4.3.2.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.2.4 to
+        4.3.2.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -1646,7 +1656,7 @@
 - commits:
     - subject: Configure Dependabot
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.17
 - date: 2021-06-08T21:27:47Z
 - commits:
@@ -1664,7 +1674,7 @@
 - commits:
     - subject: Merge branch 'master' into remove-hugh
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.16
 - date: 2021-06-02T09:58:30Z
 - commits:
@@ -1680,7 +1690,7 @@
 - commits:
     - subject: Remove ticks in onboarding message, increase Rafael's max hours
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.15
 - date: 2021-05-25T17:10:31Z
 - commits:
@@ -1693,7 +1703,7 @@
 - commits:
     - subject: Remove next cycle date reference from README
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.14
 - date: 2021-05-21T10:43:54Z
 - commits:
@@ -1720,7 +1730,7 @@
 - commits:
     - subject: Merge branch 'master' into alidaodendaal-start-date-as-argument
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 78e12ebc451c27434e345241285ea59e35d9a3a5
 - commits:
@@ -1734,7 +1744,7 @@
 - commits:
     - subject: "README.md: Partial update for startDate as arg for download"
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.13
 - date: 2021-05-21T08:45:43Z
 - commits:
@@ -1750,7 +1760,7 @@
 - commits:
     - subject: "helper-scripts/options/balenaio.json: Tweak custom settings"
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.12
 - date: 2021-05-20T12:27:52Z
 - commits:
@@ -1763,7 +1773,7 @@
 - commits:
     - subject: Add missed file for ortools update
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.11
 - date: 2021-05-20T12:17:54Z
 - commits:
@@ -1776,7 +1786,7 @@
 - commits:
     - subject: Update ortools to 9.0
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.10
 - date: 2021-05-11T09:23:14Z
 - commits:
@@ -1790,8 +1800,8 @@
     - subject: "patch: Bump hosted-git-info from 2.8.8 to 2.8.9"
 - commits:
     - body: >-
-        Bumps [hosted-git-info](https://github.com/npm/hosted-git-info) from
-        2.8.8 to 2.8.9.
+        Bumps [hosted-git-info](https://github.com/npm/hosted-git-info) from 2.8.8
+        to 2.8.9.
 
         - [Release notes](https://github.com/npm/hosted-git-info/releases)
 
@@ -1831,7 +1841,7 @@
 - commits:
     - subject: Avoid timezone issues when beautifying the schedule
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.7
 - date: 2021-05-03T18:29:11Z
 - commits:
@@ -1848,7 +1858,7 @@
     - subject: "meta: add auth files to gitignore, mention setting timezone for
         beautification"
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.6
 - date: 2021-05-03T18:07:22Z
 - commits:
@@ -1861,7 +1871,7 @@
 - commits:
     - subject: Make devOps min/max shifts more flexible to reduce infeasible schedules
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.5
 - date: 2021-05-03T17:40:39Z
 - commits:
@@ -1874,7 +1884,7 @@
 - commits:
     - subject: Include `agentName` in the output for use in set-victorops-schedule
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.4
 - date: 2021-05-03T16:12:45Z
 - commits:
@@ -1887,7 +1897,7 @@
 - commits:
     - subject: Remove unnecessary entries from `.env.dist`
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e3dc9af49cbc14cf08168c243fbe07871437a291
 - commits:
@@ -1898,7 +1908,7 @@
 - commits:
     - subject: Add dummy victorops entries to `.env.dist`
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.3
 - date: 2021-04-29T14:17:26Z
 - commits:
@@ -1911,7 +1921,7 @@
 - commits:
     - subject: Clean up fetching of gsheets agents data
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.2
 - date: 2021-04-28T17:06:47Z
 - commits:
@@ -1924,7 +1934,7 @@
 - commits:
     - subject: Convert beautify-schedule to ts and accept the date and schedule name
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 6569c5cb759d1002dc15702fa5dc3e72cf0be100
 - commits:
@@ -1935,7 +1945,7 @@
 - commits:
     - subject: Remove support for js now that it's all in typescript
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.1
 - date: 2021-04-28T16:46:31Z
 - commits:
@@ -1948,7 +1958,7 @@
 - commits:
     - subject: Convert beautify-schedule to ts and accept the date and schedule name
 - commits:
-    - ? body
+    - body: null
 - version: 3.0.0
 - date: 2021-04-28T15:48:17Z
 - commits:
@@ -1976,7 +1986,7 @@
 - commits:
     - subject: Add set-victorops-schedule script for the devops schedule in victorops
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.11
 - date: 2021-04-27T13:34:50Z
 - commits:
@@ -1989,7 +1999,7 @@
 - commits:
     - subject: Convert download-and-configure-input to typescript
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: ea765cecc883182a6ac72bf7ae2e8c19d47adbfa
 - commits:
@@ -2000,7 +2010,7 @@
 - commits:
     - subject: Convert send-calendar-invites to typescript
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 27ea75b00f65cb2408303e6b30d5c7ba9f029df8
 - commits:
@@ -2011,7 +2021,7 @@
 - commits:
     - subject: Convert lib/gsheets to typescript
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 0c186ad7c3f2a94e928fcf965784bcdab38ee971
 - commits:
@@ -2022,7 +2032,7 @@
 - commits:
     - subject: Convert lib/gauth to typescript
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 41edd7836010ab32fcaf65a759057521361a3cd3
 - commits:
@@ -2033,7 +2043,7 @@
 - commits:
     - subject: Convert lib/validate-json to typescript
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.10
 - date: 2021-04-27T11:28:16Z
 - commits:
@@ -2046,7 +2056,7 @@
 - commits:
     - subject: Use standard date methods/math for handling calendar invite dates
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.9
 - date: 2021-04-27T10:22:12Z
 - commits:
@@ -2059,7 +2069,7 @@
 - commits:
     - subject: Allow beautify-schedule to work for any length of "day"
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.8
 - date: 2021-04-19T17:26:26Z
 - commits:
@@ -2072,7 +2082,7 @@
 - commits:
     - subject: Add type-checking for js files
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.7
 - date: 2021-04-19T14:59:54Z
 - commits:
@@ -2085,7 +2095,7 @@
 - commits:
     - subject: Remove `fs` from package.json - it's a built in module
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.6
 - date: 2021-04-19T14:09:02Z
 - commits:
@@ -2098,7 +2108,7 @@
 - commits:
     - subject: Update to use @balena/lint for linting
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.5
 - date: 2021-04-19T13:37:16Z
 - commits:
@@ -2111,7 +2121,7 @@
 - commits:
     - subject: Allow beautifying a schedule containing any number of days
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.4
 - date: 2021-04-19T10:11:28Z
 - commits:
@@ -2127,7 +2137,7 @@
 - commits:
     - subject: Update output to include @@support_ops
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.3
 - date: 2021-04-13T13:44:36Z
 - commits:
@@ -2143,7 +2153,7 @@
 - commits:
     - subject: Various small option updates
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.2
 - date: 2021-03-11T11:41:06Z
 - commits:
@@ -2159,7 +2169,7 @@
 - commits:
     - subject: extend support options
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.1
 - date: 2021-03-03T09:28:44Z
 - commits:
@@ -2175,7 +2185,7 @@
 - commits:
     - subject: Refactor onboarding and correct constrains for flexible tracks
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: bdef4bc806bc95bd798b1286daebef218bfd0b29
 - commits:
@@ -2189,7 +2199,7 @@
 - commits:
     - subject: Change Scheduler to use slots (half_hours) instead of full hours
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 6d02d2857d71bc3afc58bc323157f4c52e32658b
 - commits:
@@ -2197,7 +2207,7 @@
 - commits:
     - subject: add max hours constrains and fix schemas
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: db7f6d28d8cb5a77ac72c7b57b76b1e95e59e40c
 - commits:
@@ -2205,7 +2215,7 @@
 - commits:
     - subject: improve js code
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 1694cceec49b7b5bc10bc0f3e911d166842be3e0
 - commits:
@@ -2219,7 +2229,7 @@
 - commits:
     - subject: "send-calendar-invites.js: Fix handling of 23:30 in getDate function."
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: f362dcc7cd2e5e8de4028eb32396b6e1d2a46d19
 - commits:
@@ -2233,7 +2243,7 @@
 - commits:
     - subject: Fix handling of actual track start times.
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: d4493c2df29e88914c73f064bbc61996e7e83047
 - commits:
@@ -2248,7 +2258,7 @@
     - subject: "balena.json: Remove maximum hours option for samothx, since he left
         balena"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: d930410984f6a832e9231035987e65275cb4927a
 - commits:
@@ -2262,7 +2272,7 @@
 - commits:
     - subject: Update Python requirement to ^3.8, since 3.7 not compatible with :=
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 19b506aefffe2bd2b7e8e2cf7f4166fdfd54d065
 - commits:
@@ -2276,7 +2286,7 @@
 - commits:
     - subject: Fix various bugs to complete transformation from "hour" to "slot"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 5c77a29c1cb68b080d038d2330b5fb8f45e0729c
 - commits:
@@ -2290,7 +2300,7 @@
 - commits:
     - subject: "pyproject.toml: Change OR-Tools requirement to newest version: 8.1"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 2c3c878cd3f9c88cdc33e7c77e8d0899393fe8d3
 - commits:
@@ -2305,7 +2315,7 @@
     - subject: "ortools_solver.py: Remove indentation to prevent redundant onboarding
         shifts"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 84a1b5fc742995e0608fc207491448afa8ce0ca1
 - commits:
@@ -2319,7 +2329,7 @@
 - commits:
     - subject: "onboarding.py: Fix constraint preventing onboarding on Mon before 14:00"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 07cdb4980834e4ee6529b13eaef8b00a595b0481
 - commits:
@@ -2333,7 +2343,7 @@
 - commits:
     - subject: Fix link to onboarding document in onboarding_message.txt
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 77962dc95410debf117fdf756cc80fb41aec7b46
 - commits:
@@ -2347,7 +2357,7 @@
 - commits:
     - subject: Update default balena options
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e78041e454688199c0264afe9c276548de63a939
 - commits:
@@ -2361,7 +2371,7 @@
 - commits:
     - subject: options/balena.json Set minimum hours for Georgia
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 22d1f020d37cf6cae757bb7e24ee3ad79bc59739
 - commits:
@@ -2375,7 +2385,7 @@
 - commits:
     - subject: Update onboarding shift lengths, and customer support hours
 - commits:
-    - ? body
+    - body: null
 - version: 2.1.0
 - date: 2020-08-26T14:17:34Z
 - commits:
@@ -2391,7 +2401,7 @@
 - commits:
     - subject: extend support hours to following day and make tracks configurable
 - commits:
-    - ? body
+    - body: null
 - version: 2.0.0
 - date: 2020-08-21T14:49:36Z
 - commits:
@@ -2407,7 +2417,7 @@
 - commits:
     - subject: Add onboarding functionality and improve code readability
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 3bac9c6c8a718e8af500e5b47778feb5ab68882c
 - commits:
@@ -2421,7 +2431,7 @@
 - commits:
     - subject: "CODEOWNERS: Update owners and fix syntax"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 8b935fd179f28b957c8513504e62f47b8628f894
 - commits:
@@ -2435,7 +2445,7 @@
 - commits:
     - subject: Exclude Georgia from dynamic scheduling
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 801456c5366b3d4dd07e248687fa8ae8348c0cd1
 - commits:
@@ -2449,7 +2459,7 @@
 - commits:
     - subject: added PR corrections
 - commits:
-    - ? body
+    - body: null
 - version: 1.0.6
 - date: 2020-02-11T07:19:28Z
 - commits:
@@ -2465,7 +2475,7 @@
 - commits:
     - subject: "send-calendar-invites: Change const statement to let"
 - commits:
-    - ? body
+    - body: null
 - version: 1.0.5
 - date: 2019-12-17T14:08:55Z
 - commits:
@@ -2481,7 +2491,7 @@
 - commits:
     - subject: Remove Greg's handle from example input
 - commits:
-    - ? body
+    - body: null
 - version: 1.0.4
 - date: 2019-12-13T11:48:33Z
 - commits:
@@ -2497,7 +2507,7 @@
 - commits:
     - subject: Remove night shifts from example input, update readme with new timeout
 - commits:
-    - ? body
+    - body: null
 - version: 1.0.3
 - date: 2019-12-13T10:04:10Z
 - commits:
@@ -2513,7 +2523,7 @@
 - commits:
     - subject: Change sample input to camelcase, reduce timeout duration
 - commits:
-    - ? body
+    - body: null
 - version: 1.0.2
 - date: 2019-12-03T16:15:34Z
 - commits:
@@ -2532,7 +2542,7 @@
 - commits:
     - subject: Update link to newly published scheduling blog post in README.md
 - commits:
-    - ? body
+    - body: null
 - version: 1.0.1
 - date: 2019-12-03T14:34:19Z
 - commits:
@@ -2551,7 +2561,7 @@
 - commits:
     - subject: Apply various updates after second review round
 - commits:
-    - ? body
+    - body: null
 - version: 1.0.0
 - date: 2019-12-02T09:22:09Z
 - commits:
@@ -2567,7 +2577,7 @@
 - commits:
     - subject: "All: Initial repository setup"
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: f95343fd5ba2bf9e2e43b4f729774f6fc53c185e
 - commits:
@@ -2581,7 +2591,7 @@
 - commits:
     - subject: Add package-lock.json and logs-example, update package.json
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 47f602a6029a0bb387e1671034e00d34f4fec764
 - commits:
@@ -2595,7 +2605,7 @@
 - commits:
     - subject: Update path for logs folders
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 6ab754413b19b558dbe401bfde29d553b6f0ee81
 - commits:
@@ -2609,7 +2619,7 @@
 - commits:
     - subject: Use example e-mails in example data
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 7f85c4366aa8ac4ef8845c138068ef61ce5505e5
 - commits:
@@ -2623,7 +2633,7 @@
 - commits:
     - subject: Use example e-mail in example output
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e8fc4119439163b84cc39ff982ba526a59cfe123
 - commits:
@@ -2637,7 +2647,7 @@
 - commits:
     - subject: Update package.json to pass PR checks
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: dc7184370af7ed4f0c2ce947f16816e7bf9481ee
 - commits:
@@ -2651,7 +2661,7 @@
 - commits:
     - subject: Update licensing info in readme
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 97ae1729400ea2543cf4eff053f4a0ce959e6825
 - commits:
@@ -2665,7 +2675,7 @@
 - commits:
     - subject: Add private=true property to package.json to prevent publication
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 162740eba00774321590b7eb03c72cfba29c881e
 - commits:
@@ -2676,7 +2686,7 @@
 - commits:
     - subject: Update name in package.json
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 19b3057aee87348bd46654492a658749335d361d
 - commits:
@@ -2690,7 +2700,7 @@
 - commits:
     - subject: Update package.json and requirements.txt (adding jsonschema)
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: e384515e97e8f30ab13c13ecb3fb47c377c2fac4
 - commits:
@@ -2704,7 +2714,7 @@
 - commits:
     - subject: Remove private=true from package.json again
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 6111558c19f09b646ca3d3e876c73e9ad02e89de
 - commits:
@@ -2718,7 +2728,7 @@
 - commits:
     - subject: Update date formatting in beautify-schedule.js
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 10bff7183181a05dfcb3e6a4c6bcb7974d5cd8c0
 - commits:
@@ -2732,7 +2742,7 @@
 - commits:
     - subject: Re-add private=true in package.json
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 72290d0f318f6b5f7996889ba58f97afde073108
 - commits:
@@ -2746,7 +2756,7 @@
 - commits:
     - subject: Update following preliminary review
 - commits:
-    - ? body
+    - body: null
 - commits:
     - hash: 3db978ca58b667a25bc69961fee2c5fced23bf68
 - commits:
@@ -2760,4 +2770,4 @@
 - commits:
     - subject: Update logs-example following preliminary review
 - commits:
-    - ? body
+    - body: null
