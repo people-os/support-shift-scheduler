@@ -1,10 +1,12 @@
 {
   "modelName": "balenaio",
+  "longName": "balena-io support",
   "numDays": 5,
   "startHour": 6,
   "endHour": 27,
   "shiftMinDuration": 2,
   "shiftMaxDuration": 8,
+  "useTwos": true,
   "useThrees" : false,
   "optimizationTimeout": 1,
   "logSheet": "1HlYuuiVTXQwxei99a7KKBBzGHG3ggx38W99yjZY40TY",
@@ -16,10 +18,16 @@
     "agentsMaxHoursWeek": [],
     "agentsFixHours": []
   },
-  "tracks": [
-    { "start_hour": 6, "end_hour": 27, "start_day": 0, "end_day": 4 },
-    { "start_hour": 8, "end_hour": 23, "start_day": 0, "end_day": 4 },
-    { "start_hour": 9, "end_hour": 20, "start_day": 0, "end_day": 4 },
-    { "start_hour": 12, "end_hour": 18, "start_day": 0, "end_day": 4 }
+  "hoursCoverage": [
+    {"start_day": 0, "end_day": 0, "min_hours": 36, "max_hours": 37},
+    {"start_day": 1, "end_day": 1, "min_hours": 36, "max_hours": 37},
+    {"start_day": 2, "end_day": 2, "min_hours": 36, "max_hours": 37},
+    {"start_day": 3, "end_day": 3, "min_hours": 36, "max_hours": 37},
+    {"start_day": 4, "end_day": 4, "min_hours": 36, "max_hours": 37}
+  ],
+  "agentDistribution": [
+    {"start_day": 0, "end_day": 4, "start_hour": 6, "end_hour": 8, "min_agents": 1, "max_agents": 3},
+    {"start_day": 0, "end_day": 4, "start_hour": 23, "end_hour": 27, "min_agents": 1, "max_agents": 3},
+    {"start_day": 0, "end_day": 4, "start_hour": 8, "end_hour": 23, "min_agents": 2, "max_agents": 3}
   ]
 }

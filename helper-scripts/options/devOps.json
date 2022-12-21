@@ -1,22 +1,29 @@
 {
     "modelName": "devOps",
+    "longName": "DevOps on-call",
     "numDays": 5,
     "startHour": 3,
     "endHour": 27,
     "shiftMinDuration": 1,
     "shiftMaxDuration": 24,
+    "useTwos": true,
     "useThrees" : false,      
     "optimizationTimeout": 0.3,
     "logSheet": "1CcyoRGVXA8D-zfQG7sn0lZkw0GxsfVBxpR5eV1Uymyw",
     "calendarID": "c_ktn7k7hgb826l18mll4ilpjbl8@group.calendar.google.com",
-    "useServiceAccount": false,
+    "useServiceAccount": true,
     "specialAgentConditions": {
         "agentsMaxHoursShift": [],
         "agentsMinHoursWeek": [],
         "agentsMaxHoursWeek": [],
         "agentsFixHours": []
     },
-    "tracks": [{ "start_hour": 3, "end_hour": 27, "start_day": 0, "end_day": 4 }],
+    "hoursCoverage": [
+      {"start_day": 0, "end_day": 4, "min_hours": 120, "max_hours": 120}
+    ],
+    "agentDistribution": [
+      {"start_day": 0, "end_day": 4, "start_hour": 3, "end_hour": 27, "min_agents": 1, "max_agents": 1}
+    ],
     "victoropsUsernames": {
         "20k-ultra": "20k-ultra",
         "ab77": "ab77",

@@ -21,25 +21,17 @@ onboarding_shift_length = 8
 onboarding_weekly_slots = 16
 
 # In the model below, the following abbreviations are used:
-# t: track
 # d: day
 # h: Github handle
 # s: slot number
-
-
-def tracks_in_day(d: int, tracks):
-    tracks_containing_d = []
-    for t, track in enumerate(tracks):
-        if d in range(track["start_day"], track["end_day"] + 1):
-            tracks_containing_d.append(t)
-    return tracks_containing_d
 
 
 def setup_var_dataframes_onboarding(agent_categories, config):
     """Create dataframes that will contain model variables for onboarders."""
     var_onboarding = {}
 
-    # var_onboarding["mentors"] dataframe will contain onboarding agent - mentor associations:
+    # var_onboarding["mentors"] dataframe will contain onboarding
+    # agent - mentor associations:
     mentors_indices = pd.MultiIndex.from_product(
         [
             [d for d in range(config["num_days"])],
@@ -226,8 +218,7 @@ def constraint_honour_agent_availability_onboarding(
                         var_onboarding["dh"].loc[(d, h), "is_in_pref_range"][j]
                     )
                     model.Add(
-                        var_onboarding["dh"].loc[(d, h), "shift_end"]
-                        <= sec[1]
+                        var_onboarding["dh"].loc[(d, h), "shift_end"] <= sec[1]
                     ).OnlyEnforceIf(
                         var_onboarding["dh"].loc[(d, h), "is_in_pref_range"][j]
                     )
@@ -315,40 +306,33 @@ def constraint_configure_mentoring(
             )
 
             for m in var_onboarding["mentors"].columns:
-                is_mentor_on_list = []
-
-                for t in tracks_in_day(d, config["tracks"]):
-                    is_mentor_on_list.append(
-                        var_veterans["tdh"].loc[(t, d, m), "is_agent_on"]
-                    )
-
-                model.AddBoolOr(is_mentor_on_list).OnlyEnforceIf(
-                    var_onboarding["mentors"].loc[(d, h), m]
+                model.AddImplication(
+                    var_onboarding["mentors"].loc[(d, h), m],
+                    var_veterans["dh"].loc[(d, m), "is_agent_on"],
                 )
 
-                for t in tracks_in_day(d, config["tracks"]):
-                    # The mentor and onboarder start at the same time.
-                    model.Add(
-                        var_onboarding["dh"].loc[(d, h), "shift_start"]
-                        == var_veterans["tdh"].loc[(t, d, m), "shift_start"]
-                    ).OnlyEnforceIf(
-                        [
-                            var_onboarding["mentors"].loc[(d, h), m],
-                            var_veterans["tdh"].loc[(t, d, m), "is_agent_on"],
-                        ]
-                    )
+                # The mentor and onboarder start at the same time.
+                model.Add(
+                    var_onboarding["dh"].loc[(d, h), "shift_start"]
+                    == var_veterans["dh"].loc[(d, m), "shift_start"]
+                ).OnlyEnforceIf(
+                    [
+                        var_onboarding["mentors"].loc[(d, h), m],
+                        var_veterans["dh"].loc[(d, m), "is_agent_on"],
+                    ]
+                )
 
-                    # Mentor's shift may not be shorter than onboarder's:
-                    model.Add(
-                        var_onboarding["dh"].loc[(d, h), "shift_duration"]
-                        - var_veterans["tdh"].loc[(t, d, m), "shift_duration"]
-                        <= 0
-                    ).OnlyEnforceIf(
-                        [
-                            var_onboarding["mentors"].loc[(d, h), m],
-                            var_veterans["tdh"].loc[(t, d, m), "is_agent_on"],
-                        ]
-                    )
+                # Mentor's shift may not be shorter than onboarder's:
+                model.Add(
+                    var_onboarding["dh"].loc[(d, h), "shift_duration"]
+                    - var_veterans["dh"].loc[(d, m), "shift_duration"]
+                    <= 0
+                ).OnlyEnforceIf(
+                    [
+                        var_onboarding["mentors"].loc[(d, h), m],
+                        var_veterans["dh"].loc[(d, m), "is_agent_on"],
+                    ]
+                )
 
     # A mentor should not have to mentor more than 1 onboarder per day:
     for d in range(config["num_days"]):
@@ -372,7 +356,7 @@ def cost_hours_onboarding(
         for h in agent_categories["onboarding"]:
             for (s_count, s_cost) in enumerate(
                 df_agents.loc[h, "slots"][d][
-                    config["start_slot"] : config["end_slot"]
+                    config["start_slot"]: config["end_slot"]
                 ]
             ):
                 s = s_count + config["start_slot"]
@@ -460,6 +444,12 @@ def extend_model_onboarding(
     agent_categories,
     config,
 ):
+    """
+    Extend model for onboarding.
+
+    Given the model already constructed for veteran agents, extend it
+    with the necessary variables and constraints for onboarding.
+    """
     # Configure model variables:
     var_onboarding = setup_var_dataframes_onboarding(agent_categories, config)
     [model, var_onboarding] = fill_var_dataframes_onboarding(
@@ -495,7 +485,6 @@ def extend_model_onboarding(
         agent_categories,
         config,
     )
-
     # Extend list of cost terms:
     full_cost_list = (
         full_cost_list + var_onboarding["dhs"]["slot_cost"].values.tolist()

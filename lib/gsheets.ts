@@ -98,7 +98,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
 		const email = inputByGithubHandle[handle].shift();
-		const weight = Number(inputByGithubHandle[handle].shift())
+		const weight = Number(inputByGithubHandle[handle].shift());
 		const teamworkBalance = Number(inputByGithubHandle[handle].shift());
 		const nextWeekCredit = Number(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
@@ -144,7 +144,7 @@ async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
  */
 export async function getSchedulerInput(auth, nextMondayDate, support) {
 	const sheets = google.sheets({ version: 'v4', auth });
-	const range = nextMondayDate + '_input!A3:KF';
+	const range = nextMondayDate + '_input!A3:KH';
 	const result = await sheets.spreadsheets.values.get({
 		spreadsheetId: support.logSheet,
 		range,

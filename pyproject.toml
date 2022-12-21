@@ -6,13 +6,15 @@ authors = ["AlidaOdendaal <alida@balena.io>"]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-pandas = "^1.0.5"
-ortools = "9.1.9490"
-python_dateutil = "^2.8.1"
-colorama = "^0.4.3"
-jsonschema = "^3.2.0"
-numpy = "^1.22.3"
+python = "^3.8.1"
+pandas = "^1.5.2"
+ortools = "^9.4.1874"
+colorama = "^0.4.6"
+jsonschema = "^4.17.1"
+flake8 = "5.0.4"
+pydocstyle = "^6.1.1"
+pytest = "^7.2.0"
+black = "^22.10.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -18,26 +18,35 @@ import math
 import pandas as pd
 import numpy as np
 
-rebalancing_urgency = 5
+rebalancing_urgency = 7
 
-def tracks_hours_to_slots(tracks):
-    for track in tracks:
-        track["start_slot"] = track["start_hour"] * 2
-        track["end_slot"] = track["end_hour"] * 2
-    return tracks
+# def tracks_hours_to_slots(tracks):
+#     for track in tracks:
+#         track["start_slot"] = track["start_hour"] * 2
+#         track["end_slot"] = track["end_hour"] * 2
+#     return tracks
 
 
-def get_total_slots_covered(tracks):
+# def get_total_slots_covered(tracks):
+#     total_slots_covered = 0
+#     for t, track in enumerate(tracks):
+#         for d in range(track["start_day"], track["end_day"] + 1):
+#             total_slots_covered += 2 * (
+#                 track["end_hour"] - track["start_hour"]
+#             )
+#     return total_slots_covered
+
+
+def get_total_slots_covered(hours_coverage):
+    """Calculate (maximum) total slots to be covered for the week."""
     total_slots_covered = 0
-    for t, track in enumerate(tracks):
-        for d in range(track["start_day"], track["end_day"] + 1):
-            total_slots_covered += 2 * (
-                track["end_hour"] - track["start_hour"]
-            )
+    for day_cover in hours_coverage:
+        total_slots_covered += day_cover["max_slots"]
     return total_slots_covered
 
 
 def get_datetime_days(start_date, num_days):
+    """Generate list of dates over which schedule needs to be generated."""
     delta = datetime.timedelta(days=1)
     days = [start_date]
 
@@ -110,24 +119,39 @@ def remove_agents_not_available_this_week(
 
 
 def calculate_fair_shares(df_agents, total_slots_covered):
-    """Determine fair share per agent
+    """Determine fair share per agent.
 
-    Fair share is based on hours to be covered, agents' responsibility 
-    weights, existing scheduled teamwork for next week, and agents' 
-    current teamwork balances."""
+    Fair share is based on hours to be covered, agents' responsibility
+    weights, existing scheduled teamwork for next week, and agents'
+    current teamwork balances.
+    """
     total_next_week = total_slots_covered + df_agents["next_week_credit"].sum()
-    df_agents["fair_share"] = total_next_week * df_agents['weight'] / df_agents["weight"].sum() * (1 - np.tanh(0.0001 * rebalancing_urgency * df_agents["teamwork_balance"]))
+    df_agents["fair_share"] = (
+        total_next_week
+        * df_agents["weight"]
+        / df_agents["weight"].sum()
+        * (
+            1
+            - np.tanh(
+                0.0001 * rebalancing_urgency * df_agents["teamwork_balance"]
+            )
+        )
+    )
     rescaling_factor1 = total_next_week / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor1
-    df_agents["fair_share"] = df_agents["fair_share"] - df_agents["next_week_credit"] 
-    df_agents["fair_share"] = df_agents["fair_share"].apply(lambda x: x if x >= 0 else 0)
+    df_agents["fair_share"] = (
+        df_agents["fair_share"] - df_agents["next_week_credit"]
+    )
+    df_agents["fair_share"] = df_agents["fair_share"].apply(
+        lambda x: x if x >= 0 else 0
+    )
     rescaling_factor2 = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor2
     df_agents["fair_share"] = df_agents["fair_share"].apply(
         lambda x: math.trunc(x)
     )
     print("\nFair shares (hours per week):\n")
-    print((df_agents["fair_share"]/2.0).to_string())
+    print((df_agents["fair_share"] / 2.0).to_string())
     return df_agents
 
 
@@ -156,8 +180,9 @@ def setup_agents_dataframe(agents, config):
             for i in range(config["start_slot"]):
                 available_slots[d][i] = 0
             # For agents with fixed hours, remove all availability:
-            # TODO: when volunteered shifts are reconfigured, we need to make sure these are not zeroed out below:
-            if (
+            # TODO: when volunteered shifts are reconfigured,
+            # we need to make sure these are not zeroed out below:
+            if ("agentsFixHours" in config["special_agent_conditions"]) and (
                 agent["handle"]
                 in config["special_agent_conditions"]["agentsFixHours"]
             ):
@@ -173,10 +198,7 @@ def setup_agents_dataframe(agents, config):
         df_agents.loc[len(df_agents)] = {
             "handle": agent["handle"],
             "email": agent["email"],
-             # Modifier on weight below is just temporary to avoid
-             # overscheduling SREs (with weight = 2) on regular support 
-             # until we make scheduler forward-looking 
-            "weight": agent["weight"] if config["model_name"] == 'devOps' else min(1, agent["weight"]),
+            "weight": agent["weight"],
             "teamwork_balance": 2 * float(agent["teamworkBalance"]),
             "next_week_credit": 2 * float(agent["nextWeekCredit"]),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
@@ -195,7 +217,8 @@ def setup_agents_dataframe(agents, config):
 
     df_agents.set_index("handle", inplace=True)
 
-    # Determine unavailable agents for each day, and remove these dataframe entries:
+    # Determine unavailable agents for each day, and remove these
+    # dataframe entries:
     unavailable_agents = []
 
     for d in range(config["num_days"]):
@@ -214,6 +237,7 @@ def setup_agents_dataframe(agents, config):
 
 
 def process_input_data(input_json, sr_onboarding, sr_mentors):
+    """Convert json input to convenient Python variables."""
     # Properties derived from input:
     config = {}
     config["start_date"] = datetime.datetime.strptime(
@@ -225,18 +249,40 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
     config["end_slot"] = int(input_json["options"]["endHour"] * 2)
     config["min_duration"] = int(input_json["options"]["shiftMinDuration"]) * 2
     config["max_duration"] = int(input_json["options"]["shiftMaxDuration"]) * 2
-    config["optimization_timeout"] = int(3600 * input_json["options"]["optimizationTimeout"])
-    config["tracks"] = tracks_hours_to_slots(input_json["options"]["tracks"])
+    config["optimization_timeout"] = int(
+        3600 * input_json["options"]["optimizationTimeout"]
+    )
     config["special_agent_conditions"] = input_json["options"][
         "specialAgentConditions"
     ]
+    config["hours_coverage"] = input_json["options"]["hoursCoverage"]
+    for h_cover, _ in enumerate(config["hours_coverage"]):
+        config["hours_coverage"][h_cover]["min_slots"] = (
+            config["hours_coverage"][h_cover]["min_hours"] * 2
+        )
+        config["hours_coverage"][h_cover]["max_slots"] = (
+            config["hours_coverage"][h_cover]["max_hours"] * 2
+        )
+
+    config["agent_distribution"] = input_json["options"]["agentDistribution"]
+    for a_distribution, _ in enumerate(config["agent_distribution"]):
+        config["agent_distribution"][a_distribution]["start_slot"] = (
+            config["agent_distribution"][a_distribution]["start_hour"] * 2
+        )
+        config["agent_distribution"][a_distribution]["end_slot"] = (
+            config["agent_distribution"][a_distribution]["end_hour"] * 2
+        )
 
     # Additional properties:
-    config["allowed_availabilities"] = [1, 2]
+    config["allowed_availabilities"] = [1]
+    if input_json["options"]["useTwos"]:
+        config["allowed_availabilities"].append(2)
     if input_json["options"]["useThrees"]:
         config["allowed_availabilities"].append(3)
 
-    config["total_slots_covered"] = get_total_slots_covered(config["tracks"])
+    config["total_slots_covered"] = get_total_slots_covered(
+        config["hours_coverage"]
+    )
     config["days"] = get_datetime_days(
         config["start_date"], config["num_days"]
     )
