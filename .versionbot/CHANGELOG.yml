@@ -1,4 +1,26 @@
 - commits:
+    - subject: "patch: bump husky from 8.0.2 to 8.0.3"
+      hash: f45a82598c9cd4478fe8b3836afeb60fd685739d
+      body: |
+        Bumps [husky](https://github.com/typicode/husky) from 8.0.2 to 8.0.3.
+        - [Release notes](https://github.com/typicode/husky/releases)
+        - [Commits](https://github.com/typicode/husky/compare/v8.0.2...v8.0.3)
+
+        ---
+        updated-dependencies:
+        - dependency-name: husky
+          dependency-type: direct:development
+          update-type: version-update:semver-patch
+        ...
+      footer:
+        Signed-off-by: dependabot[bot] <support@github.com>
+        signed-off-by: dependabot[bot] <support@github.com>
+      author: dependabot[bot]
+      nested: []
+  version: 5.0.1
+  title: ""
+  date: 2023-01-03T22:02:05.670Z
+- commits:
     - subject: Reconfigure tracks ito hours of coverage and agent distribution
       hash: 85cfad0ea51a58e38268dcbfbb104905fe3bdf65
       body: ""
