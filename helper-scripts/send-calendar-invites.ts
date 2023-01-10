@@ -46,11 +46,12 @@ async function createEventResourceArray(shiftsObject, longName: string) {
 			const email = $email.match(new RegExp(/<(.*)>/))[1];
 
 			eventResource.summary = `${handle} on ${longName}`;
-			eventResource.description =
-				'Resources on support: ' +
-				process.env.SUPPORT_RESOURCES +
-				'\n\nPlease ack in the paid support thread before your shift: ' +
-				process.env.SUPPORT_THREAD;
+			if (longName === 'balena-io support') {
+				eventResource.description =
+					'Resources on support: ' +
+					process.env.SUPPORT_RESOURCES +
+					'\n\nPlease ack in the "channel/support" stream in Zulip.';
+			}
 			eventResource.start = {
 				timeZone: TIMEZONE,
 				dateTime: isoDateWithoutTimezone(start),
