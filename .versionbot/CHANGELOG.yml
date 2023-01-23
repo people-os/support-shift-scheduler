@@ -1,4 +1,18 @@
 - commits:
+    - subject: Retire deprecated alternative OAuth2 method
+      hash: 19585ab86c20f50e11b370c0b783bada6518dc6e
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 5.1.0
+  title: ""
+  date: 2023-01-23T08:26:54.296Z
+- commits:
     - subject: Removed ereski and olamiko from DevOps on-call rotation.
       hash: 0fceadc51aa24b61124e175ad2c56a890d337ec9
       body: ""
