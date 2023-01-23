@@ -20,12 +20,6 @@
     "url": "git+https://github.com/balena-io/support-shift-scheduler.git"
   },
   "author": "Balena",
-  "contributors": [
-    "Alida Odendaal (@AlidaOdendaal)",
-    "Alexandros Marinos (@alexandrosm)",
-    "Petros Angelatos (@petrosagg)",
-    "Kostas Lekkas (@lekkas)"
-  ],
   "license": "Apache-2.0",
   "dependencies": {
     "bluebird": "^3.7.2",
@@ -48,7 +42,7 @@
     "@types/mz": "^2.7.4",
     "@types/node": "^18.11.12",
     "@types/readline-sync": "^1.4.4",
-    "husky": "^8.0.2",
+    "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "typescript": "^4.9.4"
   },

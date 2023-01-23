@@ -123,10 +123,6 @@
           "description": "ID of Google Calendar where shifts for this teamwork channel are written",
           "type": "string"
         },
-        "useServiceAccount": {
-          "description": "Whether or not to use service account for Google authentication",
-          "type": "boolean"
-        },
         "specialAgentConditions": {
           "description": "A set of agent-specific conditions to be used in case such exceptions are needed",
           "type": "object",
@@ -265,7 +261,7 @@
           }
         }
       },
-      "required": ["modelName", "longName", "numDays", "startHour", "endHour", "shiftMinDuration", "shiftMaxDuration", "useTwos", "useThrees", "optimizationTimeout", "logSheet", "calendarID", "useServiceAccount", "specialAgentConditions", "hoursCoverage", "agentDistribution"]
+      "required": ["modelName", "longName", "numDays", "startHour", "endHour", "shiftMinDuration", "shiftMaxDuration", "useTwos", "useThrees", "optimizationTimeout", "logSheet", "calendarID", "specialAgentConditions", "hoursCoverage", "agentDistribution"]
     }
   },
   "required": [ "agents", "options" ]

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 Balena Ltd.
+ * Copyright 2019-2023 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
