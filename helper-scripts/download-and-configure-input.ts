@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 Balena Ltd.
+ * Copyright 2019-2023 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ import * as _ from 'lodash';
 import * as mkdirp from 'mkdirp';
 import { promises as fs } from 'fs';
 
-import { getAuthClient } from '../lib/gauth';
+import { getJWTAuthClient } from '../lib/gauth';
 import { getSchedulerInput } from '../lib/gsheets';
 import { validateJSONScheduleInput } from '../lib/validate-json';
 
@@ -31,7 +31,7 @@ async function getData(startDate: string, supportName: string) {
 			'utf8',
 		);
 		const support = JSON.parse(supportStr);
-		const auth = await getAuthClient(support);
+		const auth = await getJWTAuthClient();
 		const schedulerInput = await getSchedulerInput(auth, startDate, support);
 		_.assign(schedulerInput.options, support);
 		const stringifiedInput = JSON.stringify(schedulerInput, null, 2);

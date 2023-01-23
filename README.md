@@ -36,10 +36,9 @@ $ poetry install
 You will also need:
 
 - For creating a `balena.io` schedule, a JSON file with credentials associated with the existing service account of our `Support Algo Calendar` Google Cloud project.
-- Alternatively, for creating a `devOps`, `productOS` or `supportAuditing` schedule (where a service account is not used), a JSON file containing your Google OAuth app credentials.
 - A `.env` file in the project root directory, which you can base on the included [.env.dist](.env.dist).
 
-For assistance, please contact `@AlidaOdendaal`, or teamOS operations.
+For assistance, please contact `@AlidaOdendaal` `@gantonayde`, `@cmfcruz`, or teamOS operations.
 
 
 
@@ -47,11 +46,7 @@ For assistance, please contact `@AlidaOdendaal`, or teamOS operations.
 
 **The explanation in this section is just for clarity; if you just want to test the scheduling algorithm, you can skip to the *Usage* section below.**
 
-This project makes use of the Google Sheets API to download input data, and the Google Calendar API to create calendar events, and hence needs Google authentication to be set up. *If* you'd like to set up a similar Google Cloud Project, you have to create a `.env` file in the project root directory, with one of the following variable configurations:
-
-- `GAPI_SERVICE_ACCOUNT_JWT`: The path to the JSON credentials associated with your [Google Service Account](https://cloud.google.com/compute/docs/access/service-accounts), or
-- `CREDENTIALS`, which is the path to JSON containing your Google OAuth app credentials, as well as
--  `TOKEN`, which points to where the OAuth token will be stored once generated.
+This project makes use of the Google Sheets API to download input data, and the Google Calendar API to create calendar events, and hence needs Google authentication to be set up. *If* you'd like to set up a similar Google Cloud Project, you have to create a `.env` file in the project root directory, with `GAPI_SERVICE_ACCOUNT_JWT` set to the path to the JSON credentials associated with your [Google Service Account](https://cloud.google.com/compute/docs/access/service-accounts).
 
 You would also need to modify the code in [`./lib/`](./lib/) and [`./helper-scripts/download-and-configure-input.ts`](./helper-scripts/download-and-configure-input.ts) to make sure that the correct data is being downloaded from your Google Sheets, and configured correctly for the scheduler.
 
@@ -59,7 +54,7 @@ You would also need to modify the code in [`./lib/`](./lib/) and [`./helper-scri
 
 ## Usage
 
-In this section, `<supportName>` indicates the relevant support channel, with currently supported values being `balenaio`, `devOps` and `productOS`.
+In this section, `<supportName>` indicates the relevant support channel, with currently supported values being `balenaio`, `devOps`, `productOS` and `supportAuditing`.
 
 ### 1. Configure Google Sheet input
 
@@ -73,8 +68,6 @@ In the `Teamwork Model` Google Sheet:
 
 1. If there will be new team members onboarding to support in the week to be scheduled, ensure that you have onboarded them by making appropriate entries in the `Team Responsibilities History` tab.
 2. From the `Custom scripts` menu, run `Trigger full prep for <supportName> scheduler run` , and wait for the script to finish.
-
-
 
 ### 2. Downloading and configuring the algorithm input
 

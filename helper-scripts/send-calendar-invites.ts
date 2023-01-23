@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022 Balena Ltd.
+ * Copyright 2019-2023 Balena Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ import { config } from 'dotenv';
 config();
 import * as fs from 'mz/fs';
 import { google, calendar_v3 } from 'googleapis';
-import { getAuthClient } from '../lib/gauth';
+import { getJWTAuthClient } from '../lib/gauth';
 import { readAndParseJSONSchedule } from '../lib/validate-json';
 const TIMEZONE = 'Europe/London';
 
@@ -83,7 +83,7 @@ async function createEvents(date, modelName) {
 			shiftsObject,
 			support.longName,
 		);
-		const authClient = await getAuthClient(support);
+		const authClient = await getJWTAuthClient();
 		const calendar = google.calendar({ version: 'v3' });
 		const eventIDs = [];
 
