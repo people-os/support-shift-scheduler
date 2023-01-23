@@ -1,4 +1,18 @@
 - commits:
+    - subject: Removed ereski and olamiko from DevOps on-call rotation.
+      hash: 0fceadc51aa24b61124e175ad2c56a890d337ec9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 5.0.2
+  title: ""
+  date: 2023-01-23T03:30:55.854Z
+- commits:
     - subject: Change ack reference from JF thread to Zulip stream
       hash: c9a1a83c2725a7a96aa143b40e8b025b196b03db
       body: ""
