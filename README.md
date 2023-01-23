@@ -6,7 +6,7 @@ This scheduling project enables us to schedule our engineers to cover our suppor
 
 The current version of the solver also includes the following functionality that was not recorded in the blog post:
 
-* **Configuration for other support rotations:** Initially, we only used the scheduler for our regular balena.io support rotation, but we have extended its use to also scheduled other channels, i.e. the auditors of our regular support rotation (`supportAuditing`), our SRE on-call rotation (`devOps`), and the rotation for engineers providing support to the team for our internal software (`productOS`). The `json` configurations for these channels are maintained in the [./helper_scripts/options](./helper_scripts/options) folder.
+* **Configuration for other support rotations:** Initially, we only used the scheduler for our regular balena.io support rotation, but we have extended its use to also scheduled other channels, i.e. the auditors of our regular support rotation (`supportAuditing`), our SRE on-call rotation (`devOps`), and the rotation for engineers providing support to the team for our internal software (`productOS`). (The latter channel is currently inactive, however.) The `json` configurations for these channels are maintained in the [./helper_scripts/options](./helper_scripts/options) folder.
 * **Configurable tracks:** Previously, we had 2 agents on support at any given time during our support hours. However, we have since included the ability to specify a highly customizable configuration of parallel "tracks" through the `hoursCoverage` and `agentDistribution` options, in the [./helper_scripts/options](./helper_scripts/options) folder.
 * **Onboarding of new agents:** Once newly hired engineers have been with balena for a few months, they are onboarded to balena.io support. This involves scheduling them for two 4-hour onboarding shifts per week for 2 weeks, during which they are mentored by one of a selected group of senior support agents. These onboarding shifts are additional to the default number of parallel tracks, and require their own set of solver constraints. See the "Usage" section below for more detail on how to configure this.
 
@@ -60,14 +60,16 @@ In this section, `<supportName>` indicates the relevant support channel, with cu
 
 #### For balena team members
 
-In the `Team Model` Google Sheet:
+In the `Full Team Model` Google Sheet:
 
-1. From the `Custom scripts` menu, run `Full refresh of UK Time Team Availabilities`, and wait for the script to finish.
+* Under the `Extensions` menu, go to `Apps Script`, and navigate to the `Executions` tab on the left. Check that the function `callRefreshUKtimeTeamAvailabilities` has run successfully at least once during the past hour. If not, navigate to the `Custom scripts` menu in the GSheet, run `Full refresh of UK Time Team Availabilities`, and wait for the script to finish.
 
 In the `Teamwork Model` Google Sheet:
 
-1. If there will be new team members onboarding to support in the week to be scheduled, ensure that you have onboarded them by making appropriate entries in the `Team Responsibilities History` tab.
-2. From the `Custom scripts` menu, run `Trigger full prep for <supportName> scheduler run` , and wait for the script to finish.
+* If there will be new team members onboarding to support in the week to be scheduled, ensure that you have onboarded them by following the procedure outlined [here](https://github.com/people-os/teamwork-model).
+* From the `Custom scripts` menu, run `Trigger full prep for <supportName> scheduler run` , and wait for the script to finish.
+
+Open the Google Sheet titled `<supportName> Support Scheduler Logs`, navigate to the sheet name `<next-Monday-date>_input`, and confirm that the full agent list appears there.
 
 ### 2. Downloading and configuring the algorithm input
 
@@ -167,12 +169,12 @@ to set the scheduled overrides in victorops.
 
 
 
-### 8. Notify the team in Jellyfish
+### 8. Notify the team in Zulip
 
 #### For balena team members
 
-* Paste the contents of `markdown-agents.txt` to a new thread in the `balena-io` loop in Jellyfish.
-* If agents are onboarding this week, paste the contents of `markdown-onboarding.txt` to this thread as well.
+* In the case of balena-io support, paste the contents of `markdown-agents.txt` to a new topic (named something along the lines of `balena-io support schedule for week of DD MMM YYYY` in the `channel/support` stream in Zulip.
+* If agents are onboarding this week, paste the contents of `markdown-onboarding.txt` to this topic as well.
 
 
 
