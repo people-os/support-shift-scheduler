@@ -28,11 +28,18 @@ const SCOPES = [
  * @return {Promise<object>}     OAuth 2.0 access token
  */
 export async function getJWTAuthClient() {
-	const content = await fs.readFile(
-		process.env.GAPI_SERVICE_ACCOUNT_JWT,
-		'utf8',
-	);
-	const jwt = JSON.parse(content);
+	let jwt: any;
+	try {
+		// Attempt to parse env var if already in JSON format
+		jwt = JSON.parse(process.env.GAPI_SERVICE_ACCOUNT_JWT);
+	} catch {
+		// Fallback to treating string as file containing JWT token
+		const content = await fs.readFile(
+			process.env.GAPI_SERVICE_ACCOUNT_JWT,
+			'utf8',
+		);
+		jwt = JSON.parse(content);
+	}
 	const auth = new google.auth.JWT({
 		email: jwt.client_email,
 		key: jwt.private_key,
