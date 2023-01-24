@@ -1,4 +1,18 @@
 - commits:
+    - subject: Update README
+      hash: 9d5d309f706aa93cb7410befc57b026931114043
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 5.1.1
+  title: ""
+  date: 2023-01-24T12:30:35.930Z
+- commits:
     - subject: Retire deprecated alternative OAuth2 method
       hash: 19585ab86c20f50e11b370c0b783bada6518dc6e
       body: ""
