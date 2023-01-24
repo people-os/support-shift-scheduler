@@ -17295,7 +17295,6 @@
     "optimizationTimeout": 3600,
     "logSheet": "1HlYuuiVTXQwxei99a7KKBBzGHG3ggx38W99yjZY40TY",
     "calendarID": "resin.io_2klk2f26ivo04qq5ktlkva1neg@group.calendar.google.com",
-    "useServiceAccount": true,
     "specialAgentConditions": {
       "agentsMaxHoursShift": [],
       "agentsMinHoursWeek": [],
