@@ -121,11 +121,16 @@ async function writePrettifiedShiftsText(
 		);
 	}
 
-	await fs.writeFile(
-		`logs/${date}_${scheduleName}/beautified-schedule.txt`,
-		prettySchedule,
-		'utf8',
-	);
+	try {
+		await fs.writeFile(
+			`logs/${date}_${scheduleName}/beautified-schedule.txt`,
+			prettySchedule,
+			'utf8',
+		);
+	} catch (e) {
+		console.error(e);
+		process.exit(1);
+	}
 
 	// Write Markdown message, with which to ping agents to check their calendars:
 	let markdownMessage = '';
@@ -136,11 +141,16 @@ async function writePrettifiedShiftsText(
 	for (const agent of agentHoursList) {
 		markdownMessage += `${agent.handle}\n`;
 	}
-	await fs.writeFile(
-		`logs/${date}_${scheduleName}/markdown-agents.txt`,
-		markdownMessage,
-		'utf8',
-	);
+	try {
+		await fs.writeFile(
+			`logs/${date}_${scheduleName}/markdown-agents.txt`,
+			markdownMessage,
+			'utf8',
+		);
+	} catch (e) {
+		console.error(e);
+		process.exit(1);
+	}
 }
 
 async function writePrettifiedOnboardingText(
@@ -168,11 +178,16 @@ async function writePrettifiedOnboardingText(
 	}
 	onboardingMessage += `\n\ncc @@support_ops`;
 	onboardingMessage += `\n\nHappy onboarding! :ship:\n`;
-	await fs.writeFile(
-		`logs/${date}_${scheduleName}/markdown-onboarding.txt`,
-		onboardingMessage,
-		'utf8',
-	);
+	try {
+		await fs.writeFile(
+			`logs/${date}_${scheduleName}/markdown-onboarding.txt`,
+			onboardingMessage,
+			'utf8',
+		);
+	} catch (e) {
+		console.error(e);
+		process.exit(1);
+	}
 }
 
 async function readAndParseJSONOnboarding(date, scheduleName) {
@@ -195,7 +210,7 @@ async function beautify(date: string, scheduleName: string) {
 const args = process.argv.slice(2);
 if (args.length !== 2) {
 	console.log(`Usage: node ${__filename} <yyyy-mm-dd> <model-name>`);
-	process.exit(1);
+	process.exit(2);
 }
 const [$date, $scheduleName] = args;
 

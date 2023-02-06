@@ -58,6 +58,7 @@ async function createScheduleOverrides(date, scheduleName) {
 		}
 	} catch (e) {
 		console.error(e);
+		process.exit(1);
 	}
 }
 
@@ -65,7 +66,7 @@ async function createScheduleOverrides(date, scheduleName) {
 const args = process.argv.slice(2);
 if (args.length !== 2) {
 	console.log(`Usage: node ${__filename} <yyyy-mm-dd> <model-name>`);
-	process.exit(1);
+	process.exit(2);
 }
 const [$date, $scheduleName] = args;
 
