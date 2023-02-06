@@ -1,4 +1,21 @@
 - commits:
+    - subject: Helper scripts now use non-zero exit codes during write failure.
+      hash: 552e2bd5fe609721cadafd05eb5e4faca7b934bd
+      body: |
+        These changes allow the scripts to be used with conditions
+        to stop a workflow in case of failures to write or interact
+        with an external resource.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 5.1.2
+  title: ""
+  date: 2023-02-06T11:18:31.461Z
+- commits:
     - subject: Update README
       hash: 9d5d309f706aa93cb7410befc57b026931114043
       body: ""
