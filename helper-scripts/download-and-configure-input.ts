@@ -46,6 +46,7 @@ async function getData(startDate: string, supportName: string) {
 		);
 	} catch (e) {
 		console.error(e);
+		process.exit(1);
 	}
 }
 
@@ -55,7 +56,7 @@ if (args.length !== 2) {
 	console.log(
 		`Please specify the starting date (Monday) in YYYY-MM-DD format, as well as the support type.`,
 	);
-	process.exit(1);
+	process.exit(2);
 }
 
 // Load JSON object from output file:
