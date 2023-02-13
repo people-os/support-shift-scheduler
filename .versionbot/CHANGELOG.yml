@@ -1,4 +1,22 @@
 - commits:
+    - subject: Reads the JWT token in JSON format from env var.
+      hash: e0d41b7b53b73f89580305217c42a106d20b9acf
+      body: |
+        This allows the Google Service Account JWT token
+        to be set as an env var.  Falls back to reading the
+        token from a file if the env var is set to a path
+        instead of a JSON JWT Token.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 5.1.3
+  title: ""
+  date: 2023-02-13T06:37:21.389Z
+- commits:
     - subject: Helper scripts now use non-zero exit codes during write failure.
       hash: 552e2bd5fe609721cadafd05eb5e4faca7b934bd
       body: |
