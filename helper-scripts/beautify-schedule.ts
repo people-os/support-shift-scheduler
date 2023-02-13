@@ -75,7 +75,8 @@ async function writePrettifiedShiftsText(
 				lastStartDate = startDate;
 				prettySchedule += `\nShifts for ${dateFormat.format(startDate)}\n`;
 			}
-			const agentName = shift.agent.replace(/ <.*>/, '');
+			const agentName =
+				shift.agent.replace(/ <.*>/, '').replace(/@/, '@**') + '**';
 			const len = (shift.end - shift.start) / 2;
 			const startStr = prettyHourStr(shift.start);
 			const endStr = prettyHourStr(shift.end);
@@ -111,7 +112,8 @@ async function writePrettifiedShiftsText(
 		(da) => (header = header.concat('\t\t', dayFormat.format(da.day))),
 	);
 
-	prettySchedule += '\n\nAgents per day \n\n';
+	prettySchedule += '\n\n```';
+	prettySchedule += '\nAgents per day \n\n';
 	prettySchedule += header;
 
 	for (let i = 0; i < maxHours; i++) {
@@ -120,6 +122,7 @@ async function writePrettifiedShiftsText(
 			dailyAgents.map((d) => d.hours[i]).join('\t\t'),
 		);
 	}
+	prettySchedule += '\n\n```';
 
 	try {
 		await fs.writeFile(
