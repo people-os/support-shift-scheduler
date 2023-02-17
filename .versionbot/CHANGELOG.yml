@@ -1,4 +1,20 @@
 - commits:
+    - subject: Update balenaio optimization timeout
+      hash: 342043bc4ed3510c413881f1f6430f68c9bd0dc6
+      body: >
+        Change default value for `optimizationTimeout` from 1 hour to 5.5 hours.
+        This change is needed for the scheduler to run via automated github
+        action. Runners use only 2 CPUs and 1 hour is not sufficient to reach a
+        decent proposal for a schedule.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.4
+  title: ""
+  date: 2023-02-17T12:49:30.476Z
+- commits:
     - subject: Reads the JWT token in JSON format from env var.
       hash: e0d41b7b53b73f89580305217c42a106d20b9acf
       body: |
