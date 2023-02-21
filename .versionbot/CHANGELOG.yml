@@ -1,4 +1,20 @@
 - commits:
+    - subject: Updates the format of the beautify helper script.
+      hash: a222a6eff2b9f1de3131eab42061601ce51dedc5
+      body: |
+        This makes the output compatible with Zulip for pings
+        and formatting.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 5.1.5
+  title: ""
+  date: 2023-02-21T07:18:37.891Z
+- commits:
     - subject: Update balenaio optimization timeout
       hash: 342043bc4ed3510c413881f1f6430f68c9bd0dc6
       body: >
