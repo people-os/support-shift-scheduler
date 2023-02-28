@@ -119,6 +119,10 @@
           "description": "Google Spreadsheet ID where logs for this teamwork channel are stored",
           "type": "string"
         },
+        "onboardingSheet": {
+          "description": "Google Spreadsheet ID where onboarding information for this teamwork channel is stored",
+          "type": "string"
+        },
         "calendarID": {
           "description": "ID of Google Calendar where shifts for this teamwork channel are written",
           "type": "string"
