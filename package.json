@@ -45,7 +45,7 @@
     "@types/readline-sync": "^1.4.4",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "versionist": {
     "publishedAt": "2022-09-05T14:58:06.506Z"
