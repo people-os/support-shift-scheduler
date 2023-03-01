@@ -1,4 +1,21 @@
 - commits:
+    - subject: Add check-for-onboarding script.
+      hash: 68fe4b1e2e0e53a8516d112ab1be0e0674d21d13
+      body: >
+        The check-for-onboarding script will try to generate the
+
+        `mentors.txt` and `onboarding_agents.txt` files from the `onboardingSheet`
+
+        in the helper-scripts\options.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.6
+  title: ""
+  date: 2023-03-01T13:12:36.029Z
+- commits:
     - subject: Updates the format of the beautify helper script.
       hash: a222a6eff2b9f1de3131eab42061601ce51dedc5
       body: |
