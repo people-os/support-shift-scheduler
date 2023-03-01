@@ -158,3 +158,58 @@ export async function getSchedulerInput(auth, nextMondayDate, support) {
 	);
 	return parsedInput;
 }
+
+/**
+ * Parse agent data read from Support Scheduler History.
+ * @param  {array}  rawInput    Raw spreadsheet data as nested arrays
+ * @return {Promise<object>}             Parsed input object for scheduler
+ */
+async function parseOnboardingInput(rawInput) {
+	const columns = rawInput;
+	const onboarderInput = {
+		mentors: [],
+		onboarders: [],
+	};
+	if (columns.length > 0) {
+		onboarderInput.mentors = columns[0];
+		onboarderInput.onboarders = columns[1];
+	}
+	const allAgents = onboarderInput.mentors.concat(onboarderInput.onboarders);
+	if (allAgents.length !== _.uniq(allAgents).length && allAgents.length !== 0) {
+		throw new Error('The input has duplicate agent handles');
+	}
+	return onboarderInput;
+}
+
+/**
+ * Read and parse agent preferences and availability from Support Scheduler History sheet.
+ * @param  {object} auth           OAuth 2.0 access token
+ * @param  {string} nextMondayDate Schedule start date in format YYYY-MM-DD
+ * @param  {object} support
+ * @return {Promise<object>}                Parsed input object for scheduler (more options will be added to this object by download-and-configure-input)
+ */
+export async function getOnboardingInput(auth, nextMondayDate, support) {
+	const sheets = google.sheets({ version: 'v4', auth });
+	const range = nextMondayDate + '!A2:B';
+	let agents = [];
+	try {
+		const result = await sheets.spreadsheets.values.get({
+			spreadsheetId: support.onboardingSheet,
+			range,
+			valueRenderOption: 'FORMATTED_VALUE',
+			majorDimension: 'COLUMNS',
+		});
+		agents = result.data.values;
+	} catch (err) {
+		console.log(
+			'Onboarding data for',
+			support.modelName,
+			'on',
+			nextMondayDate,
+			'not found.',
+		);
+		return process.exit(0);
+	}
+	const parsedInput = await parseOnboardingInput(agents);
+	return parsedInput;
+}

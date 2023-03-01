@@ -12,6 +12,7 @@
     "test": "npm run lint && npx tsc --noEmit",
     "beautify-schedule": "npx ts-node --transpile-only ./helper-scripts/beautify-schedule",
     "download-and-configure-input": "npx ts-node --transpile-only ./helper-scripts/download-and-configure-input",
+    "check-for-onboarding": "npx ts-node --transpile-only ./helper-scripts/check-for-onboarding",
     "send-calendar-invites": "npx ts-node --transpile-only ./helper-scripts/send-calendar-invites",
     "set-victorops-schedule": "npx ts-node --transpile-only ./helper-scripts/set-victorops-schedule"
   },

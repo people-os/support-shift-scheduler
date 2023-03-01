@@ -100,6 +100,7 @@ For more detail regarding these `options`, as well as the rest of the input file
 
 ### 3. Creating input files for onboarding
 
+#### Manually
 If there will be new team members onboarding to support in the week to be scheduled, you have to create the following 2 text files in the `./logs/<startDate>_<supportName>/` folder:
 
 1. `onboarding_agents.txt`: A list of Github handles for the onboarding agents.
@@ -107,7 +108,15 @@ If there will be new team members onboarding to support in the week to be schedu
 
 In each of the files above, each handle should start with `@`, and each handle should be on a new line.
 
+#### Automatically
 
+You can also try to generate the files automatically with the following command:
+
+```bash
+$ npm run check-for-onboarding $startDate $supportName
+```
+
+This script will look for a Google spreadsheet whose `id` is specified as the value of `onboardingSheet` in `helper-scripts/options/$supportName.json`. Next the script will try to find a tab called `$startDate`. If it finds one, the data after the first row will be used to generate the `mentors.txt` and `onboarding_agents.txt` files from the first and second column, respectively. Note that the handles in the spreadsheet should not contain `@`, the script will add the prefix automatically.
 
 ### 4. Running the scheduling algorithm
 
