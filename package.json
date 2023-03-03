@@ -41,7 +41,7 @@
     "@types/lodash": "^4.14.191",
     "@types/mkdirp": "^1.0.2",
     "@types/mz": "^2.7.4",
-    "@types/node": "^18.11.12",
+    "@types/node": "^18.14.6",
     "@types/readline-sync": "^1.4.4",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
