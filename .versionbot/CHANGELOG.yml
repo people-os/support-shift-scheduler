@@ -1,4 +1,18 @@
 - commits:
+    - subject: Reduce coverage hours
+      hash: 478dc4d2809aa8fdd1fbc19bb703f46b27233244
+      body: |
+        Reduce balenaio support coverage hours from 36 to 27 per week.
+        Update agent distribution.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.7
+  title: ""
+  date: 2023-03-07T12:41:11.930Z
+- commits:
     - subject: Add check-for-onboarding script.
       hash: 68fe4b1e2e0e53a8516d112ab1be0e0674d21d13
       body: >
