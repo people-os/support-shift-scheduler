@@ -17,8 +17,8 @@ from ortools.sat.python import cp_model
 import pandas as pd
 
 # Onboarding (given in terms of number of 30-min slots):
-onboarding_shift_length = 8
-onboarding_weekly_slots = 16
+onboarding_shift_length = 4
+onboarding_weekly_slots = 8
 
 # In the model below, the following abbreviations are used:
 # d: day
