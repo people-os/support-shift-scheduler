@@ -1,4 +1,16 @@
 - commits:
+    - subject: Temporary reduce onboarding hours from 8 to 4.
+      hash: 59723334f7151164322c11d52e008f19a155ff38
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.8
+  title: ""
+  date: 2023-03-13T14:48:12.580Z
+- commits:
     - subject: Reduce coverage hours
       hash: 478dc4d2809aa8fdd1fbc19bb703f46b27233244
       body: |
