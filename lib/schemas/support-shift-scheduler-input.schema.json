@@ -24,6 +24,12 @@
             "description": "Responsibility weight on Monday of week to be scheduled",
             "type": "number"
           },
+          "isSupportEngineer": {
+            "description": "Flag if the agent is a support engineer",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
           "teamworkBalance": {
             "description": "Current teamwork balance",
             "type": "number"
@@ -58,7 +64,7 @@
             }
           }
         },
-        "required": [ "handle", "email", "weight", "teamworkBalance", "nextWeekCredit", "idealShiftLength", "availableSlots"]
+        "required": [ "handle", "email", "weight", "isSupportEngineer", "teamworkBalance", "nextWeekCredit", "idealShiftLength", "availableSlots"]
       }
     },
     "options": {
@@ -257,6 +263,11 @@
               },
               "max_agents": {
                 "description": "Maximum number of agents allowed for this time period",
+                "type": "number",
+                "minimum": 0
+              }, 
+              "min_support_engineers": {
+                "description": "Minimum number of engineers allowed for this time period",
                 "type": "number",
                 "minimum": 0
               }
