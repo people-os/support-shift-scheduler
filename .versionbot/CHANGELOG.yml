@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add engineers constraint. Parse if an agent is a support engineer when
+        downloading the input. Add a min_support_engineers option to input.
+        Check if engineers on slot follow the distribution in the json input.
+      hash: 6852b6659b8ca4b1938a25d341379250672a1ac3
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.9
+  title: ""
+  date: 2023-03-21T15:32:04.949Z
+- commits:
     - subject: Temporary reduce onboarding hours from 8 to 4.
       hash: 59723334f7151164322c11d52e008f19a155ff38
       body: ""
