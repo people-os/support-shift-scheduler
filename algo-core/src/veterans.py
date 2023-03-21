@@ -84,6 +84,8 @@ def setup_var_dataframes_veterans(agent_categories, config):
             "is_start_smaller_equal_slot",
             "is_end_greater_than_slot",
             "is_agent_on_slot",
+            "is_support_engineer",
+            "is_agent_on_slot_engineer",
             "slot_cost",
         ],
     )
@@ -208,6 +210,24 @@ def fill_var_dataframes_veterans(
                     custom_domains["slot_cost"],
                     f"slot_cost_{d}_{s}_{h}",
                 )
+
+                var_veterans["dsh"].loc[
+                    (d, s, h), "is_support_engineer"
+                ] = model.NewConstant(df_agents.loc[h, "is_support_engineer"])
+
+                var_veterans["dsh"].loc[
+                    (d, s, h), "is_agent_on_slot_engineer"
+                ] = model.NewBoolVar(f"is_agent_on_slot_engineer_{d}_{s}_{h}")
+
+                # Multiply is_support_engineer by is_agent_on_slot to get
+                # is_agent_on_slot_engineer
+                model.AddMultiplicationEquality(
+                    var_veterans["dsh"].loc[(d, s, h), "is_agent_on_slot_engineer"],
+                    [
+                       var_veterans["dsh"].loc[(d, s, h), "is_support_engineer"],
+                       var_veterans["dsh"].loc[(d, s, h), "is_agent_on_slot"],
+                    ],
+                    )
     return [model, var_veterans]
 
 
@@ -248,6 +268,18 @@ def constraint_agent_distribution(model, var_veterans, config):
                 model.Add(
                     num_simultaneous_agents <= a_distribution["max_agents"]
                 )
+
+                # Add engineers constraint only if min_support_engineers
+                # are specified in agent distributions
+                if "min_support_engineers" in a_distribution:
+                    num_simultaneous_engineers = sum(
+                        var_veterans["dsh"]
+                        .loc[(d, s), "is_agent_on_slot_engineer"]
+                        .values.tolist()
+                    )
+                    model.Add(
+                        num_simultaneous_engineers >= a_distribution["min_support_engineers"]
+                    )
     return model
 
 

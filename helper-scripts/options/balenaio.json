@@ -26,8 +26,8 @@
     {"start_day": 4, "end_day": 4, "min_hours": 27, "max_hours": 28}
   ],
   "agentDistribution": [
-    {"start_day": 0, "end_day": 4, "start_hour": 6, "end_hour": 9, "min_agents": 1, "max_agents": 3},
-    {"start_day": 0, "end_day": 4, "start_hour": 15, "end_hour": 27, "min_agents": 1, "max_agents": 3},
-    {"start_day": 0, "end_day": 4, "start_hour": 9, "end_hour": 15, "min_agents": 2, "max_agents": 3}
+    {"start_day": 0, "end_day": 4, "start_hour": 6, "end_hour": 9, "min_agents": 1, "max_agents": 3, "min_support_engineers": 1},
+    {"start_day": 0, "end_day": 4, "start_hour": 15, "end_hour": 27, "min_agents": 1, "max_agents": 3, "min_support_engineers": 1},
+    {"start_day": 0, "end_day": 4, "start_hour": 9, "end_hour": 15, "min_agents": 2, "max_agents": 3, "min_support_engineers": 1}
   ]
 }
