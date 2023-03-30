@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import * as _ from 'lodash';
 import * as fs from 'mz/fs';
+import zulipInit = require('zulip-js');
 import { readAndParseJSONSchedule } from '../lib/validate-json';
 
 const MINUTES = 60 * 1000;
@@ -39,6 +43,25 @@ function prettyHourStr(hour) {
 	} else {
 		return `${_.padStart(`${Math.floor(hour)}`, 2, '0')}:30`;
 	}
+}
+
+async function getZulipUsers() {
+	// Initialize Zulip
+	const zulipConfig = {
+		username: process.env.ZULIP_EMAIL,
+		apiKey: process.env.ZULIP_API_KEY,
+		realm: process.env.ZULIP_ORG_URL,
+	};
+	const zulipClient = await zulipInit(zulipConfig);
+	// pull all users from Zulip
+	const results = await zulipClient.users.retrieve();
+	const usersByEmail: { [x: string]: string } = {};
+	for (const user of results.members) {
+		if (!user.is_bot && user.is_active) {
+			usersByEmail[user.email] = user.full_name;
+		}
+	}
+	return usersByEmail;
 }
 
 /**
@@ -200,9 +223,27 @@ async function readAndParseJSONOnboarding(date, scheduleName) {
 	return jsonObject;
 }
 
+async function convertTeamworkHandlesToZulipHandles(shiftsJson: any) {
+	const usersByEmail = await getZulipUsers();
+	for (const epoch of shiftsJson) {
+		for (const shift of epoch.shifts) {
+			const agentHandleAndEmail = shift.agent;
+			const emailRegex = /<([^<>]+)>/;
+			const matches = agentHandleAndEmail.match(emailRegex);
+			const email = matches ? matches[1] : null;
+			if (email in usersByEmail) {
+				const zulipHandle = usersByEmail[email];
+				shift.agent = agentHandleAndEmail.replace(/@\S+\b/, `@${zulipHandle}`);
+			}
+		}
+	}
+}
+
 async function beautify(date: string, scheduleName: string) {
 	const shiftsJson = await readAndParseJSONSchedule(date, scheduleName);
 	const onboardingJson = await readAndParseJSONOnboarding(date, scheduleName);
+	// TODO: convert onboardingJson too
+	await convertTeamworkHandlesToZulipHandles(shiftsJson);
 
 	// Write beautified-schedule.txt, markdown-agents.txt, markdown-onboarding.txt:
 	writePrettifiedShiftsText(date, scheduleName, shiftsJson);
