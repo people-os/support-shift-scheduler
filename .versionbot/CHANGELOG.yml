@@ -1,4 +1,19 @@
 - commits:
+    - subject: Fix replace regex for Zulip handles
+      hash: 6f2a31f3ba111ed4bf59c1f948fff081ab39ce31
+      body: >
+        Previous regex had a problem with `-`, i.e. `@name-` replaced with `Name-`
+
+        resulted in `@Name--` with 2 dashes.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.12
+  title: ""
+  date: 2023-04-03T15:03:01.187Z
+- commits:
     - subject: Update nocover.json file.
       hash: b85854afa726b24f33aa544e6ceacee5918fc8e4
       body: |
