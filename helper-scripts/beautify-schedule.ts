@@ -233,7 +233,10 @@ async function convertTeamworkHandlesToZulipHandles(shiftsJson: any) {
 			const email = matches ? matches[1] : null;
 			if (email in usersByEmail) {
 				const zulipHandle = usersByEmail[email];
-				shift.agent = agentHandleAndEmail.replace(/@\S+\b/, `@${zulipHandle}`);
+				shift.agent = agentHandleAndEmail.replace(
+					/@\S+[ <]/,
+					`@${zulipHandle} `,
+				);
 			}
 		}
 	}
