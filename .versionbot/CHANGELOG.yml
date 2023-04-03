@@ -1,4 +1,23 @@
 - commits:
+    - subject: Update nocover.json file.
+      hash: b85854afa726b24f33aa544e6ceacee5918fc8e4
+      body: |
+        Add `isSupportEngineer` flag to `nocover`.
+        Change 1s to 3s in the availability list for `nocover`.
+        Update nocover email.
+        Don't send victorops invites to `nocover.
+        Increase `nocover` teamwork balance to 10000. This will reduce the fair
+        share of `nocover` to 0 hours and the placeholder will be used only when
+        there are no other agents available.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.11
+  title: ""
+  date: 2023-04-03T13:39:33.531Z
+- commits:
     - subject: Convert teamwork handles to Zulip handles.
       hash: 64ecfa9340edf14974e7bd52b0792cefbe39bbbb
       body: ""
