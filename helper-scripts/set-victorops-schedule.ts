@@ -37,22 +37,27 @@ async function createScheduleOverrides(date, scheduleName) {
 		for (const epoch of shiftsObject) {
 			const epochDate = new Date(epoch.start_date);
 			for (const shift of epoch.shifts) {
-				const start = new Date(
-					epochDate.getTime() + shift.start * 30 * 60 * 1000,
-				);
-				const end = new Date(epochDate.getTime() + shift.end * 30 * 60 * 1000);
-				const { override } = await v.scheduledOverrides.createOverride({
-					username: 'balena',
-					timezone: TIMEZONE,
-					start: start.toISOString(),
-					end: end.toISOString(),
-				});
-				for (const assignment of override.assignments) {
-					await v.scheduledOverrides.updateAssignment(
-						override.publicId,
-						assignment.policy,
-						{ username: victoropsUsernames[shift.agentName.slice(1)] },
+				const agent = victoropsUsernames[shift.agentName.slice(1)];
+				if (agent !== 'nocover') {
+					const start = new Date(
+						epochDate.getTime() + shift.start * 30 * 60 * 1000,
 					);
+					const end = new Date(
+						epochDate.getTime() + shift.end * 30 * 60 * 1000,
+					);
+					const { override } = await v.scheduledOverrides.createOverride({
+						username: 'balena',
+						timezone: TIMEZONE,
+						start: start.toISOString(),
+						end: end.toISOString(),
+					});
+					for (const assignment of override.assignments) {
+						await v.scheduledOverrides.updateAssignment(
+							override.publicId,
+							assignment.policy,
+							{ username: victoropsUsernames[shift.agentName.slice(1)] },
+						);
+					}
 				}
 			}
 		}
