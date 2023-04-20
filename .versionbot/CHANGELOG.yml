@@ -1,4 +1,18 @@
 - commits:
+    - subject: Adds aethernet to the devOps VO userlist.
+      hash: 6b76fd31195456f094bb9c94eea7a6c4bc79d37b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 5.1.13
+  title: ""
+  date: 2023-04-20T09:22:03.915Z
+- commits:
     - subject: Fix replace regex for Zulip handles
       hash: 6f2a31f3ba111ed4bf59c1f948fff081ab39ce31
       body: >
