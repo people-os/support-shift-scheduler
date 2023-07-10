@@ -1,4 +1,15 @@
 - commits:
+    - subject: remove dependabot
+      hash: 630efde6e3b9c3030cba7e827f4955d19c8250bd
+      body: ""
+      footer:
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 5.1.14
+  title: ""
+  date: 2023-07-10T16:35:39.386Z
+- commits:
     - subject: Adds aethernet to the devOps VO userlist.
       hash: 6b76fd31195456f094bb9c94eea7a6c4bc79d37b
       body: ""
@@ -16,7 +27,8 @@
     - subject: Fix replace regex for Zulip handles
       hash: 6f2a31f3ba111ed4bf59c1f948fff081ab39ce31
       body: >
-        Previous regex had a problem with `-`, i.e. `@name-` replaced with `Name-`
+        Previous regex had a problem with `-`, i.e. `@name-` replaced with
+        `Name-`
 
         resulted in `@Name--` with 2 dashes.
       footer:
@@ -717,8 +729,8 @@
     - subject: "patch: bump typescript from 4.4.2 to 4.5.3"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.4.2 to
-        4.5.3.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.4.2
+        to 4.5.3.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -867,7 +879,8 @@
     - subject: "patch: bump googleapis from 85.0.0 to 92.0.0"
 - commits:
     - body: >-
-        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        Bumps
+        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
         from 85.0.0 to 92.0.0.
 
         - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
@@ -1052,8 +1065,8 @@
     - subject: "patch: bump typescript from 4.3.5 to 4.4.2"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.5 to
-        4.4.2.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.5
+        to 4.4.2.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -1082,7 +1095,8 @@
     - subject: "patch: bump googleapis from 76.0.0 to 85.0.0"
 - commits:
     - body: >-
-        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        Bumps
+        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
         from 76.0.0 to 85.0.0.
 
         - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
@@ -1176,8 +1190,8 @@
     - subject: "patch: bump lint-staged from 11.0.0 to 11.1.2"
 - commits:
     - body: >-
-        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 11.0.0 to
-        11.1.2.
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 11.0.0
+        to 11.1.2.
 
         - [Release notes](https://github.com/okonet/lint-staged/releases)
 
@@ -1398,8 +1412,8 @@
     - subject: "patch: bump typescript from 4.3.2 to 4.3.5"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.2 to
-        4.3.5.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.2
+        to 4.3.5.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -1558,7 +1572,8 @@
     - subject: "patch: bump googleapis from 45.0.0 to 76.0.0"
 - commits:
     - body: >-
-        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client)
+        Bumps
+        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
         from 45.0.0 to 76.0.0.
 
         - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
@@ -1766,8 +1781,8 @@
     - subject: "patch: bump lint-staged from 10.5.4 to 11.0.0"
 - commits:
     - body: >-
-        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 10.5.4 to
-        11.0.0.
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 10.5.4
+        to 11.0.0.
 
         - [Release notes](https://github.com/okonet/lint-staged/releases)
 
@@ -1796,7 +1811,8 @@
     - subject: "patch: bump mkdirp from 0.5.5 to 1.0.4"
 - commits:
     - body: >-
-        Bumps [mkdirp](https://github.com/isaacs/node-mkdirp) from 0.5.5 to 1.0.4.
+        Bumps [mkdirp](https://github.com/isaacs/node-mkdirp) from 0.5.5 to
+        1.0.4.
 
         - [Release notes](https://github.com/isaacs/node-mkdirp/releases)
 
@@ -1827,8 +1843,8 @@
     - subject: "patch: bump typescript from 4.2.4 to 4.3.2"
 - commits:
     - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.2.4 to
-        4.3.2.
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.2.4
+        to 4.3.2.
 
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
 
@@ -2040,8 +2056,8 @@
     - subject: "patch: Bump hosted-git-info from 2.8.8 to 2.8.9"
 - commits:
     - body: >-
-        Bumps [hosted-git-info](https://github.com/npm/hosted-git-info) from 2.8.8
-        to 2.8.9.
+        Bumps [hosted-git-info](https://github.com/npm/hosted-git-info) from
+        2.8.8 to 2.8.9.
 
         - [Release notes](https://github.com/npm/hosted-git-info/releases)
 
