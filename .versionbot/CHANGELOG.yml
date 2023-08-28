@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add Harald's VO username Limit max Python version.
+      hash: 68610e14ae43a8a30c13eee3259d24ef4d99b3f1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.15
+  title: ""
+  date: 2023-08-28T13:44:38.485Z
+- commits:
     - subject: remove dependabot
       hash: 630efde6e3b9c3030cba7e827f4955d19c8250bd
       body: ""
