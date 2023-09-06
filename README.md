@@ -182,7 +182,7 @@ to set the scheduled overrides in victorops.
 
 #### For balena team members
 
-* In the case of balena-io support, paste the contents of `markdown-agents.txt` to a new topic (named something along the lines of `balena-io support schedule for week of DD MMM YYYY` in the `channel/support` stream in Zulip.
+* In the case of balena-io support, paste the contents of `markdown-agents.txt` to a new topic (named something along the lines of `balena-io support schedule for week of DD MMM YYYY` in the `channel/support-operations` stream in Zulip.
 * If agents are onboarding this week, paste the contents of `markdown-onboarding.txt` to this topic as well.
 
 

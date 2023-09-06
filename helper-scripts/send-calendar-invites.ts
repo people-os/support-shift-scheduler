@@ -50,7 +50,7 @@ async function createEventResourceArray(shiftsObject, longName: string) {
 				eventResource.description =
 					'Resources on support: ' +
 					process.env.SUPPORT_RESOURCES +
-					'\n\nPlease ack in the "channel/support" stream in Zulip.';
+					'\n\nPlease ack in the "channel/support-operations" stream in Zulip.';
 			}
 			eventResource.start = {
 				timeZone: TIMEZONE,
