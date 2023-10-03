@@ -16,6 +16,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+import * as moment from 'moment-timezone';
 import * as VictorOpsApiClient from 'victorops-api-client';
 import { readAndParseJSONSchedule } from '../lib/validate-json';
 
@@ -48,8 +49,8 @@ async function createScheduleOverrides(date, scheduleName) {
 					const { override } = await v.scheduledOverrides.createOverride({
 						username: 'balena',
 						timezone: TIMEZONE,
-						start: start.toISOString(),
-						end: end.toISOString(),
+						start: moment(start).tz(TIMEZONE).format(),
+						end: moment(end).tz(TIMEZONE).format(),
 					});
 					for (const assignment of override.assignments) {
 						await v.scheduledOverrides.updateAssignment(
