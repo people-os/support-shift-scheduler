@@ -36,21 +36,22 @@ async function createScheduleOverrides(date, scheduleName) {
 		const shiftsObject = await readAndParseJSONSchedule(date, scheduleName);
 
 		for (const epoch of shiftsObject) {
-			const epochDate = new Date(epoch.start_date);
 			for (const shift of epoch.shifts) {
 				const agent = victoropsUsernames[shift.agentName.slice(1)];
 				if (agent !== 'nocover') {
-					const start = new Date(
-						epochDate.getTime() + shift.start * 30 * 60 * 1000,
-					);
-					const end = new Date(
-						epochDate.getTime() + shift.end * 30 * 60 * 1000,
-					);
+					const startMoment = moment
+						.tz(epoch.start_date, TIMEZONE)
+						.startOf('day')
+						.add(30 * shift.start, 'minutes');
+					const endMoment = moment
+						.tz(epoch.start_date, TIMEZONE)
+						.startOf('day')
+						.add(30 * shift.end, 'minutes');
 					const { override } = await v.scheduledOverrides.createOverride({
 						username: 'balena',
 						timezone: TIMEZONE,
-						start: moment(start).tz(TIMEZONE).format(),
-						end: moment(end).tz(TIMEZONE).format(),
+						start: startMoment.format(),
+						end: endMoment.format(),
 					});
 					for (const assignment of override.assignments) {
 						await v.scheduledOverrides.updateAssignment(
