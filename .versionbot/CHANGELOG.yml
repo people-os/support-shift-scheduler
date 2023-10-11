@@ -1,4 +1,25 @@
 - commits:
+    - subject: Fix time zone handling for VictorOps updates
+      hash: 191e2fd806a6be2c0c180ab0c2e878db354034e1
+      body: |
+        The combination of the native JS Date object with
+        moment-timezone, resulted in a bug with the time zone
+        handling implemented in PR #422. The result was that the
+        time stamp (which was already in BST) was converted from
+        UTC to BST, resulting in an erroneous 1 hour offset in
+        the VictorOps schedules. Simplified and fixed this by only
+        using moment and moment-timezone.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 5.1.18
+  title: ""
+  date: 2023-10-11T11:18:01.433Z
+- commits:
     - subject: Sync VictorOps schedule start/end TZ to timezone.
       hash: a2937df2845548e33879b8ad774ccaa4f5fbd8f3
       body: ""
