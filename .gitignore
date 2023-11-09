@@ -1,9 +1,8 @@
 .env
-/logs/*
-!/logs/example/
 node_modules/
 .vscode/*
 **/__pycache__/
 .idea/*
 creds.json
 token.json
+SupportAlgoCalendar-57c903a1e8a8.json
