@@ -58,7 +58,7 @@ async function getZulipUsers() {
 	const usersByEmail: { [x: string]: string } = {};
 	for (const user of results.members) {
 		if (!user.is_bot && user.is_active) {
-			usersByEmail[user.email] = user.full_name;
+			usersByEmail[user.email.toLowerCase()] = user.full_name;
 		}
 	}
 	return usersByEmail;
