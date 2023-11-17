@@ -58,7 +58,7 @@ async function getZulipUsers() {
 	const usersByEmail: { [x: string]: string } = {};
 	for (const user of results.members) {
 		if (!user.is_bot && user.is_active) {
-			usersByEmail[user.email] = user.full_name;
+			usersByEmail[user.email.toLowerCase()] = user.full_name;
 		}
 	}
 	return usersByEmail;
@@ -230,8 +230,8 @@ async function convertTeamworkHandlesToZulipHandles(shiftsJson: any) {
 			const agentHandleAndEmail = shift.agent;
 			const emailRegex = /<([^<>]+)>/;
 			const matches = agentHandleAndEmail.match(emailRegex);
-			const email = matches ? matches[1] : null;
-			if (email in usersByEmail) {
+			const email = matches ? matches[1].toLowerCase() : null;
+			if (email && email in usersByEmail) {
 				const zulipHandle = usersByEmail[email];
 				shift.agent = agentHandleAndEmail.replace(
 					/@\S+[ <]/,
