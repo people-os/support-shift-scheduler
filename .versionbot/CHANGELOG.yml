@@ -1,4 +1,16 @@
 - commits:
+    - subject: Make Zulip email conversion case insensitive.
+      hash: 869fdca941e0171ca87b699b309f5b7bdd031e6d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.19
+  title: ""
+  date: 2023-11-17T14:39:35.818Z
+- commits:
     - subject: Fix time zone handling for VictorOps updates
       hash: 191e2fd806a6be2c0c180ab0c2e878db354034e1
       body: |
