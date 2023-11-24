@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency flake8 to v6
+      hash: 3f98cb998ae662d8e8234c24d271602964902a04
+      body: |
+        Update flake8 from 5.0.4 to 6.1.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.1.21
+  title: ""
+  date: 2023-11-24T07:37:04.181Z
+- commits:
     - subject: Update dependency black to v23
       hash: 36d9a78ce53e9fe8370b4b8b588a7a2b3fa041c7
       body: |
