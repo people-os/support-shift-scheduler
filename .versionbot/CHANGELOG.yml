@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency black to v23
+      hash: 36d9a78ce53e9fe8370b4b8b588a7a2b3fa041c7
+      body: |
+        Update black from 22.10.0 to 23.11.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.1.20
+  title: ""
+  date: 2023-11-24T06:48:24.463Z
+- commits:
     - subject: Make Zulip email conversion case insensitive.
       hash: 869fdca941e0171ca87b699b309f5b7bdd031e6d
       body: ""
