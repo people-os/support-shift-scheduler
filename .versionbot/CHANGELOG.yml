@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/node to v20
+      hash: f529ba7f5f588b6d4e10f7adc9b3363161c114ce
+      body: |
+        Update @types/node from 18.18.4 to 20.9.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 5.1.22
+  title: ""
+  date: 2023-11-24T09:27:34.110Z
+- commits:
     - subject: Update dependency flake8 to v6
       hash: 3f98cb998ae662d8e8234c24d271602964902a04
       body: |
