@@ -249,8 +249,8 @@ async function beautify(date: string, scheduleName: string) {
 	await convertTeamworkHandlesToZulipHandles(shiftsJson);
 
 	// Write beautified-schedule.txt, markdown-agents.txt, markdown-onboarding.txt:
-	writePrettifiedShiftsText(date, scheduleName, shiftsJson);
-	writePrettifiedOnboardingText(date, scheduleName, onboardingJson);
+	await writePrettifiedShiftsText(date, scheduleName, shiftsJson);
+	await writePrettifiedOnboardingText(date, scheduleName, onboardingJson);
 }
 
 // Read scheduler output file name from command line:
@@ -261,4 +261,4 @@ if (args.length !== 2) {
 }
 const [$date, $scheduleName] = args;
 
-beautify($date, $scheduleName);
+void beautify($date, $scheduleName);
