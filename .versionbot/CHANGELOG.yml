@@ -1,4 +1,18 @@
 - commits:
+    - subject: Remove Flowdock mentions
+      hash: 7a76b60bd519b51325b74714a16b1368c008198d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Pranas Ziaukas <pranas@balena.io>
+        signed-off-by: Pranas Ziaukas <pranas@balena.io>
+      author: Pranas Ziaukas
+      nested: []
+  version: 5.1.24
+  title: ""
+  date: 2023-11-28T12:29:02.082Z
+- commits:
     - subject: Avoid floating promises, and update npm packages
       hash: 795cfced4cb19353cc0f92c06f6989b7a6cd3daf
       body: >
