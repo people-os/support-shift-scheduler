@@ -78,4 +78,4 @@ if (args.length !== 2) {
 const [$date, $scheduleName] = args;
 
 // Create schedule overrides:
-createScheduleOverrides($date, $scheduleName);
+void createScheduleOverrides($date, $scheduleName);

@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as _ from 'lodash';
-import * as mkdirp from 'mkdirp';
+import { mkdirp } from 'mkdirp';
 import { promises as fs } from 'fs';
 
 import { getJWTAuthClient } from '../lib/gauth';
@@ -34,7 +33,7 @@ async function getData(startDate: string, supportName: string) {
 		const onboardingInput = await getOnboardingInput(auth, startDate, support);
 
 		const fileDir = `./logs/${startDate}_` + supportName;
-		await mkdirp(fileDir, null);
+		await mkdirp(fileDir);
 		if (
 			onboardingInput.mentors.length > 0 &&
 			onboardingInput.onboarders.length > 0
@@ -67,4 +66,4 @@ if (args.length !== 2) {
 const nextMondayDate = args[0];
 const supportModel = args[1];
 
-getData(nextMondayDate, supportModel);
+void getData(nextMondayDate, supportModel);

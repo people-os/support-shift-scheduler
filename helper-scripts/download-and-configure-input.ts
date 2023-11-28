@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as _ from 'lodash';
-import * as mkdirp from 'mkdirp';
+import { mkdirp } from 'mkdirp';
 import { promises as fs } from 'fs';
 
 import { getJWTAuthClient } from '../lib/gauth';
@@ -39,7 +39,7 @@ async function getData(startDate: string, supportName: string) {
 		await validateJSONScheduleInput(schedulerInput);
 
 		const fileDir = `./logs/${startDate}_` + supportName;
-		await mkdirp(fileDir, null);
+		await mkdirp(fileDir);
 		await fs.writeFile(
 			fileDir + '/support-shift-scheduler-input.json',
 			stringifiedInput,
@@ -63,4 +63,4 @@ if (args.length !== 2) {
 const nextMondayDate = args[0];
 const supportModel = args[1];
 
-getData(nextMondayDate, supportModel);
+void getData(nextMondayDate, supportModel);

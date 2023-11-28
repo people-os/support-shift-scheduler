@@ -123,4 +123,4 @@ if (args.length !== 2) {
 const [$date, $modelName] = args;
 
 // Create calendar events:
-createEvents($date, $modelName);
+void createEvents($date, $modelName);

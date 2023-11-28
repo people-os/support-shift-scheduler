@@ -1,0 +1,10 @@
+{
+    "rules": {
+      "@typescript-eslint/no-floating-promises": [
+        "error",
+        {
+          "ignoreVoid": true
+        }
+      ]
+    }
+  }
