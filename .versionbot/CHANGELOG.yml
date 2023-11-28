@@ -1,4 +1,27 @@
 - commits:
+    - subject: Avoid floating promises, and update npm packages
+      hash: 795cfced4cb19353cc0f92c06f6989b7a6cd3daf
+      body: >
+        Circumvent the various floating promises, in order to avoid
+
+        the `@typescript-eslint/no-floating-promises` error. Also
+
+        update various npm packages, including `@babel/transverse`,
+
+        to address the [critical alert](https://github.com/people-os/support-shift-scheduler/security/dependabot/20)
+
+        reported by dependabot.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 5.1.23
+  title: ""
+  date: 2023-11-28T09:58:37.926Z
+- commits:
     - subject: Update dependency @types/node to v20
       hash: f529ba7f5f588b6d4e10f7adc9b3363161c114ce
       body: |
