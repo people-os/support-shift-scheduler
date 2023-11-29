@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "lint": "balena-lint --typescript lib helper-scripts",
-    "lint-fix": "balena-lint --typescript --fix lib helper-scripts",
+    "lint": "balena-lint lib helper-scripts",
+    "lint-fix": "balena-lint --fix lib helper-scripts",
     "test": "npm run lint && npx tsc --noEmit",
     "beautify-schedule": "npx ts-node --transpile-only ./helper-scripts/beautify-schedule",
     "download-and-configure-input": "npx ts-node --transpile-only ./helper-scripts/download-and-configure-input",
