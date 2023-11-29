@@ -1,4 +1,24 @@
 - commits:
+    - subject: Remove the no longer necessary --typescript balena-lint flags
+      hash: fdef455762b7e4cd27006cfa4d16b5141e03fcbe
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Remove the unnecessary .eslintrc.json
+      hash: 8f99fe13f04b7c63cef594a85ca385ab0ee05190
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+  version: 5.1.25
+  title: ""
+  date: 2023-11-29T08:45:26.871Z
+- commits:
     - subject: Remove Flowdock mentions
       hash: 7a76b60bd519b51325b74714a16b1368c008198d
       body: ""
