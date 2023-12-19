@@ -26,7 +26,7 @@
     "@types/moment-timezone": "^0.5.30",
     "bluebird": "^3.7.2",
     "dotenv": "^16.3.1",
-    "googleapis": "^128.0.0",
+    "googleapis": "^129.0.0",
     "jsonschema": "^1.4.1",
     "lodash": "^4.17.21",
     "log": "^6.3.1",
