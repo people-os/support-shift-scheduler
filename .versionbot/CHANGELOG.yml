@@ -1,4 +1,21 @@
 - commits:
+    - subject: Remove repo config from flowzone.yml
+      hash: 5abf0c6dc73ceeb7a12f576b4b312ce3628f5143
+      body: |
+        This functionality is being deprecated in Flowzone.
+
+        See: https://github.com/product-os/flowzone/pull/833
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 5.1.26
+  title: ""
+  date: 2023-12-19T23:23:14.128Z
+- commits:
     - subject: Remove the no longer necessary --typescript balena-lint flags
       hash: fdef455762b7e4cd27006cfa4d16b5141e03fcbe
       body: ""
