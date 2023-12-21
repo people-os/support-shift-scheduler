@@ -80,39 +80,40 @@ async function writePrettifiedShiftsText(
 	let maxHours = 0;
 
 	for (const epoch of shiftsJson) {
-		const epochDate = new Date(epoch.start_date);
-		const maxDayHours = _.maxBy(
-			epoch.shifts,
-			(s: { end: number }) => s.end,
-		).end;
-		maxHours = Math.max(maxHours, maxDayHours);
-		const hours = new Array(maxDayHours).fill(0);
-
-		let lastStartDate = new Date(epochDate.getTime() - 24 * 60 * MINUTES);
-
-		for (const shift of epoch.shifts) {
-			const startDate = new Date(
-				epochDate.getTime() + shift.start * 30 * MINUTES,
-			);
-			if (startDate.getUTCDay() !== lastStartDate.getUTCDay()) {
-				lastStartDate = startDate;
-				prettySchedule += `\nShifts for ${dateFormat.format(startDate)}\n`;
+		if (epoch.shifts.length > 0) {
+			const epochDate = new Date(epoch.start_date);
+			const maxDayHours = _.maxBy(
+				epoch.shifts,
+				(s: { end: number }) => s.end,
+			).end;
+			maxHours = Math.max(maxHours, maxDayHours);
+			const hours = new Array(maxDayHours).fill(0);
+	
+			let lastStartDate = new Date(epochDate.getTime() - 24 * 60 * MINUTES);
+	
+			for (const shift of epoch.shifts) {
+				const startDate = new Date(
+					epochDate.getTime() + shift.start * 30 * MINUTES,
+				);
+				if (startDate.getUTCDay() !== lastStartDate.getUTCDay()) {
+					lastStartDate = startDate;
+					prettySchedule += `\nShifts for ${dateFormat.format(startDate)}\n`;
+				}
+				const agentName =
+					shift.agent.replace(/ <.*>/, '').replace(/@/, '@**') + '**';
+				const len = (shift.end - shift.start) / 2;
+				const startStr = prettyHourStr(shift.start);
+				const endStr = prettyHourStr(shift.end);
+				prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
+				agentHours[agentName] = agentHours[agentName] || 0;
+				agentHours[agentName] += len;
+				for (let i = shift.start; i < shift.end; i++) {
+					const h = Math.floor(i / 2);
+					hours[h] = hours[h] + 0.5;
+				}
 			}
-			const agentName =
-				shift.agent.replace(/ <.*>/, '').replace(/@/, '@**') + '**';
-			const len = (shift.end - shift.start) / 2;
-			const startStr = prettyHourStr(shift.start);
-			const endStr = prettyHourStr(shift.end);
-			prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
-			agentHours[agentName] = agentHours[agentName] || 0;
-			agentHours[agentName] += len;
-			for (let i = shift.start; i < shift.end; i++) {
-				const h = Math.floor(i / 2);
-				hours[h] = hours[h] + 0.5;
-			}
+			dailyAgents.push({ day: epochDate, hours });
 		}
-
-		dailyAgents.push({ day: epochDate, hours });
 	}
 	prettySchedule += '\nSupport hours\n-------------\n';
 
