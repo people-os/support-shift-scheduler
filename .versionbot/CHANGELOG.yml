@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add a 1-sec delay between VO invites.
+      hash: 7fbc9cbcc684a47a0ab2995bd9adc173eb1a0773
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Genadi Naydenov
+      nested: []
+  version: 5.1.27
+  title: ""
+  date: 2024-02-02T12:19:37.040Z
+- commits:
     - subject: Remove repo config from flowzone.yml
       hash: 5abf0c6dc73ceeb7a12f576b4b312ce3628f5143
       body: |
