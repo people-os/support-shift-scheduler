@@ -32,6 +32,11 @@ async function createScheduleOverrides(date, scheduleName) {
 
 	const v = new VictorOpsApiClient();
 
+	// Define a delay function that returns a Promise<void>
+	const delay = (ms: number): Promise<void> => {
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	};
+
 	try {
 		const shiftsObject = await readAndParseJSONSchedule(date, scheduleName);
 
@@ -59,6 +64,8 @@ async function createScheduleOverrides(date, scheduleName) {
 							assignment.policy,
 							{ username: victoropsUsernames[shift.agentName.slice(1)] },
 						);
+						// Wait for 1 second before the next iteration
+						await delay(1000); // 1000 milliseconds = 1 second
 					}
 				}
 			}
