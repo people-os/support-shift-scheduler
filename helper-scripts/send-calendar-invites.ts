@@ -92,7 +92,7 @@ async function createEvents(date, modelName) {
 				auth: authClient,
 				calendarId: support.calendarID,
 				conferenceDataVersion: 1,
-				sendUpdates: 'all',
+				sendUpdates: 'null',
 				requestBody: eventResource,
 			});
 			const summary = `${eventResponse.data.summary} ${eventResponse.data.start.dateTime}`;
