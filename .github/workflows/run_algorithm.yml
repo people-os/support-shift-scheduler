@@ -1,0 +1,30 @@
+name: Test Algorithm
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Poetry
+        run: |
+          pipx install poetry
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          poetry install
+      - name: Run Algorithm
+        run: |
+          source $(poetry env info --path)/bin/activate
+          python algo-core --input logs/2023-02-20_balenaio/support-shift-scheduler-input.json > logs/2023-02-20_balenaio/log.txt
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: support-schedule
+          path: logs/2023-02-20_balenaio/
