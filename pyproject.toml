@@ -7,7 +7,7 @@ license = "Apache-2.0"
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<3.11"
-pandas = "^1.5.2"
+pandas = "^2.0.0"
 ortools = "^9.4.1874"
 colorama = "^0.4.6"
 jsonschema = "^4.17.1"
