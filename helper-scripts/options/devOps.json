@@ -8,7 +8,7 @@
     "shiftMaxDuration": 24,
     "useTwos": true,
     "useThrees" : false,      
-    "optimizationTimeout": 0.3,
+    "optimizationTimeout": 1.0,
     "logSheet": "1CcyoRGVXA8D-zfQG7sn0lZkw0GxsfVBxpR5eV1Uymyw",
     "onboardingSheet": "13S1mDstNIb5hwEJ6XScGEuAVy0isvTZh_dIT2ZINuCo",
     "calendarID": "c_ktn7k7hgb826l18mll4ilpjbl8@group.calendar.google.com",
