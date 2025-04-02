@@ -43,7 +43,7 @@ def define_custom_var_domains(coefficients, df_agents, config):
     )
 
     custom_domains["prefs"] = pd.Series(
-        data=None, index=dh_multi_index, dtype="float64"
+        data=None, index=dh_multi_index, dtype="object"
     )
 
     for d in range(config["num_days"]):

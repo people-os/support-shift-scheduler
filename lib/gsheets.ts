@@ -18,12 +18,23 @@ config();
 import { google } from 'googleapis';
 import * as _ from 'lodash';
 
+interface Agent {
+	handle: string;
+	email: string;
+	weight: number;
+	isSupportEngineer: number;
+	teamworkBalance: number;
+	nextWeekCredit: number;
+	idealShiftLength: number;
+	availableSlots: number[][];
+}
+
 /**
  * Create object from raw agent input.
  * @param  {array}  rawInput    Raw spreadsheet data as nested arrays
- * @return {Promise<object>}             Object with keys in format `@<github-handle>`
+ * @return {object}             Object with keys in format `@<github-handle>`
  */
-async function createObject(rawInput) {
+function createObject(rawInput) {
 	return _.reduce(
 		rawInput,
 		(dict, row) => {
@@ -39,7 +50,7 @@ async function createObject(rawInput) {
  * Check if input object has duplicate keys, and if so throw error.
  * @param  {object}  inputObjects    Raw spreadsheet data as nested arrays
  */
-async function checkForDuplicates(inputObjects = {}) {
+function checkForDuplicates(inputObjects = {}) {
 	const handles = Object.keys(inputObjects);
 	if (handles.length !== _.uniq(handles).length) {
 		throw new Error('The input has duplicate agent handles');
@@ -49,13 +60,14 @@ async function checkForDuplicates(inputObjects = {}) {
 /**
  * Create agent object, checking for correct format for final scheduler input.
  * @param  {object}   opts   Object containing the necessary properties
- * @return {Promise<object>}          Checked agent object
+ * @return {Agent}          Checked agent object
  */
-async function createAgent(opts) {
+function createAgent(opts) {
 	const requiredOpts = [
 		'handle',
 		'email',
 		'weight',
+		'isSupportEngineer',
 		'teamworkBalance',
 		'nextWeekCredit',
 		'idealShiftLength',
@@ -83,18 +95,18 @@ function parseAvailability(availability) {
  * @param  {array}  rawInput    Raw spreadsheet data as nested arrays
  * @param  {string} startDate   Schedule start date in format YYYY-MM-DD
  * @param  {number} numDays     Number of consecutive days to schedule
- * @return {Promise<object>}             Parsed input object for scheduler
+ * @return {object}             Parsed input object for scheduler
  */
-async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
+function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 	if (_.isEmpty(startDate)) {
 		throw new Error('Need start date');
 	}
 	const schedulerInput = {
-		agents: [],
+		agents: [] as Agent[],
 		options: {},
 	};
-	const inputByGithubHandle = await createObject(rawInput);
-	await checkForDuplicates(inputByGithubHandle);
+	const inputByGithubHandle = createObject(rawInput);
+	checkForDuplicates(inputByGithubHandle);
 
 	for (const handle of Object.keys(inputByGithubHandle)) {
 		const email = inputByGithubHandle[handle].shift();
@@ -103,14 +115,14 @@ async function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 		const teamworkBalance = Number(inputByGithubHandle[handle].shift());
 		const nextWeekCredit = Number(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
-		const availableSlots = [];
+		const availableSlots: number[][] = [];
 		for (let i = 0; i < numDays; i++) {
 			const slotAvailability = inputByGithubHandle[handle]
 				.splice(0, 48)
 				.map(parseAvailability);
 			availableSlots.push(slotAvailability);
 		}
-		const newAgent = await createAgent({
+		const newAgent = createAgent({
 			handle,
 			email,
 			weight,
@@ -152,7 +164,7 @@ export async function getSchedulerInput(auth, nextMondayDate, support) {
 		range,
 		valueRenderOption: 'FORMATTED_VALUE',
 	});
-	const parsedInput = await parseInput(
+	const parsedInput = parseInput(
 		result.data.values,
 		nextMondayDate,
 		support.numDays + 1,
@@ -164,9 +176,9 @@ export async function getSchedulerInput(auth, nextMondayDate, support) {
 /**
  * Parse agent data read from Support Scheduler History.
  * @param  {array}  rawInput    Raw spreadsheet data as nested arrays
- * @return {Promise<object>}             Parsed input object for scheduler
+ * @return {object}             Parsed input object for scheduler
  */
-async function parseOnboardingInput(rawInput) {
+function parseOnboardingInput(rawInput) {
 	const columns = rawInput;
 	const onboarderInput = {
 		mentors: [],
@@ -193,7 +205,7 @@ async function parseOnboardingInput(rawInput) {
 export async function getOnboardingInput(auth, nextMondayDate, support) {
 	const sheets = google.sheets({ version: 'v4', auth });
 	const range = nextMondayDate + '!A2:B';
-	let agents = [];
+	let agents: any[][] | null | undefined = [];
 	try {
 		const result = await sheets.spreadsheets.values.get({
 			spreadsheetId: support.onboardingSheet,
@@ -208,10 +220,11 @@ export async function getOnboardingInput(auth, nextMondayDate, support) {
 			support.modelName,
 			'on',
 			nextMondayDate,
-			'not found.',
+			'not found:',
+			err,
 		);
 		return process.exit(0);
 	}
-	const parsedInput = await parseOnboardingInput(agents);
+	const parsedInput = parseOnboardingInput(agents);
 	return parsedInput;
 }

@@ -22,7 +22,7 @@ import * as scheduleOutputSchema from './schemas/support-shift-scheduler-output.
  * @param  {object}   json   JSON input object
  * @return {Promise<object>}         jsonschema Validator object
  */
-export async function validateJSONScheduleInput(json = {}) {
+export function validateJSONScheduleInput(json = {}) {
 	const validator = new Validator();
 	return validator.validate(json, scheduleInputSchema, {
 		throwError: true,
@@ -35,7 +35,7 @@ export async function validateJSONScheduleInput(json = {}) {
  * @param  {object}   json   JSON output object
  * @return {Promise<object>}         jsonschema Validator object
  */
-export async function validateJSONScheduleOutput(json = {}) {
+export function validateJSONScheduleOutput(json = {}) {
 	const validator = new Validator();
 	return validator.validate(json, scheduleOutputSchema, {
 		throwError: true,
@@ -53,6 +53,6 @@ export async function readAndParseJSONSchedule(date, scheduleName) {
 	const jsonObject = await import(
 		`../logs/${date}_${scheduleName}/support-shift-scheduler-output.json`
 	);
-	await validateJSONScheduleOutput(jsonObject);
+	validateJSONScheduleOutput(jsonObject);
 	return jsonObject;
 }

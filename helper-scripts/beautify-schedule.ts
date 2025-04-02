@@ -18,7 +18,8 @@ dotenv.config();
 
 import * as _ from 'lodash';
 import * as fs from 'mz/fs';
-import zulipInit = require('zulip-js');
+// import zulipInit = require('zulip-js');
+import * as zulipInit from 'zulip-js';
 import { readAndParseJSONSchedule } from '../lib/validate-json';
 
 const MINUTES = 60 * 1000;
@@ -76,15 +77,13 @@ async function writePrettifiedShiftsText(
 	// Write pretty schedule, to be used for sanity check:
 	const agentHours = {};
 	let prettySchedule = '';
-	const dailyAgents = [];
+	const dailyAgents: Array<{ day: Date; hours: any[] }> = [];
 	let maxHours = 0;
 
 	for (const epoch of shiftsJson) {
 		const epochDate = new Date(epoch.start_date);
-		const maxDayHours = _.maxBy(
-			epoch.shifts,
-			(s: { end: number }) => s.end,
-		).end;
+		const maxDayHours =
+			_.maxBy(epoch.shifts, (s: { end: number }) => s.end)?.end ?? 0;
 		maxHours = Math.max(maxHours, maxDayHours);
 		const hours = new Array(maxDayHours).fill(0);
 
@@ -104,7 +103,7 @@ async function writePrettifiedShiftsText(
 			const startStr = prettyHourStr(shift.start);
 			const endStr = prettyHourStr(shift.end);
 			prettySchedule += `${startStr} - ${endStr} (${len} hours) - ${agentName}\n`;
-			agentHours[agentName] = agentHours[agentName] || 0;
+			agentHours[agentName] = agentHours[agentName] ?? 0;
 			agentHours[agentName] += len;
 			for (let i = shift.start; i < shift.end; i++) {
 				const h = Math.floor(i / 2);
