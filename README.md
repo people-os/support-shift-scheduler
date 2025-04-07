@@ -129,7 +129,7 @@ $ poetry shell
 From within the relevant `./logs/<startDate>_<supportName>`  directory (or `./logs/example` if you are using the example data), launch the solver with:
 
 ```bash
-$ python3 ../../algo-core --input support-shift-scheduler-input.json
+$ python ../../algo-core --input support-shift-scheduler-input.json
 ```
 
 Upon completion, the algorithm will write the optimised schedule to the file `support-shift-scheduler-output.json` (after validating against the [json output schema](./lib/schemas/support-shift-scheduler-output.schema.json)).

@@ -16,7 +16,8 @@
 import { config } from 'dotenv';
 config();
 import * as fs from 'mz/fs';
-import { google, calendar_v3 } from 'googleapis';
+import { google } from 'googleapis';
+import type { calendar_v3 } from 'googleapis';
 import { getJWTAuthClient } from '../lib/gauth';
 import { readAndParseJSONSchedule } from '../lib/validate-json';
 const TIMEZONE = 'Europe/London';
@@ -34,7 +35,7 @@ function isoDateWithoutTimezone(date) {
  * @param  {string}   modelName   The schedule we're targeting, eg `balenaio`
  * @return {Promise<Array<calendar_v3.Schema$Event>>}                   Array of events resources to be passed to Google Calendar API.
  */
-async function createEventResourceArray(shiftsObject, longName: string) {
+function createEventResourceArray(shiftsObject, longName: string) {
 	const returnArray: calendar_v3.Schema$Event[] = [];
 	for (const epoch of shiftsObject) {
 		const date = new Date(epoch.start_date);
@@ -79,13 +80,13 @@ async function createEvents(date, modelName) {
 
 	try {
 		const shiftsObject = await readAndParseJSONSchedule(date, modelName);
-		const eventResourceArray = await createEventResourceArray(
+		const eventResourceArray = createEventResourceArray(
 			shiftsObject,
 			support.longName,
 		);
 		const authClient = await getJWTAuthClient();
 		const calendar = google.calendar({ version: 'v3' });
-		const eventIDs = [];
+		const eventIDs: Array<string | null | undefined> = [];
 
 		for (const eventResource of eventResourceArray) {
 			const eventResponse = await calendar.events.insert({
@@ -95,7 +96,7 @@ async function createEvents(date, modelName) {
 				sendUpdates: 'all',
 				requestBody: eventResource,
 			});
-			const summary = `${eventResponse.data.summary} ${eventResponse.data.start.dateTime}`;
+			const summary = `${eventResponse.data.summary} ${eventResponse.data.start?.dateTime}`;
 			console.log(
 				'Event created: %s - %s',
 				summary,

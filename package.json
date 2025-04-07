@@ -23,32 +23,31 @@
   "author": "Balena",
   "license": "Apache-2.0",
   "dependencies": {
-    "@types/moment-timezone": "^0.5.30",
     "bluebird": "^3.7.2",
-    "dotenv": "^16.3.1",
-    "googleapis": "^128.0.0",
-    "jsonschema": "^1.4.1",
+    "dotenv": "^16.4.7",
+    "googleapis": "^148.0.0",
+    "jsonschema": "^1.5.0",
     "lodash": "^4.17.21",
-    "log": "^6.3.1",
+    "log": "^6.3.2",
     "mkdirp": "^3.0.1",
-    "moment-timezone": "^0.5.43",
+    "moment-timezone": "^0.5.48",
     "mz": "^2.7.0",
     "readline-sync": "^1.4.10",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "victorops-api-client": "^1.0.2",
-    "zulip-js": "^2.0.9"
+    "zulip-js": "^2.1.0"
   },
   "devDependencies": {
-    "@balena/lint": "^7.2.4",
+    "@balena/lint": "^9.1.6",
     "@types/bluebird": "^3.5.42",
-    "@types/lodash": "^4.14.202",
+    "@types/lodash": "^4.17.16",
     "@types/mkdirp": "^1.0.2",
     "@types/mz": "^2.7.8",
-    "@types/node": "^20.10.0",
+    "@types/node": "^22.13.17",
     "@types/readline-sync": "^1.4.8",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.1.0",
-    "typescript": "^5.3.2"
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "typescript": "^5.8.2"
   },
   "versionist": {
     "publishedAt": "2022-09-05T14:58:06.506Z"

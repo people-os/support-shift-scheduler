@@ -36,7 +36,7 @@ async function getData(startDate: string, supportName: string) {
 		_.assign(schedulerInput.options, support);
 		const stringifiedInput = JSON.stringify(schedulerInput, null, 2);
 
-		await validateJSONScheduleInput(schedulerInput);
+		validateJSONScheduleInput(schedulerInput);
 
 		const fileDir = `./logs/${startDate}_` + supportName;
 		await mkdirp(fileDir);
