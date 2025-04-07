@@ -1,4 +1,24 @@
 - commits:
+    - subject: Update Python and npm packages to latest
+      hash: 62e5024314f5978dd9064c824c9e95f4e8433240
+      body: |
+        Note that the OR-tools version has also been bumped to 9.12,
+        which supports Python 3.13. After complaints from Flowzone/
+        Test npm (22.x) regarding strictNullChecks, I just enabled
+        strict=true, and performed some other tweaks to the TypeScript
+        code to accommodate this. I also removed the redundant
+        @types/moment-timezone from package.json.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 5.3.0
+  title: ""
+  date: 2025-04-07T14:18:40.110Z
+- commits:
     - subject: Create separate nocover agents, one with 2s and one with 3s
       hash: 4194a1a9c943a7dd0463943460a5b713bd2ce93c
       body: |
@@ -84,16 +104,11 @@
 - commits:
     - subject: Avoid floating promises, and update npm packages
       hash: 795cfced4cb19353cc0f92c06f6989b7a6cd3daf
-      body: >
+      body: |
         Circumvent the various floating promises, in order to avoid
-
         the `@typescript-eslint/no-floating-promises` error. Also
-
         update various npm packages, including `@babel/transverse`,
-
-        to address the [critical
-        alert](https://github.com/people-os/support-shift-scheduler/security/dependabot/20)
-
+        to address the [critical alert](https://github.com/people-os/support-shift-scheduler/security/dependabot/20)
         reported by dependabot.
       footer:
         Change-type: patch
@@ -976,27 +991,16 @@
 - commits:
     - subject: "patch: bump ts-node from 10.2.1 to 10.4.0"
 - commits:
-    - body: >-
-        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 10.2.1 to
-        10.4.0.
-
+    - body: |-
+        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 10.2.1 to 10.4.0.
         - [Release notes](https://github.com/TypeStrong/ts-node/releases)
-
-        -
-        [Commits](https://github.com/TypeStrong/ts-node/compare/v10.2.1...v10.4.0)
-
+        - [Commits](https://github.com/TypeStrong/ts-node/compare/v10.2.1...v10.4.0)
         ---
-
         updated-dependencies:
-
         - dependency-name: ts-node
-
         dependency-type: direct:production
-
         update-type: version-update:semver-minor
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.2.7
 - date: 2021-12-11T13:41:41Z
@@ -1007,29 +1011,16 @@
 - commits:
     - subject: "patch: bump @types/lodash from 4.14.172 to 4.14.178"
 - commits:
-    - body: >-
-        Bumps
-        [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash)
-        from 4.14.172 to 4.14.178.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
-
+    - body: |-
+        Bumps [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash) from 4.14.172 to 4.14.178.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/lodash"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.2.6
 - date: 2021-12-11T13:36:36Z
@@ -1040,29 +1031,16 @@
 - commits:
     - subject: "patch: bump @types/node from 15.12.5 to 16.11.12"
 - commits:
-    - body: >-
-        Bumps
-        [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node)
-        from 15.12.5 to 16.11.12.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
-
+    - body: |-
+        Bumps [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node) from 15.12.5 to 16.11.12.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/node"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.2.5
 - date: 2021-12-11T13:29:36Z
@@ -1101,32 +1079,17 @@
 - commits:
     - subject: "patch: bump googleapis from 85.0.0 to 92.0.0"
 - commits:
-    - body: >-
-        Bumps
-        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
-        from 85.0.0 to 92.0.0.
-
-        - [Release
-        notes](https://github.com/googleapis/google-api-nodejs-client/releases)
-
-        -
-        [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/main/CHANGELOG.md)
-
-        -
-        [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/googleapis-v85.0.0...googleapis-v92.0.0)
-
+    - body: |-
+        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client) from 85.0.0 to 92.0.0.
+        - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
+        - [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/main/CHANGELOG.md)
+        - [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/googleapis-v85.0.0...googleapis-v92.0.0)
         ---
-
         updated-dependencies:
-
         - dependency-name: googleapis
-
         dependency-type: direct:production
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.2.3
 - date: 2021-10-27T21:17:19Z
@@ -1239,27 +1202,16 @@
 - commits:
     - subject: "patch: bump ts-node from 10.0.0 to 10.2.1"
 - commits:
-    - body: >-
-        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 10.0.0 to
-        10.2.1.
-
+    - body: |-
+        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 10.0.0 to 10.2.1.
         - [Release notes](https://github.com/TypeStrong/ts-node/releases)
-
-        -
-        [Commits](https://github.com/TypeStrong/ts-node/compare/v10.0.0...v10.2.1)
-
+        - [Commits](https://github.com/TypeStrong/ts-node/compare/v10.0.0...v10.2.1)
         ---
-
         updated-dependencies:
-
         - dependency-name: ts-node
-
         dependency-type: direct:production
-
         update-type: version-update:semver-minor
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.32
 - date: 2021-09-08T05:45:12Z
@@ -1291,27 +1243,16 @@
 - commits:
     - subject: "patch: bump typescript from 4.3.5 to 4.4.2"
 - commits:
-    - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.5
-        to 4.4.2.
-
+    - body: |-
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.5 to 4.4.2.
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
-
-        -
-        [Commits](https://github.com/Microsoft/TypeScript/compare/v4.3.5...v4.4.2)
-
+        - [Commits](https://github.com/Microsoft/TypeScript/compare/v4.3.5...v4.4.2)
         ---
-
         updated-dependencies:
-
         - dependency-name: typescript
-
         dependency-type: direct:development
-
         update-type: version-update:semver-minor
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.30
 - date: 2021-09-03T11:24:29Z
@@ -1322,32 +1263,17 @@
 - commits:
     - subject: "patch: bump googleapis from 76.0.0 to 85.0.0"
 - commits:
-    - body: >-
-        Bumps
-        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
-        from 76.0.0 to 85.0.0.
-
-        - [Release
-        notes](https://github.com/googleapis/google-api-nodejs-client/releases)
-
-        -
-        [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/master/CHANGELOG.md)
-
-        -
-        [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/googleapis-v76.0.0...googleapis-v85.0.0)
-
+    - body: |-
+        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client) from 76.0.0 to 85.0.0.
+        - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
+        - [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/master/CHANGELOG.md)
+        - [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/googleapis-v76.0.0...googleapis-v85.0.0)
         ---
-
         updated-dependencies:
-
         - dependency-name: googleapis
-
         dependency-type: direct:production
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.29
 - date: 2021-09-02T21:04:18Z
@@ -1358,29 +1284,16 @@
 - commits:
     - subject: "patch: bump @types/mkdirp from 1.0.1 to 1.0.2"
 - commits:
-    - body: >-
-        Bumps
-        [@types/mkdirp](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mkdirp)
-        from 1.0.1 to 1.0.2.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mkdirp)
-
+    - body: |-
+        Bumps [@types/mkdirp](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mkdirp) from 1.0.1 to 1.0.2.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mkdirp)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/mkdirp"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.28
 - date: 2021-09-02T20:57:45Z
@@ -1391,29 +1304,16 @@
 - commits:
     - subject: "patch: bump @types/mz from 2.7.3 to 2.7.4"
 - commits:
-    - body: >-
-        Bumps
-        [@types/mz](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mz)
-        from 2.7.3 to 2.7.4.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mz)
-
+    - body: |-
+        Bumps [@types/mz](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mz) from 2.7.3 to 2.7.4.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mz)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/mz"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.27
 - date: 2021-09-02T20:50:58Z
@@ -1424,27 +1324,16 @@
 - commits:
     - subject: "patch: bump lint-staged from 11.0.0 to 11.1.2"
 - commits:
-    - body: >-
-        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 11.0.0
-        to 11.1.2.
-
+    - body: |-
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 11.0.0 to 11.1.2.
         - [Release notes](https://github.com/okonet/lint-staged/releases)
-
-        -
-        [Commits](https://github.com/okonet/lint-staged/compare/v11.0.0...v11.1.2)
-
+        - [Commits](https://github.com/okonet/lint-staged/compare/v11.0.0...v11.1.2)
         ---
-
         updated-dependencies:
-
         - dependency-name: lint-staged
-
         dependency-type: direct:development
-
         update-type: version-update:semver-minor
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.26
 - date: 2021-09-02T10:29:31Z
@@ -1455,29 +1344,16 @@
 - commits:
     - subject: "patch: bump @types/lodash from 4.14.170 to 4.14.172"
 - commits:
-    - body: >-
-        Bumps
-        [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash)
-        from 4.14.170 to 4.14.172.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
-
+    - body: |-
+        Bumps [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash) from 4.14.170 to 4.14.172.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/lodash"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.25
 - date: 2021-09-02T10:17:48Z
@@ -1488,29 +1364,16 @@
 - commits:
     - subject: "patch: bump @types/readline-sync from 1.4.3 to 1.4.4"
 - commits:
-    - body: >-
-        Bumps
-        [@types/readline-sync](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/readline-sync)
-        from 1.4.3 to 1.4.4.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/readline-sync)
-
+    - body: |-
+        Bumps [@types/readline-sync](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/readline-sync) from 1.4.3 to 1.4.4.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/readline-sync)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/readline-sync"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.24
 - date: 2021-09-02T10:00:23Z
@@ -1521,29 +1384,16 @@
 - commits:
     - subject: "patch: bump @types/bluebird from 3.5.35 to 3.5.36"
 - commits:
-    - body: >-
-        Bumps
-        [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/bluebird)
-        from 3.5.35 to 3.5.36.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/bluebird)
-
+    - body: |-
+        Bumps [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/bluebird) from 3.5.35 to 3.5.36.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/bluebird)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/bluebird"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.23
 - date: 2021-09-02T09:54:23Z
@@ -1653,27 +1503,16 @@
 - commits:
     - subject: "patch: bump typescript from 4.3.2 to 4.3.5"
 - commits:
-    - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.2
-        to 4.3.5.
-
+    - body: |-
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.3.2 to 4.3.5.
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
-
-        -
-        [Commits](https://github.com/Microsoft/TypeScript/compare/v4.3.2...v4.3.5)
-
+        - [Commits](https://github.com/Microsoft/TypeScript/compare/v4.3.2...v4.3.5)
         ---
-
         updated-dependencies:
-
         - dependency-name: typescript
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.18
 - date: 2021-06-30T15:46:21Z
@@ -1710,29 +1549,16 @@
 - commits:
     - subject: "patch: bump @types/node from 15.12.2 to 15.12.5"
 - commits:
-    - body: >-
-        Bumps
-        [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node)
-        from 15.12.2 to 15.12.5.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
-
+    - body: |-
+        Bumps [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node) from 15.12.2 to 15.12.5.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/node"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.15
 - date: 2021-06-28T11:15:03Z
@@ -1785,29 +1611,16 @@
 - commits:
     - subject: "patch: bump @types/lodash from 4.14.168 to 4.14.170"
 - commits:
-    - body: >-
-        Bumps
-        [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash)
-        from 4.14.168 to 4.14.170.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
-
+    - body: |-
+        Bumps [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash) from 4.14.168 to 4.14.170.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/lodash"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.11
 - date: 2021-06-11T12:13:12Z
@@ -1818,32 +1631,17 @@
 - commits:
     - subject: "patch: bump googleapis from 45.0.0 to 76.0.0"
 - commits:
-    - body: >-
-        Bumps
-        [googleapis](https://github.com/googleapis/google-api-nodejs-client)
-        from 45.0.0 to 76.0.0.
-
-        - [Release
-        notes](https://github.com/googleapis/google-api-nodejs-client/releases)
-
-        -
-        [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/master/CHANGELOG.md)
-
-        -
-        [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/v45.0.0...googleapis-v76.0.0)
-
+    - body: |-
+        Bumps [googleapis](https://github.com/googleapis/google-api-nodejs-client) from 45.0.0 to 76.0.0.
+        - [Release notes](https://github.com/googleapis/google-api-nodejs-client/releases)
+        - [Changelog](https://github.com/googleapis/google-api-nodejs-client/blob/master/CHANGELOG.md)
+        - [Commits](https://github.com/googleapis/google-api-nodejs-client/compare/v45.0.0...googleapis-v76.0.0)
         ---
-
         updated-dependencies:
-
         - dependency-name: googleapis
-
         dependency-type: direct:production
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.10
 - date: 2021-06-10T08:24:29Z
@@ -1906,29 +1704,16 @@
 - commits:
     - subject: "patch: bump @types/mkdirp from 0.5.2 to 1.0.1"
 - commits:
-    - body: >-
-        Bumps
-        [@types/mkdirp](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mkdirp)
-        from 0.5.2 to 1.0.1.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mkdirp)
-
+    - body: |-
+        Bumps [@types/mkdirp](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/mkdirp) from 0.5.2 to 1.0.1.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/mkdirp)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/mkdirp"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.7
 - date: 2021-06-10T08:04:08Z
@@ -1939,32 +1724,17 @@
 - commits:
     - subject: "patch: bump @balena/lint from 5.4.1 to 6.1.1"
 - commits:
-    - body: >-
-        Bumps
-        [@balena/lint](https://github.com/balena-io-modules/node-balena-lint)
-        from 5.4.1 to 6.1.1.
-
-        - [Release
-        notes](https://github.com/balena-io-modules/node-balena-lint/releases)
-
-        -
-        [Changelog](https://github.com/balena-io-modules/node-balena-lint/blob/master/CHANGELOG.md)
-
-        -
-        [Commits](https://github.com/balena-io-modules/node-balena-lint/compare/v5.4.1...v6.1.1)
-
+    - body: |-
+        Bumps [@balena/lint](https://github.com/balena-io-modules/node-balena-lint) from 5.4.1 to 6.1.1.
+        - [Release notes](https://github.com/balena-io-modules/node-balena-lint/releases)
+        - [Changelog](https://github.com/balena-io-modules/node-balena-lint/blob/master/CHANGELOG.md)
+        - [Commits](https://github.com/balena-io-modules/node-balena-lint/compare/v5.4.1...v6.1.1)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@balena/lint"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.6
 - date: 2021-06-10T07:58:04Z
@@ -1975,27 +1745,16 @@
 - commits:
     - subject: "patch: bump ts-node from 9.1.1 to 10.0.0"
 - commits:
-    - body: >-
-        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 9.1.1 to
-        10.0.0.
-
+    - body: |-
+        Bumps [ts-node](https://github.com/TypeStrong/ts-node) from 9.1.1 to 10.0.0.
         - [Release notes](https://github.com/TypeStrong/ts-node/releases)
-
-        -
-        [Commits](https://github.com/TypeStrong/ts-node/compare/v9.1.1...v10.0.0)
-
+        - [Commits](https://github.com/TypeStrong/ts-node/compare/v9.1.1...v10.0.0)
         ---
-
         updated-dependencies:
-
         - dependency-name: ts-node
-
         dependency-type: direct:production
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.5
 - date: 2021-06-09T09:26:20Z
@@ -2006,29 +1765,16 @@
 - commits:
     - subject: "patch: bump @types/bluebird from 3.5.33 to 3.5.35"
 - commits:
-    - body: >-
-        Bumps
-        [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/bluebird)
-        from 3.5.33 to 3.5.35.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/bluebird)
-
+    - body: |-
+        Bumps [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/bluebird) from 3.5.33 to 3.5.35.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/bluebird)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/bluebird"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-patch
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.4
 - date: 2021-06-09T09:13:22Z
@@ -2039,27 +1785,16 @@
 - commits:
     - subject: "patch: bump lint-staged from 10.5.4 to 11.0.0"
 - commits:
-    - body: >-
-        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 10.5.4
-        to 11.0.0.
-
+    - body: |-
+        Bumps [lint-staged](https://github.com/okonet/lint-staged) from 10.5.4 to 11.0.0.
         - [Release notes](https://github.com/okonet/lint-staged/releases)
-
-        -
-        [Commits](https://github.com/okonet/lint-staged/compare/v10.5.4...v11.0.0)
-
+        - [Commits](https://github.com/okonet/lint-staged/compare/v10.5.4...v11.0.0)
         ---
-
         updated-dependencies:
-
         - dependency-name: lint-staged
-
         dependency-type: direct:development
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.3
 - date: 2021-06-09T09:05:53Z
@@ -2070,30 +1805,17 @@
 - commits:
     - subject: "patch: bump mkdirp from 0.5.5 to 1.0.4"
 - commits:
-    - body: >-
-        Bumps [mkdirp](https://github.com/isaacs/node-mkdirp) from 0.5.5 to
-        1.0.4.
-
+    - body: |-
+        Bumps [mkdirp](https://github.com/isaacs/node-mkdirp) from 0.5.5 to 1.0.4.
         - [Release notes](https://github.com/isaacs/node-mkdirp/releases)
-
-        -
-        [Changelog](https://github.com/isaacs/node-mkdirp/blob/master/CHANGELOG.md)
-
-        -
-        [Commits](https://github.com/isaacs/node-mkdirp/compare/v0.5.5...v1.0.4)
-
+        - [Changelog](https://github.com/isaacs/node-mkdirp/blob/master/CHANGELOG.md)
+        - [Commits](https://github.com/isaacs/node-mkdirp/compare/v0.5.5...v1.0.4)
         ---
-
         updated-dependencies:
-
         - dependency-name: mkdirp
-
         dependency-type: direct:production
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.2
 - date: 2021-06-09T08:57:58Z
@@ -2104,27 +1826,16 @@
 - commits:
     - subject: "patch: bump typescript from 4.2.4 to 4.3.2"
 - commits:
-    - body: >-
-        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.2.4
-        to 4.3.2.
-
+    - body: |-
+        Bumps [typescript](https://github.com/Microsoft/TypeScript) from 4.2.4 to 4.3.2.
         - [Release notes](https://github.com/Microsoft/TypeScript/releases)
-
-        -
-        [Commits](https://github.com/Microsoft/TypeScript/compare/v4.2.4...v4.3.2)
-
+        - [Commits](https://github.com/Microsoft/TypeScript/compare/v4.2.4...v4.3.2)
         ---
-
         updated-dependencies:
-
         - dependency-name: typescript
-
         dependency-type: direct:development
-
         update-type: version-update:semver-minor
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.1
 - date: 2021-06-09T08:50:12Z
@@ -2135,29 +1846,16 @@
 - commits:
     - subject: "patch: bump @types/node from 14.14.41 to 15.12.2"
 - commits:
-    - body: >-
-        Bumps
-        [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node)
-        from 14.14.41 to 15.12.2.
-
-        - [Release
-        notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
-
-        -
-        [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
-
+    - body: |-
+        Bumps [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node) from 14.14.41 to 15.12.2.
+        - [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+        - [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
         ---
-
         updated-dependencies:
-
         - dependency-name: "@types/node"
-
         dependency-type: direct:development
-
         update-type: version-update:semver-major
-
         ...
-
         Signed-off-by: dependabot[bot] <support@github.com>
 - version: 3.1.0
 - date: 2021-06-09T08:39:03Z
@@ -2320,17 +2018,11 @@
 - commits:
     - subject: "patch: Bump hosted-git-info from 2.8.8 to 2.8.9"
 - commits:
-    - body: >-
-        Bumps [hosted-git-info](https://github.com/npm/hosted-git-info) from
-        2.8.8 to 2.8.9.
-
+    - body: |-
+        Bumps [hosted-git-info](https://github.com/npm/hosted-git-info) from 2.8.8 to 2.8.9.
         - [Release notes](https://github.com/npm/hosted-git-info/releases)
-
-        -
-        [Changelog](https://github.com/npm/hosted-git-info/blob/v2.8.9/CHANGELOG.md)
-
-        -
-        [Commits](https://github.com/npm/hosted-git-info/compare/v2.8.8...v2.8.9)
+        - [Changelog](https://github.com/npm/hosted-git-info/blob/v2.8.9/CHANGELOG.md)
+        - [Commits](https://github.com/npm/hosted-git-info/compare/v2.8.8...v2.8.9)
 - version: 3.0.9
 - date: 2021-05-11T09:07:53Z
 - commits:
@@ -2343,17 +2035,11 @@
 - commits:
     - subject: "patch: Bump node-fetch from 2.6.0 to 2.6.1"
 - commits:
-    - body: >-
-        Bumps [node-fetch](https://github.com/bitinn/node-fetch) from 2.6.0 to
-        2.6.1.
-
+    - body: |-
+        Bumps [node-fetch](https://github.com/bitinn/node-fetch) from 2.6.0 to 2.6.1.
         - [Release notes](https://github.com/bitinn/node-fetch/releases)
-
-        -
-        [Changelog](https://github.com/node-fetch/node-fetch/blob/master/docs/CHANGELOG.md)
-
-        -
-        [Commits](https://github.com/bitinn/node-fetch/compare/v2.6.0...v2.6.1)
+        - [Changelog](https://github.com/node-fetch/node-fetch/blob/master/docs/CHANGELOG.md)
+        - [Commits](https://github.com/bitinn/node-fetch/compare/v2.6.0...v2.6.1)
 - version: 3.0.8
 - date: 2021-05-04T12:35:17Z
 - commits:
