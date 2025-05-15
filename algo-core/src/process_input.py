@@ -1,5 +1,5 @@
 """
-Copyright 2019-2023 Balena Ltd.
+Copyright 2019-2025 Balena Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,11 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import datetime
 import math
 import pandas as pd
 import numpy as np
 
+# A higher value here will compensate more aggressively for historical
+# teamwork balances:
 rebalancing_urgency = 7
 
 # def tracks_hours_to_slots(tracks):
@@ -176,7 +179,7 @@ def setup_agents_dataframe(agents, config):
     for agent in agents:
         available_slots = agent["availableSlots"]
 
-        for (d, _) in enumerate(available_slots):
+        for d, _ in enumerate(available_slots):
             # Set availability to 0 outside balena support hours:
             for i in range(config["start_slot"]):
                 available_slots[d][i] = 0
@@ -200,7 +203,7 @@ def setup_agents_dataframe(agents, config):
             "handle": agent["handle"],
             "email": agent["email"],
             "weight": agent["weight"],
-            "is_support_engineer": agent["isSupportEngineer"],
+            "is_support_engineer": int(agent["isSupportEngineer"]),
             "teamwork_balance": 2 * float(agent["teamworkBalance"]),
             "next_week_credit": 2 * float(agent["nextWeekCredit"]),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
@@ -281,6 +284,10 @@ def process_input_data(input_json, sr_onboarding, sr_mentors):
         config["allowed_availabilities"].append(2)
     if input_json["options"]["useThrees"]:
         config["allowed_availabilities"].append(3)
+
+    config["max_shifts_per_agent_per_day"] = int(
+        input_json["options"]["maxShiftsPerAgentPerDay"]
+    )
 
     config["total_slots_covered"] = get_total_slots_covered(
         config["hours_coverage"]
