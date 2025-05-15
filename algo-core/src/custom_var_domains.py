@@ -1,5 +1,5 @@
 """
-Copyright 2019-2023 Balena Ltd.
+Copyright 2019-2025 Balena Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 from ortools.sat.python import cp_model
 import pandas as pd
 
@@ -48,10 +49,10 @@ def define_custom_var_domains(coefficients, df_agents, config):
 
     for d in range(config["num_days"]):
         for h in df_agents.index:
-            custom_domains["prefs"].loc[
-                (d, h)
-            ] = cp_model.Domain.FromIntervals(
-                df_agents.loc[h, "slot_ranges"][d]
+            custom_domains["prefs"].loc[(d, h)] = (
+                cp_model.Domain.FromIntervals(
+                    df_agents.loc[h, "slot_ranges"][d]
+                )
             )
 
     # Duration cost domain:
@@ -91,6 +92,14 @@ def define_custom_var_domains(coefficients, df_agents, config):
 
     custom_domains["total_week_slots_cost"] = cp_model.Domain.FromValues(
         total_week_slots_cost_list
+    )
+
+    # Number of shifts per agent per day cost domain:
+    custom_domains["multiple_shifts_cost"] = cp_model.Domain.FromValues(
+        [
+            x * coefficients["multiple_shifts_per_day"]
+            for x in range(0, config["max_shifts_per_agent_per_day"])
+        ]
     )
 
     return custom_domains

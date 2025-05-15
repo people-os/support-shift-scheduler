@@ -109,6 +109,10 @@
           "description": "Minimum duration of a shift (default: 8)",
           "type": "number"
         },
+        "maxShiftsPerAgentPerDay": {
+          "description": "Maximum number of separate shifts per day allowed for each agent.",
+          "type": "number"
+        },
         "useTwos": {
           "description": "Whether or not 2-slots from agents' preferences may be scheduled",
           "type": "boolean"
@@ -276,7 +280,7 @@
           }
         }
       },
-      "required": ["modelName", "longName", "numDays", "startHour", "endHour", "shiftMinDuration", "shiftMaxDuration", "useTwos", "useThrees", "optimizationTimeout", "logSheet", "calendarID", "specialAgentConditions", "hoursCoverage", "agentDistribution"]
+      "required": ["modelName", "longName", "numDays", "startHour", "endHour", "shiftMinDuration", "shiftMaxDuration", "maxShiftsPerAgentPerDay", "useTwos", "useThrees", "optimizationTimeout", "logSheet", "calendarID", "specialAgentConditions", "hoursCoverage", "agentDistribution"]
     }
   },
   "required": [ "agents", "options" ]
