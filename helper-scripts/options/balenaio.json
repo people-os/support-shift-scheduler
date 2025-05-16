@@ -6,6 +6,7 @@
   "endHour": 27,
   "shiftMinDuration": 2,
   "shiftMaxDuration": 8,
+  "maxShiftsPerAgentPerDay": 1,
   "useTwos": true,
   "useThrees" : false,
   "optimizationTimeout": 5.5,

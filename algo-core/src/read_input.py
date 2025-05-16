@@ -1,5 +1,5 @@
 """
-Copyright 2019-2023 Balena Ltd.
+Copyright 2019-2025 Balena Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 import argparse
 import sys
 import json
@@ -58,12 +59,18 @@ def parse_json_input():
 def read_onboarding_files(input_folder):
     """Read agent handles from onboarding-related files into pandas series."""
     if (path := Path(input_folder, filename_onboarding)).exists():
-        ser_o = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
+        ser_o = pd.read_csv(path, header=None, names=["agents"]).squeeze(
+            "columns"
+        )
+        print(ser_o)
     else:
         ser_o = pd.Series(data=None, name="agents", dtype="str")
 
     if (path := Path(input_folder, filename_mentors)).exists():
-        ser_m = pd.read_csv(path, squeeze=True, header=None, names=["agents"])
+        ser_m = pd.read_csv(path, header=None, names=["agents"]).squeeze(
+            "columns"
+        )
+        print(ser_m)
     else:
         ser_m = pd.Series(data=None, name="agents", dtype="str")
     return [ser_o, ser_m]
