@@ -1,5 +1,5 @@
 """
-Copyright 2019-2023 Balena Ltd.
+Copyright 2019-2025 Balena Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 from ortools.sat.python import cp_model
 import json
 from pathlib import Path
@@ -26,10 +27,11 @@ from .read_input import get_project_root
 
 # Cost coefficients assigned to various soft constraints:
 coefficients = {
+    "fair_share": 1,
+    "longer_than_pref": 2,
+    "multiple_shifts_per_day": 2,
     "non_preferred": 2,
     "shorter_than_pref": 2,
-    "longer_than_pref": 2,
-    "fair_share": 1,
 }
 
 
@@ -37,14 +39,20 @@ coefficients = {
 # that it can be run independently after possible manual changes to the
 # output json.
 def verify_solution(
-    objective, sol_shifts, df_agents, agent_categories, config
+    objective,
+    sol_shifts,
+    daily_shift_count_per_agent,
+    df_agents,
+    agent_categories,
+    config,
 ):
     """Verify schedule against availability, and verify cost."""
     slot_cost = 0
     shift_length_cost = 0
     total_week_slots_cost = 0
+    multiple_shifts_cost = 0
     total_week_slots_by_veteran = {}
-    # Verify that agents were only scheduled when they are available,
+    # Verify that agents were only scheduled when they are available:
     for d in range(config["num_days"]):
         for shift in sol_shifts[d]["shifts"]:
             handle = shift["agentName"]
@@ -97,6 +105,15 @@ def verify_solution(
                         "but is not available!"
                     )
                     sys.exit(1)
+        # Calculate cost from veterans receiving more than 1 shift per day:
+        for handle, num_shifts in daily_shift_count_per_agent[d].items():
+            if num_shifts >= 2:
+                multiple_shifts_cost += coefficients[
+                    "multiple_shifts_per_day"
+                ] * (num_shifts - 1)
+                print(
+                    f"{handle} scheduled for {num_shifts} shifts on day {d}."
+                )
     print("VERIFIED: Agents only scheduled when available.")
     slot_cost = coefficients["non_preferred"] * slot_cost
 
@@ -116,7 +133,12 @@ def verify_solution(
                 f"{handle} was scheduled for {slots_more_than_fair_share*0.5}"
                 " hours more than their fair share."
             )
-    total_cost = total_week_slots_cost + shift_length_cost + slot_cost
+    total_cost = (
+        total_week_slots_cost
+        + shift_length_cost
+        + slot_cost
+        + multiple_shifts_cost
+    )
     if total_cost == objective:
         print(f"VERIFIED: Minimized cost of {total_cost} is correct.")
     else:
@@ -166,9 +188,8 @@ def extract_solution(
     # Extract solution:
     sol_shifts = []
     # TODO: Change agent, agentName to simply handle and email.
-
     sol_mentoring = []
-
+    daily_shift_count_per_agent = []
     for d in range(config["num_days"]):
         # day_shifts = {"start_date": config["days"][d], "shifts": []}
         day_shifts = {
@@ -179,25 +200,36 @@ def extract_solution(
             "start_date": config["days"][d].strftime("%Y-%m-%d"),
             "shifts": [],
         }
-
+        shift_count_per_agent = {}
         # Fetch shifts for veterans:
         for h in agent_categories["veterans"]:
-            if (
-                solver.Value(var_veterans["dh"].loc[(d, h), "shift_duration"])
-                != 0
-            ):
-                day_shifts["shifts"].append(
-                    {
-                        "agent": f"{h} <{df_agents.loc[h, 'email']}>",
-                        "agentName": h,
-                        "start": solver.Value(
-                            var_veterans["dh"].loc[(d, h), "shift_start"]
-                        ),
-                        "end": solver.Value(
-                            var_veterans["dh"].loc[(d, h), "shift_end"]
-                        ),
-                    }
-                )
+            for k in range(config["max_shifts_per_agent_per_day"]):
+                if (
+                    solver.Value(
+                        var_veterans["dhk"].loc[(d, h, k), "shift_duration"]
+                    )
+                    != 0
+                ):
+                    day_shifts["shifts"].append(
+                        {
+                            "agent": f"{h} <{df_agents.loc[h, 'email']}>",
+                            "agentName": h,
+                            "start": solver.Value(
+                                var_veterans["dhk"].loc[
+                                    (d, h, k), "shift_start"
+                                ]
+                            ),
+                            "end": solver.Value(
+                                var_veterans["dhk"].loc[(d, h, k), "shift_end"]
+                            ),
+                        }
+                    )
+                    if h in shift_count_per_agent:
+                        shift_count_per_agent[h] += 1
+                    else:
+                        shift_count_per_agent[h] = 1
+        daily_shift_count_per_agent.append(shift_count_per_agent)
+
         # Fetch shifts for onboarders:
         for h in agent_categories["onboarding"]:
             if (
@@ -251,7 +283,7 @@ def extract_solution(
         sys.exit(1)
 
     print("\nSuccessfully validated JSON output.")
-    return [sol_shifts, sol_mentoring]
+    return [sol_shifts, sol_mentoring, daily_shift_count_per_agent]
 
 
 def generate_solution(df_agents, agent_categories, config):
@@ -291,18 +323,21 @@ def generate_solution(df_agents, agent_categories, config):
     [solver, status] = run_solver(model, full_cost_list, config)
     if status in [cp_model.OPTIMAL, cp_model.FEASIBLE]:
         # Extract solution:
-        [sol_shifts, sol_mentoring] = extract_solution(
-            solver,
-            var_veterans,
-            var_onboarding,
-            df_agents,
-            agent_categories,
-            config,
+        [sol_shifts, sol_mentoring, daily_shift_count_per_agent] = (
+            extract_solution(
+                solver,
+                var_veterans,
+                var_onboarding,
+                df_agents,
+                agent_categories,
+                config,
+            )
         )
         # Verify solution:
         verify_solution(
             solver.ObjectiveValue(),
             sol_shifts,
+            daily_shift_count_per_agent,
             df_agents,
             agent_categories,
             config,

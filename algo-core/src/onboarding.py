@@ -1,5 +1,5 @@
 """
-Copyright 2019-2023 Balena Ltd.
+Copyright 2019-2025 Balena Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
 from ortools.sat.python import cp_model
 import pandas as pd
 
@@ -110,11 +111,12 @@ def fill_var_dataframes_onboarding(
 
     # h:
     for h in var_onboarding["h"].index:
-        var_onboarding["h"].loc[
-            h, "total_week_slots"
-        ] = model.NewIntVarFromDomain(
-            cp_model.Domain.FromValues([0, onboarding_weekly_slots]),
-            f"total_week_slots_{h}",
+        # total_week_slots
+        var_onboarding["h"].loc[h, "total_week_slots"] = (
+            model.NewIntVarFromDomain(
+                cp_model.Domain.FromValues([0, onboarding_weekly_slots]),
+                f"total_week_slots_{h}",
+            )
         )
 
     # dh:
@@ -122,75 +124,83 @@ def fill_var_dataframes_onboarding(
 
     for d in range(config["num_days"]):
         for h in agent_categories["onboarding"]:
+            # shift_start, shift_end, duration, interval
             if h in agent_categories["unavailable"][d]:
-                var_onboarding["dh"].loc[
-                    (d, h), "shift_start"
-                ] = model.NewIntVar(8, 8, f"shift_start_{d}_{h}")
-                var_onboarding["dh"].loc[
-                    (d, h), "shift_end"
-                ] = model.NewIntVar(8, 8, f"shift_end_{d}_{h}")
-                var_onboarding["dh"].loc[
-                    (d, h), "shift_duration"
-                ] = model.NewIntVar(0, 0, f"shift_duration_{d}_{h}")
+                # Then the onboarder is unavailable this week, and onboarding
+                # is skipped:
+                var_onboarding["dh"].loc[(d, h), "shift_start"] = (
+                    model.NewIntVar(8, 8, f"shift_start_{d}_{h}")
+                )
+                var_onboarding["dh"].loc[(d, h), "shift_end"] = (
+                    model.NewIntVar(8, 8, f"shift_end_{d}_{h}")
+                )
+                var_onboarding["dh"].loc[(d, h), "shift_duration"] = (
+                    model.NewIntVar(0, 0, f"shift_duration_{d}_{h}")
+                )
 
             else:
-                var_onboarding["dh"].loc[
-                    (d, h), "shift_start"
-                ] = model.NewIntVarFromDomain(
-                    custom_domains["prefs"].loc[(d, h)], f"shift_start_{d}_{h}"
+                var_onboarding["dh"].loc[(d, h), "shift_start"] = (
+                    model.NewIntVarFromDomain(
+                        custom_domains["prefs"].loc[(d, h)],
+                        f"shift_start_{d}_{h}",
+                    )
                 )
-                var_onboarding["dh"].loc[
-                    (d, h), "shift_end"
-                ] = model.NewIntVarFromDomain(
-                    custom_domains["prefs"].loc[(d, h)], f"shift_end_{d}_{h}"
+                var_onboarding["dh"].loc[(d, h), "shift_end"] = (
+                    model.NewIntVarFromDomain(
+                        custom_domains["prefs"].loc[(d, h)],
+                        f"shift_end_{d}_{h}",
+                    )
                 )
-                var_onboarding["dh"].loc[
-                    (d, h), "shift_duration"
-                ] = model.NewIntVarFromDomain(
-                    cp_model.Domain.FromValues([0, onboarding_shift_length]),
-                    f"shift_duration_{d}_{h}",
+                var_onboarding["dh"].loc[(d, h), "shift_duration"] = (
+                    model.NewIntVarFromDomain(
+                        cp_model.Domain.FromValues(
+                            [0, onboarding_shift_length]
+                        ),
+                        f"shift_duration_{d}_{h}",
+                    )
                 )
 
-            var_onboarding["dh"].loc[
-                (d, h), "interval"
-            ] = model.NewIntervalVar(
-                var_onboarding["dh"].loc[(d, h), "shift_start"],
-                var_onboarding["dh"].loc[(d, h), "shift_duration"],
-                var_onboarding["dh"].loc[(d, h), "shift_end"],
-                f"interval_{d}_{h}",
+            var_onboarding["dh"].loc[(d, h), "interval"] = (
+                model.NewIntervalVar(
+                    var_onboarding["dh"].loc[(d, h), "shift_start"],
+                    var_onboarding["dh"].loc[(d, h), "shift_duration"],
+                    var_onboarding["dh"].loc[(d, h), "shift_end"],
+                    f"interval_{d}_{h}",
+                )
             )
-
+            # is_agent_on
             var_onboarding["dh"].loc[(d, h), "is_agent_on"] = model.NewBoolVar(
                 f"is_agent_on_{d}_{h}"
             )
-
+            # is_in_pref_range
             var_onboarding["dh"].loc[(d, h), "is_in_pref_range"] = [
                 model.NewBoolVar(f"is_in_pref_range_{d}_{h}_{j}")
                 for (j, _) in enumerate(df_agents.loc[h, "slot_ranges"][d])
             ]
 
-    # dhs - onboarding:
+    # dhs:
     for d in range(config["num_days"]):
         for h in agent_categories["onboarding"]:
             for s in range(config["start_slot"], config["end_slot"]):
+                # is_start_smaller_equal_hour
                 var_onboarding["dhs"].loc[
                     (d, h, s), "is_start_smaller_equal_hour"
                 ] = model.NewBoolVar(
                     f"is_start_smaller_equal_hour_{d}_{h}_{s}"
                 )
-
+                # is_end_greater_than_hour
                 var_onboarding["dhs"].loc[
                     (d, h, s), "is_end_greater_than_hour"
                 ] = model.NewBoolVar(f"is_end_greater_than_hour_{d}_{h}_{s}")
-
-                var_onboarding["dhs"].loc[
-                    (d, h, s), "is_slot_cost"
-                ] = model.NewBoolVar(f"is_slot_cost_{d}_{h}_{s}")
-
-                var_onboarding["dhs"].loc[
-                    (d, h, s), "slot_cost"
-                ] = model.NewIntVarFromDomain(
-                    custom_domains["slot_cost"], f"slot_cost_{d}_{h}_{s}"
+                # is_slot_cost
+                var_onboarding["dhs"].loc[(d, h, s), "is_slot_cost"] = (
+                    model.NewBoolVar(f"is_slot_cost_{d}_{h}_{s}")
+                )
+                # slot_cost
+                var_onboarding["dhs"].loc[(d, h, s), "slot_cost"] = (
+                    model.NewIntVarFromDomain(
+                        custom_domains["slot_cost"], f"slot_cost_{d}_{h}_{s}"
+                    )
                 )
     return [model, var_onboarding]
 
@@ -210,7 +220,7 @@ def constraint_honour_agent_availability_onboarding(
                 ).OnlyEnforceIf(
                     var_onboarding["dh"].loc[(d, h), "is_agent_on"]
                 )
-                for (j, sec) in enumerate(df_agents.loc[h, "slot_ranges"][d]):
+                for j, sec in enumerate(df_agents.loc[h, "slot_ranges"][d]):
                     model.Add(
                         var_onboarding["dh"].loc[(d, h), "shift_start"]
                         >= sec[0]
@@ -296,9 +306,12 @@ def constraint_configure_mentoring(
     # If agent is on, he/she to be paired with exactly 1 mentor:
     for d in range(config["num_days"]):
         for h in agent_categories["onboarding"]:
+            # If onboarder is scheduled, there should be exactly on mentor:
             model.Add(
                 sum(var_onboarding["mentors"].loc[(d, h)].values.tolist()) == 1
             ).OnlyEnforceIf(var_onboarding["dh"].loc[(d, h), "is_agent_on"])
+            # If onboarder is not scheduled, there should not be an
+            # associated mentor:
             model.Add(
                 sum(var_onboarding["mentors"].loc[(d, h)].values.tolist()) == 0
             ).OnlyEnforceIf(
@@ -306,33 +319,35 @@ def constraint_configure_mentoring(
             )
 
             for m in var_onboarding["mentors"].columns:
-                model.AddImplication(
-                    var_onboarding["mentors"].loc[(d, h), m],
-                    var_veterans["dh"].loc[(d, m), "is_agent_on"],
-                )
-
-                # The mentor and onboarder start at the same time.
+                # For simplicity, if a veteran acts as mentor for an
+                # onboarder, the veteran should have exactly one shift
+                # on that day:
                 model.Add(
-                    var_onboarding["dh"].loc[(d, h), "shift_start"]
-                    == var_veterans["dh"].loc[(d, m), "shift_start"]
-                ).OnlyEnforceIf(
-                    [
-                        var_onboarding["mentors"].loc[(d, h), m],
-                        var_veterans["dh"].loc[(d, m), "is_agent_on"],
-                    ]
-                )
+                    var_veterans["dh"].loc[(d, m), "num_shifts"] == 1
+                ).OnlyEnforceIf(var_onboarding["mentors"].loc[(d, h), m])
 
-                # Mentor's shift may not be shorter than onboarder's:
-                model.Add(
-                    var_onboarding["dh"].loc[(d, h), "shift_duration"]
-                    - var_veterans["dh"].loc[(d, m), "shift_duration"]
-                    <= 0
-                ).OnlyEnforceIf(
-                    [
-                        var_onboarding["mentors"].loc[(d, h), m],
-                        var_veterans["dh"].loc[(d, m), "is_agent_on"],
-                    ]
-                )
+                for k in range(config["max_shifts_per_agent_per_day"]):
+                    # The mentor and onboarder start at the same time:
+                    model.Add(
+                        var_onboarding["dh"].loc[(d, h), "shift_start"]
+                        == var_veterans["dhk"].loc[(d, m, k), "shift_start"]
+                    ).OnlyEnforceIf(
+                        [
+                            var_onboarding["mentors"].loc[(d, h), m],
+                            var_veterans["dhk"].loc[(d, m, k), "is_agent_on"],
+                        ]
+                    )
+                    # Mentor's shift may not be shorter than onboarder's:
+                    model.Add(
+                        var_onboarding["dh"].loc[(d, h), "shift_duration"]
+                        - var_veterans["dhk"].loc[(d, m, k), "shift_duration"]
+                        <= 0
+                    ).OnlyEnforceIf(
+                        [
+                            var_onboarding["mentors"].loc[(d, h), m],
+                            var_veterans["dhk"].loc[(d, m, k), "is_agent_on"],
+                        ]
+                    )
 
     # A mentor should not have to mentor more than 1 onboarder per day:
     for d in range(config["num_days"]):
@@ -354,9 +369,9 @@ def cost_hours_onboarding(
     """Define onboarders' cost for assigned hours based on availability."""
     for d in range(config["num_days"]):
         for h in agent_categories["onboarding"]:
-            for (s_count, s_cost) in enumerate(
+            for s_count, s_cost in enumerate(
                 df_agents.loc[h, "slots"][d][
-                    config["start_slot"]: config["end_slot"]
+                    config["start_slot"]:config["end_slot"]
                 ]
             ):
                 s = s_count + config["start_slot"]

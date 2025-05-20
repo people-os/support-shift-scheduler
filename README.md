@@ -18,7 +18,7 @@ The core of the algorithm is a constraint solver, and we currently use the [Goog
 
 For local development, you need to `Clone or download` the repository to your local machine. You will need working installations of:
 
-- [Python](https://www.python.org/downloads/) (>=3.8) for the core scheduling algorithm, 
+- [Python](https://www.python.org/downloads/) (>=3.12) for the core scheduling algorithm, 
 - [Python Poetry](https://python-poetry.org/) for installing the Python modules.
 - [Node.js](https://nodejs.org/en/download/) (>= 11.12.0, including npm) for the helper scripts.
 
