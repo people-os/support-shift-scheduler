@@ -1,4 +1,26 @@
 - commits:
+    - subject: Extend scheduler to allow multiple shifts per agent per day
+      hash: 056a28eaea4dfe708b1f9259213a46513bc9964e
+      body: |
+        This change reconfigures the model variables by introducing another
+        dimension k, which allows an agent to be scheduled in at most
+        maxShiftsPerAgentPerDay (as specified in the options) shifts
+        on any given weekday. The penalty function is also extended so as
+        to bias the scheduler towards preferring not to assign multiple
+        shifts per day if it's not needed to avoid other costs.
+
+        Fibery improvement: https://balena.fibery.io/Work/Improvement/Improve-devOps-scheduler-to-handle-split-shifts-2763
+      footer:
+        Change-type: major
+        change-type: major
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 6.0.0
+  title: ""
+  date: 2025-05-20T07:12:30.011Z
+- commits:
     - subject: Lock file maintenance
       hash: f251f8cde8c63a249ce1a3a7d483e8977ba80dff
       body: |
