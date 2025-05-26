@@ -1,4 +1,17 @@
 - commits:
+    - subject: Lock file maintenance
+      hash: 81b93adadaeec21d3b27a4e679593085f719bd73
+      body: |
+        Update
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+      nested: []
+  version: 6.0.1
+  title: ""
+  date: 2025-05-26T00:44:57.060Z
+- commits:
     - subject: Extend scheduler to allow multiple shifts per agent per day
       hash: 056a28eaea4dfe708b1f9259213a46513bc9964e
       body: |
