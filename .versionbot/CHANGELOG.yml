@@ -1,4 +1,18 @@
 - commits:
+    - subject: Split off 2025 logs to prevent GSheet from becoming too big
+      hash: 61ff092b25218d53ec33e8ababb02ee2f26a92e8
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 6.0.2
+  title: ""
+  date: 2025-05-27T11:10:59.565Z
+- commits:
     - subject: Lock file maintenance
       hash: 81b93adadaeec21d3b27a4e679593085f719bd73
       body: |
