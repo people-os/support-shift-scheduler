@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add otaviojacobi to the DevOps rotation.
+      hash: a4eb31a5673edcc5009714e2458e1276938d9f0d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 6.0.3
+  title: ""
+  date: 2025-10-07T11:54:45.983Z
+- commits:
     - subject: Split off 2025 logs to prevent GSheet from becoming too big
       hash: 61ff092b25218d53ec33e8ababb02ee2f26a92e8
       body: ""
