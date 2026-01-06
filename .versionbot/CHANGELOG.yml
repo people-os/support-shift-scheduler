@@ -1,4 +1,23 @@
 - commits:
+    - subject: Start the balena-io support day at 08:00 UK
+      hash: 18be6b7c3d5ec3e99e74b8543e409eb2f5ae1fad
+      body: |
+        As detailed here:
+
+        https://balena.fibery.io/Work/Improvement/Explore-proposed-support-hours-(inc.-understanding-daylight-saving-changes)-3533
+
+        we no longer need coverage from 06:00-08:00 UK time.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 6.0.4
+  title: ""
+  date: 2026-01-06T02:37:46.987Z
+- commits:
     - subject: Add otaviojacobi to the DevOps rotation.
       hash: a4eb31a5673edcc5009714e2458e1276938d9f0d
       body: ""
