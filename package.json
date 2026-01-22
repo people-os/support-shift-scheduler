@@ -46,7 +46,7 @@
     "@types/node": "^22.13.17",
     "@types/readline-sync": "^1.4.8",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.0",
+    "lint-staged": "^16.0.0",
     "typescript": "^5.8.2"
   },
   "versionist": {
