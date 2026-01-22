@@ -30,7 +30,7 @@
     "lodash": "^4.17.21",
     "log": "^6.3.2",
     "mkdirp": "^3.0.1",
-    "moment-timezone": "^0.5.48",
+    "moment-timezone": "^0.6.0",
     "mz": "^2.7.0",
     "readline-sync": "^1.4.10",
     "ts-node": "^10.9.2",
