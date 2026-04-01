@@ -16,26 +16,68 @@
 import * as _ from 'lodash';
 import { mkdirp } from 'mkdirp';
 import { promises as fs } from 'fs';
+import * as moment from 'moment-timezone';
 
 import { getJWTAuthClient } from '../lib/gauth';
 import { getSchedulerInput } from '../lib/gsheets';
 import { validateJSONScheduleInput } from '../lib/validate-json';
 
 /**
- * Read and configure input data from Google Sheets, and save as JSON object
+ * Checks if this is a week where PT and UK time are only 7 hours
+ * apart instead of  8, due to misaligned daylight savings time
+ * changes.
+ */
+function testIsMisalignedDSTWeek(startDate: string) {
+	// Parse the Monday and move to Wednesday:
+	const checkDate = moment.utc(startDate).add(2, 'days').startOf('day');
+
+	// Get the offsets for the middle of the week:
+	const offsetPT = moment.tz(checkDate, 'America/Los_Angeles').utcOffset();
+	const offsetUK = moment.tz(checkDate, 'Europe/London').utcOffset();
+
+	// Return true if the gap is 7 hours (420 mins) instead of 8:
+	return Math.abs(offsetUK - offsetPT - 420) < 0.001;
+}
+
+/**
+ * Read and configure input data from Google Sheets, and save as JSON object.
  */
 async function getData(startDate: string, supportName: string) {
 	try {
-		const supportStr = await fs.readFile(
+		const supportJSONfile = await fs.readFile(
 			'helper-scripts/options/' + supportName + '.json',
 			'utf8',
 		);
-		const support = JSON.parse(supportStr);
+		const supportObj = JSON.parse(supportJSONfile);
 		const auth = await getJWTAuthClient();
-		const schedulerInput = await getSchedulerInput(auth, startDate, support);
-		_.assign(schedulerInput.options, support);
+		let relevantChannelOptions;
+		// First determine if an alternative cover configuration is relevant to this teamwork channel:
+		if (supportObj.configureAlternativeCover) {
+			// Get basic properties first:
+			relevantChannelOptions = _.omit(supportObj, [
+				'defaultCover',
+				'alternativeCover',
+				'configureAlternativeCover',
+			]);
+			// Get appropriate cover config:
+			const coverKey = testIsMisalignedDSTWeek(startDate)
+				? 'alternativeCover'
+				: 'defaultCover';
+			_.assign(relevantChannelOptions, supportObj[coverKey]);
+		} else {
+			// Then no nested "default" or "alternative" cover, just regular properties:
+			relevantChannelOptions = _.omit(supportObj, [
+				'configureAlternativeCover',
+			]);
+		}
+		// Get agent preferences, combine with options and write to file:
+		const schedulerInput = await getSchedulerInput(
+			auth,
+			startDate,
+			relevantChannelOptions,
+		);
+		_.assign(schedulerInput.options, relevantChannelOptions);
 		const stringifiedInput = JSON.stringify(schedulerInput, null, 2);
-
 		validateJSONScheduleInput(schedulerInput);
 
 		const fileDir = `./logs/${startDate}_` + supportName;

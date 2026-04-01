@@ -2,8 +2,6 @@
     "modelName": "devOps",
     "longName": "DevOps on-call",
     "numDays": 5,
-    "startHour": 3,
-    "endHour": 27,
     "shiftMinDuration": 1,
     "shiftMaxDuration": 24,
     "maxShiftsPerAgentPerDay": 2,
@@ -19,6 +17,9 @@
         "agentsMaxHoursWeek": [],
         "agentsFixHours": []
     },
+    "configureAlternativeCover" : false,
+    "startHour": 3,
+    "endHour": 27,
     "hoursCoverage": [
       {"start_day": 0, "end_day": 4, "min_hours": 120, "max_hours": 120}
     ],
