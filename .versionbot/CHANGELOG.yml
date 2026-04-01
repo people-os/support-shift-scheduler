@@ -1,4 +1,25 @@
 - commits:
+    - subject: Shorten balena-io support day to usually end at 01:00 UK
+      hash: c01c8f50b787cf233e37f0c43bf4faa64e988247
+      body: |
+        According to this project:
+        https://balena.fibery.io/Work/Project/Implement-New-Support-Schedule-2285
+
+        we are now ending the balena-io support day at 01:00 am UK time for
+        most of the year. However, there are also a few weeks of the year
+        when the daylight savings time changes of the Pacific and UK time
+        zones are not aligned, when we only need to cover until midnight UK.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 6.1.0
+  title: ""
+  date: 2026-04-01T09:39:00.780Z
+- commits:
     - subject: Update dependency lodash to v4.17.23 [SECURITY]
       hash: a3e7b5b8fb9baba2bdc5141d956414d35e033500
       body: |
