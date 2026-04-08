@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency lodash to v4.18.1 [SECURITY]
+      hash: 20bbde650b14af08004f5660afa1c3b329c95056
+      body: |
+        Update lodash from 4.17.23 to 4.18.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.1.1
+  title: ""
+  date: 2026-04-08T06:56:04.439Z
+- commits:
     - subject: Shorten balena-io support day to usually end at 01:00 UK
       hash: c01c8f50b787cf233e37f0c43bf4faa64e988247
       body: |
