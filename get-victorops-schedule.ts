@@ -20,8 +20,8 @@ import * as VictorOpsApiClient from 'victorops-api-client';
 import * as devOps from './helper-scripts/options/devOps.json';
 import * as _ from 'lodash';
 import { google, calendar_v3 } from 'googleapis';
-import { getAuthClient } from './lib/gauth';
-import { agents } from './logs/2022-08-01_devOps/support-shift-scheduler-input.json';
+import { getJWTAuthClient } from './lib/gauth';
+import { agents } from './logs/2026-04-20_devOps/support-shift-scheduler-input.json';
 import { setTimeout } from 'timers/promises';
 import { differenceInCalendarDays } from 'date-fns';
 
@@ -49,9 +49,10 @@ function getRoundedDate(d: Date) {
 }
 
 const devopsTeam = 'team-N8nHYAN7UHGG8CUb';
-const v = new VictorOpsApiClient();
+const v = new VictorOpsApiClient({ maxContentLength: 500000 });
 const calendar = google.calendar({ version: 'v3' });
 
+const DRY_RUN = process.env.DRY_RUN === 'true';
 const DAY_SKIP_MAX = 90;
 const DAYS_FORWARD_MAX = 123;
 async function futureWeekends(start: Date, end: Date) {
@@ -68,7 +69,7 @@ async function futureWeekends(start: Date, end: Date) {
 		);
 	}
 
-	const authClient = await getAuthClient(devOps);
+	const authClient = await getJWTAuthClient();
 
 	const x = (await v.oncall.getTeamSchedule(devopsTeam, {
 		daysForward: daysForward, // 123 max
@@ -123,13 +124,17 @@ async function futureWeekends(start: Date, end: Date) {
 							attendees: [{ email: handleToEmail[ghName] }],
 						};
 
-						await calendar.events.insert({
-							auth: authClient,
-							calendarId: devOps.calendarID,
-							conferenceDataVersion: 1,
-							sendUpdates: 'all',
-							requestBody: eventResource,
-						});
+						if (DRY_RUN) {
+							console.log('[DRY RUN] Would create event:', JSON.stringify(eventResource, null, 2));
+						} else {
+							await calendar.events.insert({
+								auth: authClient,
+								calendarId: devOps.calendarID,
+								conferenceDataVersion: 1,
+								sendUpdates: 'all',
+								requestBody: eventResource,
+							});
+						}
 					}
 				}
 			}
@@ -138,7 +143,7 @@ async function futureWeekends(start: Date, end: Date) {
 }
 
 async function pastSchedule(start: Date, end: Date, onlyWeekends = true) {
-	const authClient = await getAuthClient(devOps);
+	const authClient = await getJWTAuthClient();
 
 	const until = end;
 
@@ -207,13 +212,17 @@ async function pastSchedule(start: Date, end: Date, onlyWeekends = true) {
 					attendees: [{ email: handleToEmail[ghName] }],
 				};
 
-				await calendar.events.insert({
-					auth: authClient,
-					calendarId: devOps.calendarID,
-					conferenceDataVersion: 1,
-					sendUpdates: 'all',
-					requestBody: eventResource,
-				});
+				if (DRY_RUN) {
+					console.log('[DRY RUN] Would create event:', JSON.stringify(eventResource, null, 2));
+				} else {
+					await calendar.events.insert({
+						auth: authClient,
+						calendarId: devOps.calendarID,
+						conferenceDataVersion: 1,
+						sendUpdates: 'all',
+						requestBody: eventResource,
+					});
+				}
 			}
 		}
 
@@ -247,6 +256,10 @@ if (args.length !== 2) {
 const startDate = parseDate(args[0]);
 const endDate = parseDate(args[1]);
 const NOW = parseDate(Date());
+
+if (DRY_RUN) {
+	console.log('[DRY RUN] No calendar events will be created.');
+}
 
 if (endDate < startDate) {
 	throw new Error('Start date must be earlier than end date');
