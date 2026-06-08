@@ -16,19 +16,15 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+import { promises as fs } from 'fs';
 import * as VictorOpsApiClient from 'victorops-api-client';
-import * as devOps from './helper-scripts/options/devOps.json';
+import * as devOps from './options/devOps.json';
 import * as _ from 'lodash';
-import { google, calendar_v3 } from 'googleapis';
-import { getJWTAuthClient } from './lib/gauth';
-import { agents } from './logs/2026-04-20_devOps/support-shift-scheduler-input.json';
+import { google } from 'googleapis';
+import type { calendar_v3 } from 'googleapis';
+import { getJWTAuthClient } from '../lib/gauth';
 import { setTimeout } from 'timers/promises';
 import { differenceInCalendarDays } from 'date-fns';
-
-const handleToEmail = _(agents)
-	.keyBy((a) => a.handle.replace(/^@/, ''))
-	.mapValues((a) => a.email)
-	.value();
 
 const vOpsToGh = _.invert(devOps.victoropsUsernames);
 
@@ -42,8 +38,8 @@ function isoDateWithoutTimezone(date) {
 }
 
 function getRoundedDate(d: Date) {
-	let ms = 1000 * 60; // 1 minutes
-	let roundedDate = new Date(Math.round(d.getTime() / ms) * ms);
+	const ms = 1000 * 60; // 1 minutes
+	const roundedDate = new Date(Math.round(d.getTime() / ms) * ms);
 
 	return roundedDate;
 }
@@ -55,8 +51,30 @@ const calendar = google.calendar({ version: 'v3' });
 const DRY_RUN = process.env.DRY_RUN === 'true';
 const DAY_SKIP_MAX = 90;
 const DAYS_FORWARD_MAX = 123;
-async function futureWeekends(start: Date, end: Date) {
-	const daysInFuture = differenceInCalendarDays(start, NOW);
+async function loadHandleToEmail(inputDate: string) {
+	const inputFile = `logs/${inputDate}_${scheduleName}/support-shift-scheduler-input.json`;
+	const schedulerInput = JSON.parse(await fs.readFile(inputFile, 'utf8'));
+	return _(schedulerInput.agents)
+		.keyBy((a) => a.handle.replace(/^@/, ''))
+		.mapValues((a) => a.email)
+		.value();
+}
+
+function getEmail(handleToEmail, ghName: string) {
+	const email = handleToEmail[ghName];
+	if (!email) {
+		throw new Error(`Could not find email address for '${ghName}'`);
+	}
+	return email;
+}
+
+async function futureWeekends(
+	start: Date,
+	end: Date,
+	now: Date,
+	handleToEmail,
+) {
+	const daysInFuture = differenceInCalendarDays(start, now);
 	if (Number.isNaN(daysInFuture) || daysInFuture > DAY_SKIP_MAX) {
 		throw new Error(
 			`The start date can be at most ${DAY_SKIP_MAX} days in the future, got ${daysInFuture} days in the future`,
@@ -108,24 +126,27 @@ async function futureWeekends(start: Date, end: Date) {
 				if (shiftName === 'Weekend') {
 					for (const roll of rolls) {
 						const ghName = vOpsToGh[roll.onCallUser.username];
-						const start = getRoundedDate(new Date(roll.start));
-						const end = getRoundedDate(new Date(roll.end));
+						const eventStart = getRoundedDate(new Date(roll.start));
+						const eventEnd = getRoundedDate(new Date(roll.end));
 
 						const eventResource: calendar_v3.Schema$Event = {
 							summary: `${ghName} on ${scheduleName} support`,
 							start: {
 								timeZone: TIMEZONE,
-								dateTime: isoDateWithoutTimezone(start),
+								dateTime: isoDateWithoutTimezone(eventStart),
 							},
 							end: {
 								timeZone: TIMEZONE,
-								dateTime: isoDateWithoutTimezone(end),
+								dateTime: isoDateWithoutTimezone(eventEnd),
 							},
-							attendees: [{ email: handleToEmail[ghName] }],
+							attendees: [{ email: getEmail(handleToEmail, ghName) }],
 						};
 
 						if (DRY_RUN) {
-							console.log('[DRY RUN] Would create event:', JSON.stringify(eventResource, null, 2));
+							console.log(
+								'[DRY RUN] Would create event:',
+								JSON.stringify(eventResource, null, 2),
+							);
 						} else {
 							await calendar.events.insert({
 								auth: authClient,
@@ -142,7 +163,12 @@ async function futureWeekends(start: Date, end: Date) {
 	}
 }
 
-async function pastSchedule(start: Date, end: Date, onlyWeekends = true) {
+async function pastSchedule(
+	start: Date,
+	end: Date,
+	handleToEmail,
+	onlyWeekends = true,
+) {
 	const authClient = await getJWTAuthClient();
 
 	const until = end;
@@ -153,8 +179,8 @@ async function pastSchedule(start: Date, end: Date, onlyWeekends = true) {
 			end: end.toISOString(),
 		})) as {
 			teamSlug: string;
-			start: string; //'2022-01-11T00:00:00.000Z',
-			end: string; //'2022-01-11T14:34:45.066Z',
+			start: string; // '2022-01-11T00:00:00.000Z',
+			end: string; // '2022-01-11T14:34:45.066Z',
 			results: number;
 			userLogs: Array<{
 				userId: string;
@@ -181,21 +207,21 @@ async function pastSchedule(start: Date, end: Date, onlyWeekends = true) {
 				continue;
 			}
 			for (const log of userLog.log) {
-				const start = getRoundedDate(new Date(log.on));
-				const end = getRoundedDate(new Date(log.off));
+				const eventStart = getRoundedDate(new Date(log.on));
+				const eventEnd = getRoundedDate(new Date(log.off));
 
 				if (
 					onlyWeekends &&
 					// Starts on Friday or Saturday, since it's based on shift changes so they get merged - they need to be sorted/split manually :(
-					(!(start.getUTCDay() === 5 || start.getUTCDay() === 6) ||
+					(!(eventStart.getUTCDay() === 5 || eventStart.getUTCDay() === 6) ||
 						// Ends on Monday
-						end.getUTCDay() !== 1)
+						eventEnd.getUTCDay() !== 1)
 				) {
 					continue;
 				}
 				if (onlyWeekends && log.duration.hours > 48) {
 					console.warn(
-						`You will need to manually fix the entry for '${start}' to '${end}' for '${ghName}' as they had a normal shift run into a weekend shift and we don't separate them`,
+						`You will need to manually fix the entry for '${eventStart}' to '${eventEnd}' for '${ghName}' as they had a normal shift run into a weekend shift and we don't separate them`,
 					);
 				}
 
@@ -203,17 +229,20 @@ async function pastSchedule(start: Date, end: Date, onlyWeekends = true) {
 					summary: `${ghName} on ${scheduleName} support`,
 					start: {
 						timeZone: TIMEZONE,
-						dateTime: isoDateWithoutTimezone(start),
+						dateTime: isoDateWithoutTimezone(eventStart),
 					},
 					end: {
 						timeZone: TIMEZONE,
-						dateTime: isoDateWithoutTimezone(end),
+						dateTime: isoDateWithoutTimezone(eventEnd),
 					},
-					attendees: [{ email: handleToEmail[ghName] }],
+					attendees: [{ email: getEmail(handleToEmail, ghName) }],
 				};
 
 				if (DRY_RUN) {
-					console.log('[DRY RUN] Would create event:', JSON.stringify(eventResource, null, 2));
+					console.log(
+						'[DRY RUN] Would create event:',
+						JSON.stringify(eventResource, null, 2),
+					);
 				} else {
 					await calendar.events.insert({
 						auth: authClient,
@@ -245,30 +274,43 @@ function parseDate(input: string) {
 	return date;
 }
 
-const args = process.argv.slice(2);
-if (args.length !== 2) {
-	console.log(`Usage: node ${__filename} <start yyyy-mm-dd> <end yyyy-mm-dd>`);
-	console.log(
-		`If both start and end dates are in the past then we fetch historical info, if both are now/in the future then we fetch future shifts`,
-	);
+async function main() {
+	const args = process.argv.slice(2);
+	if (args.length < 2 || args.length > 3) {
+		console.log(
+			`Usage: node ${__filename} <start yyyy-mm-dd> <end yyyy-mm-dd> [input yyyy-mm-dd]`,
+		);
+		console.log(
+			`The optional input date selects logs/<input>_${scheduleName}/support-shift-scheduler-input.json for agent emails. It defaults to the start date.`,
+		);
+		process.exit(1);
+	}
+	const startDate = parseDate(args[0]);
+	const endDate = parseDate(args[1]);
+	const inputDate = args[2] ?? args[0];
+	const handleToEmail = await loadHandleToEmail(inputDate);
+	const NOW = parseDate(Date());
+
+	if (DRY_RUN) {
+		console.log('[DRY RUN] No calendar events will be created.');
+	}
+
+	if (endDate < startDate) {
+		throw new Error('Start date must be earlier than end date');
+	}
+
+	if (startDate <= NOW && endDate <= NOW) {
+		await pastSchedule(startDate, endDate, handleToEmail);
+	} else if (startDate >= NOW && endDate >= NOW) {
+		await futureWeekends(startDate, endDate, NOW, handleToEmail);
+	} else {
+		throw new Error(
+			`Both dates need to be in the past/now, or in the future/now`,
+		);
+	}
+}
+
+void main().catch((e) => {
+	console.error(e);
 	process.exit(1);
-}
-const startDate = parseDate(args[0]);
-const endDate = parseDate(args[1]);
-const NOW = parseDate(Date());
-
-if (DRY_RUN) {
-	console.log('[DRY RUN] No calendar events will be created.');
-}
-
-if (endDate < startDate) {
-	throw new Error('Start date must be earlier than end date');
-}
-
-if (startDate <= NOW && endDate <= NOW) {
-	pastSchedule(startDate, endDate);
-} else if (startDate >= NOW && endDate >= NOW) {
-	futureWeekends(startDate, endDate);
-} else {
-	throw new Error(`Both dates need to be in the past/now, or in the future/now`);
-}
+});
