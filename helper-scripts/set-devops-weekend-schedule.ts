@@ -67,6 +67,42 @@ function getEmail(handleToEmail, ghName: string) {
 	return email;
 }
 
+async function createSupportCalendarEvent(
+	authClient: Awaited<ReturnType<typeof getJWTAuthClient>>,
+	handleToEmail,
+	ghName: string,
+	eventStart: Date,
+	eventEnd: Date,
+) {
+	const eventResource: calendar_v3.Schema$Event = {
+		summary: `${ghName} on ${scheduleName} support`,
+		start: {
+			timeZone: TIMEZONE,
+			dateTime: isoDateWithoutTimezone(eventStart),
+		},
+		end: {
+			timeZone: TIMEZONE,
+			dateTime: isoDateWithoutTimezone(eventEnd),
+		},
+		attendees: [{ email: getEmail(handleToEmail, ghName) }],
+	};
+
+	if (DRY_RUN) {
+		console.log(
+			'[DRY RUN] Would create event:',
+			JSON.stringify(eventResource, null, 2),
+		);
+	} else {
+		await calendar.events.insert({
+			auth: authClient,
+			calendarId: devOps.calendarID,
+			conferenceDataVersion: 1,
+			sendUpdates: 'all',
+			requestBody: eventResource,
+		});
+	}
+}
+
 async function futureWeekends(
 	start: Date,
 	end: Date,
@@ -128,33 +164,13 @@ async function futureWeekends(
 						const eventStart = getRoundedDate(new Date(roll.start));
 						const eventEnd = getRoundedDate(new Date(roll.end));
 
-						const eventResource: calendar_v3.Schema$Event = {
-							summary: `${ghName} on ${scheduleName} support`,
-							start: {
-								timeZone: TIMEZONE,
-								dateTime: isoDateWithoutTimezone(eventStart),
-							},
-							end: {
-								timeZone: TIMEZONE,
-								dateTime: isoDateWithoutTimezone(eventEnd),
-							},
-							attendees: [{ email: getEmail(handleToEmail, ghName) }],
-						};
-
-						if (DRY_RUN) {
-							console.log(
-								'[DRY RUN] Would create event:',
-								JSON.stringify(eventResource, null, 2),
-							);
-						} else {
-							await calendar.events.insert({
-								auth: authClient,
-								calendarId: devOps.calendarID,
-								conferenceDataVersion: 1,
-								sendUpdates: 'all',
-								requestBody: eventResource,
-							});
-						}
+						await createSupportCalendarEvent(
+							authClient,
+							handleToEmail,
+							ghName,
+							eventStart,
+							eventEnd,
+						);
 					}
 				}
 			}
@@ -221,33 +237,13 @@ async function pastSchedule(
 				);
 			}
 
-			const eventResource: calendar_v3.Schema$Event = {
-				summary: `${ghName} on ${scheduleName} support`,
-				start: {
-					timeZone: TIMEZONE,
-					dateTime: isoDateWithoutTimezone(eventStart),
-				},
-				end: {
-					timeZone: TIMEZONE,
-					dateTime: isoDateWithoutTimezone(eventEnd),
-				},
-				attendees: [{ email: getEmail(handleToEmail, ghName) }],
-			};
-
-			if (DRY_RUN) {
-				console.log(
-					'[DRY RUN] Would create event:',
-					JSON.stringify(eventResource, null, 2),
-				);
-			} else {
-				await calendar.events.insert({
-					auth: authClient,
-					calendarId: devOps.calendarID,
-					conferenceDataVersion: 1,
-					sendUpdates: 'all',
-					requestBody: eventResource,
-				});
-			}
+			await createSupportCalendarEvent(
+				authClient,
+				handleToEmail,
+				ghName,
+				eventStart,
+				eventEnd,
+			);
 		}
 	}
 }
