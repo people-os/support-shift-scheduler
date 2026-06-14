@@ -23,7 +23,6 @@ import * as _ from 'lodash';
 import { google } from 'googleapis';
 import type { calendar_v3 } from 'googleapis';
 import { getJWTAuthClient } from '../lib/gauth';
-import { setTimeout } from 'timers/promises';
 import { differenceInCalendarDays } from 'date-fns';
 
 const vOpsToGh = _.invert(devOps.victoropsUsernames);
@@ -171,93 +170,85 @@ async function pastSchedule(
 ) {
 	const authClient = await getJWTAuthClient();
 
-	const until = end;
+	const x = (await v.reporting.getShiftChanges(devopsTeam, {
+		start: start.toISOString(),
+		end: end.toISOString(),
+	})) as {
+		teamSlug: string;
+		start: string; // '2022-01-11T00:00:00.000Z',
+		end: string; // '2022-01-11T14:34:45.066Z',
+		results: number;
+		userLogs: Array<{
+			userId: string;
+			adjustedTotal: { hours: number; minutes: number };
+			total: { hours: number; minutes: number };
+			log: [
+				{
+					on: string;
+					off: string;
+					duration: { hours: number; minutes: number };
+					escalationPolicy: {
+						name: 'balena-production';
+						slug: 'pol-1jkqGm7URSxtfrVA';
+					};
+				},
+			];
+		}>;
+	};
 
-	while (end <= until) {
-		const x = (await v.reporting.getShiftChanges(devopsTeam, {
-			start: start.toISOString(),
-			end: end.toISOString(),
-		})) as {
-			teamSlug: string;
-			start: string; // '2022-01-11T00:00:00.000Z',
-			end: string; // '2022-01-11T14:34:45.066Z',
-			results: number;
-			userLogs: Array<{
-				userId: string;
-				adjustedTotal: { hours: number; minutes: number };
-				total: { hours: number; minutes: number };
-				log: [
-					{
-						on: string;
-						off: string;
-						duration: { hours: number; minutes: number };
-						escalationPolicy: {
-							name: 'balena-production';
-							slug: 'pol-1jkqGm7URSxtfrVA';
-						};
-					},
-				];
-			}>;
-		};
+	for (const userLog of x.userLogs) {
+		const ghName = vOpsToGh[userLog.userId];
+		if (!ghName) {
+			console.log(`skipping unknown user '${userLog.userId}'`);
+			continue;
+		}
+		for (const log of userLog.log) {
+			const eventStart = getRoundedDate(new Date(log.on));
+			const eventEnd = getRoundedDate(new Date(log.off));
 
-		for (const userLog of x.userLogs) {
-			const ghName = vOpsToGh[userLog.userId];
-			if (!ghName) {
-				console.log(`skipping unknown user '${userLog.userId}'`);
+			if (
+				onlyWeekends &&
+				// Starts on Friday or Saturday, since it's based on shift changes so they get merged - they need to be sorted/split manually :(
+				(!(eventStart.getUTCDay() === 5 || eventStart.getUTCDay() === 6) ||
+					// Ends on Monday
+					eventEnd.getUTCDay() !== 1)
+			) {
 				continue;
 			}
-			for (const log of userLog.log) {
-				const eventStart = getRoundedDate(new Date(log.on));
-				const eventEnd = getRoundedDate(new Date(log.off));
+			if (onlyWeekends && log.duration.hours > 48) {
+				console.warn(
+					`You will need to manually fix the entry for '${eventStart}' to '${eventEnd}' for '${ghName}' as they had a normal shift run into a weekend shift and we don't separate them`,
+				);
+			}
 
-				if (
-					onlyWeekends &&
-					// Starts on Friday or Saturday, since it's based on shift changes so they get merged - they need to be sorted/split manually :(
-					(!(eventStart.getUTCDay() === 5 || eventStart.getUTCDay() === 6) ||
-						// Ends on Monday
-						eventEnd.getUTCDay() !== 1)
-				) {
-					continue;
-				}
-				if (onlyWeekends && log.duration.hours > 48) {
-					console.warn(
-						`You will need to manually fix the entry for '${eventStart}' to '${eventEnd}' for '${ghName}' as they had a normal shift run into a weekend shift and we don't separate them`,
-					);
-				}
+			const eventResource: calendar_v3.Schema$Event = {
+				summary: `${ghName} on ${scheduleName} support`,
+				start: {
+					timeZone: TIMEZONE,
+					dateTime: isoDateWithoutTimezone(eventStart),
+				},
+				end: {
+					timeZone: TIMEZONE,
+					dateTime: isoDateWithoutTimezone(eventEnd),
+				},
+				attendees: [{ email: getEmail(handleToEmail, ghName) }],
+			};
 
-				const eventResource: calendar_v3.Schema$Event = {
-					summary: `${ghName} on ${scheduleName} support`,
-					start: {
-						timeZone: TIMEZONE,
-						dateTime: isoDateWithoutTimezone(eventStart),
-					},
-					end: {
-						timeZone: TIMEZONE,
-						dateTime: isoDateWithoutTimezone(eventEnd),
-					},
-					attendees: [{ email: getEmail(handleToEmail, ghName) }],
-				};
-
-				if (DRY_RUN) {
-					console.log(
-						'[DRY RUN] Would create event:',
-						JSON.stringify(eventResource, null, 2),
-					);
-				} else {
-					await calendar.events.insert({
-						auth: authClient,
-						calendarId: devOps.calendarID,
-						conferenceDataVersion: 1,
-						sendUpdates: 'all',
-						requestBody: eventResource,
-					});
-				}
+			if (DRY_RUN) {
+				console.log(
+					'[DRY RUN] Would create event:',
+					JSON.stringify(eventResource, null, 2),
+				);
+			} else {
+				await calendar.events.insert({
+					auth: authClient,
+					calendarId: devOps.calendarID,
+					conferenceDataVersion: 1,
+					sendUpdates: 'all',
+					requestBody: eventResource,
+				});
 			}
 		}
-
-		start = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
-		end = new Date(end.getTime() + 7 * 24 * 60 * 60 * 1000);
-		await setTimeout(500);
 	}
 }
 
