@@ -1,4 +1,69 @@
 - commits:
+    - subject: Deduplicate DevOps weekend calendar event insertion
+      hash: 6812aa40cabbcfc988740d087e6d11d1e8737b6c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+    - subject: Simplify past DevOps weekend schedule fetch
+      hash: cd7bdc48ff84c7d69c7dfb13ae0e9ec2e02fdab5
+      body: >
+        Remove the misleading weekly loop from the past schedule path. The loop
+
+        only executed once because `until` was initialized from `end`, so
+        fetching
+
+        the requested VictorOps date range directly matches the current behavior
+
+        while making the intent clearer.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+    - subject: Rename helper script and add npm run script
+      hash: 077efc9229e6fde17b29ab906995d5efc6a17a85
+      body: |
+        - Renames script to match function
+        - Adds an equivalent npm run script for helper script consistency
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+    - subject: "Update VO schedule script: add dry-run mode, update auth, and add
+        missing dependency"
+      hash: c01cd40469915d1907cf0327607ccac2f89115c5
+      body: >
+        - Add DRY_RUN env var to preview calendar events without creating them
+
+        - Update gauth import from removed getAuthClient to getJWTAuthClient
+
+        - Increase victorops-api-client maxContentLength to handle larger
+        responses
+
+        - Add date-fns as an explicit dependency
+
+        - Update input JSON path to current schedule period
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 6.1.2
+  title: ""
+  date: 2026-06-15T23:04:56.441Z
+- commits:
     - subject: Update dependency lodash to v4.18.1 [SECURITY]
       hash: 20bbde650b14af08004f5660afa1c3b329c95056
       body: |
