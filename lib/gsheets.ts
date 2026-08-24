@@ -24,7 +24,6 @@ interface Agent {
 	weight: number;
 	isSupportEngineer: number;
 	teamworkBalance: number;
-	nextWeekCredit: number;
 	idealShiftLength: number;
 	availableSlots: number[][];
 }
@@ -69,7 +68,6 @@ function createAgent(opts) {
 		'weight',
 		'isSupportEngineer',
 		'teamworkBalance',
-		'nextWeekCredit',
 		'idealShiftLength',
 		'availableSlots',
 	];
@@ -113,7 +111,6 @@ function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 		const weight = Number(inputByGithubHandle[handle].shift());
 		const isSupportEngineer = Number(inputByGithubHandle[handle].shift());
 		const teamworkBalance = Number(inputByGithubHandle[handle].shift());
-		const nextWeekCredit = Number(inputByGithubHandle[handle].shift());
 		const idealShiftLength = _.toInteger(inputByGithubHandle[handle].shift());
 		const availableSlots: number[][] = [];
 		for (let i = 0; i < numDays; i++) {
@@ -128,7 +125,6 @@ function parseInput(rawInput, startDate = null, numDays = 5, endHour) {
 			weight,
 			isSupportEngineer,
 			teamworkBalance,
-			nextWeekCredit,
 			idealShiftLength,
 			availableSlots,
 		});
