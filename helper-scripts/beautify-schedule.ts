@@ -161,7 +161,7 @@ async function writePrettifiedShiftsText(
 	let markdownMessage = '';
 	markdownMessage += `**Agents, please check your calendars for the support schedule for next week (starting on ${shiftsJson[0].start_date}).**\n\n`;
 	markdownMessage +=
-		'Please follow [this procedure](https://github.com/people-os/process/tree/master/process/support#what-if-you-cannot-make-the-shift-you-have-been-allocated) if you require any changes.\n\n';
+		'Please follow [this procedure](https://balena.fibery.io/Handbook/Handbook_Page/Support---Support-101-User-Guide-22/anchor=Swapping-a-support-shift--edef538a-9f18-4d7d-9503-3f9d7ccfcffc) if you require any changes.\n\n';
 
 	for (const agent of agentHoursList) {
 		markdownMessage += `${agent.handle}\n`;
