@@ -1,4 +1,25 @@
 - commits:
+    - subject: Adapt scheduler for the release of support v2
+      hash: 33b01b8bdb6ad4e9f2b3749c75258f1444dee2d6
+      body: |
+        https://balena.fibery.io/Work/Project/Support-2.0---The-Final-Push-(Documentation-and-release)-2719
+
+        The next week's credit is no longer needed in the model.
+
+        Branching was introduced for the rebalancing urgency:
+        Agents with a positive balance is rewarded more quickly with a lighter load.
+        Agents with a negative balance catch up over a slightly longer time-scale.
+      footer:
+        Change-type: major
+        change-type: major
+        Signed-off-by: AlidaOdendaal <alida@balena.io>
+        signed-off-by: AlidaOdendaal <alida@balena.io>
+      author: AlidaOdendaal
+      nested: []
+  version: 7.0.0
+  title: ""
+  date: 2026-09-23T09:22:39.054Z
+- commits:
     - subject: Deduplicate DevOps weekend calendar event insertion
       hash: 6812aa40cabbcfc988740d087e6d11d1e8737b6c
       body: ""
