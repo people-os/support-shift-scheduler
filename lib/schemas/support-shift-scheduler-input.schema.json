@@ -34,11 +34,6 @@
             "description": "Current teamwork balance",
             "type": "number"
           },
-          "nextWeekCredit": {
-            "description": "Existing teamwork credit for the next week in hours",
-            "type": "number",
-            "minimum": 0
-          },
           "idealShiftLength": {
             "description": "Preferred shift length in hours",
             "type": "number",
@@ -64,7 +59,7 @@
             }
           }
         },
-        "required": [ "handle", "email", "weight", "isSupportEngineer", "teamworkBalance", "nextWeekCredit", "idealShiftLength", "availableSlots"]
+        "required": [ "handle", "email", "weight", "isSupportEngineer", "teamworkBalance", "idealShiftLength", "availableSlots"]
       }
     },
     "options": {

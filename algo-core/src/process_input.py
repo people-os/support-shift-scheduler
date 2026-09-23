@@ -15,13 +15,12 @@ limitations under the License.
 """
 
 import datetime
-import math
 import pandas as pd
 import numpy as np
 
 # A higher value here will compensate more aggressively for historical
 # teamwork balances:
-rebalancing_urgency = 7
+rebalancing_urgency = 30
 
 # def tracks_hours_to_slots(tracks):
 #     for track in tracks:
@@ -125,34 +124,28 @@ def calculate_fair_shares(df_agents, total_slots_covered):
     """Determine fair share per agent.
 
     Fair share is based on hours to be covered, agents' responsibility
-    weights, existing scheduled teamwork for next week, and agents'
-    current teamwork balances.
+    weights, and agents' current teamwork balances.
     """
-    total_next_week = total_slots_covered + df_agents["next_week_credit"].sum()
+    rebalancing_multiplier = np.where(
+        df_agents["teamwork_balance"] < 0, 0.0001, 0.001
+    )
     df_agents["fair_share"] = (
-        total_next_week
+        total_slots_covered
         * df_agents["weight"]
         / df_agents["weight"].sum()
         * (
             1
             - np.tanh(
-                0.0001 * rebalancing_urgency * df_agents["teamwork_balance"]
+                rebalancing_multiplier * rebalancing_urgency * df_agents["teamwork_balance"]
             )
         )
     )
-    rescaling_factor1 = total_next_week / df_agents["fair_share"].sum()
+    rescaling_factor1 = total_slots_covered / df_agents["fair_share"].sum()
     df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor1
-    df_agents["fair_share"] = (
-        df_agents["fair_share"] - df_agents["next_week_credit"]
-    )
     df_agents["fair_share"] = df_agents["fair_share"].apply(
         lambda x: x if x >= 0 else 0
     )
-    rescaling_factor2 = total_slots_covered / df_agents["fair_share"].sum()
-    df_agents["fair_share"] = df_agents["fair_share"] * rescaling_factor2
-    df_agents["fair_share"] = df_agents["fair_share"].apply(
-        lambda x: math.trunc(x)
-    )
+    df_agents["fair_share"] = df_agents["fair_share"].apply(round)
     print("\nFair shares (hours per week):\n")
     print((df_agents["fair_share"] / 2.0).to_string())
     return df_agents
@@ -168,7 +161,6 @@ def setup_agents_dataframe(agents, config):
             "weight",
             "is_support_engineer",
             "teamwork_balance",
-            "next_week_credit",
             "ideal_shift_length",
             "slots",
             "slot_ranges",
@@ -205,7 +197,6 @@ def setup_agents_dataframe(agents, config):
             "weight": agent["weight"],
             "is_support_engineer": int(agent["isSupportEngineer"]),
             "teamwork_balance": 2 * float(agent["teamworkBalance"]),
-            "next_week_credit": 2 * float(agent["nextWeekCredit"]),
             "ideal_shift_length": agent["idealShiftLength"] * 2,
             "slots": available_slots,
             "slot_ranges": slot_ranges,
