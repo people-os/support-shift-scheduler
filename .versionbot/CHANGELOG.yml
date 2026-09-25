@@ -1,4 +1,31 @@
 - commits:
+    - subject: Include new env vars in .env.dist
+      hash: ed01760bfc6f9a52b44573bc9eeedbb6f4b04c56
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+    - subject: Load DevOps agent emails from Google Sheets
+      hash: 12ea9775efe97928e129449f97e9e583bb58fb46
+      body: |
+        Replace the logs/*.json handle-to-email lookup with a Google Sheets
+        batchGet configured via DEVOPS_AGENT_DEFINITIONS_* env vars, and remove
+        the now-unused optional input-date argument.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 7.0.1
+  title: ""
+  date: 2026-09-25T21:38:15.620Z
+- commits:
     - subject: Adapt scheduler for the release of support v2
       hash: 33b01b8bdb6ad4e9f2b3749c75258f1444dee2d6
       body: |
