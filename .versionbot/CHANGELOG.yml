@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency moment to v2.31.0 [SECURITY]
+      hash: b2ace6eaee5d09624b33a3d56558d51a3c86c60a
+      body: |
+        Update moment from 2.30.1 to 2.31.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 7.0.2
+  title: ""
+  date: 2026-10-01T14:39:53.084Z
+- commits:
     - subject: Include new env vars in .env.dist
       hash: ed01760bfc6f9a52b44573bc9eeedbb6f4b04c56
       body: ""
