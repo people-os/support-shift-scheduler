@@ -1,4 +1,19 @@
 - commits:
+    - subject: "fix: DevOps policy name and shift name should be configurable"
+      hash: 2d41619b1ff2baae79dca6637f018daeaad7b29f
+      body: |
+        This also updates the hardcoded values to their current values.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+        signed-off-by: Carlo Miguel F. Cruz <carloc@balena.io>
+      author: Carlo Miguel F. Cruz
+      nested: []
+  version: 7.0.3
+  title: ""
+  date: 2026-10-02T07:11:40.439Z
+- commits:
     - subject: Update dependency moment to v2.31.0 [SECURITY]
       hash: b2ace6eaee5d09624b33a3d56558d51a3c86c60a
       body: |
