@@ -189,6 +189,9 @@ async function futureWeekends(
 	now: Date,
 	handleToEmail,
 ) {
+	const policyName = requireEnv('DEVOPS_SCHEDULE_POLICY_NAME');
+	const shiftName = requireEnv('DEVOPS_SCHEDULE_SHIFT_NAME');
+
 	const daysInFuture = differenceInCalendarDays(start, now);
 	if (Number.isNaN(daysInFuture) || daysInFuture > DAY_SKIP_MAX) {
 		throw new Error(
@@ -210,7 +213,7 @@ async function futureWeekends(
 	})) as {
 		team: { name: string; slug: string };
 		schedules: Array<{
-			policy: { name: 'balena-production'; slug: 'pol-1jkqGm7URSxtfrVA' };
+			policy: { name: string; slug: string };
 			schedule: Array<{
 				onCallUser?: { username: string };
 				overrideOnCallUser?: { username: string };
@@ -236,10 +239,10 @@ async function futureWeekends(
 	};
 
 	for (const { policy, schedule } of x.schedules) {
-		if (policy.name === 'balena-production') {
-			for (const { shiftName, rolls } of schedule) {
-				if (shiftName === 'Weekend') {
-					for (const roll of rolls) {
+		if (policy.name === policyName) {
+			for (const shift of schedule) {
+				if (shift.shiftName === shiftName) {
+					for (const roll of shift.rolls) {
 						const ghName = vOpsToGh[roll.onCallUser.username];
 						const eventStart = getRoundedDate(new Date(roll.start));
 						const eventEnd = getRoundedDate(new Date(roll.end));
@@ -283,10 +286,7 @@ async function pastSchedule(
 					on: string;
 					off: string;
 					duration: { hours: number; minutes: number };
-					escalationPolicy: {
-						name: 'balena-production';
-						slug: 'pol-1jkqGm7URSxtfrVA';
-					};
+					escalationPolicy: { name: string; slug: string };
 				},
 			];
 		}>;
@@ -355,6 +355,10 @@ async function main() {
 				'DEVOPS_AGENT_DEFINITIONS_HANDLE_COLUMN (defaults to A)',
 				'DEVOPS_AGENT_DEFINITIONS_EMAIL_COLUMN (defaults to B)',
 				'DEVOPS_AGENT_DEFINITIONS_START_ROW (defaults to 2)',
+				'',
+				'VictorOps schedule filters for future dates:',
+				'DEVOPS_SCHEDULE_POLICY_NAME',
+				'DEVOPS_SCHEDULE_SHIFT_NAME',
 			].join('\n'),
 		);
 		process.exit(1);
