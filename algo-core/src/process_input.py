@@ -20,7 +20,7 @@ import numpy as np
 
 # A higher value here will compensate more aggressively for historical
 # teamwork balances:
-rebalancing_urgency = 30
+rebalancing_urgency = 10
 
 # def tracks_hours_to_slots(tracks):
 #     for track in tracks:
